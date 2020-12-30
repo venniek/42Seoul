@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 02:53:15 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:07:40 by naykim           ###   ########.fr       */
+/*   Created: 2020/12/31 03:43:18 by naykim            #+#    #+#             */
+/*   Updated: 2020/12/31 04:09:44 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isascii(int a)
+void				*ft_memchr(const void *ptr, int value, size_t n)
 {
-	return (a >= 0 && a <= 127);
+	unsigned char	*str;
+
+	str = (unsigned char *)ptr;
+	while (n-- > 0)
+		if (*(str++) == (unsigned char)value)
+			return ((void *)--str);
+	return (NULL);
 }

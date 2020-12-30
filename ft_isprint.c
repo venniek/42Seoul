@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 02:54:12 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/30 02:54:37 by naykim           ###   ########.fr       */
+/*   Updated: 2020/12/31 04:08:30 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isprint(int a)
+int	ft_isprint(int a)
 {
 	return (a >= 32 && a <= 126);
 }

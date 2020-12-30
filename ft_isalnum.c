@@ -6,14 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 02:52:59 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/30 02:53:08 by naykim           ###   ########.fr       */
+/*   Updated: 2020/12/31 04:07:09 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isalnum(int a)
+int	ft_isalnum(int a)
 {
 	return (ft_isalpha(a) || ft_isdigit(a));
-
 }

@@ -6,15 +6,15 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 03:03:37 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/30 03:12:30 by naykim           ###   ########.fr       */
+/*   Updated: 2020/12/31 04:14:41 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_strlcpy(char *dst, const char *src, size_t size)
+size_t				ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	if (!dst || !src)
