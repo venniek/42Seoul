@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "libft.h"
+
+#include <unistd.h>
+#include <stdio.h>
 
 int		ft_atoi(const char *str)
 {
@@ -39,4 +42,12 @@ int		ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * atoi);
+}
+
+int main()
+{
+    printf("%s %d\n", "-3560", ft_atoi("-3560"));
+    printf("%s %d\n", "3560", ft_atoi("3560"));
+    printf("%s %d\n", "123456", ft_atoi("123456"));
+    printf("%s %d\n", "2147483647", ft_atoi("-2147483648"));
 }
