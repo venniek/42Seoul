@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 17:43:23 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/02 18:15:25 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:01:57 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char		*ft_strtrim(char const *s1, char const *set)
 	num = ft_strlen(s1);
 	while (num && ft_strchr(set, s1[num]))
 		num--;
-	str = ft_substr((char *)s1, 0, num + 1);
+	if (!(str = ft_substr((char *)s1, 0, num + 1)))
+		return (NULL);
 	return (str);
 }

@@ -6,30 +6,31 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 03:28:52 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:16:11 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:14:38 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str, const char *fin, size_t len)
+char		*ft_strnstr(const char *str, const char *fin, size_t len)
 {
-	int	i;
-	int	k;
-	int	finlen;
+	size_t	i;
+	size_t	k;
 
 	i = 0;
-	finlen = ft_strlen(fin);
-	if (finlen == 0)
-		return (str);
-	while (i < len - finlen)
+	if (!fin)
+		return ((char *)str);
+	while (str[i] && i < len)
 	{
 		k = 0;
-		while (str[i + k] == fin[k])
+		if (str[i] == fin[k])
 		{
-			k++;
-			if (fin[k] == 0)
-				return (str[i]);
+			while (i + k < len && str[i + k] == fin[k])
+			{
+				k++;
+				if (!fin[k])
+					return ((char *)&str[i]);
+			}
 		}
 		i++;
 	}

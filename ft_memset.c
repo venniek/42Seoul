@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 04:11:45 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:12:16 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 16:35:55 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void				*ft_memset(void *ptr, int value, size_t num)
 
 	a = (unsigned char*)ptr;
 	while (num-- > 0)
-		*(ptr++) = (unsigned char)value;
-	return (a);
+		*(a++) = (unsigned char)value;
+	return (ptr);
 }

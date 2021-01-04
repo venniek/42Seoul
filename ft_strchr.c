@@ -6,22 +6,24 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 02:54:47 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:12:36 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:13:47 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *str, int a)
+char		*ft_strchr(const char *str, int a)
 {
-	int	i;
+	size_t	i;
+	char	*s;
 
 	i = 0;
-	while (str[i])
+	while (i < ft_strlen(str) + 1)
 	{
-		if (str[i] == a)
-			return (str[i]);
+		s = (char *)str;
+		if (s[i] == a)
+			return (&s[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

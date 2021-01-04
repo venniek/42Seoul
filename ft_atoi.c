@@ -6,14 +6,11 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 22:58:26 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:05:05 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 16:13:07 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "libft.h"
-
-#include <unistd.h>
-#include <stdio.h>
+#include "libft.h"
 
 int		ft_atoi(const char *str)
 {
@@ -25,12 +22,12 @@ int		ft_atoi(const char *str)
 	sign = 1;
 	atoi = 0;
 	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-				|| str[i] == '\f' || str[i] == '\r' ||
-				str[i] == ' ' || str[i] == '+')
+				|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
-		sign = -1;
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
 	while (str[i])
@@ -42,12 +39,4 @@ int		ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * atoi);
-}
-
-int main()
-{
-    printf("%s %d\n", "-3560", ft_atoi("-3560"));
-    printf("%s %d\n", "3560", ft_atoi("3560"));
-    printf("%s %d\n", "123456", ft_atoi("123456"));
-    printf("%s %d\n", "2147483647", ft_atoi("-2147483648"));
 }

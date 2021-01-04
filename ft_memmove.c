@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 02:36:36 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:11:31 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 14:04:29 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void				*ft_memmove(void *dest, const void *src, size_t n)
 	ptr2 = (unsigned char *)src;
 	i = 0;
 	if (ptr1 > ptr2)
-		while (i++ < len)
+		while (i++ < n)
 			ptr1[n - i] = ptr2[n - i];
 	else
-		while (i < len)
+		while (i < n)
 		{
 			ptr1[i] = ptr2[i];
 			i++;

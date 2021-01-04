@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 03:13:39 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:15:02 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/04 14:05:47 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	len;
 
