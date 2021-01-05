@@ -6,15 +6,15 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:24:53 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 17:48:12 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/05 15:36:02 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char *ft_strcpy(char *dest, const char *src)
+static char	*ft_strcpy(char *dest, const char *src)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (src[i])
@@ -26,9 +26,9 @@ static char *ft_strcpy(char *dest, const char *src)
 	return (dest);
 }
 
-char *ft_itoa(int n)
+char		*ft_itoa(int n)
 {
-	char *str;
+	char	*str;
 
 	if (!(str = (char *)malloc(sizeof(char) * 2)))
 		return (NULL);

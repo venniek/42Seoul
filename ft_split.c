@@ -5,27 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/02 17:47:34 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 14:52:50 by naykim           ###   ########.fr       */
+/*   Created: 2021/01/05 16:06:09 by naykim            #+#    #+#             */
+/*   Updated: 2021/01/05 16:48:13 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		**ft_split(const char *s, char c)
+static int cnt_word(char const *s, char c)
 {
-	char	**ex;
-	int		i;
+	int i;
+	int w;
 
-	i = 3;
-	ex = (char **)malloc(sizeof(char *) * 3);
-	while (i-- > 0)
+	i = 0;
+	w = 0;
+	while (s[i])
 	{
-		ex[i] = (char *)malloc(sizeof(char) * 3);
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			w++;
+		i++;
 	}
-	ex[0] = "ab";
-	ex[1] = "b";
-	if (*s == c)
-		ex[2] = "c";
-	return (ex);
+	return (w);
+}
+
+static int len_word(char const *s, char c)
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = 0;
+	while (s[i] != c && s[i] != '\0')
+	{
+		i++;
+		len++;
+	}
+	return (len);
+}
+
+static void *ft_free(char **split, int word)
+{
+	int i;
+
+	i = 0;
+	while (i < word)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	return (NULL);
+}
+
+static char **make_split(char const *s, int w, char c, char **split)
+{
+	int i;
+	int k;
+	int len;
+
+	i = 0;
+	while (i < w)
+	{
+		while (*s == c)
+			s++;
+		len = len_word(s, c);
+		if (!(split[i] = (char *)malloc(sizeof(char) * (len + 1))))
+			return (ft_free(split, i));
+		k = 0;
+		while (k < len)
+			split[i][k++] = *s++;
+		split[i][k] = '\0';
+		i++;
+	}
+	split[i] = NULL;
+	return (split);
+}
+char **ft_split(char const *s, char c)
+{
+	char **split;
+	int w;
+
+	if (!s)
+		return (NULL);
+	w = cnt_word(s, c);
+	if (!(split = (char **)malloc(sizeof(char *) * (w + 1))))
+		return (NULL);
+	make_split(s, w, c, split);
+	return (split);
 }

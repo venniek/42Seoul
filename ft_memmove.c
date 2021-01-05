@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 02:36:36 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 14:04:29 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/05 17:26:11 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void				*ft_memmove(void *dest, const void *src, size_t n)
 	unsigned char	*ptr1;
 	unsigned char	*ptr2;
 
+	if (!dest && !src)
+		return (NULL);
 	ptr1 = (unsigned char *)dest;
 	ptr2 = (unsigned char *)src;
 	i = 0;
@@ -25,10 +27,7 @@ void				*ft_memmove(void *dest, const void *src, size_t n)
 		while (i++ < n)
 			ptr1[n - i] = ptr2[n - i];
 	else
-		while (i < n)
-		{
-			ptr1[i] = ptr2[i];
-			i++;
-		}
+		while (n-- > 0)
+			*(ptr1++) = *(ptr2++);
 	return (dest);
 }

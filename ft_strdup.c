@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 23:16:43 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 19:59:54 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/05 15:36:12 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char		*ft_strdup(const char *s)
 
 	i = ft_strlen(s);
 	if (!(dst = (char *)malloc(sizeof(char) * i + 1)))
-			return (NULL);
+		return (NULL);
 	i = 0;
 	while (s[i])
 	{

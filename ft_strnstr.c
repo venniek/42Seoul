@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 03:28:52 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 18:14:38 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/05 15:11:35 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char		*ft_strnstr(const char *str, const char *fin, size_t len)
 	size_t	k;
 
 	i = 0;
-	if (!fin)
+	if (fin[0] == '\0')
 		return ((char *)str);
 	while (str[i] && i < len)
 	{
