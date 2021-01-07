@@ -6,16 +6,16 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:06:09 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/05 16:48:13 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/07 18:10:15 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int cnt_word(char const *s, char c)
+static int	cnt_word(char const *s, char c)
 {
-	int i;
-	int w;
+	int		i;
+	int		w;
 
 	i = 0;
 	w = 0;
@@ -28,10 +28,10 @@ static int cnt_word(char const *s, char c)
 	return (w);
 }
 
-static int len_word(char const *s, char c)
+static int	len_word(char const *s, char c)
 {
-	int i;
-	int len;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 0;
@@ -43,9 +43,9 @@ static int len_word(char const *s, char c)
 	return (len);
 }
 
-static void *ft_free(char **split, int word)
+static void	*ft_free(char **split, int word)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < word)
@@ -57,11 +57,11 @@ static void *ft_free(char **split, int word)
 	return (NULL);
 }
 
-static char **make_split(char const *s, int w, char c, char **split)
+static char	**make_split(char const *s, int w, char c, char **split)
 {
-	int i;
-	int k;
-	int len;
+	int		i;
+	int		k;
+	int		len;
 
 	i = 0;
 	while (i < w)
@@ -80,10 +80,11 @@ static char **make_split(char const *s, int w, char c, char **split)
 	split[i] = NULL;
 	return (split);
 }
-char **ft_split(char const *s, char c)
+
+char		**ft_split(char const *s, char c)
 {
-	char **split;
-	int w;
+	char	**split;
+	int		w;
 
 	if (!s)
 		return (NULL);
