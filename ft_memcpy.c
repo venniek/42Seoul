@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 04:10:32 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/07 17:55:22 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/08 18:02:34 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ void				*ft_memcpy(void *dest, const void *src, size_t num)
 
 	str1 = (unsigned char *)dest;
 	str2 = (unsigned char *)src;
-	if (str2[0] == 0)
+	if (str2 == NULL)
 		return (NULL);
-	if (num == 0 || str1 == str2)
-		return (str1);
 	i = 0;
-	while (num--)
-		*(str1++) = *(str2++);
+	while (i < num)
+	{
+		str1[i] = str2[i];
+		i++;
+	}
 	return (dest);
 }
