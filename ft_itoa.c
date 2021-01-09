@@ -6,27 +6,11 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:24:53 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/09 03:34:24 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/09 18:51:42 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*ft_strcpy(char *dest, const char *src)
-{
-	int		i;
-
-	i = 0;
-	free(dest);
-	dest = (char *)malloc(sizeof(char) * 12);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
 
 char		*ft_itoa(int n)
 {
@@ -35,7 +19,7 @@ char		*ft_itoa(int n)
 	if (!(str = (char *)malloc(sizeof(char) * 2)))
 		return (NULL);
 	if (n == -2147483648)
-		return (ft_strcpy(str, "-2147483648"));
+		return (ft_strdup("-2147483648"));
 	if (n < 0)
 	{
 		str[0] = '-';

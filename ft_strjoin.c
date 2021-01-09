@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 14:46:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/05 15:37:40 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/09 18:48:25 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char				*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	k = 0;
+	if (s1 == 0 || s2 == 0)
+		return (NULL);
 	len1 = (unsigned int)ft_strlen(s1);
 	len2 = (unsigned int)ft_strlen(s2);
 	if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
