@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:24:53 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/08 16:11:36 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/09 03:34:24 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	*ft_strcpy(char *dest, const char *src)
 	int		i;
 
 	i = 0;
+	free(dest);
 	dest = (char *)malloc(sizeof(char) * 12);
 	while (src[i])
 	{
