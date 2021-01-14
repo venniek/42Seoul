@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 02:54:47 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/10 02:13:58 by naykim           ###   ########.fr       */
+/*   Created: 2021/01/14 20:06:16 by naykim            #+#    #+#             */
+/*   Updated: 2021/01/14 20:09:10 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strchr(const char *str, int a)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	size_t	i;
-	char	*s;
-
-	i = 0;
-	s = (char *)str;
-	while (i < ft_strlen(str) + 1)
+	if (lst && new)
 	{
-		if (s[i] == a)
-			return (&s[i]);
-		i++;
+		new->next = *lst;
+		*lst = new;
 	}
-	return (NULL);
 }
