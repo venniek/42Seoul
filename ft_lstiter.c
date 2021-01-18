@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 19:10:09 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/14 20:31:30 by naykim           ###   ########.fr       */
+/*   Updated: 2021/01/18 14:59:52 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst == 0 || f == 0)
+	if (f == 0)
 		return ;
-	while (lst)
+	while (lst != NULL)
 	{
-		f(lst);
+		f(lst->content);
 		lst = lst->next;
 	}
 }
