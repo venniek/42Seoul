@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:17:43 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/08 20:05:27 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/20 18:22:38 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 # include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 3
+
+# define BUFFER_SIZE 300
 #endif
 
 int	get_next_line(int fd, char **line);
 char *ft_strjoin(char *s1, char *s2);
 unsigned int ft_strlen(char *s);
 char		*ft_substr(char *s, unsigned int start, size_t len);
-
+char		*ft_strdup(char *s);
 #endif

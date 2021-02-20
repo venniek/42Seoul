@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/13 02:34:50 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/20 18:18:15 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,60 +31,52 @@ int update_save(char **save, int index, char **line) {
     int len;
 
     if (index == 0)
-        *line = "\n";
+        *line = ft_strdup("");
     else
         *line = ft_substr(*save, 0, index);
     len = ft_strlen(*save) - index - 1;
-    if (len <= 0 || index == 0)
+    if (len <= 0)
     {
-        tmp = "";
-        free(*save);
-        *save = tmp;
+		*save = 0;
         return (1);
     }
-
     tmp = ft_substr(*save, index + 1, len);
     free(*save);
     *save = tmp;
     return (1);
 }
 
-int read_done(char **save, char **line, int size) {
-    int index;
-
-    if (size < 0)
-        return (-1);
-    if ((index = ft_newline(*save)) >= 0)
-        return (update_save(save, index, line));
-    if (*save) {
-        *line = *save;
-        *save = 0;
-        return (0);
-    }
-    *line = ft_strjoin("", "");
-    return (0);
-}
-
-
 int get_next_line(int fd, char **line) {
-    static char *save = "";
-    char buf[BUFFER_SIZE];
+    static char *save;
+    char buf[BUFFER_SIZE + 1];
     int size;
     int index;
-    int i;
 
     if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
         return (-1);
+	if (!save)
+		save = ft_strdup("");
+	//printf("save:\n%s\n", save);
     while ((size = read(fd, buf, BUFFER_SIZE)) > 0) {
         buf[size] = '\0';
-        printf("buf len: %d\n", ft_strlen(buf));
+	//	printf("buf:\n%s\n", buf);
+	//	printf("here?\n");
         save = ft_strjoin(save, buf);
-        printf("save: %s\n", save);
+	//	printf("here2?\n");
+	//	printf("save with buf:\n%s\n", save);
         if ((index = ft_newline(save)) >= 0)
-        {
-            i = update_save(&save, index, line);
-            return (i);
-        }
-    }
-    return(read_done(&save, line, size));
+            return (update_save(&save, index, line));
+   }
+	if (size < 0)
+		return (-1);
+	if ((index = ft_newline(save)) >= 0)
+		return (update_save(&save, index, line));
+	if (save)
+	{
+		*line = ft_strdup(save);	
+		save = 0;
+	//	printf("%p\n", save);
+		return (0);
+	}
+    return(0);
 }
