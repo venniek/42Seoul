@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/20 18:18:15 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/20 20:37:43 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,34 +47,34 @@ int update_save(char **save, int index, char **line) {
 }
 
 int get_next_line(int fd, char **line) {
-    static char *save;
+    static char *save[OPEN_MAX];
     char buf[BUFFER_SIZE + 1];
     int size;
     int index;
 
     if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
         return (-1);
-	if (!save)
-		save = ft_strdup("");
+	if (!save[fd])
+		save[fd] = ft_strdup("");
 	//printf("save:\n%s\n", save);
     while ((size = read(fd, buf, BUFFER_SIZE)) > 0) {
         buf[size] = '\0';
 	//	printf("buf:\n%s\n", buf);
 	//	printf("here?\n");
-        save = ft_strjoin(save, buf);
+        save[fd] = ft_strjoin(save[fd], buf);
 	//	printf("here2?\n");
 	//	printf("save with buf:\n%s\n", save);
-        if ((index = ft_newline(save)) >= 0)
-            return (update_save(&save, index, line));
+        if ((index = ft_newline(save[fd])) >= 0)
+            return (update_save(&save[fd], index, line));
    }
 	if (size < 0)
 		return (-1);
-	if ((index = ft_newline(save)) >= 0)
-		return (update_save(&save, index, line));
-	if (save)
+	if ((index = ft_newline(save[fd])) >= 0)
+		return (update_save(&save[fd], index, line));
+	if (save[fd])
 	{
-		*line = ft_strdup(save);	
-		save = 0;
+		*line = ft_strdup(save[fd]);	
+		save[fd] = 0;
 	//	printf("%p\n", save);
 		return (0);
 	}
