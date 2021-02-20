@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:13:59 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/13 02:14:13 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/15 17:59:25 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_strlen(char *s)
+unsigned int ft_strlen(char *s)
 {
     int i;
 
@@ -31,10 +31,10 @@ char *ft_strjoin(char *s1, char *s2) {
 
     i = 0;
     k = 0;
-    if (s1 == 0 || s2 == 0)
+    if (s2 == 0)
         return (NULL);
-    len1 = (unsigned int) ft_strlen(s1);
-    len2 = (unsigned int) ft_strlen(s2);
+    len1 = (unsigned int)ft_strlen(s1);
+    len2 = (unsigned int)ft_strlen(s2);
     if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
         return (NULL);
     while (k < len1)
@@ -45,3 +45,31 @@ char *ft_strjoin(char *s1, char *s2) {
     str[i] = '\0';
     return (str);
 }
+
+char		*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	i;
+
+	if (s == 0)
+		return (NULL);
+	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	if (ft_strlen(s) <= start)
+	{
+		str[0] = '\0';
+		return (str);
+	}
+	while (i++ < start)
+		s++;
+	i = 0;
+	while (s && i < len)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
