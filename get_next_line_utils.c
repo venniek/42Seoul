@@ -6,50 +6,52 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:13:59 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/20 18:17:14 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/24 15:31:23 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-unsigned int ft_strlen(char *s)
+unsigned int		ft_strlen(char *s)
 {
-    int i;
+	int				i;
 
-    i = 0;
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-char *ft_strjoin(char *s1, char *s2) {
-    char *str;
-    unsigned int len1;
-    unsigned int len2;
-    unsigned int i;
-    unsigned int k;
+char				*ft_strjoin(char **s1, char *s2)
+{
+	char			*str;
+	unsigned int	len1;
+	unsigned int	len2;
+	unsigned int	i;
+	unsigned int	k;
 
-    i = 0;
-    k = 0;
-    if (s2 == 0)
-        return (NULL);
-    len1 = (unsigned int)ft_strlen(s1);
-    len2 = (unsigned int)ft_strlen(s2);
-    if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
-        return (NULL);
-    while (k < len1)
-        str[i++] = s1[k++];
-    k = 0;
-    while (k < len2)
-        str[i++] = s2[k++];
-    str[i] = '\0';
-    return (str);
+	i = 0;
+	k = 0;
+	if (s2 == 0)
+		return (NULL);
+	len1 = (unsigned int)ft_strlen(*s1);
+	len2 = (unsigned int)ft_strlen(s2);
+	if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
+		return (NULL);
+	while (k < len1)
+		str[i++] = (*s1)[k++];
+	k = 0;
+	while (k < len2)
+		str[i++] = s2[k++];
+	str[i] = '\0';
+	free(*s1);
+	return (str);
 }
 
-char		*ft_substr(char *s, unsigned int start, size_t len)
+char				*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char	*str;
-	size_t	i;
+	char			*str;
+	size_t			i;
 
 	if (s == 0)
 		return (NULL);
@@ -72,10 +74,11 @@ char		*ft_substr(char *s, unsigned int start, size_t len)
 	str[i] = '\0';
 	return (str);
 }
-char		*ft_strdup(char *s)
+
+char				*ft_strdup(char *s)
 {
-	char	*dst;
-	size_t	i;
+	char			*dst;
+	size_t			i;
 
 	i = ft_strlen(s);
 	if (!(dst = (char *)malloc(sizeof(char) * (i + 1))))
