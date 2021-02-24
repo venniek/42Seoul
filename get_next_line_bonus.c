@@ -6,11 +6,11 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/24 16:59:24 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:15:05 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int				ft_newline(const char *save)
 {
@@ -75,7 +75,6 @@ int				get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 	{
-		free(save);
 		return (-1);
 	}
 	if (!save[fd])

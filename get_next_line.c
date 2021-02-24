@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/24 17:25:08 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/24 18:54:34 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,24 @@ int				read_done(char **line, char **save, int size)
 
 int				get_next_line(int fd, char **line)
 {
-	static char	*save[OPEN_MAX];
+	static char	*save;
 	char		buf[BUFFER_SIZE + 1];
 	int			size;
 	int			index;
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 	{
+		free(save);
 		return (-1);
 	}
-	if (!save[fd])
-		save[fd] = ft_strdup("");
+	if (!save)
+		save = ft_strdup("");
 	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[size] = '\0';
-		save[fd] = ft_strjoin(&save[fd], buf);
-		if ((index = ft_newline(save[fd])) >= 0)
-			return (update_save(&save[fd], index, line));
+		save = ft_strjoin(&save, buf);
+		if ((index = ft_newline(save)) >= 0)
+			return (update_save(&save, index, line));
 	}
-	return (read_done(line, &save[fd], size));
+	return (read_done(line, &save, size));
 }
