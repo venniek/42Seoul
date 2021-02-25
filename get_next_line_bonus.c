@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/24 20:15:05 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/25 13:16:11 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ int				read_done(char **line, char **save, int size)
 	int			index;
 
 	if (size < 0)
+	{
+		free(*save);
+		*save = 0;
 		return (-1);
+	}
 	if ((index = ft_newline(*save)) >= 0)
 		return (update_save(save, index, line));
 	if (*save)
@@ -74,9 +78,7 @@ int				get_next_line(int fd, char **line)
 	int			index;
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
-	{
 		return (-1);
-	}
 	if (!save[fd])
 		save[fd] = ft_strdup("");
 	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
