@@ -6,15 +6,14 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:17:43 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/24 15:23:05 by naykim           ###   ########.fr       */
+/*   Updated: 2021/02/25 14:45:56 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <stdio.h>
+
 # include <limits.h>
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 
