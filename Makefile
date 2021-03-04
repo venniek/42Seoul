@@ -6,7 +6,7 @@
 #    By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/04 12:09:55 by naykim            #+#    #+#              #
-#    Updated: 2021/01/14 20:10:57 by naykim           ###   ########.fr        #
+#    Updated: 2021/03/04 14:02:50 by naykim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,3 +41,5 @@ fclean: clean
 	rm -f $(NAME) $(OBJS_B)
 
 re: fclean all
+
+.PHONY: all bonus clean fclean re
