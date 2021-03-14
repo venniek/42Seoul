@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:18:22 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/05 17:16:46 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 12:37:46 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int i;
+	int	i;
 
 	if (fd < 0 || s == NULL)
 		return ;

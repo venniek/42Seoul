@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 16:06:09 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/25 18:20:34 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 12:39:17 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ static char	**make_split(char const *s, int w, char c, char **split)
 		while (*s == c)
 			s++;
 		len = len_word(s, c);
-		if (!(split[i] = (char *)malloc(sizeof(char) * (len + 1))))
+		split[i] = (char *)malloc(sizeof(char) * (len + 1));
+		if (!split[i])
 			return (ft_free(split, i));
 		k = 0;
 		while (k < len)
@@ -81,7 +82,7 @@ static char	**make_split(char const *s, int w, char c, char **split)
 	return (split);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	int		w;
@@ -89,7 +90,8 @@ char		**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	w = cnt_word(s, c);
-	if (!(split = (char **)malloc(sizeof(char *) * (w + 1))))
+	split = (char **)malloc(sizeof(char *) * (w + 1));
+	if (!split)
 		return (NULL);
 	make_split(s, w, c, split);
 	return (split);

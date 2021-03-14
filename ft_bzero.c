@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:07:41 by naykim            #+#    #+#             */
-/*   Updated: 2020/12/31 04:05:32 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 00:15:02 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_bzero(void *ptr, size_t size)
+void	ft_bzero(void *ptr, size_t size)
 {
 	char	*s;
 	size_t	i;

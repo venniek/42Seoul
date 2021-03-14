@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 17:43:23 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 18:01:57 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:24:33 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	num;
 	char	*str;
@@ -24,7 +24,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 	num = ft_strlen(s1);
 	while (num && ft_strchr(set, s1[num]))
 		num--;
-	if (!(str = ft_substr((char *)s1, 0, num + 1)))
+	str = ft_substr((char *)s1, 0, num + 1);
+	if (!str)
 		return (NULL);
 	return (str);
 }

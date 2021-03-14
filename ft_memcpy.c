@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 04:10:32 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/20 14:21:15 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 12:37:19 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void				*ft_memcpy(void *dest, const void *src, size_t num)
+void	*ft_memcpy(void *dest, const void *src, size_t num)
 {
 	unsigned char	*str1;
 	unsigned char	*str2;

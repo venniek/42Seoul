@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 04:16:26 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/05 15:30:51 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:23:57 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strrchr(const char *str, int a)
+char	*ft_strrchr(const char *str, int a)
 {
 	int		i;
 	int		len;

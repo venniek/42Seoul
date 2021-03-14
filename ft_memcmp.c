@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 03:50:54 by naykim            #+#    #+#             */
-/*   Updated: 2021/01/04 14:04:59 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 12:37:12 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int					ft_memcmp(const void *p1, const void *p2, size_t n)
+int	ft_memcmp(const void *p1, const void *p2, size_t n)
 {
 	size_t			i;
 	unsigned char	*ptr1;
