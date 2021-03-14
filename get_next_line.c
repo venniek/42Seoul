@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:34:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/02/25 14:23:07 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:43:23 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int				ft_newline(const char *save)
+int	ft_newline(const char *save)
 {
 	int			i;
 
@@ -26,7 +26,7 @@ int				ft_newline(const char *save)
 	return (-1);
 }
 
-int				update_save(char **save, int index, char **line)
+int	update_save(char **save, int index, char **line)
 {
 	char		*tmp;
 	int			len;
@@ -48,7 +48,7 @@ int				update_save(char **save, int index, char **line)
 	return (1);
 }
 
-int				read_done(char **line, char **save, int size)
+int	read_done(char **line, char **save, int size)
 {
 	int			index;
 
@@ -58,7 +58,8 @@ int				read_done(char **line, char **save, int size)
 		*save = 0;
 		return (-1);
 	}
-	if ((index = ft_newline(*save)) >= 0)
+	index = ft_newline(&save);
+	if (index >= 0)
 		return (update_save(save, index, line));
 	if (*save)
 	{
@@ -70,7 +71,7 @@ int				read_done(char **line, char **save, int size)
 	return (0);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*save;
 	char		buf[BUFFER_SIZE + 1];
@@ -81,11 +82,13 @@ int				get_next_line(int fd, char **line)
 		return (-1);
 	if (!save)
 		save = ft_strdup("");
-	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
+	size = read(fd, buf, BUFFER_SIZE);
+	while (size > 0)
 	{
 		buf[size] = '\0';
 		save = ft_strjoin(&save, buf);
-		if ((index = ft_newline(save)) >= 0)
+		index = ft_newline(save);
+		if (index >= 0)
 			return (update_save(&save, index, line));
 	}
 	return (read_done(line, &save, size));

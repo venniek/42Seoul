@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 02:13:59 by naykim            #+#    #+#             */
-/*   Updated: 2021/03/03 14:44:24 by naykim           ###   ########.fr       */
+/*   Updated: 2021/03/14 14:46:51 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-unsigned int		ft_strlen(char *s)
+unsigned int	ft_strlen(char *s)
 {
 	unsigned int	i;
 
@@ -22,7 +22,7 @@ unsigned int		ft_strlen(char *s)
 	return (i);
 }
 
-char				*ft_strjoin(char **s1, char *s2)
+char	*ft_strjoin(char **s1, char *s2)
 {
 	char			*str;
 	unsigned int	len1;
@@ -36,7 +36,8 @@ char				*ft_strjoin(char **s1, char *s2)
 		return (NULL);
 	len1 = ft_strlen(*s1);
 	len2 = ft_strlen(s2);
-	if (!(str = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
+	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!str)
 		return (NULL);
 	while (k < len1)
 		str[i++] = (*s1)[k++];
@@ -48,14 +49,15 @@ char				*ft_strjoin(char **s1, char *s2)
 	return (str);
 }
 
-char				*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char			*str;
 	size_t			i;
 
 	if (s == 0)
 		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
 	i = 0;
 	if (ft_strlen(s) <= start)
@@ -75,13 +77,14 @@ char				*ft_substr(char *s, unsigned int start, size_t len)
 	return (str);
 }
 
-char				*ft_strdup(char *s)
+char	*ft_strdup(char *s)
 {
 	char			*dst;
 	size_t			i;
 
 	i = ft_strlen(s);
-	if (!(dst = (char *)malloc(sizeof(char) * (i + 1))))
+	dst = (char *)malloc(sizeof(char) * (i + 1));
+	if (!dst)
 		return (NULL);
 	i = 0;
 	while (s[i])
