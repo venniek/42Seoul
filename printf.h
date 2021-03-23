@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/16 16:29:34 by naykim            #+#    #+#             */
-/*   Updated: 2021/03/19 16:21:31 by naykim           ###   ########.fr       */
+/*   Created: 2021/03/19 16:15:28 by naykim            #+#    #+#             */
+/*   Updated: 2021/03/19 16:17:16 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#ifndef PRINTF_H
+# define PRINTF_H
 
-int ft_printf(const char *format, ...)
-{
-	va_list ap;
-	int bt;
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
-	va_start(ap, str);
-	while (*format)
-	{
-		if (*format != '%')
-			bt = write(1, *format++, 1);
-		else;
 
-	}
-
-	va_end(ap);
-	return (bt);
-}
+#endif
