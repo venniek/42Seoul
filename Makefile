@@ -6,13 +6,14 @@
 #    By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/02 15:47:18 by naykim            #+#    #+#              #
-#    Updated: 2021/04/02 15:50:20 by naykim           ###   ########.fr        #
+#    Updated: 2021/04/06 14:45:02 by naykim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
+RM = rm -f
 
 NAME = libftprintf.a
 
@@ -29,10 +30,10 @@ $(NAME) : $(OBJS)
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
