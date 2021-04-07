@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:29:34 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/06 19:07:15 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/07 16:53:31 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@ void parsing_str(const char **str, va_list *ap)
 {
 	t_flag flag;
 
+	make_all_new(&flag);
 	(*str)++;
 	if (**str == '-')
-		parsing_minus(str, ap);
+		parsing_minus(str, &flag);
 	else if (**str == '0')
-		parsing_zero(str, ap);
+		parsing_zero(str, &flag);
 	else if (!ft_strchr(DIGIT, **str))
-		parsing_width(str, ap);
+		parsing_width(str, &flag);
 	else if (**str == '*')
-		parsing_star(str, ap);
+		parsing_star(str, &flag, ap);
 	else if (**str == '.')
-		parsing_prec(str, ap);
-
-			}
+		parsing_prec(str, &flag, ap);
+	bt += make_print_all(str, &flag, ap);
+	return ;
+}
 
 int ft_printf(const char *str, ...)
 {

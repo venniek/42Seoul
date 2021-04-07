@@ -36,6 +36,21 @@ typedef struct s_flag
 int bt;
 
 
+//-------ft_printf
+void parsing_str(const char **str, va_list *ap);
+int ft_printf(const char *str, ...);
 
+//-------parsing_all
+void parsing_minus(const char **str, t_flag *flag);
+void parsing_zero(const char **str, t_flag *flag);
+void parsing_width(const char **str, t_flag *flag);
+void parsing_star(const char **str, t_flag *flag, va_list *ap);
+void parsing_prec(const char **str, t_flag *flag, va_list *ap);
+
+//-------libft_util1
+size_t ft_strlen(char *str);
+char *ft_strchr(const char *str, int a);
+
+//-------libft_util2
 
 #endif
