@@ -22,6 +22,10 @@
 # define HEX_U "0123456789ABCDEF"
 # define TYPE "cspdiuxX%"
 
+# define ERROR -1
+# define UNDEFINED -1
+# define INVALID -1
+
 typedef struct s_flag
 {
 	int minus;
@@ -33,11 +37,18 @@ typedef struct s_flag
 	char type;
 } t_flag;
 
-int bt;
+typedef struct s_pt
+{
+	int b_len;
+	int z_len;
+	int minus;
+}	t_pt;
 
+extern int g_bt;
 
 //-------ft_printf
-void parsing_str(const char **str, va_list *ap);
+void flag_all_new(t_flag *flag);
+int parsing_str(const char **str, va_list *ap);
 int ft_printf(const char *str, ...);
 
 //-------parsing_all
@@ -50,7 +61,11 @@ void parsing_prec(const char **str, t_flag *flag, va_list *ap);
 //-------libft_util1
 size_t ft_strlen(char *str);
 char *ft_strchr(const char *str, int a);
+int ft_atoi(const char *str);
 
 //-------libft_util2
+
+//-------make_print_1
+
 
 #endif
