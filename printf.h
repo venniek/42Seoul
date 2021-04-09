@@ -28,12 +28,12 @@
 
 typedef struct s_flag
 {
-	int minus;
-	int zero;
-	int width;
-	int star;
-	int dot;
-	int prec;
+	char minus;
+	char zero;
+	long long width;
+	char dot;
+	char sign;
+	long long prec;
 	char type;
 } t_flag;
 
@@ -41,31 +41,48 @@ typedef struct s_pt
 {
 	int b_len;
 	int z_len;
-	int minus;
+	int v_len;
+	char minus;
 }	t_pt;
 
 extern int g_bt;
 
 //-------ft_printf
-void flag_all_new(t_flag *flag);
-int parsing_str(const char **str, va_list *ap);
 int ft_printf(const char *str, ...);
 
 //-------parsing_all
 void parsing_minus(const char **str, t_flag *flag);
 void parsing_zero(const char **str, t_flag *flag);
-void parsing_width(const char **str, t_flag *flag);
-void parsing_star(const char **str, t_flag *flag, va_list *ap);
+void parsing_width(const char **str, t_flag *flag, va_list *ap);
 void parsing_prec(const char **str, t_flag *flag, va_list *ap);
 
 //-------libft_util1
 size_t ft_strlen(char *str);
-char *ft_strchr(const char *str, int a);
+size_t ft_len(unsigned int n);
+char *ft_strchr(char *str, int a);
 int ft_atoi(const char *str);
 
 //-------libft_util2
+void ft_putchar(char c);
+void ft_putstr(char *s);
+void ft_putnbr(int n);
 
 //-------make_print_1
+int make_print_c(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_s(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_d(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_p(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_u(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_x(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_per(t_flag *flag, va_list *ap, t_pt *pt);
+
+//-------print_1
+void print_c(t_pt *pt, char val);
+void print_s(t_pt *pt, char *val);
+void print_d(t_pt *pt, int val);
+void print_p(t_pt *pt, int *val);
+void print_u(t_pt *pt, unsigned int val);
+//int print_x(t_pt *pt, )
 
 
 #endif

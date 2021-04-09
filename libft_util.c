@@ -1,5 +1,18 @@
 #include "printf.h"
 
+size_t ft_len(unsigned int n)
+{
+	size_t i;
+
+	i = 0;
+	while (n > 0)
+	{
+		i++;
+		n /= 10;
+	}
+	return (i);
+}
+
 size_t	ft_strlen(char *str)
 {
 	size_t i;
@@ -23,18 +36,36 @@ void ft_putstr(char *s)
 	i = 0;
 	while (s[i])
 	{
-		ft_putchar_fd(s[i]);
+		ft_putchar(s[i]);
 		i++;
 	}
 }
 
-char *ft_strchr(const char *str, int a)
+void	ft_putnbr(int n)
+{
+
+	if (n == -2147483648)
+		ft_putstr("-2147483648");
+	else
+	{
+		if (n < 0)
+		{
+			ft_putchar('-');
+			n *= -1;
+		}
+		if (n >= 10)
+			ft_putnbr(n / 10);
+		ft_putchar((n % 10) + '0');
+	}
+}
+
+char *ft_strchr(char *str, int a)
 {
 	size_t i;
 	char *s;
 
 	i = 0;
-	s = (char *)str;
+	s = str;
 	while (i < ft_strlen(str) + 1)
 	{
 		if (s[i] == a)

@@ -3,46 +3,69 @@
 void parsing_minus(const char **str, t_flag *flag)
 {
 	flag->minus = 1;
-	*str++;
+	(*str)++;
 	return ;
 }
 
 void parsing_zero(const char **str, t_flag *flag)
 {
 	flag->zero = 1;
-	*str++;
+	(*str)++;
 	return ;
 }
 
-void parsing_width(const char **str, t_flag *flag)
+void parsing_width(const char **str, t_flag *flag, va_list *ap)
 {
-	flag->width = ft_atoi(*str);
-	*str += ft_len(flag->width);
+	int n;
+
+	if (**str == '*')
+	{
+		n = va_arg(*ap, int);
+		if (n < 0)
+		{
+			n *= -1;
+			flag->minus = 1;
+		}
+		flag->width = n;
+		(*str)++;
+	}
+	else
+	{	flag->width = ft_atoi(*str);
+		*str += ft_len(flag->width);
+	}
 	return ;
 }
-
-
-void parsing_star(const char **str, t_flag *flag, va_list *ap)
-{
-	flag->width = va_arg(*ap, int); //minus? plus?
-	*str++;
-	return ;
-}
-
 
 void parsing_prec(const char **str, t_flag *flag, va_list *ap)
 {
+	long long n;
+
 	flag->dot = 1;
-	*str++;
-	if (!ft_strchr(DIGIT, **str))
+	(*str)++;
+	if (ft_strchr(DIGIT, **str))
 	{
-		flag->prec = ft_atoi(*str);
+		n = ft_atoi(*str);
+		if (n < 0)
+		{
+			n *= -1;
+			flag->sign = 1;
+			flag->minus = 1;
+			(*str)++;
+		}
+		flag->prec = n;
 		*str += ft_len(flag->prec);
 	}
 	else if (**str == '*')
 	{
-		flag->prec = va_arg(*ap, int);
-		*str++;
+		n = va_arg(*ap, int);
+		if (n < 0)
+		{
+			n *= -1;
+			flag->sign = 2;
+			flag->minus = 1;
+		}
+		flag->prec = n;
+		(*str)++;
 	}
 	return ;
 }

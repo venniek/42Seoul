@@ -14,32 +14,33 @@
 
 int g_bt;
 
-void flag_all_new(t_flag *flag)
+static void flag_all_new(t_flag *flag)
 {
-	flag->minus = -1;
-	flag->zero = -1;
+	flag->minus = 0;
+	flag->zero = 0;
 	flag->width = -1;
-	flag->star = -1;
-	flag->dot = -1;
+	flag->dot = 0;
+	flag->sign = 0;
 	flag->prec = -1;
 	flag->type = '\0';
 }
 
-void pt_all_new(t_pt *pt)
+static void pt_all_new(t_pt *pt)
 {
 	pt->b_len = 0;
 	pt->z_len = 0;
+	pt->v_len = 0;
 	pt->minus = 0;
 }
 
-int make_print(t_flag *flag, va_list *ap)
+static int make_print(t_flag *flag, va_list *ap)
 {
 	t_pt pt;
 
 	pt_all_new(&pt);
 	if (flag->type == 'c')
 		return (make_print_c(flag, ap, &pt));
-	if (flag->type == 's')
+/*	if (flag->type == 's')
 		return (make_print_s(flag, ap, &pt));
 	if (flag->type == 'p')
 		return (make_print_p(flag, ap, &pt));
@@ -51,11 +52,11 @@ int make_print(t_flag *flag, va_list *ap)
 		return (make_print_x(flag, ap, &pt));
 	if (flag->type == '%')
 		return (make_print_per(flag, ap, &pt));
-	else
+*/	else
 		return (ERROR);
 }
 
-int parsing_str(const char **str, va_list *ap)
+static int parsing_str(const char **str, va_list *ap)
 {
 	t_flag flag;
 
@@ -67,10 +68,8 @@ int parsing_str(const char **str, va_list *ap)
 			parsing_minus(str, &flag);
 		else if (**str == '0')
 			parsing_zero(str, &flag);
-		else if (ft_strchr(DIGIT, **str))
-			parsing_width(str, &flag);
-		else if (**str == '*')
-			parsing_star(str, &flag, ap);
+		else if (ft_strchr(DIGIT, **str) || **str == '*')
+			parsing_width(str, &flag, ap);
 		else if (**str == '.')
 			parsing_prec(str, &flag, ap);
 	}
@@ -88,7 +87,11 @@ int ft_printf(const char *str, ...)
 	while (*str != '\0')
 	{
 		if (*str != '%')
-			g_bt += write(1, *str++, 1);
+		{
+			ft_putchar(*str);
+			g_bt++;
+			str++;
+		}
 		else
 		{
 			if (parsing_str(&str, &ap) == -1)
