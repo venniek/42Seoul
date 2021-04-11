@@ -1,5 +1,12 @@
 #include "printf.h"
 
+long long ft_min(size_t a, long long b)
+{
+	if ((long long)a > b)
+		return (b);
+	else
+		return (a);
+}
 size_t ft_len(unsigned int n)
 {
 	size_t i;

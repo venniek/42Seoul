@@ -40,9 +40,9 @@ static int make_print(t_flag *flag, va_list *ap)
 	pt_all_new(&pt);
 	if (flag->type == 'c')
 		return (make_print_c(flag, ap, &pt));
-/*	if (flag->type == 's')
+	if (flag->type == 's')
 		return (make_print_s(flag, ap, &pt));
-	if (flag->type == 'p')
+/*	if (flag->type == 'p')
 		return (make_print_p(flag, ap, &pt));
 	if (flag->type == 'd' || flag->type == 'i')
 		return (make_print_d(flag, ap, &pt));

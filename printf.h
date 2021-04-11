@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:15:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/05 23:06:05 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/11 11:50:56 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int ft_atoi(const char *str);
 void ft_putchar(char c);
 void ft_putstr(char *s);
 void ft_putnbr(int n);
+long long ft_min(size_t a, long long b);
 
 //-------make_print_1
 int make_print_c(t_flag *flag, va_list *ap, t_pt *pt);
