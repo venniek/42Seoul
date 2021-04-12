@@ -142,6 +142,39 @@ void print_p(t_pt *pt, unsigned long val)
 	}
 }
 
+void print_x(t_pt *pt, unsigned int val, char c)
+{
+	int i;
+	int k;
+//	printf("pt->v_len %d\n", pt->v_len);
+//	printf("pt->z_len %d\n", pt->z_len);
+//	printf("pt->b_len %d\n", pt->b_len);
+	i = -1;
+	k = -1;
+	if (pt->minus % 10 == 0)
+	{
+		while (++i < pt->b_len)
+			ft_putchar(' ');
+		if (pt->minus / 10 == 1)
+			ft_putchar('-');
+		while (++k < pt->z_len)
+			ft_putchar('0');
+		ft_putnbr_hex(val, c);
+	}
+	else
+	{
+		if (pt->minus / 10 == 1)
+			ft_putchar('-');
+		while (++k < pt->z_len)
+			ft_putchar('0');
+		ft_putnbr_hex(val, c);
+		while (++i < pt->b_len)
+			ft_putchar(' ');
+	}
+
+	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
+}
+
 void print_per(t_pt *pt, char val)
 {
 	int i;

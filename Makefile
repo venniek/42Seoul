@@ -17,7 +17,7 @@ RM = rm -f
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c libft_util.c parsing_all.c make_print_1.c make_print_2.c
+SRCS = ft_printf.c libft_util.c parsing_all.c make_print_1.c print_1.c
 
 OBJS = $(SRCS:.c=.o)
 

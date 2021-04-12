@@ -86,7 +86,7 @@ void print_s(t_pt *pt, char *val);
 void print_d(t_pt *pt, long long val);
 void print_p(t_pt *pt, unsigned long val);
 void print_u(t_pt *pt, unsigned int val);
-void print_x(t_pt *pt, unsigned int val);
+void print_x(t_pt *pt, unsigned int val, char c);
 void print_per(t_pt *pt, char val);
 
 #endif

@@ -62,7 +62,7 @@ void parsing_prec(const char **str, t_flag *flag, va_list *ap)
 		{
 			n *= -1;
 			flag->sign = 2;
-			flag->minus = 1;
+			flag->minus++;
 		}
 		flag->prec = n;
 		(*str)++;
