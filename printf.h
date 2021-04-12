@@ -77,7 +77,7 @@ int make_print_d(t_flag *flag, va_list *ap, t_pt *pt);
 int make_print_p(t_flag *flag, va_list *ap, t_pt *pt);
 int make_print_u(t_flag *flag, va_list *ap, t_pt *pt);
 int make_print_x(t_flag *flag, va_list *ap, t_pt *pt);
-int make_print_per(t_flag *flag, va_list *ap, t_pt *pt);
+int make_print_per(t_flag *flag, t_pt *pt);
 
 //-------print_1
 void print_c(t_pt *pt, char val);
@@ -85,7 +85,7 @@ void print_s(t_pt *pt, char *val);
 void print_d(t_pt *pt, int val);
 void print_p(t_pt *pt, int *val);
 void print_u(t_pt *pt, unsigned int val);
-//int print_x(t_pt *pt, )
-
+void print_x(t_pt *pt, unsigned int val);
+void print_per(t_pt *pt, char val);
 
 #endif

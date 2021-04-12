@@ -50,9 +50,9 @@ static int make_print(t_flag *flag, va_list *ap)
 		return (make_print_u(flag, ap, &pt));
 	if (flag->type == 'x' || flag->type == 'X')
 		return (make_print_x(flag, ap, &pt));
-	if (flag->type == '%')
-		return (make_print_per(flag, ap, &pt));
-*/	else
+*/	if (flag->type == '%')
+		return (make_print_per(flag, &pt));
+	else
 		return (ERROR);
 }
 

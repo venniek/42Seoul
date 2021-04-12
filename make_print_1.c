@@ -98,3 +98,22 @@ int make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 }
 
 */
+
+int make_print_per(t_flag *flag, t_pt *pt)
+{
+    char val;
+
+    val = '%';
+    if (flag->sign == 1)
+        return (INVALID);
+    if (flag->zero == 1 && flag->minus == 0)
+        pt->z_len = ft_max(0, flag->width - 1);
+    else
+    {
+        if (flag->minus == 1)
+            pt->minus = 1;
+        pt->b_len = ft_max(0, flag->width - 1);
+    }
+    print_per(pt, val);
+    return (0);
+}

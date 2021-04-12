@@ -53,9 +53,6 @@ void print_d(t_pt *pt, int val)
 	int i;
 	int k;
 
-	printf("pt->v_len %d\n", pt->v_len);
-	printf("pt->z_len %d\n", pt->z_len);
-	printf("pt->b_len %d\n", pt->b_len);
 	i = -1;
 	k = -1;
 	if (pt->minus % 10 == 0)
@@ -80,4 +77,36 @@ void print_d(t_pt *pt, int val)
 	}
 
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
+}
+
+void print_per(t_pt *pt, char val)
+{
+	int i;
+
+
+	printf("pt->z_len %d\n", pt->z_len);
+	printf("pt->b_len %d\n", pt->b_len);
+	i = -1;
+	if (pt->z_len > 0)
+	{
+		while(++i < pt->z_len)
+			ft_putchar('0');
+		ft_putchar(val);
+	}
+	else
+	{
+		if (pt->minus == 0)
+		{
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+			ft_putchar(val);
+		}
+		else
+		{
+			ft_putchar(val);
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+		}
+	}
+	g_bt += pt->z_len + pt->b_len + 1;
 }
