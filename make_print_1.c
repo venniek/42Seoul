@@ -10,7 +10,7 @@ int make_print_c(t_flag *flag, va_list *ap, t_pt *pt)
     if (flag->minus == 1)
         pt->minus = 1;
     if (flag->width != -1)
-        pt->b_len = flag->width - 1;
+        pt->b_len = ft_max(0, flag->width - 1);
     pt->v_len = 1;
     print_c(pt, val);
     return (0);
@@ -27,13 +27,16 @@ int make_print_s(t_flag *flag, va_list *ap, t_pt *pt)
         return (UNDEFINED);
     if (flag->sign == 1)
         return (INVALID);
-    if (flag->minus == 1)
-        pt->minus = 1;
     if (flag->sign == 2)
     {
+        flag->dot = 0;
+        flag->minus--;
         pt->v_len = ft_strlen(val);
-        pt->minus = 0; // wrong. gochigi.
     }
+    if (flag->minus == 1)
+        pt->minus += 1;
+    if (flag->zero == 1 && flag->minus > 0)
+        flag->zero = 0;
     else if (flag->dot == 1 && flag->prec <= 0)
         pt->v_len = 0;
     else if (flag->dot == 1)
@@ -96,13 +99,20 @@ int make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 
     val = va_arg(*ap, int);
     pt->v_len = ft_len(val, 10);
+    if (flag->sign == 2)
+    {
+        flag->dot = 0;
+        flag->minus--;
+    }
     if (flag->minus == 1)
         pt->minus += 1;
+    if (flag->zero == 1 && flag->minus > 0)
+        flag->zero = 0;
     if (flag->dot == 1)
     {
-        if (val == 0 && flag->prec == -1)
+        if (val == 0 && flag->prec <= 0)
         {
-            g_bt += flag->width;
+            g_bt += ft_max(0, flag->width);
             while (flag->width-- > 0)
                 ft_putchar(' ');
             return (0);
@@ -147,13 +157,20 @@ int make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 
     val = va_arg(*ap, int);
     pt->v_len = ft_len(val, 16);
+       if (flag->sign == 2)
+    {
+        flag->dot = 0;
+        flag->minus--;
+    }
     if (flag->minus == 1)
         pt->minus += 1;
+    if (flag->zero == 1 && flag->minus > 0)
+        flag->zero = 0;
     if (flag->dot == 1)
     {
-        if (val == 0 && flag->prec == -1)
+        if (val == 0 && flag->prec <= 0)
         {
-            g_bt += flag->width;
+            g_bt += ft_max(0, flag->width);
             while (flag->width-- > 0)
                 ft_putchar(' ');
             return (0);
