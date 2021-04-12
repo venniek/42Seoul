@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <stdio.h>
 
 # define DIGIT "0123456789"
 # define HEX_L "0123456789abcdef"
@@ -67,6 +68,7 @@ void ft_putchar(char c);
 void ft_putstr(char *s);
 void ft_putnbr(int n);
 long long ft_min(size_t a, long long b);
+long long ft_max(long long a, long long b);
 
 //-------make_print_1
 int make_print_c(t_flag *flag, va_list *ap, t_pt *pt);

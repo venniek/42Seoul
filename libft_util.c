@@ -7,11 +7,21 @@ long long ft_min(size_t a, long long b)
 	else
 		return (a);
 }
+
+long long ft_max(long long a, long long b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
 size_t ft_len(unsigned int n)
 {
 	size_t i;
 
 	i = 0;
+	if (n == 0)
+		return (1);
 	while (n > 0)
 	{
 		i++;
