@@ -56,7 +56,7 @@ int make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
         pt->minus += 10;
         val *= -1;
     }
-    pt->v_len = ft_len(val);
+    pt->v_len = ft_len(val, 10);
     if (flag->minus == 1)
         pt->minus += 1;
     if (flag->dot == 1)
@@ -87,7 +87,7 @@ int make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
     unsigned int val;
 
     val = va_arg(*ap, int);
-    pt->v_len = ft_len(val);
+    pt->v_len = ft_len(val, 10);
     if (flag->minus == 1)
         pt->minus += 1;
     if (flag->dot == 1)
@@ -112,17 +112,27 @@ int make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
     print_u(pt, val);
     return (0);
 }
-/*
+
 int make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 {
+    unsigned long val;
 
+    if (flag->prec != -1 || flag->zero == 1)
+        return (UNDEFINED); 
+    val = (unsigned long)va_arg(*ap, void *);
+    if (val == (unsigned long)NULL && flag->dot == 1)
+        pt->minus = -1;
+    else
+    {
+        pt->v_len = ft_len(val, 16);
+        if (flag->minus == 1)
+            pt->minus = 1;
+        pt->b_len = ft_max(0, flag->width - pt->v_len - 2);
+    }
+    print_p(pt, val);
+    return (0);
 }
-
-int make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
-{
-
-}
-
+/*
 int make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 {
 

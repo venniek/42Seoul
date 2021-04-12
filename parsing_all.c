@@ -31,7 +31,7 @@ void parsing_width(const char **str, t_flag *flag, va_list *ap)
 	}
 	else
 	{	flag->width = ft_atoi(*str);
-		*str += ft_len(flag->width);
+		*str += ft_len(flag->width, 10);
 	}
 	return ;
 }
@@ -53,7 +53,7 @@ void parsing_prec(const char **str, t_flag *flag, va_list *ap)
 			(*str)++;
 		}
 		flag->prec = n;
-		*str += ft_len(flag->prec);
+		*str += ft_len(flag->prec, 10);
 	}
 	else if (**str == '*')
 	{

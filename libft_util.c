@@ -15,7 +15,7 @@ long long ft_max(long long a, long long b)
 	else
 		return (b);
 }
-size_t ft_len(unsigned int n)
+size_t ft_len(unsigned long n, int base)
 {
 	size_t i;
 
@@ -25,7 +25,7 @@ size_t ft_len(unsigned int n)
 	while (n > 0)
 	{
 		i++;
-		n /= 10;
+		n /= base;
 	}
 	return (i);
 }
@@ -74,6 +74,16 @@ void	ft_putnbr(long long n)
 			ft_putnbr(n / 10);
 		ft_putchar((n % 10) + '0');
 	}
+}
+
+void ft_putnbr_hex(unsigned long n, char c)
+{
+	if (n >= 16)
+		ft_putnbr_hex(n / 16, c);
+	if (c == 'p' || c == 'x')
+		ft_putchar(HEX_L[n % 16]);
+	else if (c == 'X')
+		ft_putchar(HEX_U[n % 16]);
 }
 
 char *ft_strchr(char *str, int a)

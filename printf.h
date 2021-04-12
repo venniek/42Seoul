@@ -59,7 +59,7 @@ void parsing_prec(const char **str, t_flag *flag, va_list *ap);
 
 //-------libft_util1
 size_t ft_strlen(char *str);
-size_t ft_len(unsigned int n);
+size_t ft_len(unsigned long n, int base);
 char *ft_strchr(char *str, int a);
 int ft_atoi(const char *str);
 
@@ -67,6 +67,7 @@ int ft_atoi(const char *str);
 void ft_putchar(char c);
 void ft_putstr(char *s);
 void ft_putnbr(long long n);
+void ft_putnbr_hex(unsigned long n, char c);
 long long ft_min(size_t a, long long b);
 long long ft_max(long long a, long long b);
 
@@ -83,7 +84,7 @@ int make_print_per(t_flag *flag, t_pt *pt);
 void print_c(t_pt *pt, char val);
 void print_s(t_pt *pt, char *val);
 void print_d(t_pt *pt, long long val);
-void print_p(t_pt *pt, int *val);
+void print_p(t_pt *pt, unsigned long val);
 void print_u(t_pt *pt, unsigned int val);
 void print_x(t_pt *pt, unsigned int val);
 void print_per(t_pt *pt, char val);

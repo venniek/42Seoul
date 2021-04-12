@@ -112,6 +112,36 @@ void print_u(t_pt *pt, unsigned int val)
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
+void print_p(t_pt *pt, unsigned long val)
+{
+	int i;
+
+	i = -1;
+	if (pt->minus == -1)
+	{
+		ft_putstr("0x");
+		g_bt += 2;
+	}
+	else
+	{
+		if (pt->minus == 0)
+		{
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+			ft_putstr("0x");
+			ft_putnbr_hex(val, 'p');
+		}
+		else
+		{
+			ft_putstr("0x");
+			ft_putnbr_hex(val, 'p');
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+		}
+		g_bt += pt->v_len + pt->b_len + 2;
+	}
+}
+
 void print_per(t_pt *pt, char val)
 {
 	int i;
