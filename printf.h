@@ -66,7 +66,7 @@ int ft_atoi(const char *str);
 //-------libft_util2
 void ft_putchar(char c);
 void ft_putstr(char *s);
-void ft_putnbr(int n);
+void ft_putnbr(long long n);
 long long ft_min(size_t a, long long b);
 long long ft_max(long long a, long long b);
 
@@ -82,7 +82,7 @@ int make_print_per(t_flag *flag, t_pt *pt);
 //-------print_1
 void print_c(t_pt *pt, char val);
 void print_s(t_pt *pt, char *val);
-void print_d(t_pt *pt, int val);
+void print_d(t_pt *pt, long long val);
 void print_p(t_pt *pt, int *val);
 void print_u(t_pt *pt, unsigned int val);
 void print_x(t_pt *pt, unsigned int val);

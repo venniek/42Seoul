@@ -48,7 +48,7 @@ int make_print_s(t_flag *flag, va_list *ap, t_pt *pt)
 
 int make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 {
-    int val;
+    long long val;
 
     val = va_arg(*ap, int);
     if (val < 0)
@@ -79,6 +79,37 @@ int make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
             pt->b_len = ft_max(0, flag->width - pt->v_len);
     }
     print_d(pt, val);
+    return (0);
+}
+
+int make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
+{
+    unsigned int val;
+
+    val = va_arg(*ap, int);
+    pt->v_len = ft_len(val);
+    if (flag->minus == 1)
+        pt->minus += 1;
+    if (flag->dot == 1)
+    {
+        if (val == 0)
+        {
+            g_bt += flag->width;
+            while (flag->width-- > 0)
+                ft_putchar(' ');
+            return (0);
+        }
+        pt->z_len = ft_max(0, flag->prec - pt->v_len);
+        pt->b_len = ft_max(0, flag->width - ft_max(flag->prec, pt->v_len) - pt->minus / 10);
+    }
+    else
+    {
+        if (flag->zero == 1)
+            pt->z_len = ft_max(0, flag->width - pt->v_len);
+        else
+            pt->b_len = ft_max(0, flag->width - pt->v_len);
+    }
+    print_u(pt, val);
     return (0);
 }
 /*
