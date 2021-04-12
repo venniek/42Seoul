@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/13 04:31:10 by naykim            #+#    #+#             */
+/*   Updated: 2021/04/13 04:39:43 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "printf.h"
 
-void print_c(t_pt *pt, char val)
+void	print_c(t_pt *pt, char val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->minus == 0)
@@ -18,28 +30,24 @@ void print_c(t_pt *pt, char val)
 			ft_putchar(' ');
 	}
 	g_bt += pt->b_len + pt->v_len;
-
-
 }
 
-void print_s(t_pt *pt, char *val)
+void	print_s(t_pt *pt, char *val)
 {
 	int i;
+	int k;
 
 	i = -1;
+	k = -1;
 	if (pt->minus == 0)
 	{
 		while (++i < pt->b_len)
 			ft_putchar(' ');
-		int k;
-		k = -1;
 		while (++k < pt->v_len)
 			ft_putchar(val[k]);
 	}
 	else
 	{
-		int k;
-		k = -1;
 		while (++k < pt->v_len)
 			ft_putchar(val[k]);
 		while (++i < pt->b_len)
@@ -48,7 +56,7 @@ void print_s(t_pt *pt, char *val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
-void print_d(t_pt *pt, long long val)
+void	print_u(t_pt *pt, unsigned int val)
 {
 	int i;
 	int k;
@@ -75,44 +83,10 @@ void print_d(t_pt *pt, long long val)
 		while (++i < pt->b_len)
 			ft_putchar(' ');
 	}
-
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
-void print_u(t_pt *pt, unsigned int val)
-{
-	int i;
-	int k;
-//	printf("pt->v_len %d\n", pt->v_len);
-//	printf("pt->z_len %d\n", pt->z_len);
-//	printf("pt->b_len %d\n", pt->b_len);
-	i = -1;
-	k = -1;
-	if (pt->minus % 10 == 0)
-	{
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr(val);
-	}
-	else
-	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr(val);
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-	}
-
-	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
-}
-
-void print_p(t_pt *pt, unsigned long val)
+void	print_p(t_pt *pt, unsigned long val)
 {
 	int i;
 
@@ -142,49 +116,14 @@ void print_p(t_pt *pt, unsigned long val)
 	}
 }
 
-void print_x(t_pt *pt, unsigned int val, char c)
-{
-	int i;
-	int k;
-//	printf("pt->v_len %d\n", pt->v_len);
-//	printf("pt->z_len %d\n", pt->z_len);
-//	printf("pt->b_len %d\n", pt->b_len);
-	i = -1;
-	k = -1;
-	if (pt->minus % 10 == 0)
-	{
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr_hex(val, c);
-	}
-	else
-	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr_hex(val, c);
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-	}
-
-	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
-}
-
-void print_per(t_pt *pt, char val)
+void	print_per(t_pt *pt, char val)
 {
 	int i;
 
-
-	
 	i = -1;
 	if (pt->z_len > 0)
 	{
-		while(++i < pt->z_len)
+		while (++i < pt->z_len)
 			ft_putchar('0');
 		ft_putchar(val);
 	}

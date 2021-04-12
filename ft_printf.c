@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:29:34 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/07 16:53:31 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/13 04:12:29 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int g_bt;
 
-static void flag_all_new(t_flag *flag)
+static void	flag_all_new(t_flag *flag)
 {
 	flag->minus = 0;
 	flag->zero = 0;
@@ -25,7 +25,7 @@ static void flag_all_new(t_flag *flag)
 	flag->type = '\0';
 }
 
-static void pt_all_new(t_pt *pt)
+static void	pt_all_new(t_pt *pt)
 {
 	pt->b_len = 0;
 	pt->z_len = 0;
@@ -33,7 +33,7 @@ static void pt_all_new(t_pt *pt)
 	pt->minus = 0;
 }
 
-static int make_print(t_flag *flag, va_list *ap)
+static int	make_print(t_flag *flag, va_list *ap)
 {
 	t_pt pt;
 
@@ -56,7 +56,7 @@ static int make_print(t_flag *flag, va_list *ap)
 		return (ERROR);
 }
 
-static int parsing_str(const char **str, va_list *ap)
+static int	parsing_str(const char **str, va_list *ap)
 {
 	t_flag flag;
 
@@ -78,10 +78,10 @@ static int parsing_str(const char **str, va_list *ap)
 	return (make_print(&flag, ap));
 }
 
-int ft_printf(const char *str, ...)
+int			ft_printf(const char *str, ...)
 {
 	va_list ap;
-	
+
 	va_start(ap, str);
 	g_bt = 0;
 	while (*str != '\0')
