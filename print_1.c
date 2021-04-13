@@ -56,36 +56,6 @@ void	print_s(t_pt *pt, char *val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
-void	print_u(t_pt *pt, unsigned int val)
-{
-	int i;
-	int k;
-
-	i = -1;
-	k = -1;
-	if (pt->minus % 10 == 0)
-	{
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr(val);
-	}
-	else
-	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
-		ft_putnbr(val);
-		while (++i < pt->b_len)
-			ft_putchar(' ');
-	}
-	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
-}
-
 void	print_p(t_pt *pt, unsigned long val)
 {
 	int i;

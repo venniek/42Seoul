@@ -44,14 +44,14 @@ static int	make_print(t_flag *flag, va_list *ap)
 		return (make_print_s(flag, ap, &pt));
 	if (flag->type == 'p')
 		return (make_print_p(flag, ap, &pt));
+	if (flag->type == '%')
+		return (make_print_per(flag, &pt));
 	if (flag->type == 'd' || flag->type == 'i')
 		return (make_print_d(flag, ap, &pt));
 	if (flag->type == 'u')
 		return (make_print_u(flag, ap, &pt));
 	if (flag->type == 'x' || flag->type == 'X')
 		return (make_print_x(flag, ap, &pt));
-	if (flag->type == '%')
-		return (make_print_per(flag, &pt));
 	else
 		return (ERROR);
 }
@@ -72,6 +72,8 @@ static int	parsing_str(const char **str, va_list *ap)
 			parsing_width(str, &flag, ap);
 		else if (**str == '.')
 			parsing_prec(str, &flag, ap);
+		else
+			break;
 	}
 	flag.type = **str;
 	(*str)++;

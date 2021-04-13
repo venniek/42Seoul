@@ -76,7 +76,7 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 	return ;
 }
 
-static void	parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
+void		parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
 {
 	*n = va_arg(*ap, int);
 	if (*n < 0)
@@ -85,5 +85,5 @@ static void	parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
 		flag->sign = 2;
 		flag->minus++;
 	}
-	flag->prec = n;
+	flag->prec = *n;
 }

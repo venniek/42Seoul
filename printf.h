@@ -14,9 +14,7 @@
 # define PRINTF_H
 
 # include <unistd.h>
-# include <stdlib.h>
 # include <stdarg.h>
-# include <stdio.h>
 
 # define DIGIT "0123456789"
 # define HEX_L "0123456789abcdef"
@@ -24,8 +22,6 @@
 # define TYPE "cspdiuxX%"
 
 # define ERROR -1
-# define UNDEFINED -1
-# define INVALID -1
 
 typedef struct	s_flag
 {
@@ -54,6 +50,7 @@ void			parsing_minus(const char **str, t_flag *flag);
 void			parsing_zero(const char **str, t_flag *flag);
 void			parsing_width(const char **str, t_flag *flag, va_list *ap);
 void			parsing_prec(const char **str, t_flag *flag, va_list *ap);
+void			parsing_prec_str(long long *n, t_flag *flag, va_list *ap);
 
 long long		ft_min(size_t a, long long b);
 long long		ft_max(long long a, long long b);
