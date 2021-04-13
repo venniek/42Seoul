@@ -62,10 +62,7 @@ void	print_p(t_pt *pt, unsigned long val)
 
 	i = -1;
 	if (pt->minus == -1)
-	{
 		ft_putstr("0x");
-		g_bt += 2;
-	}
 	else
 	{
 		if (pt->minus == 0)
@@ -82,8 +79,8 @@ void	print_p(t_pt *pt, unsigned long val)
 			while (++i < pt->b_len)
 				ft_putchar(' ');
 		}
-		g_bt += pt->v_len + pt->b_len + 2;
 	}
+	g_bt += pt->v_len + pt->b_len + 2;
 }
 
 void	print_per(t_pt *pt, char val)

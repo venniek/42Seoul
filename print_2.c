@@ -12,29 +12,32 @@
 
 #include "printf.h"
 
-void	print_d(t_pt *pt, long long val)
+static void	print_else(t_pt *pt)
 {
-	int i;
 	int k;
 
-	i = -1;
 	k = -1;
+	if (pt->minus / 10 == 1)
+		ft_putchar('-');
+	while (++k < pt->z_len)
+		ft_putchar('0');
+}
+
+void		print_d(t_pt *pt, long long val)
+{
+	int i;
+
+	i = -1;
 	if (pt->minus % 10 == 0)
 	{
 		while (++i < pt->b_len)
 			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr(val);
 	}
 	else
 	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr(val);
 		while (++i < pt->b_len)
 			ft_putchar(' ');
@@ -42,29 +45,21 @@ void	print_d(t_pt *pt, long long val)
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
-void	print_u(t_pt *pt, unsigned int val)
+void		print_u(t_pt *pt, unsigned int val)
 {
 	int i;
-	int k;
 
 	i = -1;
-	k = -1;
 	if (pt->minus % 10 == 0)
 	{
 		while (++i < pt->b_len)
 			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr(val);
 	}
 	else
 	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr(val);
 		while (++i < pt->b_len)
 			ft_putchar(' ');
@@ -72,29 +67,21 @@ void	print_u(t_pt *pt, unsigned int val)
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
-void	print_x(t_pt *pt, unsigned int val, char c)
+void		print_x(t_pt *pt, unsigned int val, char c)
 {
 	int i;
-	int k;
 
 	i = -1;
-	k = -1;
 	if (pt->minus % 10 == 0)
 	{
 		while (++i < pt->b_len)
 			ft_putchar(' ');
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr_hex(val, c);
 	}
 	else
 	{
-		if (pt->minus / 10 == 1)
-			ft_putchar('-');
-		while (++k < pt->z_len)
-			ft_putchar('0');
+		print_else(pt);
 		ft_putnbr_hex(val, c);
 		while (++i < pt->b_len)
 			ft_putchar(' ');

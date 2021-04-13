@@ -12,7 +12,34 @@
 
 #include "printf.h"
 
-int	make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
+static int	make_print_num(t_flag *flag, t_pt *pt, long long val)
+{
+	int len;
+
+	len = ft_max(flag->prec, pt->v_len);
+	if (flag->dot == 1)
+	{
+		if (val == 0 && flag->prec <= 0)
+		{
+			g_bt += ft_max(0, flag->width);
+			while (flag->width-- > 0)
+				ft_putchar(' ');
+			return (1);
+		}
+		pt->z_len = ft_max(0, flag->prec - pt->v_len);
+		pt->b_len = ft_max(0, flag->width - len - pt->minus / 10);
+	}
+	else
+	{
+		if (flag->zero == 1)
+			pt->z_len = ft_max(0, flag->width - pt->v_len - pt->minus / 10);
+		else
+			pt->b_len = ft_max(0, flag->width - pt->v_len - pt->minus / 10);
+	}
+	return (0);
+}
+
+int			make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	long long	val;
 
@@ -29,33 +56,17 @@ int	make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 		flag->minus--;
 	}
 	if (flag->minus == 1)
+	{
 		pt->minus += 1;
-	if (flag->zero == 1 && flag->minus > 0)
 		flag->zero = 0;
-	if (flag->dot == 1)
-	{
-		if (val == 0 && flag->prec <= 0)
-		{
-			g_bt += ft_max(0, flag->width);
-			while (flag->width-- > 0)
-				ft_putchar(' ');
-			return (0);
-		}
-		pt->z_len = ft_max(0, flag->prec - pt->v_len);
-		pt->b_len = ft_max(0, flag->width - ft_max(flag->prec, pt->v_len) - pt->minus / 10);
 	}
-	else
-	{
-		if (flag->zero == 1)
-			pt->z_len = ft_max(0, flag->width - pt->v_len - pt->minus / 10);
-		else
-			pt->b_len = ft_max(0, flag->width - pt->v_len - pt->minus / 10);
-	}
+	if (make_print_num(flag, pt, val) == 1)
+		return (0);
 	print_d(pt, val);
 	return (0);
 }
 
-int	make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
+int			make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned int	val;
 
@@ -67,33 +78,17 @@ int	make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 		flag->minus--;
 	}
 	if (flag->minus == 1)
+	{
 		pt->minus += 1;
-	if (flag->zero == 1 && flag->minus > 0)
 		flag->zero = 0;
-	if (flag->dot == 1)
-	{
-		if (val == 0 && flag->prec <= 0)
-		{
-			g_bt += ft_max(0, flag->width);
-			while (flag->width-- > 0)
-				ft_putchar(' ');
-			return (0);
-		}
-		pt->z_len = ft_max(0, flag->prec - pt->v_len);
-		pt->b_len = ft_max(0, flag->width - ft_max(flag->prec, pt->v_len) - pt->minus / 10);
 	}
-	else
-	{
-		if (flag->zero == 1)
-			pt->z_len = ft_max(0, flag->width - pt->v_len);
-		else
-			pt->b_len = ft_max(0, flag->width - pt->v_len);
-	}
+	if (make_print_num(flag, pt, val) == 1)
+		return (0);
 	print_u(pt, val);
 	return (0);
 }
 
-int	make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
+int			make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned int	val;
 
@@ -105,28 +100,12 @@ int	make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 		flag->minus--;
 	}
 	if (flag->minus == 1)
+	{
 		pt->minus += 1;
-	if (flag->zero == 1 && flag->minus > 0)
 		flag->zero = 0;
-	if (flag->dot == 1)
-	{
-		if (val == 0 && flag->prec <= 0)
-		{
-			g_bt += ft_max(0, flag->width);
-			while (flag->width-- > 0)
-				ft_putchar(' ');
-			return (0);
-		}
-		pt->z_len = ft_max(0, flag->prec - pt->v_len);
-		pt->b_len = ft_max(0, flag->width - ft_max(flag->prec, pt->v_len) - pt->minus / 10);
 	}
-	else
-	{
-		if (flag->zero == 1)
-			pt->z_len = ft_max(0, flag->width - pt->v_len);
-		else
-			pt->b_len = ft_max(0, flag->width - pt->v_len);
-	}
+	if (make_print_num(flag, pt, val) == 1)
+		return (0);
 	print_x(pt, val, flag->type);
 	return (0);
 }

@@ -73,7 +73,7 @@ static int	parsing_str(const char **str, va_list *ap)
 		else if (**str == '.')
 			parsing_prec(str, &flag, ap);
 		else
-			break;
+			return (ERROR);
 	}
 	flag.type = **str;
 	(*str)++;

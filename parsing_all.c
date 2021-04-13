@@ -16,14 +16,12 @@ void		parsing_minus(const char **str, t_flag *flag)
 {
 	flag->minus = 1;
 	(*str)++;
-	return ;
 }
 
 void		parsing_zero(const char **str, t_flag *flag)
 {
 	flag->zero = 1;
 	(*str)++;
-	return ;
 }
 
 void		parsing_width(const char **str, t_flag *flag, va_list *ap)
@@ -46,7 +44,6 @@ void		parsing_width(const char **str, t_flag *flag, va_list *ap)
 		flag->width = ft_atoi(*str);
 		*str += ft_len(flag->width, 10);
 	}
-	return ;
 }
 
 void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
@@ -73,7 +70,6 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 		flag->prec = n;
 		*str += ft_len(flag->prec, 10);
 	}
-	return ;
 }
 
 void		parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
