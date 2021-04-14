@@ -59,16 +59,21 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 	}
 	else if (ft_strchr(DIGIT, **str))
 	{
-		n = ft_atoi(*str);
-		if (n < 0)
+		if (**str == '0' && ft_strchr(DIGIT, *(*str + 1)))
+			flag->dot = 0;
+		else
 		{
-			n *= -1;
-			flag->sign = 1;
-			flag->minus = 1;
-			(*str)++;
+			n = ft_atoi(*str);
+			if (n < 0)
+			{
+				n *= -1;
+				flag->sign = 1;
+				flag->minus = 1;
+				(*str)++;
+			}
+			flag->prec = n;
+			*str += ft_len(flag->prec, 10);
 		}
-		flag->prec = n;
-		*str += ft_len(flag->prec, 10);
 	}
 }
 

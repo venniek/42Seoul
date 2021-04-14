@@ -62,14 +62,16 @@ int	make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 	if (flag->zero == 1 || flag->prec != -1)
 		return (ERROR);
 	val = (unsigned long)va_arg(*ap, void *);
-	if (val == (unsigned long)NULL && flag->dot == 1 && flag->width == -1)
-		pt->minus = -1;
-	else
+	
+	if (flag->minus == 1)
+		pt->minus = 1;
+	pt->v_len = ft_len(val, 16);
+	pt->b_len = ft_max(0, flag->width - pt->v_len - 2);
+	if (val == (unsigned long)NULL && flag->dot == 1 && flag->prec == -1)
 	{
-		if (flag->minus == 1)
-			pt->minus = 1;
-		pt->v_len = ft_len(val, 16);
-		pt->b_len = ft_max(0, flag->width - pt->v_len - 2);
+		pt->v_len = 0;
+		if (flag->width > 2)
+			pt->b_len++;
 	}
 	print_p(pt, val);
 	return (0);
@@ -82,16 +84,14 @@ int	make_print_per(t_flag *flag, t_pt *pt)
 	val = '%';
 	if (flag->sign == 1)
 		return (ERROR);
+	if (flag->sign == 2)
+		flag->minus--;
+	if (flag->minus == 1)
+		pt->minus = 1;
 	if (flag->zero == 1 && flag->minus == 0)
 		pt->z_len = ft_max(0, flag->width - 1);
 	else
-	{
-		if (flag->sign == 2)
-			flag->minus--;
-		if (flag->minus == 1)
-			pt->minus = 1;
 		pt->b_len = ft_max(0, flag->width - 1);
-	}
 	print_per(pt, val);
 	return (0);
 }

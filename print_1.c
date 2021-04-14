@@ -61,8 +61,21 @@ void	print_p(t_pt *pt, unsigned long val)
 	int i;
 
 	i = -1;
-	if (pt->minus == -1)
-		ft_putstr("0x");
+	if (pt->v_len == 0)
+	{	
+		if (pt->minus == 0)
+		{
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+			ft_putstr("0x");
+		}
+		else
+		{
+			ft_putstr("0x");
+			while (++i < pt->b_len)
+				ft_putchar(' ');
+		}
+	}
 	else
 	{
 		if (pt->minus == 0)
