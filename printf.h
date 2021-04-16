@@ -50,7 +50,7 @@ void			parsing_minus(const char **str, t_flag *flag);
 void			parsing_zero(const char **str, t_flag *flag);
 void			parsing_width(const char **str, t_flag *flag, va_list *ap);
 void			parsing_prec(const char **str, t_flag *flag, va_list *ap);
-void			parsing_prec_str(long long *n, t_flag *flag, va_list *ap);
+// void			parsing_prec_str(long long *n, t_flag *flag, va_list *ap);
 
 long long		ft_min(size_t a, long long b);
 long long		ft_max(long long a, long long b);

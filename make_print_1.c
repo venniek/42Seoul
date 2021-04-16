@@ -59,10 +59,11 @@ int	make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned long	val;
 
+	if (flag->minus == 2)
+		flag->prec = -1;
 	if (flag->zero == 1 || flag->prec != -1)
 		return (ERROR);
 	val = (unsigned long)va_arg(*ap, void *);
-	
 	if (flag->minus == 1)
 		pt->minus = 1;
 	pt->v_len = ft_len(val, 16);

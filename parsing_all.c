@@ -46,6 +46,18 @@ void		parsing_width(const char **str, t_flag *flag, va_list *ap)
 	}
 }
 
+static void	parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
+{
+	*n = va_arg(*ap, int);
+	if (*n < 0)
+	{
+		*n *= -1;
+		flag->sign = 2;
+		flag->minus++;
+	}
+	flag->prec = *n;
+}
+
 void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 {
 	long long n;
@@ -59,8 +71,10 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 	}
 	else if (ft_strchr(DIGIT, **str))
 	{
-		if (**str == '0' && ft_strchr(DIGIT, *(*str + 1)))
-			flag->dot = 0;
+		while (**str == '0')
+			(*str)++;
+		if (!(ft_strchr(DIGIT, **str)))
+			flag->prec = 0;
 		else
 		{
 			n = ft_atoi(*str);
@@ -75,16 +89,4 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 			*str += ft_len(flag->prec, 10);
 		}
 	}
-}
-
-void		parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
-{
-	*n = va_arg(*ap, int);
-	if (*n < 0)
-	{
-		*n *= -1;
-		flag->sign = 2;
-		flag->minus++;
-	}
-	flag->prec = *n;
 }
