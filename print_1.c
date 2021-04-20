@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:31:10 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:39:43 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/20 22:37:37 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_p(t_pt *pt, unsigned long val)
 
 	i = -1;
 	if (pt->v_len == 0)
-	{	
+	{
 		if (pt->minus == 0)
 		{
 			while (++i < pt->b_len)

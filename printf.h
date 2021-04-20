@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:15:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:11:37 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/20 22:37:53 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void			parsing_minus(const char **str, t_flag *flag);
 void			parsing_zero(const char **str, t_flag *flag);
 void			parsing_width(const char **str, t_flag *flag, va_list *ap);
 void			parsing_prec(const char **str, t_flag *flag, va_list *ap);
-// void			parsing_prec_str(long long *n, t_flag *flag, va_list *ap);
 
 long long		ft_min(size_t a, long long b);
 long long		ft_max(long long a, long long b);

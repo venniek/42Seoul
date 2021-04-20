@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 02:25:52 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 05:00:40 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/20 22:38:15 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		parsing_width(const char **str, t_flag *flag, va_list *ap)
 	}
 }
 
-static void	parsing_prec_str(long long *n, t_flag *flag, va_list *ap)
+static void	parsing_prec_star(long long *n, t_flag *flag, va_list *ap)
 {
 	*n = va_arg(*ap, int);
 	if (*n < 0)
