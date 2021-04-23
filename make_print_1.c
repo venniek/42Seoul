@@ -44,10 +44,13 @@ int	make_print_s(t_flag *flag, va_list *ap, t_pt *pt)
 	}
 	if (flag->minus == 1)
 		pt->minus = 1;
-	if (flag->dot == 1 && flag->prec <= 0)
-		pt->v_len = 0;
-	else if (flag->dot == 1)
-		pt->v_len = ft_min(ft_strlen(val), flag->prec);
+	if (flag->dot == 1)
+	{
+		if (flag->prec <= 0)
+			pt->v_len = 0;
+		else
+			pt->v_len = ft_min(ft_strlen(val), flag->prec);
+	}
 	else
 		pt->v_len = ft_strlen(val);
 	pt->b_len = ft_max(0, flag->width - pt->v_len);
@@ -59,7 +62,7 @@ int	make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned long	val;
 
-	if (flag->minus == 2)
+	if (flag->sign == 2)
 		flag->prec = -1;
 	if (flag->zero == 1 || flag->prec != -1)
 		return (ERROR);

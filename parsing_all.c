@@ -66,7 +66,7 @@ void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 	(*str)++;
 	if (**str == '*')
 	{
-		parsing_prec_str(&n, flag, ap);
+		parsing_prec_star(&n, flag, ap);
 		(*str)++;
 	}
 	else if (ft_strchr(DIGIT, **str))
