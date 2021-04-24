@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 02:25:52 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/20 22:38:15 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/24 17:58:31 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,47 +46,44 @@ void		parsing_width(const char **str, t_flag *flag, va_list *ap)
 	}
 }
 
-static void	parsing_prec_star(long long *n, t_flag *flag, va_list *ap)
+static void	parsing_prec_star(t_flag *flag, va_list *ap, const char **str)
 {
-	*n = va_arg(*ap, int);
-	if (*n < 0)
+	long long n;
+
+	n = va_arg(*ap, int);
+	if (n < 0)
 	{
-		*n *= -1;
 		flag->sign = 2;
-		flag->minus++;
+		n *= -1;
 	}
-	flag->prec = *n;
+	flag->prec = n;
+	(*str)++;
 }
 
 void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
 {
-	long long n;
-
 	flag->dot = 1;
 	(*str)++;
-	if (**str == '*')
+	if (**str == '-')
 	{
-		parsing_prec_star(&n, flag, ap);
+		flag->sign = 1;
 		(*str)++;
 	}
-	else if (ft_strchr(DIGIT, **str))
+	if (**str == '*')
+		parsing_prec_star(flag, ap, str);
+	else
 	{
-		while (**str == '0')
-			(*str)++;
-		if (!(ft_strchr(DIGIT, **str)))
-			flag->prec = 0;
-		else
+		if (ft_strchr(DIGIT, **str))
 		{
-			n = ft_atoi(*str);
-			if (n < 0)
-			{
-				n *= -1;
-				flag->sign = 1;
-				flag->minus = 1;
+			while (**str == '0')
 				(*str)++;
+			if (!(ft_strchr(DIGIT, **str)))
+				flag->prec = 0;
+			else
+			{
+				flag->prec = ft_atoi(*str);
+				*str += ft_len(flag->prec, 10);
 			}
-			flag->prec = n;
-			*str += ft_len(flag->prec, 10);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:31:10 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/20 22:37:37 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/24 18:00:52 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,26 +56,32 @@ void	print_s(t_pt *pt, char *val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
+void	print_p_null(t_pt *pt)
+{
+	int i;
+
+	i = -1;
+	if (pt->minus == 0)
+	{
+		while (++i < pt->b_len)
+			ft_putchar(' ');
+		ft_putstr("0x");
+	}
+	else
+	{
+		ft_putstr("0x");
+		while (++i < pt->b_len)
+			ft_putchar(' ');
+	}
+}
+
 void	print_p(t_pt *pt, unsigned long val)
 {
 	int i;
 
 	i = -1;
 	if (pt->v_len == 0)
-	{
-		if (pt->minus == 0)
-		{
-			while (++i < pt->b_len)
-				ft_putchar(' ');
-			ft_putstr("0x");
-		}
-		else
-		{
-			ft_putstr("0x");
-			while (++i < pt->b_len)
-				ft_putchar(' ');
-		}
-	}
+		print_p_null(pt);
 	else
 	{
 		if (pt->minus == 0)

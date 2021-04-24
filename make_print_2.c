@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:25:53 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:30:51 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/24 17:59:50 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static int	make_print_num(t_flag *flag, t_pt *pt, long long val)
 {
-	int len;
+	unsigned int len;
 
-	len = ft_max(flag->prec, pt->v_len);
 	if (flag->dot == 1)
 	{
 		if (val == 0 && flag->prec <= 0)
@@ -27,6 +26,7 @@ static int	make_print_num(t_flag *flag, t_pt *pt, long long val)
 			return (1);
 		}
 		pt->z_len = ft_max(0, flag->prec - pt->v_len);
+		len = pt->z_len + pt->v_len;
 		pt->b_len = ft_max(0, flag->width - len - pt->minus / 10);
 	}
 	else
@@ -50,11 +50,10 @@ int			make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 		val *= -1;
 	}
 	pt->v_len = ft_len(val, 10);
+	if (flag->sign == 1)
+		return (ERROR);
 	if (flag->sign == 2)
-	{
 		flag->dot = 0;
-		flag->minus--;
-	}
 	if (flag->minus == 1)
 	{
 		pt->minus += 1;
@@ -72,11 +71,10 @@ int			make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 
 	val = va_arg(*ap, int);
 	pt->v_len = ft_len(val, 10);
+	if (flag->sign == 1)
+		return (ERROR);
 	if (flag->sign == 2)
-	{
 		flag->dot = 0;
-		flag->minus--;
-	}
 	if (flag->minus == 1)
 	{
 		pt->minus += 1;
@@ -94,11 +92,10 @@ int			make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 
 	val = va_arg(*ap, int);
 	pt->v_len = ft_len(val, 16);
+	if (flag->sign == 1)
+		return (ERROR);
 	if (flag->sign == 2)
-	{
 		flag->dot = 0;
-		flag->minus--;
-	}
 	if (flag->minus == 1)
 	{
 		pt->minus += 1;

@@ -38,10 +38,7 @@ int	make_print_s(t_flag *flag, va_list *ap, t_pt *pt)
 	if (val == NULL)
 		val = "(null)";
 	if (flag->sign == 2)
-	{
 		flag->dot = 0;
-		flag->minus--;
-	}
 	if (flag->minus == 1)
 		pt->minus = 1;
 	if (flag->dot == 1)
@@ -62,8 +59,6 @@ int	make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned long	val;
 
-	if (flag->sign == 2)
-		flag->prec = -1;
 	if (flag->zero == 1 || flag->prec != -1)
 		return (ERROR);
 	val = (unsigned long)va_arg(*ap, void *);
@@ -88,8 +83,6 @@ int	make_print_per(t_flag *flag, t_pt *pt)
 	val = '%';
 	if (flag->sign == 1)
 		return (ERROR);
-	if (flag->sign == 2)
-		flag->minus--;
 	if (flag->minus == 1)
 		pt->minus = 1;
 	if (flag->zero == 1 && flag->minus == 0)

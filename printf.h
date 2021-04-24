@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdio.h>
 
 # define DIGIT "0123456789"
 # define HEX_L "0123456789abcdef"
