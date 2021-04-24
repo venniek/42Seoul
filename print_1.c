@@ -12,7 +12,7 @@
 
 #include "printf.h"
 
-void	print_c(t_pt *pt, char val)
+void		print_c(t_pt *pt, char val)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ void	print_c(t_pt *pt, char val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
-void	print_s(t_pt *pt, char *val)
+void		print_s(t_pt *pt, char *val)
 {
 	int i;
 	int k;
@@ -56,7 +56,7 @@ void	print_s(t_pt *pt, char *val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
-void	print_p_null(t_pt *pt)
+static void	print_p_null(t_pt *pt)
 {
 	int i;
 
@@ -75,7 +75,7 @@ void	print_p_null(t_pt *pt)
 	}
 }
 
-void	print_p(t_pt *pt, unsigned long val)
+void		print_p(t_pt *pt, unsigned long val)
 {
 	int i;
 
@@ -102,7 +102,7 @@ void	print_p(t_pt *pt, unsigned long val)
 	g_bt += pt->v_len + pt->b_len + 2;
 }
 
-void	print_per(t_pt *pt, char val)
+void		print_per(t_pt *pt, char val)
 {
 	int i;
 
