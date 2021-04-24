@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:15:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/20 22:37:53 by naykim           ###   ########.fr       */
+/*   Updated: 2021/04/24 18:22:32 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdarg.h>
-# include <stdio.h>
 
 # define DIGIT "0123456789"
 # define HEX_L "0123456789abcdef"
