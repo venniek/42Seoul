@@ -21,6 +21,7 @@ SRCS = ft_printf.c parsing_all.c make_print_1.c make_print_2.c print_1.c print_2
 
 OBJS = $(SRCS:.c=.o)
 
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS)
 
