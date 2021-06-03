@@ -4,11 +4,12 @@ int is_ascending(int *a, int argc)
 {
 	int i;
 
-	i = 0;
-	while (i < argc)
+	i = argc - 1;
+	while (i > 0)
 	{
-		if (a[i] > a[i + 1])
+		if (a[i] > a[i - 1])
 			return (1);
+		i--;
 	}
 	return (0);
 }

@@ -26,14 +26,16 @@ void push_a(int *a, int *b, int *ai, int *bi)
 {
 	if (*bi == 0)
 		return ;
-	a[*ai++] = b[*bi - 1];
+	a[*ai] = b[*bi - 1];
 	(*bi)--;
+	(*ai)++;
 }
 
 void push_b(int *a, int *b, int *ai, int *bi)
 {
 	if (*ai == 0)
 		return ;
-	b[*bi++] = a[*ai - 1];
+	b[*bi] = a[*ai - 1];
 	(*ai)--;
+	(*bi)++;
 }

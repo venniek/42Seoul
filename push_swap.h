@@ -19,6 +19,8 @@
 long long ft_atoi(const char *str);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
+
+int is_ascending(int *a, int argc);
 int	ft_exit(int *a, int *b, int i);
 
 void swap_a(int *a, int *ai);

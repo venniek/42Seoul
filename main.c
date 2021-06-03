@@ -35,7 +35,6 @@ void print(int *a, int *b)
 	printf("\n");
 }
 
-/*
 void push_swap(int *a, int *b, int argc)
 {
 	int ai;
@@ -43,13 +42,14 @@ void push_swap(int *a, int *b, int argc)
 
 	ai = argc - 1;
 	bi = 0;
-	while (is_ascending(a, argc) != 0)
+	while (1)
 	{
-
+		if (is_ascending(a, argc) == 0)
+			return ;
+		
 	}
+	
 }
-
-*/
 
 int main(int argc, char *argv[])
 {
