@@ -17,8 +17,19 @@
 # include <unistd.h>
 
 long long ft_atoi(const char *str);
-void	ft_putstr(char *s);
-void	ft_putchar(char c);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
 int	ft_exit(int *a, int *b, int i);
+
+void swap_a(int *a, int *ai);
+void swap_b(int *b, int *bi);
+void push_a(int *a, int *b, int *ai, int *bi);
+void push_b(int *a, int *b, int *ai, int *bi);
+void rotate_a(int *a, int *ai);
+void rotate_b(int *b, int *bi);
+void reverse_a(int *a, int *ai);
+void reverse_b(int *b, int *bi);
+
+
 
 #endif

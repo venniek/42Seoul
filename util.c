@@ -1,23 +1,26 @@
 #include "push_swap.h"
 
-void	ft_putchar(char c)
+void	ft_putchar_fd(char c, int fd)
 {
-	write(1, &c, 1);
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
 }
 
-void	ft_putstr(char *s)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int i;
 
-	if (s == NULL)
+	if (fd < 0 || s == NULL)
 		return ;
 	i = 0;
 	while (s[i])
 	{
-		ft_putchar(s[i]);
+		ft_putchar_fd(s[i], fd);
 		i++;
 	}
 }
+
 
 long long ft_atoi(const char *str)
 {

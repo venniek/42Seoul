@@ -1,5 +1,18 @@
 #include "push_swap.h"
 
+int is_ascending(int *a, int argc)
+{
+	int i;
+
+	i = 0;
+	while (i < argc)
+	{
+		if (a[i] > a[i + 1])
+			return (1);
+	}
+	return (0);
+}
+
 int	ft_exit(int *a, int *b, int i)
 {
 	if (*a != 0)
@@ -14,8 +27,6 @@ int	ft_exit(int *a, int *b, int i)
 	}
 	if (i == 0)
 		return 0;
-	else
-		ft_putstr("Error\n");
-		
-	exit(0);
+	ft_putstr_fd("Error\n", 2);
+	exit(1);
 }
