@@ -14,41 +14,60 @@
 #include <stdio.h>
 
 
+static int selec_sort(int *sorted, int argc)
+{
+	int i;
+	int k;
+	int min;
+	int tmp;
 
+	i = -1;
+	while (i++ < argc / 2)
+	{
+		min = i;
+		k = i + 1;
+		while (k++ < argc)
+		{
+			if (sorted[min] > sorted[k])
+				min = k;
+		}
+		tmp = sorted[min];
+		sorted[min] = sorted[i];
+		sorted[i] = tmp;
+	}
+	return (sorted[i]);
+}
 
 void print(int *a, int *b)
 {
-	int i = 0;
+	int i = -1;
 	printf("\na: ");
-	while (a[i])
-	{
-		printf("%d ", a[i]);
-		i++;
-	}
-	i = 0;
+	while (a[i++])
+		printf("%3d", a[i]);
+	i = -1;
 	printf("\nb: ");
 	while (b[i])
-	{
-		printf("%d ", b[i]);
-		i++;
-	}
+		printf("%3d", b[i]);
 	printf("\n");
 }
 
 void push_swap(int *a, int *b, int argc)
 {
+	int *sorted;
 	int ai;
 	int bi;
+	int pivot;
 
-	ai = argc - 1;
+	ai = -1;
+	sorted = (int *)malloc(sizeof(int) * argc);
+	while (ai++ < argc)
+		sorted[ai] = a[ai];
+	pivot = selec_sort(sorted, argc);
+	ai = argc;
 	bi = 0;
-	while (1)
-	{
-		if (is_ascending(a, argc) == 0)
-			return ;
-		
-	}
-	
+	// while ? 
+	// check if sorted
+	// make order(with pivot)
 }
 
 int main(int argc, char *argv[])
@@ -63,7 +82,7 @@ int main(int argc, char *argv[])
 	else
 		argc--;
 	a = (int *)malloc(sizeof(int) * argc);
-	b = (int *)malloc(sizeof(int) * argc + 1);
+	b = (int *)malloc(sizeof(int) * argc);
 	i = 0;
 	while (i < argc)
 	{
