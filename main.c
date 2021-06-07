@@ -35,20 +35,28 @@ static int selec_sort(int *sorted, int argc)
 		sorted[min] = sorted[i];
 		sorted[i] = tmp;
 	}
-	return (sorted[i]);
+	return (sorted[i - 1]);
 }
 
-void print(int *a, int *b)
+void print(int *a, int *b, int argc)
 {
-	int i = -1;
 	printf("\na: ");
-	while (a[i++])
+	for (int i = 0; i < argc; i++)
 		printf("%3d", a[i]);
-	i = -1;
 	printf("\nb: ");
-	while (b[i])
+	for (int i = 0; i < argc; i++)
 		printf("%3d", b[i]);
 	printf("\n");
+}
+
+void push_swap_special(int *a, int *b, int argc)
+{
+	if (argc == 2)
+		push_swap_two(a);
+	else if (argc == 3)
+		push_swap_three(a);
+	else if (argc == 5)
+		push_swap_five(a, b);
 }
 
 void push_swap(int *a, int *b, int argc)
@@ -65,6 +73,7 @@ void push_swap(int *a, int *b, int argc)
 	pivot = selec_sort(sorted, argc);
 	ai = argc;
 	bi = 0;
+	//if (is_sorted())
 	// while ? 
 	// check if sorted
 	// make order(with pivot)
@@ -83,6 +92,7 @@ int main(int argc, char *argv[])
 		argc--;
 	a = (int *)malloc(sizeof(int) * argc);
 	b = (int *)malloc(sizeof(int) * argc);
+	
 	i = 0;
 	while (i < argc)
 	{
@@ -92,7 +102,13 @@ int main(int argc, char *argv[])
 		a[argc - i - 1] = tmp;
 		i++;
 	}
-	//push_swap(a, b, argc);
+	print(a, b, argc);
+	if (argc == 2 || argc == 3 || argc == 5)
+		push_swap_special(a, b, argc);
+	else
+		push_swap(a, b, argc);
+	printf("\nfinal:\n");
+	print(a, b, argc);
 	return (ft_exit(a, b, 0));
 }
 

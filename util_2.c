@@ -27,7 +27,7 @@ int	ft_exit(int *a, int *b, int i)
 		*b = 0;
 	}
 	if (i == 0)
-		return 0;
+		exit(0);
 	ft_putstr_fd("Error\n", 2);
 	exit(1);
 }

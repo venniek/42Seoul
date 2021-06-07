@@ -32,6 +32,11 @@ void rotate_b(int *b, int *bi);
 void reverse_a(int *a, int *ai);
 void reverse_b(int *b, int *bi);
 
+void push_swap_special(int *a, int *b, int argc);
+void push_swap_two(int *a);
+void push_swap_three(int *a);
+void push_swap_five(int *a, int *b);
 
+void print(int *a, int *b, int argc);
 
 #endif
