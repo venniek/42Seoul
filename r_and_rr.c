@@ -1,49 +1,53 @@
 #include "push_swap.h"
 
-void rotate_a(int *a, int *ai)
+void rotate_a(t_stack *stack)
 {
 	int tmp;
 	int i;
 
-	tmp = a[*ai - 1];
-	i = *ai;
+	add_order(stack, "ra\n");
+	tmp = stack->a[stack->ai - 1];
+	i = stack->ai;
 	while (i-- >= 1)
-		a[i] = a[i - 1];
-	a[0] = tmp;
+		stack->a[i] = stack->a[i - 1];
+	stack->a[0] = tmp;
 }
 
-void rotate_b(int *b, int *bi)
+void rotate_b(t_stack *stack)
 {
 	int tmp;
 	int i;
 
-	tmp = b[*bi - 1];
-	i = *bi;
+	add_order(stack, "rb\n");
+	tmp = stack->b[stack->bi - 1];
+	i = stack->bi;
 	while (i-- >= 1)
-		b[i] = b[i - 1];
-	b[0] = tmp;
+		stack->b[i] = stack->b[i - 1];
+	stack->b[0] = tmp;
 }
 
-void reverse_a(int *a, int *ai)
+void reverse_a(t_stack *stack)
 {
 	int tmp;
 	int i;
 
-	tmp = a[0];
+	add_order(stack, "rra\n");
+	tmp = stack->a[0];
 	i = -1;
-	while (i++ < *ai - 1)
-		a[i] = a[i + 1];
-	a[*ai - 1] = tmp;
+	while (i++ < stack->ai - 1)
+		stack->a[i] = stack->a[i + 1];
+	stack->a[stack->ai - 1] = tmp;
 }
 
-void reverse_b(int *b, int *bi)
+void reverse_b(t_stack *stack)
 {
 	int tmp;
 	int i;
 
-	tmp = b[0];
+	add_order(stack, "rrb\n");
+	tmp = stack->b[0];
 	i = -1;
-	while (i++ < *bi - 1)
-		b[i] = b[i + 1];
-	b[*bi - 1] = tmp;
+	while (i++ < stack->bi - 1)
+		stack->b[i] = stack->b[i + 1];
+	stack->b[stack->bi - 1] = tmp;
 }

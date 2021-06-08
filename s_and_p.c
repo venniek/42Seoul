@@ -1,41 +1,45 @@
 #include "push_swap.h"
 
-void swap_a(int *a, int *ai)
+void swap_a(t_stack *stack)
 {
 	int tmp;
 
-	if (*ai == 1 || *ai == 0)
+	add_order(stack, "sa\n");
+	if (stack->ai == 1 || stack->ai == 0)
 		return ;
-	tmp = a[*ai - 1];
-	a[*ai - 1] = a[*ai - 2];
-	a[*ai - 2] = tmp;
+	tmp = stack->a[stack->ai - 1];
+	stack->a[stack->ai - 1] = stack->a[stack->ai - 2];
+	stack->a[stack->ai - 2] = tmp;
 }
 
-void swap_b(int *b, int *bi)
+void swap_b(t_stack *stack)
 {
 	int tmp;
 
-	if (*bi == 1 || *bi == 0)
+	add_order(stack, "sb\n");
+	if (stack->bi == 1 || stack->bi == 0)
 		return ;
-	tmp = b[*bi - 1];
-	b[*bi - 1] = b[*bi - 2];
-	b[*bi - 2] = tmp;
+	tmp = stack->b[stack->bi - 1];
+	stack->b[stack->bi - 1] = stack->b[stack->bi - 2];
+	stack->b[stack->bi - 2] = tmp;
 }
 
-void push_a(int *a, int *b, int *ai, int *bi)
+void push_a(t_stack *stack)
 {
-	if (*bi == 0)
+	add_order(stack, "pa\n");
+	if (stack->bi == 0)
 		return ;
-	a[*ai] = b[*bi - 1];
-	(*bi)--;
-	(*ai)++;
+	stack->a[stack->ai] = stack->b[stack->bi - 1];
+	(stack->bi)--;
+	(stack->ai)++;
 }
 
-void push_b(int *a, int *b, int *ai, int *bi)
+void push_b(t_stack *stack)
 {
-	if (*ai == 0)
+	add_order(stack, "pb\n");
+	if (stack->ai == 0)
 		return ;
-	b[*bi] = a[*ai - 1];
-	(*ai)--;
-	(*bi)++;
+	stack->b[stack->bi] = stack->a[stack->ai - 1];
+	(stack->ai)--;
+	(stack->bi)++;
 }

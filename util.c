@@ -21,7 +21,6 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-
 long long ft_atoi(const char *str)
 {
 	long long atoi;
@@ -47,4 +46,37 @@ long long ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * atoi);
+}
+
+void ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+void ft_stradd(t_stack *stack, char *str)
+{
+	char			**new;
+	int i;
+
+	if (str == 0)
+		return ;
+	new = (char **)malloc(sizeof(char *) * stack->sum);
+	i = -1;
+	while (++i < stack->sum - 1)
+	{
+		new[i] = (char *)malloc(sizeof(char) * 4);
+		ft_strcpy(new[i], stack->order[i]);
+	}
+	new[i] = (char *)malloc(sizeof(char) * 4);
+	ft_strcpy(new[i], str);
+	ft_free(stack->order, i);
+	stack->order = new;
 }
