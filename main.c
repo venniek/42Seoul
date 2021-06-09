@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 	default_stack(&stack);
 	if (argc <= 2)
 		ft_exit(&stack, 2);
-	//same number error check
+	//same number error check?
 	argc--;
 	make_stack(&stack, argc, argv);
 	print(&stack);
