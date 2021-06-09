@@ -1,5 +1,15 @@
 #include "push_swap.h"	
-	
+
+void push_swap_special(t_stack *stack)
+{
+	if (stack->cnt == 2)
+		push_swap_two(stack);
+	else if (stack->cnt == 3)
+		push_swap_three(stack);
+	else
+		push_swap_f(stack);
+}
+
 void push_swap_two(t_stack *stack)
 {
 	stack->ai = 2;
@@ -10,7 +20,9 @@ void push_swap_two(t_stack *stack)
 void push_swap_three(t_stack *stack)
 {
 	stack->ai = 3;
-	if (stack->a[0] > stack->a[2] && stack->a[2] > stack->a[1])      // 3, 1, 2
+	if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2])
+		return ;
+	else if (stack->a[0] > stack->a[2] && stack->a[2] > stack->a[1]) // 3, 1, 2
 		swap_a(stack);
 	else if (stack->a[1] > stack->a[0] && stack->a[0] > stack->a[2]) // 2, 3, 1
 	{
@@ -28,29 +40,43 @@ void push_swap_three(t_stack *stack)
 	}
 }
 
-void push_swap_five(t_stack *stack)
+void push_swap_f(t_stack *stack)
+{
+	int i;
+	int sorted[5];
+
+	stack->ai = stack->cnt;
+	stack->bi = 0;
+	i = -1;
+	while (++i < stack->cnt)
+		sorted[i] = stack->a[i];
+	selec_sort(sorted, stack->cnt);
+	i = -1;
+	while (++i < stack->cnt - 3)
+		find_and_push(stack, sorted, i);
+	push_swap_three(stack);
+	i = -1;
+	while (++i < stack->cnt - 3)
+		push_a(stack);
+}
+
+void find_and_push(t_stack *stack, int *sorted, int index)
 {
 	int i;
 
-	stack->ai = 5;
-	stack->bi = 0;
-	i = -1;
-	while (++i < 2)
+	i = stack->ai - 1;
+	while (stack->a[i] != sorted[index])
+		i--;
+	if (i >= stack->ai / 2)
 	{
-		if (stack->a[stack->ai - 1] > stack->a[stack->ai - 2])
-			swap_a(stack);
-		printf("repeat %d\n", i);
+		while (++i < stack->ai)
+			rotate_a(stack);
 		push_b(stack);
 	}
-	push_swap_three(stack);
-	i = -1;
-	while (++i < 2)
+	else
 	{
-		while (stack->a[stack->ai - 1] < stack->b[stack->bi - 1])
-			rotate_a(stack);
-		push_a(stack);
+		while (i-- >= 0)
+			reverse_a(stack);
+		push_b(stack);
 	}
-	while (stack->a[stack->ai - 1] < stack->a[stack->ai - 2])
-		rotate_a(stack);
-	rotate_a(stack);
 }

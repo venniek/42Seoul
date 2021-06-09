@@ -41,13 +41,11 @@ int ft_exit(t_stack *stack, int i)
 		stack->b = 0;
 	}
 	if (stack->order != 0)
-	{
-		free(stack->order);
-		stack->order = 0;
-	}
+		ft_free(stack->order, stack->sum);
 	if (i == 0)
 		exit(0);
-	ft_putstr_fd("Error\n", 2);
+	if (i == 1)
+		ft_putstr_fd("Error\n", 2);
 	exit(1);
 }
 
@@ -55,4 +53,28 @@ void add_order(t_stack *stack, char *str)
 {
 	(stack->sum)++;
 	ft_stradd(stack, str);
+}
+
+int selec_sort(int *sorted, int argc)
+{
+	int i;
+	int k;
+	int min;
+	int tmp;
+
+	i = -1;
+	while (i++ < argc / 2)
+	{
+		min = i;
+		k = i + 1;
+		while (k++ < argc)
+		{
+			if (sorted[min] > sorted[k])
+				min = k;
+		}
+		tmp = sorted[min];
+		sorted[min] = sorted[i];
+		sorted[i] = tmp;
+	}
+	return (sorted[i - 1]);
 }

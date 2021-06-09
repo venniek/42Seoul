@@ -40,73 +40,34 @@ void make_stack(t_stack *stack, int argc, char *argv[])
 		stack->a[argc - i - 1] = tmp;
 		i++;
 	}
+	stack->ai = stack->cnt;
 	stack->order = (char **)malloc(sizeof(char *) * 1);
 	stack->order[0] = (char *)malloc(sizeof(char) * 4);
-}
-
-static int selec_sort(int *sorted, int argc)
-{
-	int i;
-	int k;
-	int min;
-	int tmp;
-
-	i = -1;
-	while (i++ < argc / 2)
-	{
-		min = i;
-		k = i + 1;
-		while (k++ < argc)
-		{
-			if (sorted[min] > sorted[k])
-				min = k;
-		}
-		tmp = sorted[min];
-		sorted[min] = sorted[i];
-		sorted[i] = tmp;
-	}
-	return (sorted[i - 1]);
 }
 
 void print(t_stack *stack)
 {
 	printf("\na: ");
-	for (int i = 0; i < stack->cnt; i++)
+	for (int i = 0; i < stack->ai; i++)
 		printf("%3d", stack->a[i]);
 	printf("\nb: ");
-	for (int i = 0; i < stack->cnt; i++)
+	for (int i = 0; i < stack->bi; i++)
 		printf("%3d", stack->b[i]);
 	printf("\n");
-}
-
-void push_swap_special(t_stack *stack)
-{
-	if (stack->cnt == 2)
-		push_swap_two(stack);
-	else if (stack->cnt == 3)
-		push_swap_three(stack);
-	else if (stack->cnt == 5)
-		push_swap_five(stack);
 }
 
 void push_swap(t_stack *stack)
 {
 	int *sorted;
-	int ai;
-	int bi;
 	int pivot;
 
-	ai = -1;
+	if (stack->cnt <= 5)
+		push_swap_special(stack);
 	sorted = (int *)malloc(sizeof(int) * stack->cnt);
-	while (ai++ < stack->cnt)
+	while (++ai < stack->cnt)
 		sorted[ai] = stack->a[ai];
 	pivot = selec_sort(sorted, stack->cnt);
-	ai = stack->cnt;
-	bi = 0;
-	//if (is_sorted())
-	// while ? 
-	// check if sorted
-	// make order(with pivot)
+
 }
 
 int main(int argc, char *argv[])
@@ -114,16 +75,13 @@ int main(int argc, char *argv[])
 	t_stack stack;
 
 	default_stack(&stack);
-	if (argc <= 1)
-		ft_exit(&stack, 1);
+	if (argc <= 2)
+		ft_exit(&stack, 2);
+	//same number error check
 	argc--;
 	make_stack(&stack, argc, argv);
 	print(&stack);
-	printf("here1\n");
-	if (argc == 2 || argc == 3 || argc == 5)
-		push_swap_special(&stack);
-	else
-		push_swap(&stack);
+	push_swap(&stack);
 	printf("\nfinal:");
 	print(&stack);
 	printf("\n");

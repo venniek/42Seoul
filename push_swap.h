@@ -51,10 +51,12 @@ void reverse_b(t_stack *stack);
 void push_swap_special(t_stack *stack);
 void push_swap_two(t_stack *stack);
 void push_swap_three(t_stack *stack);
-void push_swap_five(t_stack *stack);
+void push_swap_f(t_stack *stack);
+void find_and_push(t_stack *stack, int *sorted, int index);
 
 void print(t_stack *stack); ///delete it!!!! using printf
 void default_stack(t_stack *stack);
 void make_stack(t_stack *stack, int argc, char *argv[]);
+int selec_sort(int *sorted, int argc);
 
 #endif
