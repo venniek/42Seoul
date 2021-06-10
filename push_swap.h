@@ -24,6 +24,7 @@ typedef struct s_stack
 	int *b;
 	int ai;
 	int bi;
+	int div;
 	char **order;
 	int sum;
 } t_stack;
@@ -34,6 +35,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_stradd(t_stack *stack, char *str);
 void	ft_strcpy(char *dest, char *src);
 
+int ft_pow(int a, int b);
 int is_ascending(t_stack *stack);
 int	ft_exit(t_stack *stack, int i);
 void ft_free(char **str, int cnt);
@@ -52,11 +54,17 @@ void push_swap_special(t_stack *stack);
 void push_swap_two(t_stack *stack);
 void push_swap_three(t_stack *stack);
 void push_swap_f(t_stack *stack);
+
 void find_and_push(t_stack *stack, int *sorted, int index);
+int make_sorted(t_stack *stack, int *sorted);
+void push_swap(t_stack *stack);
+void a_to_b(stack);
+void b_to_a(stack);
+
 
 void print(t_stack *stack); ///delete it!!!! using printf
 void default_stack(t_stack *stack);
 void make_stack(t_stack *stack, int argc, char *argv[]);
-int selec_sort(int *sorted, int argc);
+int selec_sort(int *sorted, t_stack *stack);
 
 #endif

@@ -1,4 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util_2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/10 12:50:23 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/10 12:50:24 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+int ft_pow(int a, int b)
+{
+	int ans;
+
+	ans = 1;
+	while (b-- > 0)
+		ans *= a;
+	return (ans);
+}
 
 int is_ascending(t_stack *stack)
 {
@@ -8,7 +30,7 @@ int is_ascending(t_stack *stack)
 	while (i > 0)
 	{
 		if (stack->a[i] > stack->a[i - 1])
-			return (1);
+			return (i);
 		i--;
 	}
 	return (0);
@@ -55,7 +77,7 @@ void add_order(t_stack *stack, char *str)
 	ft_stradd(stack, str);
 }
 
-int selec_sort(int *sorted, int argc)
+int selec_sort(int *sorted, t_stack *stack)
 {
 	int i;
 	int k;
@@ -63,11 +85,11 @@ int selec_sort(int *sorted, int argc)
 	int tmp;
 
 	i = -1;
-	while (i++ < argc / 2)
+	while (++i < stack->cnt - 1)
 	{
 		min = i;
-		k = i + 1;
-		while (k++ < argc)
+		k = i;
+		while (k++ < stack->cnt)
 		{
 			if (sorted[min] > sorted[k])
 				min = k;
@@ -75,6 +97,12 @@ int selec_sort(int *sorted, int argc)
 		tmp = sorted[min];
 		sorted[min] = sorted[i];
 		sorted[i] = tmp;
+		if (i > 0 && sorted[i] == sorted[i - 1])
+		{
+			free(sorted);
+			sorted = 0;
+			ft_exit(stack, 1);
+		}
 	}
-	return (sorted[i - 1]);
+	return (sorted[stack->cnt / 2]);
 }

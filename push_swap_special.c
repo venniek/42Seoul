@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_special.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/10 12:50:54 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/10 12:50:58 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"	
 
 void push_swap_special(t_stack *stack)
@@ -50,7 +62,7 @@ void push_swap_f(t_stack *stack)
 	i = -1;
 	while (++i < stack->cnt)
 		sorted[i] = stack->a[i];
-	selec_sort(sorted, stack->cnt);
+	selec_sort(sorted, stack);
 	i = -1;
 	while (++i < stack->cnt - 3)
 		find_and_push(stack, sorted, i);
