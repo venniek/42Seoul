@@ -24,13 +24,11 @@ int main(int argc, char *argv[])
 
 void print_stack(t_stack *stack)
 {
-//	printf("cnt: %d\nai: %d\nbi: %d\n", stack->cnt, stack->ai, stack->bi);
 	printf("a: ");
 	for (int i = 0; i < stack->ai; i++)
 		printf("%-4d", stack->a[i]);
-//	printf("\nb: ");
-//	for (int i = 0; i < stack->bi; i++)
-//		printf("%-4d", stack->b[i]);
-//	printf("\n");
-	printf("sum: %d\n\n", stack->sum);
+	printf("\nb: ");
+	for (int i = 0; i < stack->bi; i++)
+		printf("%-4d", stack->b[i]);
+	printf("\nsum: %d\n\n", stack->sum);
 }

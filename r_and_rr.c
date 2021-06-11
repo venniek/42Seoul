@@ -33,7 +33,7 @@ void rotate_b(t_stack *stack)
 	add_order(stack, "rb\n");
 	tmp = stack->b[stack->bi - 1];
 	i = stack->bi;
-	while (--i >= stack->bi - stack->cnt / ft_pow(2, stack->div))
+	while (--i >= 1)
 		stack->b[i] = stack->b[i - 1];
 	stack->b[0] = tmp;
 }

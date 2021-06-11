@@ -62,6 +62,11 @@ int ft_exit(t_stack *stack, int i)
 		free(stack->b);
 		stack->b = 0;
 	}
+	if (stack->sorted != 0)
+	{
+		free(stack->sorted);
+		stack->sorted = 0;
+	}
 	if (stack->order != 0)
 		ft_free(stack->order, stack->sum);
 	if (i == 0)
@@ -77,7 +82,7 @@ void add_order(t_stack *stack, char *str)
 	ft_stradd(stack, str);
 }
 
-int selec_sort(int *sorted, t_stack *stack)
+int selec_sort(t_stack *stack)
 {
 	int i;
 	int k;
@@ -91,18 +96,18 @@ int selec_sort(int *sorted, t_stack *stack)
 		k = i;
 		while (++k < stack->cnt)
 		{
-			if (sorted[min] > sorted[k])
+			if (stack->sorted[min] > stack->sorted[k])
 				min = k;
 		}
-		tmp = sorted[min];
-		sorted[min] = sorted[i];
-		sorted[i] = tmp;
-		if (i > 0 && sorted[i] == sorted[i - 1])
+		tmp = stack->sorted[min];
+		stack->sorted[min] = stack->sorted[i];
+		stack->sorted[i] = tmp;
+		if (i > 0 && stack->sorted[i] == stack->sorted[i - 1])
 		{
-			free(sorted);
-			sorted = 0;
+			free(stack->sorted);
+			stack->sorted = 0;
 			ft_exit(stack, 1);
 		}
 	}
-	return (sorted[stack->cnt / 2]);
+	return (stack->sorted[stack->cnt / 2]);
 }

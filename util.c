@@ -33,7 +33,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-long long ft_atoi(const char *str)
+long long ft_atoi(t_stack *stack, const char *str)
 {
 	long long atoi;
 	int i;
@@ -54,7 +54,7 @@ long long ft_atoi(const char *str)
 		if (str[i] >= '0' && str[i] <= '9')
 			atoi = atoi * 10 + str[i] - '0';
 		else
-			return (-1);
+			ft_exit(stack, 1);
 		i++;
 	}
 	return (sign * atoi);
