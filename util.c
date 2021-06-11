@@ -84,11 +84,11 @@ void ft_stradd(t_stack *stack, char *str)
 	i = -1;
 	while (++i < stack->sum - 1)
 	{
-		new[i] = (char *)malloc(sizeof(char) * 4);
+		new[i] = (char *)malloc(sizeof(char) * 5);
 		ft_strcpy(new[i], stack->order[i]);
 	}
-	new[i] = (char *)malloc(sizeof(char) * 4);
+	new[i] = (char *)malloc(sizeof(char) * 5);
 	ft_strcpy(new[i], str);
-	ft_free(stack->order, i);
+	ft_free(stack->order, stack->sum - 1);
 	stack->order = new;
 }

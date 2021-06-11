@@ -10,10 +10,27 @@ int main(int argc, char *argv[])
 		ft_exit(&stack, 2);
 	argc--;
 	make_stack(&stack, argc, argv);
+	printf("\nbefore\n");
+	print_stack(&stack);    //delete!
 	push_swap(&stack);
-//	print(&stack);    //delete!
+	printf("\nafter\n");
+	print_stack(&stack);    //delete!
 	i = -1;
-	while (++i < stack.cnt)
+	while (++i < stack.sum)
 		ft_putstr_fd(stack.order[i], 1);
 	return (ft_exit(&stack, 0));
+}
+
+
+void print_stack(t_stack *stack)
+{
+//	printf("cnt: %d\nai: %d\nbi: %d\n", stack->cnt, stack->ai, stack->bi);
+	printf("a: ");
+	for (int i = 0; i < stack->ai; i++)
+		printf("%-4d", stack->a[i]);
+//	printf("\nb: ");
+//	for (int i = 0; i < stack->bi; i++)
+//		printf("%-4d", stack->b[i]);
+//	printf("\n");
+	printf("sum: %d\n\n", stack->sum);
 }

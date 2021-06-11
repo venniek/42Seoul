@@ -89,7 +89,7 @@ int selec_sort(int *sorted, t_stack *stack)
 	{
 		min = i;
 		k = i;
-		while (k++ < stack->cnt)
+		while (++k < stack->cnt)
 		{
 			if (sorted[min] > sorted[k])
 				min = k;

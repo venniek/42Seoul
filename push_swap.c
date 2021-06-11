@@ -43,29 +43,14 @@ void make_stack(t_stack *stack, int argc, char *argv[])
 	}
 	stack->ai = stack->cnt;
 	stack->order = (char **)malloc(sizeof(char *) * 1);
-	stack->order[0] = (char *)malloc(sizeof(char) * 4);
+	stack->order[0] = (char *)malloc(sizeof(char) * 5);
 }
 
-/*
-////delete
-void print(t_stack *stack)
-{
-	printf("\na: ");
-	for (int i = 0; i < stack->ai; i++)
-		printf("%3d", stack->a[i]);
-	printf("\nb: ");
-	for (int i = 0; i < stack->bi; i++)
-		printf("%3d", stack->b[i]);
-	printf("\n");
-}
-////delete
-*/
 
 int make_sorted(t_stack *stack, int *sorted)
 {
 	int i;
 
-	sorted = (int *)malloc(sizeof(int) * stack->cnt / ft_pow(2, stack->div));
 	i = -1;
 	while (++i < stack->cnt)
 		sorted[i] = stack->a[i];
@@ -76,25 +61,34 @@ void push_swap(t_stack *stack)
 {
 //	int i;
 
-	while (stack->ai > 5)
-		a_to_b(stack);
+//	while (stack->ai > 5)
+//		a_to_b(stack);
 	push_swap_special(stack);
-	while (stack->bi > 0)
-		b_to_a(stack);
+//	while (stack->bi > 0)
+//		b_to_a(stack);
 }
+/*
+void check_b(t_stack *stack)
+{
 
+}
+*/
 void a_to_b(t_stack *stack)
 {
 	int *sorted;
 	int pivot;
 	int i;
 
+	sorted = (int *)malloc(sizeof(int) * stack->cnt / ft_pow(2, stack->div));
 	pivot = make_sorted(stack, sorted);
 	i = -1;
 	while (++i < stack->ai)
 	{
 		if (stack->a[stack->ai - 1] < pivot)
+		{
+//			check_b(stack);
 			push_b(stack);
+		}
 		else
 			rotate_a(stack);
 	}
@@ -110,7 +104,10 @@ void b_to_a(t_stack *stack)
 	{
 		i = -1;
 		while (++i < stack->ai)
+		{
+
 			push_a(stack);
+		}	
 		push_swap_special(stack);
 	}
 	else

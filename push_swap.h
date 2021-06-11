@@ -58,9 +58,10 @@ void push_swap_f(t_stack *stack);
 void find_and_push(t_stack *stack, int *sorted, int index);
 int make_sorted(t_stack *stack, int *sorted);
 void push_swap(t_stack *stack);
-void a_to_b(stack);
-void b_to_a(stack);
+void a_to_b(t_stack *stack);
+void b_to_a(t_stack *stack);
 
+void print_stack(t_stack *stack);
 
 void print(t_stack *stack); ///delete it!!!! using printf
 void default_stack(t_stack *stack);

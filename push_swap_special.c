@@ -50,17 +50,18 @@ void push_swap_three(t_stack *stack)
 		swap_a(stack);
 		reverse_a(stack);
 	}
+	else
+		ft_exit(stack, 1);
 }
 
 void push_swap_f(t_stack *stack)
 {
 	int i;
-	int sorted[5];
+	int *sorted;
 
-	stack->ai = stack->cnt;
-	stack->bi = 0;
+	sorted = (int *)malloc(sizeof(int) * stack->cnt);
 	i = -1;
-	while (++i < stack->cnt)
+	while (++i < stack->ai)
 		sorted[i] = stack->a[i];
 	selec_sort(sorted, stack);
 	i = -1;
@@ -70,6 +71,8 @@ void push_swap_f(t_stack *stack)
 	i = -1;
 	while (++i < stack->cnt - 3)
 		push_a(stack);
+	free(sorted);
+	sorted = 0;
 }
 
 void find_and_push(t_stack *stack, int *sorted, int index)
