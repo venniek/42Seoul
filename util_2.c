@@ -67,8 +67,6 @@ int ft_exit(t_stack *stack, int i)
 		free(stack->sorted);
 		stack->sorted = 0;
 	}
-	if (stack->order != 0)
-		ft_free(stack->order, stack->sum);
 	if (i == 0)
 		exit(0);
 	if (i == 1)
@@ -76,10 +74,10 @@ int ft_exit(t_stack *stack, int i)
 	exit(1);
 }
 
-void add_order(t_stack *stack, char *str)
+void print_order(char *str)
 {
-	(stack->sum)++;
-	ft_stradd(stack, str);
+	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n', 1);
 }
 
 int selec_sort(t_stack *stack)

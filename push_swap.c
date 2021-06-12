@@ -21,8 +21,6 @@ void default_stack(t_stack *stack)
 	stack->ai = 0;
 	stack->bi = 0;
 	stack->div = 0;
-	stack->order = 0;
-	stack->sum = 0;
 }
 
 void make_stack(t_stack *stack, int argc, char *argv[])
@@ -46,8 +44,6 @@ void make_stack(t_stack *stack, int argc, char *argv[])
 	}
 	selec_sort(stack);
 	stack->ai = stack->cnt;
-	stack->order = (char **)malloc(sizeof(char *) * 1);
-	stack->order[0] = (char *)malloc(sizeof(char) * 5);
 }
 
 void push_swap(t_stack *stack)
@@ -83,23 +79,23 @@ void check_b(t_stack *stack)
 		if (--i < stack->bi / 2)
 		{
 			while (i-- >= 0)
-				rotate_b(stack);
+				do_order(stack, "rb");
 		}
 		else
 		{
 			while (++i < stack->bi)
-				reverse_b(stack);
+				do_order(stack, "rrb");
 		}	
 	}
 	else if (--i >= stack->bi / 2)
 	{
 		while (++i < stack->bi)
-			rotate_b(stack);
+			do_order(stack, "rb");
 	}
 	else
 	{
 		while (i-- >= 0)
-			reverse_b(stack);
+			do_order(stack, "rrb");
 	}
 }
 
@@ -117,10 +113,10 @@ void a_to_b(t_stack *stack)
 		if (stack->a[stack->ai - 1] < pivot)
 		{
 			check_b(stack);
-			push_b(stack);
+			do_order(stack, "pb");
 		}
 		else
-			rotate_a(stack);
+			do_order(stack, "ra");
 	}
 	stack->div++;
 }
@@ -135,14 +131,14 @@ void b_to_a(t_stack *stack)
 	if (i >= stack->bi / 2)
 	{
 		while (++i < stack->bi)
-			rotate_b(stack);
+			do_order(stack, "rb");
 	}
 	else
 	{
 		while (i-- >= 0)
-			reverse_b(stack);
+			do_order(stack, "rrb");
 	}
 	i = stack->bi;
 	while (stack->bi > 0)
-		push_a(stack);
+		do_order(stack, "pa");
 }

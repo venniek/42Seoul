@@ -25,7 +25,7 @@ void push_swap_special(t_stack *stack)
 void push_swap_two(t_stack *stack)
 {
 	if (stack->a[0] < stack->a[1])
-		swap_a(stack);
+		do_order(stack, "sa");
 }
 
 void push_swap_three(t_stack *stack)
@@ -33,20 +33,20 @@ void push_swap_three(t_stack *stack)
 	if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2])
 		return ;
 	else if (stack->a[0] > stack->a[2] && stack->a[2] > stack->a[1]) // 3, 1, 2
-		swap_a(stack);
+		do_order(stack, "sa");
 	else if (stack->a[1] > stack->a[0] && stack->a[0] > stack->a[2]) // 2, 3, 1
 	{
-		swap_a(stack);
-		rotate_a(stack);
+		do_order(stack, "sa");
+		do_order(stack, "ra");
 	}
 	else if (stack->a[1] > stack->a[2] && stack->a[2] > stack->a[0]) // 1, 3, 2
-		reverse_a(stack);
+		do_order(stack, "rra");
 	else if (stack->a[2] > stack->a[0] && stack->a[0] > stack->a[1]) // 2, 1, 3
-		rotate_a(stack);
+		do_order(stack, "ra");
 	else if (stack->a[2] > stack->a[1] && stack->a[2] > stack->a[0]) // 1, 2, 3
 	{
-		swap_a(stack);
-		reverse_a(stack);
+		do_order(stack, "sa");
+		do_order(stack, "rra");
 	}
 	else
 		ft_exit(stack, 1);
@@ -66,7 +66,7 @@ void push_swap_f(t_stack *stack)
 	push_swap_three(stack);
 	i = -1;
 	while (++i < repeat)
-		push_a(stack);
+		do_order(stack, "pa");
 }
 
 void find_and_push(t_stack *stack, int index, int tmp)
@@ -79,12 +79,12 @@ void find_and_push(t_stack *stack, int index, int tmp)
 	if (i >= stack->ai / 2)
 	{
 		while (++i < stack->ai)
-			rotate_a(stack);
+			do_order(stack, "ra");
 	}
 	else
 	{
 		while (i-- >= 0)
-			reverse_a(stack);
+			do_order(stack, "rra");
 	}
-	push_b(stack);
+	do_order(stack, "pb");
 }

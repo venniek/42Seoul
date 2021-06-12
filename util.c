@@ -60,35 +60,19 @@ long long ft_atoi(t_stack *stack, const char *str)
 	return (sign * atoi);
 }
 
-void ft_strcpy(char *dest, char *src)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	while (src[i] != '\0')
+	while (s1[i])
 	{
-		dest[i] = src[i];
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	dest[i] = '\0';
-}
-
-void ft_stradd(t_stack *stack, char *str)
-{
-	char			**new;
-	int i;
-
-	if (str == 0)
-		return ;
-	new = (char **)malloc(sizeof(char *) * stack->sum);
-	i = -1;
-	while (++i < stack->sum - 1)
-	{
-		new[i] = (char *)malloc(sizeof(char) * 5);
-		ft_strcpy(new[i], stack->order[i]);
-	}
-	new[i] = (char *)malloc(sizeof(char) * 5);
-	ft_strcpy(new[i], str);
-	ft_free(stack->order, stack->sum - 1);
-	stack->order = new;
+	if (s2[i] == '\0')
+		return (0);
+	else
+		return (-s2[i]);
 }
