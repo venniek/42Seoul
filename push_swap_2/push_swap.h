@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+
 typedef struct s_stack
 {
 	int cnt;
@@ -53,6 +54,7 @@ void find_and_push(t_stack *stack, int index, int tmp);
 void push_swap(t_stack *stack);
 void a_to_b(t_stack *stack);
 void b_to_a(t_stack *stack);
+void check_a(t_stack *stack);
 
 void default_stack(t_stack *stack);
 void make_stack(t_stack *stack, int argc, char *argv[]);

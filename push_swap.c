@@ -49,12 +49,15 @@ void make_stack(t_stack *stack, int argc, char *argv[])
 void push_swap(t_stack *stack)
 {
 	while (stack->ai > 5)
+	{
+		stack->div = 2;
+		while (stack->ai / stack->div > 10)
+			stack->div++;
 		a_to_b(stack);
+	}
 	push_swap_special(stack);
 	while (stack->bi > 0)
 		b_to_a(stack);
-	free(stack->b);
-	stack->b = 0;
 }
 
 void check_b(t_stack *stack)
@@ -104,11 +107,13 @@ void a_to_b(t_stack *stack)
 	int pivot;
 	int tmp;
 	int i;
+	int d;
 
 	tmp = stack->ai;
-	pivot = stack->sorted[stack->cnt - (tmp + 1) / 2];
+	d = stack->div;
+	pivot = stack->sorted[stack->cnt - tmp / d * (d - 1)];
 	i = -1;
-	while (i++ < tmp && stack->ai >= tmp / 2 + 1)
+	while (i++ < tmp && stack->ai >= tmp / d * (d - 1))
 	{
 		if (stack->a[stack->ai - 1] < pivot)
 		{
@@ -118,7 +123,6 @@ void a_to_b(t_stack *stack)
 		else
 			do_order(stack, "ra");
 	}
-	stack->div++;
 }
 
 void b_to_a(t_stack *stack)

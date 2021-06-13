@@ -54,7 +54,7 @@ void push_swap(t_stack *stack)
 	while (stack->bi > 0)
 		b_to_a(stack);
 }
-/*
+
 void check_b(t_stack *stack)
 {
 	int i;
@@ -96,10 +96,47 @@ void check_b(t_stack *stack)
 			do_order(stack, "rrb");
 	}
 }
-*/
-void check_b(t_stack *stack)
-{
 
+void check_a(t_stack *stack)
+{
+	int i;
+	int tmp;
+
+	if (stack->ai <= 1)
+		return ;
+	tmp = stack->b[stack->bi - 1];
+	i = stack->ai - 1;
+	if (tmp > stack->a[0] && tmp < stack->a[i])
+		return ;
+	while (i > 0 && !(tmp > stack->b[i] && tmp < stack->b[i - 1]))
+		i--;
+	if (i == 0)
+	{
+		while (i++ < stack->ai && stack->a[stack->ai - i] < stack->a[stack->ai - i - 1])
+			;
+		if (i == stack->ai)
+			return ;
+		if (--i < stack->ai / 2)
+		{
+			while (i-- >= 0)
+				do_order(stack, "ra");
+		}
+		else
+		{
+			while (++i < stack->ai)
+				do_order(stack, "rra");
+		}	
+	}
+	else if (--i >= stack->ai / 2)
+	{
+		while (++i < stack->ai)
+			do_order(stack, "ra");
+	}
+	else
+	{
+		while (i-- >= 0)
+			do_order(stack, "rra");
+	}
 }
 
 
@@ -119,6 +156,7 @@ void a_to_b(t_stack *stack)
 		int t = stack->a[stack->ai - 1];
 		if (t < pivot2)
 		{
+			check_b(stack);
 			do_order(stack, "pb");
 			if (t < pivot1)
 			{
@@ -132,29 +170,14 @@ void a_to_b(t_stack *stack)
 			do_order(stack, "ra");
 	}
 	i = -1;
-	while (stack->b[stack->bi - 1] != stack->sorted[0])
-		do_order(stack, "rrb");
+	while (stack->b[stack->bi - 1] >= pivot1)
+		do_order(stack, "rb");
 	stack->div++;
 }
 
 void b_to_a(t_stack *stack)
 {
-	int i;
-
-	i = stack->bi - 1;
-	while (stack->b[i] != stack->sorted[stack->cnt - stack->ai - 1])
-			i--;
-	if (i >= stack->bi / 2)
-	{
-		while (++i < stack->bi)
-			do_order(stack, "rb");
-	}
-	else
-	{
-		while (i-- >= 0)
-			do_order(stack, "rrb");
-	}
-	i = stack->bi;
-	while (stack->bi > 0)
-		do_order(stack, "pa");
+	do_order(stack, "rrb");
+	check_a(stack);
+	do_order(stack, "pa");
 }
