@@ -89,25 +89,25 @@ void reverse(t_stack *stack, char c)
 
 void do_order(t_stack *stack, char *str)
 {
-	if (ft_strcmp(str, "pa") == 0 || ft_strcmp(str, "pb") == 0)
+	if (ft_strcmp(str, "pa\n") == 0 || ft_strcmp(str, "pb\n") == 0)
 		push(stack, str[1]);
-	else if (ft_strcmp(str, "sa") == 0 || ft_strcmp(str, "sb") == 0)
+	else if (ft_strcmp(str, "sa\n") == 0 || ft_strcmp(str, "sb\n") == 0)
 		swap(stack, str[1]);
-	else if (ft_strcmp(str, "ss") == 0)
+	else if (ft_strcmp(str, "ss\n") == 0)
 	{
 		swap(stack, 'a');
 		swap(stack, 'b');
 	}
-	else if (ft_strcmp(str, "ra") == 0 || ft_strcmp(str, "rb") == 0)
+	else if (ft_strcmp(str, "ra\n") == 0 || ft_strcmp(str, "rb\n") == 0)
 		rotate(stack, str[1]);
-	else if (ft_strcmp(str, "rr") == 0)
+	else if (ft_strcmp(str, "rr\n") == 0)
 	{
 		rotate(stack, 'a');
 		rotate(stack, 'b');
 	}
-	else if (ft_strcmp(str, "rra") == 0 || ft_strcmp(str, "rrb") == 0)
+	else if (ft_strcmp(str, "rra\n") == 0 || ft_strcmp(str, "rrb\n") == 0)
 		reverse(stack, str[2]);
-	else if (ft_strcmp(str, "rrr") == 0)
+	else if (ft_strcmp(str, "rrr\n") == 0)
 	{
 		reverse(stack, 'a');
 		reverse(stack, 'b');

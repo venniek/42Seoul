@@ -12,6 +12,14 @@
 
 #include "push_swap.h"
 
+int ft_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
 int ft_pow(int a, int b)
 {
 	int ans;
@@ -77,7 +85,6 @@ int ft_exit(t_stack *stack, int i)
 void print_order(char *str)
 {
 	ft_putstr_fd(str, 1);
-	ft_putchar_fd('\n', 1);
 }
 
 int selec_sort(t_stack *stack)
@@ -108,4 +115,27 @@ int selec_sort(t_stack *stack)
 		}
 	}
 	return (stack->sorted[stack->cnt / 2]);
+}
+
+void sort_sort(int *sort, int len)
+{
+	int i;
+	int k;
+	int min;
+	int tmp;
+
+	i = -1;
+	while (++i < len - 1)
+	{
+		min = i;
+		k = i;
+		while (++k < len)
+		{
+			if (sort[min] > sort[k])
+				min = k;
+		}
+		tmp = sort[min];
+		sort[min] = sort[i];
+		sort[i] = tmp;
+	}
 }
