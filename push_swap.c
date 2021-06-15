@@ -20,7 +20,7 @@ void default_stack(t_stack *stack)
 	stack->sorted = 0;
 	stack->ai = 0;
 	stack->bi = 0;
-	stack->div = 1;
+	stack->div = 2;
 }
 
 void make_stack(t_stack *stack, int argc, char *argv[])
@@ -52,25 +52,23 @@ void push_swap(t_stack *stack)
 	{
 		if (stack->ai <= 30)
 			stack->div = 2;
-		else if (stack->ai <= 50)
-			stack->div = 3;
-		else if (stack->ai <= 60)
-			stack->div = 3;
-		else if (stack->ai <= 70)
-			stack->div = 3;
 		else if (stack->ai <= 80)
 			stack->div = 3;
-		else if (stack->ai <= 100)
-			stack->div = 2;
 		else 
 		{
-			while (stack->ai / stack->div >= 10)
+			while (stack->ai / stack->div >= 30)
 				stack->div++;
 		}
 		a_to_b(stack);
+		sort_b(stack);
 	}
 	push_swap_special(stack);
 	b_to_a(stack);
+}
+
+void sort_b(t_stack *stack)
+{
+	//b 젤 위가 젤 큰 수가 되게 하기
 }
 
 void check_b(t_stack *stack)
@@ -95,23 +93,23 @@ void check_b(t_stack *stack)
 		if (--i < stack->bi / 2)
 		{
 			while (i-- >= 0)
-				do_order(stack, "rb");
+				do_order(stack, "rb\n");
 		}
 		else
 		{
 			while (++i < stack->bi)
-				do_order(stack, "rrb");
+				do_order(stack, "rrb\n");
 		}	
 	}
 	else if (--i >= stack->bi / 2)
 	{
 		while (++i < stack->bi)
-			do_order(stack, "rb");
+			do_order(stack, "rb\n");
 	}
 	else
 	{
 		while (i-- >= 0)
-			do_order(stack, "rrb");
+			do_order(stack, "rrb\n");
 	}
 }
 ///new
@@ -140,39 +138,41 @@ void a_to_b(t_stack *stack)
 		if (stack->ai - 1 - first <= last + 1)
 		{
 			while (++first < stack-> ai)
-				do_order(stack, "ra");
+				do_order(stack, "ra\n");
 		}
 		else
 		{
 			while (last-- >= 0)
-				do_order(stack, "rra");
+				do_order(stack, "rra\n");
 		}
 		check_b(stack);
-		do_order(stack, "pb");
+		do_order(stack, "pb\n");
 	}
 }
 */
 
 void a_to_b(t_stack *stack)
 {
-	int pivot;
+	int pivot1;
+	int pivot2;
 	int tmp;
 	int i;
 	int d;
 
 	tmp = stack->ai;
 	d = stack->div;
-	pivot = stack->sorted[stack->cnt - tmp / d * (d - 1)];
+	pivot1 = stack->sorted[stack->cnt - tmp / d * (d - 1)];
+	pivot2 = stack->sorted[stack->cnt - tmp / d * ft_max(1, (d - 2))];
 	i = -1;
 	while (i++ < tmp && stack->ai >= tmp / d * (d - 1))
 	{
-		if (stack->a[stack->ai - 1] < pivot)
+		if (stack->a[stack->ai - 1] < pivot1)
 		{
 			check_b(stack);
-			do_order(stack, "pb");
+			do_order(stack, "pb\n");
 		}
 		else
-			do_order(stack, "ra");
+			do_order(stack, "ra\n");
 	}
 }
 
@@ -186,14 +186,13 @@ void b_to_a(t_stack *stack)
 	if (i >= stack->bi / 2)
 	{
 		while (++i < stack->bi)
-			do_order(stack, "rb");
+			do_order(stack, "rb\n");
 	}
 	else
 	{
 		while (i-- >= 0)
-			do_order(stack, "rrb");
+			do_order(stack, "rrb\n");
 	}
-	i = stack->bi;
 	while (stack->bi > 0)
-		do_order(stack, "pa");
+		do_order(stack, "pa\n");
 }
