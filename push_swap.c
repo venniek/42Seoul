@@ -68,7 +68,21 @@ void push_swap(t_stack *stack)
 
 void sort_b(t_stack *stack)
 {
-	//b 젤 위가 젤 큰 수가 되게 하기
+	int i;
+
+	i = 0;
+	while (stack->b[stack->bi - 1] != stack->sorted[stack->cnt - stack->ai - 1])
+		i++;
+	if (i >= stack->bi / 2)
+	{
+		while (i-- > 0)
+			do_order(stack, "rb\n");
+	}
+	else
+	{
+		while (i-- > 0)
+			do_order(stack, "rrb\n");
+	}
 }
 
 void check_b(t_stack *stack)
@@ -162,7 +176,6 @@ void a_to_b(t_stack *stack)
 	tmp = stack->ai;
 	d = stack->div;
 	pivot1 = stack->sorted[stack->cnt - tmp / d * (d - 1)];
-	pivot2 = stack->sorted[stack->cnt - tmp / d * ft_max(1, (d - 2))];
 	i = -1;
 	while (i++ < tmp && stack->ai >= tmp / d * (d - 1))
 	{
