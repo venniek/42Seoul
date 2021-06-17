@@ -10,6 +10,7 @@ void default_stack(t_stack *stack)
 	stack->ai = 0;
 	stack->bi = 0;
 	stack->div = 2;
+	stack->sum = 0;
 }
 
 void make_stack(t_stack *stack, int argc, char *argv[])
@@ -49,10 +50,14 @@ void push_swap(t_stack *stack)
 				stack->div = 3;
 			else
 			{
-				while (stack->ai / stack->div >= 60)
+				while (stack->ai / stack->div >= 85)
 					stack->div++;
 			}
-			a_to_b_under100(stack);
+			if (stack->div >= 4)
+				a_to_b_find(stack);
+			else
+				a_to_b_under100(stack);
+	//		printf("after a_to_b: %d\n", stack->sum);
 		//}
 /*		else
 		{
@@ -67,12 +72,16 @@ void push_swap(t_stack *stack)
 		}
 */
 	}
+	
 	push_swap_special(stack);
+//	printf("after _special: %d\n", stack->sum);
+	b_to_a(stack);
+//	printf("after b_to_a: %d\n", stack->sum);
 	while (stack->bi > 0)
 	{
-		b_to_a(stack);
 		do_order(stack, "pa\n");
 	}
+//	printf("final: %d\n", stack->sum);
 }
 
 

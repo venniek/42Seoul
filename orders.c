@@ -112,5 +112,5 @@ void do_order(t_stack *stack, char *str)
 		reverse(stack, 'a');
 		reverse(stack, 'b');
 	}
-	print_order(str);
+	print_order(stack, str);
 }

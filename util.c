@@ -76,3 +76,10 @@ int	ft_strcmp(const char *s1, const char *s2)
 	else
 		return (-s2[i]);
 }
+
+int ft_abs(int a)
+{
+	if (a < 0)
+		return (-1 * a);
+	return (a);
+}

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-/*
+// 전부 쭉 돌면서 피봇보다 작은거 b중 가운데에 넣기 크면 돌리기
 void a_to_b_under100(t_stack *stack)
 {
 	int pivot1;
@@ -22,8 +22,10 @@ void a_to_b_under100(t_stack *stack)
 		else
 			do_order(stack, "ra\n");
 	}
-}*/
-void a_to_b_under100(t_stack *stack)
+}
+
+//피봇 안에 들어오는거 청크 나눠서 그 사이에 있는거 위아래로 찾아서 가까운 쪽으로 돌려서 보내기
+void a_to_b_find(t_stack *stack)
 {
 	int pivot;
 	int first;
@@ -58,7 +60,9 @@ void a_to_b_under100(t_stack *stack)
 		do_order(stack, "pb\n");
 	}
 }
-void check_b_under100(t_stack *stack)
+
+//가운데 넣기 위해 작은 수를 맨 위로 올리기
+void check_b(t_stack *stack)
 {
 	int i;
 	int tmp;
@@ -100,6 +104,7 @@ void check_b_under100(t_stack *stack)
 	}
 }
 
+// b의 최대값 제일 위로 올리기
 void b_to_a_under100(t_stack *stack)
 {
 	int i;

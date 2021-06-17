@@ -24,7 +24,7 @@ void push_swap_special(t_stack *stack)
 
 void push_swap_two(t_stack *stack)
 {
-	if (stack->a[0] < stack->a[1])
+	if (stack->a[stack->ai - 1] < stack->a[stack->ai - 2])
 		do_order(stack, "sa\n");
 }
 
