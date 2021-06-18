@@ -14,6 +14,7 @@ void default_stack(t_stack *stack)
 	stack->now = 0;
 	stack->start = 0;
 	stack->end = 0;
+	stack->total = 0;
 }
 
 void make_stack(t_stack *stack, int argc, char *argv[])
@@ -33,6 +34,7 @@ void make_stack(t_stack *stack, int argc, char *argv[])
 			ft_exit(stack, 1);
 		stack->a[argc - i - 1] = tmp;
 		stack->sorted[argc - i - 1] = tmp;
+	
 		i++;
 	}
 	selec_sort(stack);
@@ -47,6 +49,8 @@ void push_swap(t_stack *stack)
 	while (stack->now != stack->cnt)
 	{
 		a_to_b(stack);
+		stack->start = stack->now;
+		stack->end = stack->now + stack->bi - 1;
 		while (stack->bi > 0)
 		{	
 			if (b_to_a(stack) == 1)
@@ -58,8 +62,8 @@ void push_swap(t_stack *stack)
 			}
 		}
 		stack->div--;
+		sort_a(stack);
 	}
-	sort_a(stack);
 }
 
 void sort_a(t_stack *stack)
@@ -67,9 +71,9 @@ void sort_a(t_stack *stack)
 	int i;
 
 	i = 0;
-	if (stack->a[0] == stack->sorted[stack->now])
+	if (stack->a[0] == stack->sorted[stack->now - 1])
 		return ;
-	while (stack->a[i] == stack->sorted[stack->now - 1])
+	while (stack->a[i] != stack->sorted[stack->now - 1])
 		i++;
 	if (i > stack->ai / 2)
 	{
@@ -80,8 +84,7 @@ void sort_a(t_stack *stack)
 	{
 		while (i-- > 0)
 			do_order(stack, "rra\n");
-	}	
-
+	}
 }
 
 void a_to_b(t_stack *stack)
@@ -98,17 +101,30 @@ void a_to_b(t_stack *stack)
 		pivot = stack->sorted[stack->cnt - 1] + 1;
 	else
 		pivot = stack->sorted[stack->cnt - tmp / d * (d - 1)];
-	while (++i <= tmp)
+	while (++i < tmp && stack->bi < stack->cnt / stack->sum)
 	{
 		if (stack->now != 0 && stack->a[stack->ai - 1] == stack->sorted[0])
 			break;
-		if (stack->a[stack->ai - 1] < pivot && stack->a[stack->ai - 1] >= stack->sorted[stack->now])
+		if (stack->now == 0)
 		{
-			check_b(stack);
-			do_order(stack, "pb\n");
+			if (stack->a[stack->ai - 1] < pivot)
+			{
+				check_b(stack);
+				do_order(stack, "pb\n");
+			}
+			else
+				do_order(stack, "ra\n");
 		}
 		else
-			do_order(stack, "ra\n");
+		{
+			if (stack->a[stack->ai - 1] < pivot && stack->a[stack->ai - 1] > stack->sorted[stack->now - 1])
+			{
+				check_b(stack);
+				do_order(stack, "pb\n");
+			}
+			else
+				do_order(stack, "ra\n");
+		}
 	}
 }
 
@@ -134,12 +150,12 @@ int b_to_a(t_stack *stack)
 
 	smalli = 0;
 	bigi = 0;
-	stack->end = stack->bi - 1;
+
 	small = stack->sorted[stack->start];
-	big = stack->sorted[stack->end--];
+	big = stack->sorted[stack->end];
 	while (bigi < stack->bi - 1 && stack->b[bigi] != big)
 		bigi++;
-	while (smalli < stack->bi - 1 && stack->b[smalli] != big)
+	while (smalli < stack->bi - 1 && stack->b[smalli] != small)
 		smalli++;
 	stack->now++;
 	if (ft_abs(bigi - stack->bi / 2) >= ft_abs(smalli - stack->bi / 2))
@@ -154,7 +170,6 @@ int b_to_a(t_stack *stack)
 		stack->start++;
 		return (2);
 	}
-	
 }
 
 void rotate_b(t_stack *stack, int i)

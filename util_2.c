@@ -92,6 +92,7 @@ void print_order(t_stack *stack, char *str)
 	for (int i = 0; i < stack->bi; i++)
 		printf("%3d ", stack->b[i]);
 	printf("\n");
+	stack->total++;
 }
 
 int selec_sort(t_stack *stack)

@@ -17,6 +17,6 @@ int main(int argc, char *argv[])
 		printf("%3d ", stack.b[i]);
 	printf("\n");*/
 	push_swap(&stack);
-//	printf("%d", stack.sum);
+	printf("%d", stack.total);
 	return (ft_exit(&stack, 0));
 }

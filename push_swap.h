@@ -30,6 +30,7 @@ typedef struct s_stack
 	int now;
 	int start;
 	int end;
+	int total;
 } t_stack;
 
 long long ft_atoi(t_stack *stack, const char *str);
