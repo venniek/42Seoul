@@ -75,6 +75,11 @@ int ft_exit(t_stack *stack, int i)
 		free(stack->sorted);
 		stack->sorted = 0;
 	}
+	if (stack->pivot != 0)
+	{
+		free(stack->pivot);
+		stack->pivot = 0;
+	}
 	if (i == 0)
 		exit(0);
 	if (i == 1)
@@ -84,15 +89,9 @@ int ft_exit(t_stack *stack, int i)
 
 void print_order(t_stack *stack, char *str)
 {
+	int i;
 	ft_putstr_fd(str, 1);
-	printf("\na: ");
-	for (int i = 0; i < stack->ai; i++)
-		printf("%3d ", stack->a[i]);
-	printf("\nb: ");
-	for (int i = 0; i < stack->bi; i++)
-		printf("%3d ", stack->b[i]);
-	printf("\n");
-	stack->total++;
+	i = stack->cnt;
 }
 
 int selec_sort(t_stack *stack)
