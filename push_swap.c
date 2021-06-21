@@ -51,7 +51,6 @@ void push_swap(t_stack *stack)
 	int pivot;
 	int tmp;
 	int i;
-	int pivot2;
 
 	i = -1;
 	tmp = stack->cnt;
@@ -61,13 +60,12 @@ void push_swap(t_stack *stack)
 		return;
 	}
 	pivot = stack->sorted[tmp / 2];
-	pivot2 = stack->sorted[tmp / 2 / 2];
 	while (++i < tmp && stack->ai > tmp - (tmp + 1) / 2)
 	{
 		if (stack->a[stack->ai - 1] < pivot)
 		{
 			do_order(stack, "pb\n");
-			check_b(stack, pivot2);
+	//		check_b(stack, pivot2);
 		}
 		else
 			do_order(stack, "ra\n");
@@ -79,13 +77,12 @@ void push_swap(t_stack *stack)
 //	printf("after b_to_a\n");
 //	print_stack(stack);
 	i = -1;
-	pivot2 = stack->sorted[tmp / 4 * 3];
 	while (++i < tmp && stack->ai > tmp / 2)
 	{
 		if (stack->a[stack->ai - 1] >= pivot)
 		{
 			do_order(stack, "pb\n");
-			check_b(stack, pivot2);
+	//		check_b(stack, pivot2);
 		}
 		else
 			do_order(stack, "ra\n");
@@ -102,16 +99,16 @@ void sort_a(t_stack *stack)
 	int i;
 
 	i = 0;
-	while (stack->a[i] != stack->sorted[0])
+	while (stack->a[i] != stack->sorted[stack->now - 1])
 		i++;
 	if (i >= stack->ai / 2)
 	{
-		while (++i < stack->ai)
+		while (++i <= stack->ai)
 			do_order(stack, "ra\n");
 	}
 	else
 	{
-		while (i-- >= 0)
+		while (i-- > 0)
 			do_order(stack, "rra\n");
 	}
 }
@@ -241,8 +238,6 @@ void b_to_a(t_stack *stack)
 	if (tmp <= 3)
 	{
 		push_swap_special_b(stack);
-//		printf("after special_b\n");
-//		print_stack(stack);
 		return ;
 	}
 	new_sort = (int *)malloc(sizeof(int) * tmp);
@@ -257,14 +252,10 @@ void b_to_a(t_stack *stack)
 		if (stack->b[stack->bi - 1] < pivot)
 		{
 			check_a(stack);
-//			printf("after check_a\n");
-//			print_stack(stack);
 			do_order(stack, "pa\n");
 			stack->now++;
 		}
 		else
 			do_order(stack, "rb\n");
 	}
-//	printf("after b_to_a\n");
-//	print_stack(stack);
 }

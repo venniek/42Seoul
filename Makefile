@@ -18,6 +18,7 @@ RM = rm -f
 NAME = push_swap
 SRCS = main.c\
 		push_swap.c\
+		push_swap_500.c\
 		push_swap_special.c\
 		orders.c\
 		util.c\

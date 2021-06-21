@@ -9,7 +9,10 @@ int main(int argc, char *argv[])
 		ft_exit(&stack, 2);
 	argc--;
 	make_stack(&stack, argc, argv);
-	push_swap(&stack);
+	if (stack.cnt >= 300)
+		push_swap_500(&stack);
+	else
+		push_swap(&stack);
 //	printf("final\n");
 //	print_stack(&stack);
 	return (ft_exit(&stack, 0));

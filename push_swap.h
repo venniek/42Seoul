@@ -53,6 +53,7 @@ void push_swap_two(t_stack *stack);
 void push_swap_three(t_stack *stack);
 void push_swap_f(t_stack *stack);
 void push_swap_special_b(t_stack *stack);
+void push_swap_500(t_stack *stack);
 
 void find_and_push(t_stack *stack, int index, int tmp);
 void push_swap(t_stack *stack);
@@ -60,7 +61,9 @@ void a_to_b(t_stack *stack);
 void a_to_b_under100(t_stack *stack);
 void b_to_a(t_stack *stack);
 void b_to_a_under100(t_stack *stack);
+void b_to_a_500(t_stack *stack);
 void check_a(t_stack *stack);
+void check_a_500(t_stack *stack);
 void check_b(t_stack *stack, int pivot2);
 void check_b_under100(t_stack *stack);
 void sort_b(t_stack *stack);
