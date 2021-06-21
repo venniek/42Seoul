@@ -25,8 +25,7 @@ typedef struct s_stack
 	int *sorted;
 	int ai;
 	int bi;
-	int start;
-	int end;
+	int now;
 } t_stack;
 
 long long ft_atoi(t_stack *stack, const char *str);
@@ -41,6 +40,7 @@ int is_ascending(t_stack *stack);
 int	ft_exit(t_stack *stack, int i);
 void ft_free(char **str, int cnt);
 void print_order(t_stack *stack, char *str);
+void print_stack(t_stack *stack);
 
 void swap(t_stack *stack, char c);
 void push(t_stack *stack, char c);
@@ -52,14 +52,16 @@ void push_swap_special(t_stack *stack);
 void push_swap_two(t_stack *stack);
 void push_swap_three(t_stack *stack);
 void push_swap_f(t_stack *stack);
+void push_swap_special_b(t_stack *stack);
 
 void find_and_push(t_stack *stack, int index, int tmp);
 void push_swap(t_stack *stack);
 void a_to_b(t_stack *stack);
 void a_to_b_under100(t_stack *stack);
-int b_to_a(t_stack *stack);
+void b_to_a(t_stack *stack);
 void b_to_a_under100(t_stack *stack);
-void check_b(t_stack *stack);
+void check_a(t_stack *stack);
+void check_b(t_stack *stack, int pivot2);
 void check_b_under100(t_stack *stack);
 void sort_b(t_stack *stack);
 void sort_a(t_stack *stack);

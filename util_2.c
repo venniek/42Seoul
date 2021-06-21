@@ -75,11 +75,6 @@ int ft_exit(t_stack *stack, int i)
 		free(stack->sorted);
 		stack->sorted = 0;
 	}
-	if (stack->pivot != 0)
-	{
-		free(stack->pivot);
-		stack->pivot = 0;
-	}
 	if (i == 0)
 		exit(0);
 	if (i == 1)

@@ -88,3 +88,36 @@ void find_and_push(t_stack *stack, int index, int tmp)
 	}
 	do_order(stack, "pb\n");
 }
+
+void push_swap_special_b(t_stack *stack)
+{
+	if (stack->b[0] < stack->b[1] && stack->b[1] < stack->b[2])  // 1, 2, 3
+		;
+	else if (stack->b[0] > stack->b[2] && stack->b[2] > stack->b[1]) // 3, 1, 2
+		do_order(stack, "rrb\n");
+	else if (stack->b[1] > stack->b[0] && stack->b[0] > stack->b[2]) // 2, 3, 1
+		do_order(stack, "rb\n");
+	else if (stack->b[1] > stack->b[2] && stack->b[2] > stack->b[0]) // 1, 3, 2
+		do_order(stack, "sb\n");
+	else if (stack->b[2] > stack->b[0] && stack->b[0] > stack->b[1]) // 2, 1, 3
+	{	
+		do_order(stack, "sb\n");
+		do_order(stack, "rb\n");
+	}
+	else if (stack->b[2] < stack->b[1] && stack->b[1] < stack->b[0]) // 3, 2, 1
+	{
+		do_order(stack, "sb\n");
+		do_order(stack, "rrb\n");
+	}
+	else
+		ft_exit(stack, 1);
+	int i;
+	i = -1;
+	while (++i < 3)
+	{
+		check_a(stack);
+		do_order(stack, "pa\n");
+		stack->now++;
+	}
+
+}
