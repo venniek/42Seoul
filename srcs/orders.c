@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   orders.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 17:28:08 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 17:29:35 by naykim           ###   ########.fr       */
+/*   Created: 2021/06/22 19:56:33 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/22 19:56:35 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,24 +124,4 @@ void	do_order(t_stack *stack, char *str)
 		ft_putstr_fd(stack->last, 1);
 		stack->last = ft_strdup(str);
 	}
-}
-
-int merge_order(t_stack *stack, char *str)
-{
-	char *s;
-
-	s = ft_strdup(stack->last);
-	if (ft_strcmp(s, "sa\n") == 0 && ft_strcmp(str, "sb\n") == 0)
-		return (1);
-	if (ft_strcmp(s, "sb\n") == 0 && ft_strcmp(str, "sa\n") == 0)
-		return (1);
-	if (ft_strcmp(s, "ra\n") == 0 && ft_strcmp(str, "rb\n") == 0)
-		return (1);
-	if (ft_strcmp(s, "rb\n") == 0 && ft_strcmp(str, "ra\n") == 0)
-		return (1);
-	if (ft_strcmp(s, "rra\n") == 0 && ft_strcmp(str, "rrb\n") == 0)
-		return (1);
-	if (ft_strcmp(s, "rrb\n") == 0 && ft_strcmp(str, "rra\n") == 0)
-		return (1);
-	return (0);
 }

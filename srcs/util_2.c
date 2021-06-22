@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/10 12:50:23 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 17:37:32 by naykim           ###   ########.fr       */
+/*   Created: 2021/06/22 19:53:36 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/22 19:53:44 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_exit(t_stack *stack, int i)
 	exit(1);
 }
 
-void ft_intfree(int *num)
+void	ft_intfree(int *num)
 {
 	free(num);
 	num = 0;
@@ -63,46 +63,22 @@ void	sort_sort(int *sort, int len)
 	}
 }
 
-char		*ft_strdup(char *s)
+int		merge_order(t_stack *stack, char *str)
 {
-	char	*dst;
-	size_t	i;
+	char *s;
 
-	i = ft_strlen(s);
-	if (!(dst = (char *)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		dst[i] = s[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-int		ft_strlen(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
-
-int		ft_strchr(const char *str, int a)
-{
-	int		i;
-	char	*s;
-
-	i = 0;
-	s = (char *)str;
-	while (i < ft_strlen(str) + 1)
-	{
-		if (s[i] == a)
-			return (1);
-		i++;
-	}
+	s = ft_strdup(stack->last);
+	if (ft_strcmp(s, "sa\n") == 0 && ft_strcmp(str, "sb\n") == 0)
+		return (1);
+	if (ft_strcmp(s, "sb\n") == 0 && ft_strcmp(str, "sa\n") == 0)
+		return (1);
+	if (ft_strcmp(s, "ra\n") == 0 && ft_strcmp(str, "rb\n") == 0)
+		return (1);
+	if (ft_strcmp(s, "rb\n") == 0 && ft_strcmp(str, "ra\n") == 0)
+		return (1);
+	if (ft_strcmp(s, "rra\n") == 0 && ft_strcmp(str, "rrb\n") == 0)
+		return (1);
+	if (ft_strcmp(s, "rrb\n") == 0 && ft_strcmp(str, "rra\n") == 0)
+		return (1);
 	return (0);
 }

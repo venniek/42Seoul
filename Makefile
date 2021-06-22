@@ -23,7 +23,8 @@ SRCS = srcs/main.c\
 		srcs/push_back_under3.c\
 		srcs/orders.c\
 		srcs/util_1.c\
-		srcs/util_2.c
+		srcs/util_2.c\
+		srcs/util_str.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/10 12:50:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 17:36:49 by naykim           ###   ########.fr       */
+/*   Created: 2021/06/22 19:57:02 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/22 19:57:04 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,4 @@ long long	ft_atoi(t_stack *stack, const char *str)
 		i++;
 	}
 	return (sign * atoi);
-}
-
-int			ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i])
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	if (s2[i] == '\0')
-		return (0);
-	else
-		return (-s2[i]);
 }

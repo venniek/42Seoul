@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:19:58 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 18:20:40 by naykim           ###   ########.fr       */
+/*   Created: 2021/06/22 19:54:29 by naykim            #+#    #+#             */
+/*   Updated: 2021/06/22 19:54:45 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-int		find_pivot(t_stack *stack)
-{
-	int	*new_sort;
-	int	i;
-	int	tmp;
-
-	tmp = stack->bi;
-	new_sort = (int *)malloc(sizeof(int) * tmp);
-	i = -1;
-	while (++i < tmp)
-		new_sort[i] = stack->b[i];
-	sort_sort(new_sort, tmp);
-	tmp = new_sort[(tmp + 1) / 2];
-	free(new_sort);
-	new_sort = 0;
-	return (tmp);
-}
 
 void	sort_a(t_stack *stack)
 {
@@ -105,4 +87,22 @@ void	rotate_a(t_stack *stack, int i)
 		while (i-- >= 0)
 			do_order(stack, "rra\n");
 	}
+}
+
+int		find_pivot(t_stack *stack)
+{
+	int	*new_sort;
+	int	i;
+	int	tmp;
+
+	tmp = stack->bi;
+	new_sort = (int *)malloc(sizeof(int) * tmp);
+	i = -1;
+	while (++i < tmp)
+		new_sort[i] = stack->b[i];
+	sort_sort(new_sort, tmp);
+	tmp = new_sort[(tmp + 1) / 2];
+	free(new_sort);
+	new_sort = 0;
+	return (tmp);
 }
