@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:55:26 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 19:55:29 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/22 20:12:20 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	make_stack(t_stack *stack, int argc, char *argv[])
 	make_div(stack);
 	stack->ai = stack->cnt;
 	stack->pivot = (int *)malloc(sizeof(int) * stack->div);
-	stack->last = (char *)malloc(sizeof(char) * 4);
-	stack->last = ft_strdup("");
+	stack->last = (char *)malloc(sizeof(char) * 5);
 }
 
 void	make_div(t_stack *stack)
@@ -90,6 +89,8 @@ void	selec_sort(t_stack *stack)
 		if (i > 0 && stack->sorted[i] == stack->sorted[i - 1])
 			ft_exit(stack, 1);
 	}
+	if (stack->sorted[stack->cnt - 1] == stack->sorted[stack->cnt - 2])
+		ft_exit(stack, 1);
 }
 
 int		main(int argc, char *argv[])
@@ -97,14 +98,17 @@ int		main(int argc, char *argv[])
 	t_stack stack;
 
 	default_stack(&stack);
-	if (argc <= 2)
+	if (argc <= 1)
 		ft_exit(&stack, 0);
 	argc--;
 	make_stack(&stack, argc, argv);
+	if (stack.cnt == 1)
+		ft_exit(&stack, 0);
 	if (stack.cnt <= 5)
 		push_swap_under5(&stack);
 	else
 		push_swap(&stack);
 	ft_putstr_fd(stack.last, 1);
+	ft_strfree(stack.last);
 	return (ft_exit(&stack, 0));
 }

@@ -36,6 +36,7 @@ void			ft_putchar_fd(char c, int fd);
 
 int				ft_exit(t_stack *stack, int i);
 void			ft_intfree(int *num);
+void			ft_strfree(char *str);
 void			sort_sort(int *sort, int len);
 int				merge_order(t_stack *stack, char *str);
 

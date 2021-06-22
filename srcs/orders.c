@@ -112,6 +112,7 @@ void	do_order(t_stack *stack, char *str)
 		reverse(stack, str[2]);
 	if (merge_order(stack, str))
 	{
+		ft_strfree(stack->last);
 		if (str[0] == 's')
 			stack->last = ft_strdup("ss\n");
 		else if (str[0] == 'r' && str[1] != 'r')
@@ -122,6 +123,7 @@ void	do_order(t_stack *stack, char *str)
 	else
 	{
 		ft_putstr_fd(stack->last, 1);
+		ft_strfree(stack->last);
 		stack->last = ft_strdup(str);
 	}
 }

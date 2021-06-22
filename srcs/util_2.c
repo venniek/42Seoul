@@ -23,10 +23,7 @@ int		ft_exit(t_stack *stack, int i)
 	if (stack->pivot != 0)
 		ft_intfree(stack->pivot);
 	if (stack->last != 0)
-	{
-		free(stack->last);
-		stack->last = 0;
-	}
+		ft_strfree(stack->last);
 	if (i == 0)
 		exit(0);
 	if (i == 1)
@@ -36,8 +33,18 @@ int		ft_exit(t_stack *stack, int i)
 
 void	ft_intfree(int *num)
 {
+	if (num == 0)
+		return ;
 	free(num);
 	num = 0;
+}
+
+void	ft_strfree(char *str)
+{
+	if (str == 0)
+		return ;
+	free(str);
+	str = 0;
 }
 
 void	sort_sort(int *sort, int len)
@@ -65,20 +72,19 @@ void	sort_sort(int *sort, int len)
 
 int		merge_order(t_stack *stack, char *str)
 {
-	char *s;
-
-	s = ft_strdup(stack->last);
-	if (ft_strcmp(s, "sa\n") == 0 && ft_strcmp(str, "sb\n") == 0)
+	if (stack->last == 0)
+		return (0);
+	if (ft_strcmp(stack->last, "sa\n") == 0 && ft_strcmp(str, "sb\n") == 0)
 		return (1);
-	if (ft_strcmp(s, "sb\n") == 0 && ft_strcmp(str, "sa\n") == 0)
+	if (ft_strcmp(stack->last, "sb\n") == 0 && ft_strcmp(str, "sa\n") == 0)
 		return (1);
-	if (ft_strcmp(s, "ra\n") == 0 && ft_strcmp(str, "rb\n") == 0)
+	if (ft_strcmp(stack->last, "ra\n") == 0 && ft_strcmp(str, "rb\n") == 0)
 		return (1);
-	if (ft_strcmp(s, "rb\n") == 0 && ft_strcmp(str, "ra\n") == 0)
+	if (ft_strcmp(stack->last, "rb\n") == 0 && ft_strcmp(str, "ra\n") == 0)
 		return (1);
-	if (ft_strcmp(s, "rra\n") == 0 && ft_strcmp(str, "rrb\n") == 0)
+	if (ft_strcmp(stack->last, "rra\n") == 0 && ft_strcmp(str, "rrb\n") == 0)
 		return (1);
-	if (ft_strcmp(s, "rrb\n") == 0 && ft_strcmp(str, "rra\n") == 0)
+	if (ft_strcmp(stack->last, "rrb\n") == 0 && ft_strcmp(str, "rra\n") == 0)
 		return (1);
 	return (0);
 }
