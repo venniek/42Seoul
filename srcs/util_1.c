@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.c                                             :+:      :+:    :+:   */
+/*   util_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:50:29 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/10 12:50:32 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/22 17:36:49 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
-void	ft_putchar_fd(char c, int fd)
+void		ft_putchar_fd(char c, int fd)
 {
 	if (fd < 0)
 		return ;
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void		ft_putstr_fd(char *s, int fd)
 {
 	int i;
 
@@ -33,16 +33,16 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-long long ft_atoi(t_stack *stack, const char *str)
+long long	ft_atoi(t_stack *stack, const char *str)
 {
-	long long atoi;
-	int i;
-	int sign;
+	long long	atoi;
+	int			i;
+	int			sign;
 
 	i = 0;
 	sign = 1;
 	atoi = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+	while (ft_strchr("\t\n\v\f\r ", str[i]))
 		i++;
 	if (str[i] == '-')
 	{
@@ -60,7 +60,7 @@ long long ft_atoi(t_stack *stack, const char *str)
 	return (sign * atoi);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int			ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
@@ -75,11 +75,4 @@ int	ft_strcmp(const char *s1, const char *s2)
 		return (0);
 	else
 		return (-s2[i]);
-}
-
-int ft_abs(int a)
-{
-	if (a < 0)
-		return (-1 * a);
-	return (a);
 }
