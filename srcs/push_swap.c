@@ -45,6 +45,33 @@ void	push_swap_first(t_stack *stack)
 		b_to_a_first(stack);
 }
 
+void	b_to_a_first(t_stack *stack)
+{
+	int	i;
+	int	pivot;
+	int	tmp;
+
+	tmp = stack->bi;
+	if (tmp <= 3)
+	{
+		push_back_three(stack);
+		return ;
+	}
+	pivot = find_pivot(stack);
+	i = -1;
+	while (++i < tmp && stack->bi > tmp - tmp / 3)
+	{
+		if (stack->b[stack->bi - 1] < pivot)
+		{
+			check_a_first(stack);
+			do_order(stack, "pa\n");
+			stack->now++;
+		}
+		else
+			do_order(stack, "rb\n");
+	}
+}
+
 void	a_to_b(t_stack *stack)
 {
 	int	pi;
@@ -88,38 +115,11 @@ void	b_to_a(t_stack *stack)
 	}
 	pivot = find_pivot(stack);
 	i = -1;
-	while (++i < tmp && stack->bi > tmp - (tmp + 1) / 2)
+	while (++i < tmp && stack->bi > tmp - tmp / 3)
 	{
 		if (stack->b[stack->bi - 1] < pivot)
 		{
 			check_a(stack);
-			do_order(stack, "pa\n");
-			stack->now++;
-		}
-		else
-			do_order(stack, "rb\n");
-	}
-}
-
-void	b_to_a_first(t_stack *stack)
-{
-	int	i;
-	int	pivot;
-	int	tmp;
-
-	tmp = stack->bi;
-	if (tmp <= 3)
-	{
-		push_back_three(stack);
-		return ;
-	}
-	pivot = find_pivot(stack);
-	i = -1;
-	while (++i < tmp && stack->bi > tmp - (tmp + 1) / 2)
-	{
-		if (stack->b[stack->bi - 1] < pivot)
-		{
-			check_a_first(stack);
 			do_order(stack, "pa\n");
 			stack->now++;
 		}

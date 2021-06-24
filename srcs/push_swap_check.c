@@ -101,7 +101,7 @@ int		find_pivot(t_stack *stack)
 	while (++i < tmp)
 		new_sort[i] = stack->b[i];
 	sort_sort(new_sort, tmp);
-	tmp = new_sort[(tmp + 1) / 2];
+	tmp = new_sort[tmp / 3];
 	free(new_sort);
 	new_sort = 0;
 	return (tmp);
