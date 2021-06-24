@@ -6,13 +6,13 @@
 #    By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/03 15:57:03 by naykim            #+#    #+#              #
-#    Updated: 2021/06/22 18:23:51 by naykim           ###   ########.fr        #
+#    Updated: 2021/06/25 03:05:20 by naykim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 NAME = push_swap
