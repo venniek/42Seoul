@@ -86,7 +86,7 @@ void	reverse(t_stack *stack, char c)
 	{
 		tmp = stack->a[0];
 		i = -1;
-		while (i++ < stack->ai - 1)
+		while (++i < stack->ai - 1)
 			stack->a[i] = stack->a[i + 1];
 		stack->a[stack->ai - 1] = tmp;
 	}
@@ -94,7 +94,7 @@ void	reverse(t_stack *stack, char c)
 	{
 		tmp = stack->b[0];
 		i = -1;
-		while (i++ < stack->bi - 1)
+		while (++i < stack->bi - 1)
 			stack->b[i] = stack->b[i + 1];
 		stack->b[stack->bi - 1] = tmp;
 	}

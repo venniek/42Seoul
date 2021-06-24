@@ -49,7 +49,6 @@ void	make_stack(t_stack *stack, int argc, char *argv[])
 	make_div(stack);
 	stack->ai = stack->cnt;
 	stack->pivot = (int *)malloc(sizeof(int) * stack->div);
-	stack->last = (char *)malloc(sizeof(char) * 5);
 }
 
 void	make_div(t_stack *stack)
@@ -109,6 +108,5 @@ int		main(int argc, char *argv[])
 	else
 		push_swap(&stack);
 	ft_putstr_fd(stack.last, 1);
-	ft_strfree(stack.last);
 	return (ft_exit(&stack, 0));
 }
