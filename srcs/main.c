@@ -103,10 +103,12 @@ int		main(int argc, char *argv[])
 	make_stack(&stack, argc, argv);
 	if (stack.cnt == 1)
 		ft_exit(&stack, 0);
+	if (check_sort(&stack) == 0)
+		ft_exit(&stack, 0);
 	if (stack.cnt <= 5)
 		push_swap_under5(&stack);
 	else
 		push_swap(&stack);
 	ft_putstr_fd(stack.last, 1);
-	return (ft_exit(&stack, 0));
+	ft_exit(&stack, 0);
 }

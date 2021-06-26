@@ -33,6 +33,7 @@ typedef struct	s_stack
 long long		ft_atoi(t_stack *stack, const char *str);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
+int				check_sort(t_stack *stack);
 
 int				ft_exit(t_stack *stack, int i);
 void			ft_intfree(int *num);
