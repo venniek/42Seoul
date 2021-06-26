@@ -45,7 +45,10 @@ void	push_swap_first(t_stack *stack)
 		b_to_a_first(stack);
 	sort_a(stack);
 	if (check_sort(stack) == 0)
+	{
+		ft_putstr_fd(stack->last, 1);
 		ft_exit(stack, 0);
+	}
 }
 
 void	b_to_a_first(t_stack *stack)
@@ -103,7 +106,10 @@ void	a_to_b(t_stack *stack)
 			b_to_a(stack);
 		sort_a(stack);
 		if (check_sort(stack) == 0)
+		{
+			ft_putstr_fd(stack->last, 1);
 			ft_exit(stack, 0);
+		}
 	}
 }
 
