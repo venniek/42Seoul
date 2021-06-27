@@ -15,6 +15,9 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+
+# define BUFFER_SIZE 2048
 
 typedef struct	s_stack
 {
@@ -30,7 +33,7 @@ typedef struct	s_stack
 	char		*last;
 }				t_stack;
 
-long long		ft_atoi(t_stack *stack, const char *str);
+long long		ft_atoi(t_stack *stack, const char *str, int *k);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
 int				check_sort(t_stack *stack);
@@ -78,5 +81,19 @@ void			default_stack(t_stack *stack);
 void			make_stack(t_stack *stack, int argc, char *argv[]);
 void			make_div(t_stack *stack);
 void			selec_sort(t_stack *stack);
+
+void add_one_a(t_stack *stack);
+void	do_order_checker(t_stack *stack, char *str);
+void		checker_main(int argc, char *argv[]);
+void swap_stack(int *a, int len);
+
+int	get_next_line(int fd, char **line);
+int	read_done(char **line, char **save, int size);
+int	update_save(char **save, int index, char **line);
+int	ft_newline(const char *save);
+
+char	*ft_strjoin(char **s1, char *s2);
+char	*ft_substr(char *s, int start, size_t len);
+
 
 #endif

@@ -22,12 +22,12 @@ void	sort_a(t_stack *stack)
 	if (i >= stack->ai / 2)
 	{
 		while (++i <= stack->ai)
-			do_order(stack, "ra\n");
+			do_order(stack, "ra");
 	}
 	else
 	{
 		while (i-- > 0)
-			do_order(stack, "rra\n");
+			do_order(stack, "rra");
 	}
 }
 
@@ -80,12 +80,12 @@ void	rotate_a(t_stack *stack, int i)
 	if (i >= stack->ai / 2)
 	{
 		while (++i < stack->ai)
-			do_order(stack, "ra\n");
+			do_order(stack, "ra");
 	}
 	else
 	{
 		while (i-- >= 0)
-			do_order(stack, "rra\n");
+			do_order(stack, "rra");
 	}
 }
 

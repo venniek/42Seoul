@@ -102,28 +102,35 @@ void	reverse(t_stack *stack, char c)
 
 void	do_order(t_stack *stack, char *str)
 {
-	if (ft_strcmp(str, "pa\n") == 0 || ft_strcmp(str, "pb\n") == 0)
+	if (ft_strcmp(str, "pa") == 0 || ft_strcmp(str, "pb") == 0)
 		push(stack, str[1]);
-	else if (ft_strcmp(str, "sa\n") == 0 || ft_strcmp(str, "sb\n") == 0)
+	else if (ft_strcmp(str, "sa") == 0 || ft_strcmp(str, "sb") == 0)
 		swap(stack, str[1]);
-	else if (ft_strcmp(str, "ra\n") == 0 || ft_strcmp(str, "rb\n") == 0)
+	else if (ft_strcmp(str, "ra") == 0 || ft_strcmp(str, "rb") == 0)
 		rotate(stack, str[1]);
-	else if (ft_strcmp(str, "rra\n") == 0 || ft_strcmp(str, "rrb\n") == 0)
+	else if (ft_strcmp(str, "rra") == 0 || ft_strcmp(str, "rrb") == 0)
 		reverse(stack, str[2]);
+	else
+		ft_exit(stack, 1);
 	if (merge_order(stack, str))
 	{
 		ft_strfree(stack->last);
 		if (str[0] == 's')
-			stack->last = ft_strdup("ss\n");
+			stack->last = ft_strdup("ss");
 		else if (str[0] == 'r' && str[1] != 'r')
-			stack->last = ft_strdup("rr\n");
+			stack->last = ft_strdup("rr");
 		else if (str[1] == 'r')
-			stack->last = ft_strdup("rrr\n");
+			stack->last = ft_strdup("rrr");
 	}
 	else
 	{
-		ft_putstr_fd(stack->last, 1);
-		ft_strfree(stack->last);
+		if (stack->last != 0)
+		{
+			ft_putstr_fd(stack->last, 1);
+			ft_putstr_fd("\n", 1);
+			ft_strfree(stack->last);
+		}
 		stack->last = ft_strdup(str);
 	}
+	ft_putstr_fd(str, 1);
 }

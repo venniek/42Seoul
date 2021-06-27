@@ -37,9 +37,9 @@ void	push_swap_first(t_stack *stack)
 	while (++i < tmp && stack->bi < tmp / stack->div)
 	{
 		if (stack->a[stack->ai - 1] < stack->pivot[0])
-			do_order(stack, "pb\n");
+			do_order(stack, "pb");
 		else
-			do_order(stack, "ra\n");
+			do_order(stack, "ra");
 	}
 	while (stack->bi > 0)
 		b_to_a_first(stack);
@@ -70,11 +70,11 @@ void	b_to_a_first(t_stack *stack)
 		if (stack->b[stack->bi - 1] < pivot)
 		{
 			check_a_first(stack);
-			do_order(stack, "pa\n");
+			do_order(stack, "pa");
 			stack->now++;
 		}
 		else
-			do_order(stack, "rb\n");
+			do_order(stack, "rb");
 	}
 }
 
@@ -98,9 +98,9 @@ void	a_to_b(t_stack *stack)
 				break ;
 			atop = stack->a[stack->ai - 1];
 			if (atop >= stack->pivot[pi - 1] && atop < stack->pivot[pi])
-				do_order(stack, "pb\n");
+				do_order(stack, "pb");
 			else
-				do_order(stack, "ra\n");
+				do_order(stack, "ra");
 		}
 		while (stack->bi > 0)
 			b_to_a(stack);
@@ -132,10 +132,10 @@ void	b_to_a(t_stack *stack)
 		if (stack->b[stack->bi - 1] < pivot)
 		{
 			check_a(stack);
-			do_order(stack, "pa\n");
+			do_order(stack, "pa");
 			stack->now++;
 		}
 		else
-			do_order(stack, "rb\n");
+			do_order(stack, "rb");
 	}
 }

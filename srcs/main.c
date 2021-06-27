@@ -26,29 +26,98 @@ void	default_stack(t_stack *stack)
 	stack->last = 0;
 }
 
+void add_one_a(t_stack *stack)
+{
+	int i;
+	int *newa;
+
+	newa = (int *)malloc(sizeof(int) * (stack->ai + 1));
+	i = -1;
+	while (++i < stack->ai)
+		newa[i] = stack->a[i];
+	ft_intfree(stack->a);
+	stack->a = newa;
+}
+
+void swap_stack(int *a, int len)
+{
+	int i = -1;
+	int tmp;
+
+	while (++i < len / 2)
+	{
+		tmp = a[i];
+		a[i] = a[len - 1 - i];
+		a[len - 1 - i] = tmp;
+	}
+}
+
 void	make_stack(t_stack *stack, int argc, char *argv[])
 {
 	int			i;
 	long long	tmp;
+	int k;
 
-	stack->cnt = argc;
-	stack->a = (int *)malloc(sizeof(int) * argc);
-	stack->b = (int *)malloc(sizeof(int) * argc);
-	stack->sorted = (int *)malloc(sizeof(int) * argc);
-	i = 0;
+	i = 1;
 	while (i < argc)
 	{
-		tmp = ft_atoi(stack, argv[i + 1]);
-		if (tmp >= 2147483648 || tmp < -2147483648)
-			ft_exit(stack, 1);
-		stack->a[argc - i - 1] = tmp;
-		stack->sorted[argc - i - 1] = tmp;
+		k = 0;
+		while (argv[i][k])
+		{
+			tmp = ft_atoi(stack, &argv[i][k], &k);
+			if (tmp >= 2147483648 || tmp < -2147483648)
+				ft_exit(stack, 1);
+			add_one_a(stack);
+			stack->a[stack->ai++] = tmp;
+		}
 		i++;
 	}
+	swap_stack(stack->a, stack->ai);
+	stack->cnt = stack->ai;
+	stack->b = (int *)malloc(sizeof(int) * stack->cnt);
+	stack->sorted = (int *)malloc(sizeof(int) * stack->cnt);
+	i = -1;
+	while (++i < stack->cnt)
+		stack->sorted[i] = stack->a[i];
 	selec_sort(stack);
 	make_div(stack);
-	stack->ai = stack->cnt;
 	stack->pivot = (int *)malloc(sizeof(int) * stack->div);
+}
+
+long long	ft_atoi(t_stack *stack, const char *str, int *k)
+{
+	long long	atoi;
+	int			i;
+	int			sign;
+
+	i = 0;
+	sign = 1;
+	atoi = 0;
+	while (ft_strchr("\t\n\v\f\r ", str[i]))
+	{
+		(*k)++;	
+		i++;
+	}
+	if (str[i] == '-')
+	{
+		(*k)++;
+		sign = -1;
+		i++;
+	}
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			atoi = atoi * 10 + str[i] - '0';
+			(*k)++;
+		}
+		else if (ft_strchr("\t\n\v\f\r ", str[i]))
+			break ;
+		else
+			ft_exit(stack, 1);
+		i++;
+	}
+	return (sign * atoi);
 }
 
 void	make_div(t_stack *stack)
@@ -99,7 +168,6 @@ int		main(int argc, char *argv[])
 	default_stack(&stack);
 	if (argc <= 1)
 		ft_exit(&stack, 0);
-	argc--;
 	make_stack(&stack, argc, argv);
 	if (stack.cnt == 1)
 		ft_exit(&stack, 0);
@@ -110,5 +178,6 @@ int		main(int argc, char *argv[])
 	else
 		push_swap(&stack);
 	ft_putstr_fd(stack.last, 1);
+	ft_putstr_fd("\n", 1);
 	ft_exit(&stack, 0);
 }

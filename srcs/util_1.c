@@ -33,6 +33,7 @@ void		ft_putstr_fd(char *s, int fd)
 	}
 }
 
+/*
 long long	ft_atoi(t_stack *stack, const char *str)
 {
 	long long	atoi;
@@ -59,7 +60,7 @@ long long	ft_atoi(t_stack *stack, const char *str)
 	}
 	return (sign * atoi);
 }
-
+*/
 int check_sort(t_stack *stack)
 {
 	int i;
@@ -67,12 +68,10 @@ int check_sort(t_stack *stack)
 	if (stack->ai != stack->cnt)
 		return (1);
 	i = -1;
-	while (++i < stack->cnt - 1)
+	while (++i < stack->cnt)
 	{
-		if (stack->a[i] < stack->a[i + 1])
+		if (stack->a[stack->cnt - i - 1] != stack->sorted[i])
 			return (1);
 	}
-	if (stack->a[i] != stack->sorted[0])
-		return (1);
 	return (0);
 }

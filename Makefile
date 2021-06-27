@@ -12,11 +12,13 @@
 
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 RM = rm -f
 
-NAME = push_swap
-SRCS = srcs/main.c\
+NAME_P = push_swap
+NAME_C = checker_ny
+
+SRCS_P = srcs/main.c\
 		srcs/push_swap.c\
 		srcs/push_swap_check.c\
 		srcs/push_swap_under5.c\
@@ -25,18 +27,34 @@ SRCS = srcs/main.c\
 		srcs/util_1.c\
 		srcs/util_2.c\
 		srcs/util_str.c
-OBJS = $(SRCS:.c=.o)
+SRCS_C = srcs/checker_gnl.c\
+		srcs/checker_util.c\
+		srcs/checker.c\
+		srcs/checker_main.c\
+		srcs/push_swap.c\
+		srcs/push_swap_check.c\
+		srcs/push_swap_under5.c\
+		srcs/push_back_under3.c\
+		srcs/orders.c\
+		srcs/util_1.c\
+		srcs/util_2.c\
+		srcs/util_str.c
 
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+OBJS_P = $(SRCS_P:.c=.o)
+OBJS_C = $(SRCS_C:.c=.o)
 
-all: $(NAME)
+$(NAME_P) : $(OBJS_P)
+	$(CC) $(CFLAGS) -o $@ $(OBJS_P)
+$(NAME_C) : $(OBJS_C)
+	$(CC) $(CFLAGS) -o $@ $(OBJS_C)
+
+all: $(NAME_C) $(NAME_P)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS_P) $(OBJS_C)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME_P) $(NAME_C)
 
 re: fclean all
 

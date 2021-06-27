@@ -25,7 +25,7 @@ void	push_swap_under5(t_stack *stack)
 void	push_swap_two(t_stack *stack)
 {
 	if (stack->a[stack->ai - 1] < stack->a[stack->ai - 2])
-		do_order(stack, "sa\n");
+		do_order(stack, "sa");
 }
 
 void	push_swap_three(t_stack *stack)
@@ -33,20 +33,20 @@ void	push_swap_three(t_stack *stack)
 	if (stack->a[0] > stack->a[1] && stack->a[1] > stack->a[2])
 		return ;
 	else if (stack->a[0] > stack->a[2] && stack->a[2] > stack->a[1])
-		do_order(stack, "sa\n");
+		do_order(stack, "sa");
 	else if (stack->a[1] > stack->a[2] && stack->a[2] > stack->a[0])
-		do_order(stack, "rra\n");
+		do_order(stack, "rra");
 	else if (stack->a[2] > stack->a[0] && stack->a[0] > stack->a[1])
-		do_order(stack, "ra\n");
+		do_order(stack, "ra");
 	else if (stack->a[1] > stack->a[0] && stack->a[0] > stack->a[2])
 	{
-		do_order(stack, "sa\n");
-		do_order(stack, "ra\n");
+		do_order(stack, "sa");
+		do_order(stack, "ra");
 	}
 	else if (stack->a[2] > stack->a[1] && stack->a[2] > stack->a[0])
 	{
-		do_order(stack, "sa\n");
-		do_order(stack, "rra\n");
+		do_order(stack, "sa");
+		do_order(stack, "rra");
 	}
 }
 
@@ -61,10 +61,11 @@ void	push_swap_f(t_stack *stack)
 	tmp = stack->cnt - stack->ai;
 	while (++i < repeat)
 		find_and_push(stack, i, tmp);
+	
 	push_swap_three(stack);
 	i = -1;
 	while (++i < repeat)
-		do_order(stack, "pa\n");
+		do_order(stack, "pa");
 }
 
 void	find_and_push(t_stack *stack, int index, int tmp)
@@ -77,12 +78,12 @@ void	find_and_push(t_stack *stack, int index, int tmp)
 	if (i >= stack->ai / 2)
 	{
 		while (++i < stack->ai)
-			do_order(stack, "ra\n");
+			do_order(stack, "ra");
 	}
 	else
 	{
 		while (i-- >= 0)
-			do_order(stack, "rra\n");
+			do_order(stack, "rra");
 	}
-	do_order(stack, "pb\n");
+	do_order(stack, "pb");
 }

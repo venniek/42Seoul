@@ -74,17 +74,17 @@ int		merge_order(t_stack *stack, char *str)
 {
 	if (stack->last == 0)
 		return (0);
-	if (ft_strcmp(stack->last, "sa\n") == 0 && ft_strcmp(str, "sb\n") == 0)
+	if (ft_strcmp(stack->last, "sa") == 0 && ft_strcmp(str, "sb") == 0)
 		return (1);
-	if (ft_strcmp(stack->last, "sb\n") == 0 && ft_strcmp(str, "sa\n") == 0)
+	if (ft_strcmp(stack->last, "sb") == 0 && ft_strcmp(str, "sa") == 0)
 		return (1);
-	if (ft_strcmp(stack->last, "ra\n") == 0 && ft_strcmp(str, "rb\n") == 0)
+	if (ft_strcmp(stack->last, "ra") == 0 && ft_strcmp(str, "rb") == 0)
 		return (1);
-	if (ft_strcmp(stack->last, "rb\n") == 0 && ft_strcmp(str, "ra\n") == 0)
+	if (ft_strcmp(stack->last, "rb") == 0 && ft_strcmp(str, "ra") == 0)
 		return (1);
-	if (ft_strcmp(stack->last, "rra\n") == 0 && ft_strcmp(str, "rrb\n") == 0)
+	if (ft_strcmp(stack->last, "rra") == 0 && ft_strcmp(str, "rrb") == 0)
 		return (1);
-	if (ft_strcmp(stack->last, "rrb\n") == 0 && ft_strcmp(str, "rra\n") == 0)
+	if (ft_strcmp(stack->last, "rrb") == 0 && ft_strcmp(str, "rra") == 0)
 		return (1);
 	return (0);
 }

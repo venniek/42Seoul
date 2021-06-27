@@ -15,7 +15,7 @@
 void	push_back_two(t_stack *stack)
 {
 	if (stack->b[stack->bi - 1] < stack->b[stack->bi - 2])
-		do_order(stack, "sb\n");
+		do_order(stack, "sb");
 	push_back_to_a(stack, 2);
 }
 
@@ -29,20 +29,20 @@ void	push_back_three(t_stack *stack)
 	if (stack->b[0] < stack->b[1] && stack->b[1] < stack->b[2])
 		;
 	else if (stack->b[0] > stack->b[2] && stack->b[2] > stack->b[1])
-		do_order(stack, "rrb\n");
+		do_order(stack, "rrb");
 	else if (stack->b[1] > stack->b[0] && stack->b[0] > stack->b[2])
-		do_order(stack, "rb\n");
+		do_order(stack, "rb");
 	else if (stack->b[1] > stack->b[2] && stack->b[2] > stack->b[0])
-		do_order(stack, "sb\n");
+		do_order(stack, "sb");
 	else if (stack->b[2] > stack->b[0] && stack->b[0] > stack->b[1])
 	{
-		do_order(stack, "sb\n");
-		do_order(stack, "rb\n");
+		do_order(stack, "sb");
+		do_order(stack, "rb");
 	}
 	else if (stack->b[2] < stack->b[1] && stack->b[1] < stack->b[0])
 	{
-		do_order(stack, "sb\n");
-		do_order(stack, "rrb\n");
+		do_order(stack, "sb");
+		do_order(stack, "rrb");
 	}
 	push_back_to_a(stack, 3);
 }
@@ -55,7 +55,7 @@ void	push_back_to_a(t_stack *stack, int a)
 	while (++i < a)
 	{
 		check_a(stack);
-		do_order(stack, "pa\n");
+		do_order(stack, "pa");
 		stack->now++;
 	}
 }
