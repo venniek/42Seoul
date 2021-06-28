@@ -66,7 +66,7 @@ int	get_next_line(int fd, char **line)
 	int			size;
 	int			index;
 
-	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
+	if (line == 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	if (!save)
 		save = ft_strdup("");

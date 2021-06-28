@@ -126,11 +126,9 @@ void	do_order(t_stack *stack, char *str)
 	{
 		if (stack->last != 0)
 		{
-			ft_putstr_fd(stack->last, 1);
-			ft_putstr_fd("\n", 1);
+			print_order(stack);
 			ft_strfree(stack->last);
 		}
 		stack->last = ft_strdup(str);
 	}
-	ft_putstr_fd(str, 1);
 }

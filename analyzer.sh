@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/26 18:08:32 by aroulin           #+#    #+#              #
-#    Updated: 2018/03/12 20:22:04 by rnugroho         ###   ########.fr        #
+#    Updated: 2021/06/28 21:57:22 by naykim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ while [ $IND -gt 0 ];
 do
 	ARG=`ruby -e "puts ($NBRBOT..$NBRTOP).to_a.shuffle.join(' ')"`
 	NBRCOUP=$(./push_swap $ARG | wc -l);
-	TEST=$(./push_swap $ARG | ./checker $ARG);
+	TEST=$(./push_swap $ARG | ./checker_ny $ARG);
 	if [ $TEST = "OK" ]
 	then
 		printf "\033[0;32m▓\033[0;0m"

@@ -43,6 +43,7 @@ void			ft_intfree(int *num);
 void			ft_strfree(char *str);
 void			sort_sort(int *sort, int len);
 int				merge_order(t_stack *stack, char *str);
+void			print_order(t_stack *stack);
 
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strlen(const char *str);

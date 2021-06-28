@@ -36,6 +36,8 @@ void	make_stack(t_stack *stack, int argc, char *argv[])
 	}
 	swap_stack(stack->a, stack->ai);
 	stack->cnt = stack->ai;
+	if (stack->cnt <= 1)
+		return ;
 	stack->b = (int *)malloc(sizeof(int) * stack->cnt);
 	stack->sorted = (int *)malloc(sizeof(int) * stack->cnt);
 	i = -1;

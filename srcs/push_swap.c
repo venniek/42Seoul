@@ -46,7 +46,7 @@ void	push_swap_first(t_stack *stack)
 	sort_a(stack);
 	if (check_sort(stack) == 0)
 	{
-		ft_putstr_fd(stack->last, 1);
+		print_order(stack);
 		ft_exit(stack, 0);
 	}
 }
@@ -107,7 +107,7 @@ void	a_to_b(t_stack *stack)
 		sort_a(stack);
 		if (check_sort(stack) == 0)
 		{
-			ft_putstr_fd(stack->last, 1);
+			print_order(stack);
 			ft_exit(stack, 0);
 		}
 	}

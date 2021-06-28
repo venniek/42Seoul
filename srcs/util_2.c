@@ -88,3 +88,11 @@ int		merge_order(t_stack *stack, char *str)
 		return (1);
 	return (0);
 }
+
+void print_order(t_stack *stack)
+{
+	if (stack->last == 0)
+		return ;
+	ft_putstr_fd(stack->last, 1);
+	ft_putstr_fd("\n", 1);
+}
