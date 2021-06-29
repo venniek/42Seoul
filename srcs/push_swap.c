@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 15:57:11 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 18:19:45 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/29 14:44:46 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	push_swap(t_stack *stack)
 	while (++i < stack->div - 1)
 		stack->pivot[i] = stack->sorted[tmp / stack->div * (i + 1)];
 	stack->pivot[i] = stack->sorted[tmp - 1] + 1;
-	push_swap_first(stack);
+	a_to_b_first(stack);
 	a_to_b(stack);
 	sort_a(stack);
 }
 
-void	push_swap_first(t_stack *stack)
+void	a_to_b_first(t_stack *stack)
 {
 	int	i;
 	int	tmp;
@@ -43,12 +43,6 @@ void	push_swap_first(t_stack *stack)
 	}
 	while (stack->bi > 0)
 		b_to_a_first(stack);
-	sort_a(stack);
-	if (check_sort(stack) == 0)
-	{
-		print_order(stack);
-		ft_exit(stack, 0);
-	}
 }
 
 void	b_to_a_first(t_stack *stack)
@@ -82,8 +76,8 @@ void	a_to_b(t_stack *stack)
 {
 	int	pi;
 	int	i;
-	int	tmp;
 	int atop;
+	int tmp;
 
 	tmp = stack->cnt;
 	pi = 0;
@@ -92,9 +86,9 @@ void	a_to_b(t_stack *stack)
 		i = -1;
 		while (++i < tmp)
 		{
-			if (pi != stack->div - 1 && stack->ai <= tmp - tmp / stack->div)
-				break ;
 			if (pi == stack->div - 1 && stack->ai == stack->now)
+				break ;
+			if (pi != stack->div - 1 && stack->ai <= tmp - tmp / stack->div)
 				break ;
 			atop = stack->a[stack->ai - 1];
 			if (atop >= stack->pivot[pi - 1] && atop < stack->pivot[pi])
@@ -104,12 +98,6 @@ void	a_to_b(t_stack *stack)
 		}
 		while (stack->bi > 0)
 			b_to_a(stack);
-		sort_a(stack);
-		if (check_sort(stack) == 0)
-		{
-			print_order(stack);
-			ft_exit(stack, 0);
-		}
 	}
 }
 

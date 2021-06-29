@@ -6,21 +6,11 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:54:54 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 19:55:06 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/29 14:40:02 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-int		ft_strlen(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
-}
 
 int		ft_strchr(const char *str, int a)
 {
@@ -71,4 +61,59 @@ int		ft_strcmp(const char *s1, const char *s2)
 		return (0);
 	else
 		return (-s2[i]);
+}
+
+char	*ft_strjoin(char **s1, char *s2)
+{
+	char			*str;
+	unsigned int	len1;
+	unsigned int	len2;
+	unsigned int	i;
+	unsigned int	k;
+
+	i = 0;
+	k = 0;
+	if (s2 == 0)
+		return (NULL);
+	len1 = ft_strlen(*s1);
+	len2 = ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!str)
+		return (NULL);
+	while (k < len1)
+		str[i++] = (*s1)[k++];
+	k = 0;
+	while (k < len2)
+		str[i++] = s2[k++];
+	str[i] = '\0';
+	free(*s1);
+	return (str);
+}
+
+char	*ft_substr(char *s, int start, size_t len)
+{
+	char			*str;
+	int				i;
+
+	if (s == 0)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	if (ft_strlen(s) <= start)
+	{
+		str[0] = '\0';
+		return (str);
+	}
+	while (i++ < start)
+		s++;
+	i = 0;
+	while (s && i < (int)len)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -17,16 +17,16 @@ void	sort_a(t_stack *stack)
 	int	i;
 
 	i = 0;
-	while (stack->a[i] != stack->sorted[stack->now - 1])
+	while (stack->a[i] != stack->sorted[0])
 		i++;
 	if (i >= stack->ai / 2)
 	{
-		while (++i <= stack->ai)
+		while (++i < stack->ai)
 			do_order(stack, "ra");
 	}
 	else
 	{
-		while (i-- > 0)
+		while (i-- >= 0)
 			do_order(stack, "rra");
 	}
 }

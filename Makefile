@@ -12,32 +12,32 @@
 
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 NAME_P = push_swap
 NAME_C = checker_ny
 
 SRCS_P = srcs/main.c\
+		srcs/orders.c\
 		srcs/push_swap.c\
+		srcs/push_swap_main.c\
 		srcs/push_swap_check.c\
 		srcs/push_swap_under5.c\
 		srcs/push_back_under3.c\
-		srcs/orders.c\
-		srcs/util_1.c\
-		srcs/util_2.c\
+		srcs/util_free.c\
+		srcs/util_main.c\
+		srcs/util_order.c\
+		srcs/util_other.c\
 		srcs/util_str.c
-SRCS_C = srcs/checker_gnl.c\
-		srcs/checker_util.c\
-		srcs/checker.c\
+SRCS_C = srcs/main.c\
+		srcs/checker_gnl.c\
 		srcs/checker_main.c\
-		srcs/push_swap.c\
-		srcs/push_swap_check.c\
-		srcs/push_swap_under5.c\
-		srcs/push_back_under3.c\
 		srcs/orders.c\
-		srcs/util_1.c\
-		srcs/util_2.c\
+		srcs/util_free.c\
+		srcs/util_main.c\
+		srcs/util_order.c\
+		srcs/util_other.c\
 		srcs/util_str.c
 
 OBJS_P = $(SRCS_P:.c=.o)

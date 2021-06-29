@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:56:33 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/22 19:56:35 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/29 14:44:18 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,7 @@ void	do_order(t_stack *stack, char *str)
 	if (merge_order(stack, str))
 	{
 		ft_strfree(stack->last);
-		if (str[0] == 's')
-			stack->last = ft_strdup("ss");
-		else if (str[0] == 'r' && str[1] != 'r')
-			stack->last = ft_strdup("rr");
-		else if (str[1] == 'r')
-			stack->last = ft_strdup("rrr");
+		new_str(stack, str);
 	}
 	else
 	{

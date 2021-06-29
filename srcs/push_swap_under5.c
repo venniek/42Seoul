@@ -24,7 +24,7 @@ void	push_swap_under5(t_stack *stack)
 
 void	push_swap_two(t_stack *stack)
 {
-	if (stack->a[stack->ai - 1] < stack->a[stack->ai - 2])
+	if (stack->a[stack->ai - 1] > stack->a[stack->ai - 2])
 		do_order(stack, "sa");
 }
 
@@ -61,7 +61,6 @@ void	push_swap_f(t_stack *stack)
 	tmp = stack->cnt - stack->ai;
 	while (++i < repeat)
 		find_and_push(stack, i, tmp);
-	
 	push_swap_three(stack);
 	i = -1;
 	while (++i < repeat)
