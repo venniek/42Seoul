@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../push_swap.h"
+#include  <stdio.h>
 
 void		do_order_checker(t_stack *stack, char *str)
 {
@@ -55,8 +56,7 @@ int			main(int argc, char *argv[])
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
 		do_order_checker(&stack, line);
-		free(line);
-		line = 0;
+		ft_strfree(line);
 	}
 	if (check_sort(&stack) == 0)
 		ft_putstr_fd("OK\n", 1);

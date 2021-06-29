@@ -47,9 +47,9 @@ void			make_stack(t_stack *stack, int argc, char *argv[])
 		i++;
 	}
 	stack->cnt = stack->ai;
-	swap_stack(stack->a, stack->ai);
 	if (stack->cnt <= 1)
 		return ;
+	swap_stack(stack->a, stack->ai);
 	malloc_all(stack);
 }
 

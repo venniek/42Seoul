@@ -73,6 +73,8 @@ int				check_sort(t_stack *stack)
 {
 	int			i;
 
+	if (stack->cnt <= 1)
+		return (0);
 	if (stack->ai != stack->cnt)
 		return (1);
 	i = -1;

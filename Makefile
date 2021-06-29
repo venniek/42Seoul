@@ -6,7 +6,7 @@
 #    By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/03 15:57:03 by naykim            #+#    #+#              #
-#    Updated: 2021/06/25 03:21:24 by naykim           ###   ########.fr        #
+#    Updated: 2021/06/29 17:06:28 by naykim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 NAME_P = push_swap
-NAME_C = checker_ny
+NAME_C = checker
 
 SRCS_P = srcs/main.c\
 		srcs/orders.c\
