@@ -6,12 +6,11 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 14:36:19 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/29 14:37:34 by naykim           ###   ########.fr       */
+/*   Updated: 2021/06/29 17:15:31 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-#include  <stdio.h>
 
 void		do_order_checker(t_stack *stack, char *str)
 {
