@@ -8,12 +8,12 @@ NAME = so_long
 SRCS = main.c
 
 %.o: %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) -Imlx -c $< -o $@
 
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	$(CC) -L./minilibx_mms_20210621 -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $< -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 
