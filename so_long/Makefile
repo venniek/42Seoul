@@ -1,4 +1,3 @@
-
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
@@ -13,7 +12,7 @@ SRCS = main.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $< -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $< -L. -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 
