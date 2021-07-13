@@ -4,7 +4,7 @@ RM = rm -f
 
 NAME = so_long
 
-SRCS = main.c
+SRCS = img.c
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@
