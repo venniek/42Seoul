@@ -4,7 +4,9 @@ RM = rm -f
 
 NAME = so_long
 
-SRCS = img.c
+SRCS = 	get_next_line.c\
+		get_next_line_utils.c\
+		map_parsing.c\
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@
@@ -12,7 +14,7 @@ SRCS = img.c
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $< -L. -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 all: $(NAME)
 
