@@ -9,13 +9,15 @@ void map_error(int a)  ///빈줄 체크할건지???
 	else if (a == 3)
 		ft_putstr_fd("no escape door\n", 2);
 	else if (a == 4)
-		ft_putstr_fd("no player location\n", 2);
+		ft_putstr_fd("no player\n", 2);
 	else if (a == 5)
-		ft_putstr_fd("too many player location\n", 2);
+		ft_putstr_fd("too many player\n", 2);
 	else if (a == 6)
 		ft_putstr_fd("no collectable item\n", 2);
 	else if (a == 7)
 		ft_putstr_fd("strange thing in map\n", 2);
+	else if(a == 8)
+		ft_putstr_fd("no such map\n", 2);
 	ft_putstr_fd("Error\n", 2);
 	exit(1);
 }
@@ -47,7 +49,7 @@ void check_map_error(t_map *map)
 						map_error(2);
 				}
 				else
-				continue;
+					continue;
 			}
 		}
 	}

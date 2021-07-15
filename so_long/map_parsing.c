@@ -33,7 +33,8 @@ void make_map(char *av[], t_map *map)
 	int size;
 	int k;
 
-	fd = open(av[1], O_RDONLY);
+	if ((fd = open(av[1], O_RDONLY)) < 0)
+		map_error(8);
 	while (get_next_line(fd, &line) > 0)
 	{
 		map->height++;

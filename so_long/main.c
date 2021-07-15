@@ -41,7 +41,7 @@ int main(int ac, char *av[])
 	t_img img;
 	t_map map;
 
-/*	if (ac < 2)
+	if (ac < 2)
 	{
 		ft_putstr_fd("no maps\n", 2);
 		ft_putstr_fd("Error\n", 2);
@@ -50,8 +50,8 @@ int main(int ac, char *av[])
 	default_map(&map);
 	make_map(av, &map);
 	check_map_error(&map);
-*/	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 500, 500, "start");
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 500, 500, "start");  // 새 창 띄우기
 	img.img = mlx_xpm_file_to_image(vars.mlx, "./imgs/wall_n.xpm", &(img.width), &(img.height));
 	img.addr = mlx_get_data_addr(img.img, &(img.bpp), &(img.line_length), &(img.endian));
 	int y = 0;
@@ -61,7 +61,7 @@ int main(int ac, char *av[])
 		while (x < img.width)
 		{
 			if (x % 10 == 0)
-				img.addr[img.width * y + x] = (char)0x00FF00;   // ?????
+				img.addr[img.width * y + x] = (char)0x00FF00;   // char?????
 			x++;
 		}
 		y++;
