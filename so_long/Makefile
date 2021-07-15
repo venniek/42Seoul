@@ -7,6 +7,9 @@ NAME = so_long
 SRCS = 	get_next_line.c\
 		get_next_line_utils.c\
 		map_parsing.c\
+		main.c\
+		error.c\
+		utils.c
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@

@@ -58,7 +58,7 @@ int	read_done(char **line, char **save, int size)
 		return (-1);
 	}
 	index = ft_newline(*save);
-	if ((index = ft_newline(*save)) >= 0)
+	if (index >= 0)
 		return (update_save(save, index, line));
 	if (*save)
 	{
@@ -79,6 +79,7 @@ int	get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 		return (-1);
+	*line = 0;
 	if (!save)
 		save = ft_strdup("");
 	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)

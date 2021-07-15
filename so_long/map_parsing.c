@@ -1,69 +1,69 @@
 #include "ft_so_long.h"
 #include <string.h>
 
-int char_to_i(char a)   //0-empty 1-wall 2-collect 3-exit 4-player
+int char_to_i(char a, t_map *map)   //0-empty 1-wall 2-collect 3-exit 4-player
 {
 	if (a == '0')
 		return (0);
 	if (a == '1')
 		return (1);
 	if (a == 'C')
+	{
+		map->collect++;
 		return (2);
+	}
 	if (a == 'E')
+	{
+		map->escape++;
 		return (3);
+	}
 	if (a == 'P')
+	{
+		map->player++;
 		return (4);
+	}
+	map_error(7);
 	return (-1);
 }
 
 void make_map(char *av[], t_map *map)
 {
-	int fd = open(av[1], O_RDONLY);
+	int fd;
 	char *line;
 	int size;
+	int k;
 
-	map->height = 0;
-	while ((size = get_next_line(fd, &line)) > 0)
+	fd = open(av[1], O_RDONLY);
+	while (get_next_line(fd, &line) > 0)
 	{
 		map->height++;
-		map->width = strlen(line);
+		map->width = ft_max(map->width, strlen(line));
 	}
-	printf("height: %d\n", map->height);
-	if (line == 0 || strcmp(line, "\0") != 0)
+	if (strcmp(line, "") != 0)
 		map->height++;
-	printf("last line strlen: %d\n", map->width);
 	map->map = (int **)malloc(sizeof(int *) * map->height);
 	for (int i = 0; i < map->height; i++)
 		map->map[i] = (int *)malloc(sizeof(int) * map->width);
 	fd = open(av[1], O_RDONLY);
-	int k = 0;
-	while (get_next_line(fd, &line) > 0)
+	k = 0;
+	while ((size = get_next_line(fd, &line)) >= 0)
 	{
-		if (strlen(line) != map->width)
-		{
-			printf("invalid map\n");
-			exit(1);
-		}
-	
-		for(int i = 0; i < map->width; i++)
-			map->map[k][i] = char_to_i(line[i]);  //0-empty 1-wall 2-collect 3-exit 4-player
+		if (strlen(line) > 0 && strlen(line) < map->width)
+			map_error(1);
+		for(int i = 0; i < map->width && line[i]; i++)
+			map->map[k][i] = char_to_i(line[i], map);  //0-empty 1-wall 2-collect 3-exit 4-player
+		if (size == 0)
+			break;
 		k++;
 	}
-	for (int i = 0; i < map->width; i++)
-		map->map[k][i] = char_to_i(line[i]);
-	printf("map->width:  %2d\n", map->width);
-	printf("map->height: %2d\n", map->height);
 }
 
-int main(int ac, char *av[])
+void default_map(t_map *map)
 {
-	t_map map;
-	make_map(av, &map);
-	for (int i = 0; i < map.height; i++)
-	{
-		for (int k = 0; k < map.width; k++)
-			printf("%2d", map.map[i][k]);
-		printf("\n");
-	}
-	return 0;
+	map->map = 0;
+	map->height = 0;
+	map->width = 0;
+	map->collect = 0;
+	map->player = 0;
+	map->escape = 0;
 }

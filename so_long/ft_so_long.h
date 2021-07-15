@@ -23,10 +23,13 @@ typedef struct s_map
 	int **map;
 	int width;
 	int height;
+	int collect;
+	int player;
+	int escape;
 } t_map;
 
 void make_map(char *av[], t_map *map);
-int char_to_i(char a);
+int char_to_i(char a, t_map *map);
 
 char			*ft_strjoin(char **s1, char *s2);
 unsigned int	ft_strlen(char *s);
@@ -38,4 +41,12 @@ int	update_save(char **save, int index, char **line);
 int	read_done(char **line, char **save, int size);
 int				get_next_line(int fd, char **line);
 
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+
+void map_error(int a);
+void check_map_error(t_map *map);
+
+void default_map(t_map *map);
+int ft_max(int a, int b);
 #endif

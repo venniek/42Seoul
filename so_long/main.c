@@ -1,6 +1,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "ft_so_long.h"
 
 typedef struct s_img{
 	void *img;
@@ -25,7 +26,7 @@ void my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int close(int keycode, t_vars *vars)
+int ft_close(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
 	{	
@@ -34,27 +35,24 @@ int close(int keycode, t_vars *vars)
 	return 0;
 }
 
-int main(void)
+int main(int ac, char *av[])
 {
 	t_vars vars;
 	t_img img;
-/*
-	if (ac == 1)
+	t_map map;
+
+/*	if (ac < 2)
 	{
-		printf("Error\n");
-		printf("no map\n");
+		ft_putstr_fd("no maps\n", 2);
+		ft_putstr_fd("Error\n", 2);
 		exit(1);
 	}
-	if (ac > 2)
-	{
-		printf("Error\ntoo much map\n");
-		exit(1);
-	}
-	*/
-//	make_map(av);
-	vars.mlx = mlx_init();
+	default_map(&map);
+	make_map(av, &map);
+	check_map_error(&map);
+*/	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "start");
-	img.img = mlx_xpm_file_to_image(vars.mlx, "./imgs/sample.xpm", &(img.width), &(img.height));
+	img.img = mlx_xpm_file_to_image(vars.mlx, "./imgs/wall_n.xpm", &(img.width), &(img.height));
 	img.addr = mlx_get_data_addr(img.img, &(img.bpp), &(img.line_length), &(img.endian));
 	int y = 0;
 	while (y < img.height)
@@ -69,7 +67,7 @@ int main(void)
 		y++;
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L<<0, close, &vars);
+	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
 	mlx_loop(vars.mlx);
 	return 0;
 }
