@@ -1,4 +1,4 @@
-#include "ft_so_long.h"
+#include "../ft_so_long.h"
 
 int ft_max(int a, int b)
 {

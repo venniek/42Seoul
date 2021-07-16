@@ -1,4 +1,4 @@
-#include "ft_so_long.h"
+#include "../ft_so_long.h"
 
 void map_error(int a)  ///빈줄 체크할건지???
 {

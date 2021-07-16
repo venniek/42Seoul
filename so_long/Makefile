@@ -4,12 +4,12 @@ RM = rm -f
 
 NAME = so_long
 
-SRCS = 	get_next_line.c\
-		get_next_line_utils.c\
-		map_parsing.c\
-		main.c\
-		error.c\
-		utils.c
+SRCS = 	srcs/get_next_line.c\
+		srcs/get_next_line_utils.c\
+		srcs/map_parsing.c\
+		srcs/main.c\
+		srcs/error.c\
+		srcs/utils.c
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@

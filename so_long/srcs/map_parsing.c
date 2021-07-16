@@ -1,5 +1,15 @@
-#include "ft_so_long.h"
+#include "../ft_so_long.h"
 #include <string.h>
+
+void default_map(t_map *map)
+{
+	map->map = 0;
+	map->height = 0;
+	map->width = 0;
+	map->collect = 0;
+	map->player = 0;
+	map->escape = 0;
+}
 
 int char_to_i(char a, t_map *map)   //0-empty 1-wall 2-collect 3-exit 4-player
 {
@@ -57,14 +67,4 @@ void make_map(char *av[], t_map *map)
 			break;
 		k++;
 	}
-}
-
-void default_map(t_map *map)
-{
-	map->map = 0;
-	map->height = 0;
-	map->width = 0;
-	map->collect = 0;
-	map->player = 0;
-	map->escape = 0;
 }
