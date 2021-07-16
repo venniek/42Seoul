@@ -1,6 +1,6 @@
 #include "../ft_so_long.h"
 
-void map_error(int a)  ///빈줄 체크할건지???
+void map_error(t_vars *v, int a)  ///빈줄 체크할건지???
 {
 	if (a == 1)
 		ft_putstr_fd("not rectangular\n", 2);
@@ -19,19 +19,19 @@ void map_error(int a)  ///빈줄 체크할건지???
 	else if(a == 8)
 		ft_putstr_fd("no such map\n", 2);
 	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	ft_exit(v, 1);
 }
 
 void check_map_error(t_vars *v)
 {
 	if (v->m.escape == 0)
-		map_error(3);
+		map_error(v, 3);
 	if (v->m.player == 0)
-		map_error(4);
+		map_error(v, 4);
 	if (v->m.player > 1)
-		map_error(5);
+		map_error(v, 5);
 	if (v->m.collect == 0)
-		map_error(6);
+		map_error(v, 6);
 	for (int i = 0; i < v->m.height; i++)
 	{
 		for (int k = 0; k < v->m.width; k++)
@@ -39,14 +39,14 @@ void check_map_error(t_vars *v)
 			if (i == 0 || i == v->m.height - 1)
 			{
 				if (v->m.map[i][k] != 1)
-					map_error(2);
+					map_error(v, 2);
 			}
 			else
 			{
 				if (k == 0 || k == v->m.width - 1)
 				{
 					if (v->m.map[i][k] != 1)
-						map_error(2);
+						map_error(v, 2);
 				}
 				else
 					continue;

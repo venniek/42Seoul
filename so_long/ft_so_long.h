@@ -4,6 +4,7 @@
 # include <mlx.h>
 # include <stdlib.h>
 # include <stdio.h>    //delete!!!!!!!!!!!!
+# include <string.h>   //delete!!!!!!!
 # include <unistd.h>
 # include <fcntl.h>
 
@@ -20,12 +21,12 @@
 
 typedef struct s_map
 {
-	int **map;
 	int width;
 	int height;
 	int collect;
 	int player;
 	int escape;
+	int **map;
 } t_map;
 
 typedef struct s_img
@@ -54,17 +55,18 @@ typedef struct s_vars
 {
 	void *mlx;
 	void *win;
+	int move;
+	int score;
+	int collision;
 	t_map m;
 	t_sprite s;
 } t_vars;
 
 
 
-void make_map(char *av[], t_vars *v);
-int char_to_i(char a, t_vars *v);
-void draw_map(t_vars *v);
-void draw_sprite(t_vars *v);
-void repeat(t_vars *v);
+
+
+void ft_exit(t_vars *v, int a);
 
 char			*ft_strjoin(char **s1, char *s2);
 unsigned int	ft_strlen(char *s);
@@ -78,11 +80,19 @@ int				get_next_line(int fd, char **line);
 
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
-
-void map_error(int a);
-void check_map_error(t_vars *v);
-int ft_keypress(int keycode, t_vars *v);
+int ft_max(int a, int b);
 
 void default_map(t_vars *v);
-int ft_max(int a, int b);
+void map_error(t_vars *v, int a);
+void check_map_error(t_vars *v);
+void map_repeat(t_vars *v);
+void make_map(char *av[], t_vars *v);
+int char_to_i(char a, t_vars *v);
+void draw_map(t_vars *v);
+void draw_sprite(t_vars *v);
+
+int ft_keypress(int keycode, t_vars *v);
+
+
+
 #endif
