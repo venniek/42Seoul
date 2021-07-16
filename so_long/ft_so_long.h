@@ -37,13 +37,9 @@ typedef struct s_img
 	int bpp;
 	int line_length;
 	int endian;
+	int x;
+	int y;
 }	t_img;
-
-typedef struct s_vars
-{
-	void *mlx;
-	void *win;
-} t_vars;
 
 typedef struct s_sprite
 {
@@ -54,10 +50,21 @@ typedef struct s_sprite
 	t_img escape;
 } t_sprite;
 
-void make_map(char *av[], t_map *map);
-int char_to_i(char a, t_map *map);
-void draw_map(t_vars *vars, t_map *map, t_sprite *sprite);
-void draw_sprite(t_vars *vars, t_map *map, t_sprite *sprite);
+typedef struct s_vars
+{
+	void *mlx;
+	void *win;
+	t_map m;
+	t_sprite s;
+} t_vars;
+
+
+
+void make_map(char *av[], t_vars *v);
+int char_to_i(char a, t_vars *v);
+void draw_map(t_vars *v);
+void draw_sprite(t_vars *v);
+void repeat(t_vars *v);
 
 char			*ft_strjoin(char **s1, char *s2);
 unsigned int	ft_strlen(char *s);
@@ -73,9 +80,9 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
 void map_error(int a);
-void check_map_error(t_map *map);
-int ft_keypress(int keycode, t_vars *vars);
+void check_map_error(t_vars *v);
+int ft_keypress(int keycode, t_vars *v);
 
-void default_map(t_map *map);
+void default_map(t_vars *v);
 int ft_max(int a, int b);
 #endif

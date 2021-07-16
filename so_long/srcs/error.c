@@ -22,30 +22,30 @@ void map_error(int a)  ///빈줄 체크할건지???
 	exit(1);
 }
 
-void check_map_error(t_map *map)
+void check_map_error(t_vars *v)
 {
-	if (map->escape == 0)
+	if (v->m.escape == 0)
 		map_error(3);
-	if (map->player == 0)
+	if (v->m.player == 0)
 		map_error(4);
-	if (map->player > 1)
+	if (v->m.player > 1)
 		map_error(5);
-	if (map->collect == 0)
+	if (v->m.collect == 0)
 		map_error(6);
-	for (int i = 0; i < map->height; i++)
+	for (int i = 0; i < v->m.height; i++)
 	{
-		for (int k = 0; k < map->width; k++)
+		for (int k = 0; k < v->m.width; k++)
 		{
-			if (i == 0 || i == map->height - 1)
+			if (i == 0 || i == v->m.height - 1)
 			{
-				if (map->map[i][k] != 1)
+				if (v->m.map[i][k] != 1)
 					map_error(2);
 			}
 			else
 			{
-				if (k == 0 || k == map->width - 1)
+				if (k == 0 || k == v->m.width - 1)
 				{
-					if (map->map[i][k] != 1)
+					if (v->m.map[i][k] != 1)
 						map_error(2);
 				}
 				else
