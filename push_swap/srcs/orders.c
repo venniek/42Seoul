@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:56:33 by naykim            #+#    #+#             */
-/*   Updated: 2021/06/29 14:44:18 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/16 22:44:35 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	rotate(t_stack *stack, char c)
 
 	if (c == 'a')
 	{
+		if (stack->ai < 2)
+			return ;
 		tmp = stack->a[stack->ai - 1];
 		i = stack->ai;
 		while (--i > 0)
@@ -69,6 +71,8 @@ void	rotate(t_stack *stack, char c)
 	}
 	else if (c == 'b')
 	{
+		if (stack->bi < 2)
+			return ;
 		tmp = stack->b[stack->bi - 1];
 		i = stack->bi;
 		while (--i >= 1)
@@ -84,6 +88,8 @@ void	reverse(t_stack *stack, char c)
 
 	if (c == 'a')
 	{
+		if (stack->ai < 2)
+			return ;
 		tmp = stack->a[0];
 		i = -1;
 		while (++i < stack->ai - 1)
@@ -92,6 +98,8 @@ void	reverse(t_stack *stack, char c)
 	}
 	else if (c == 'b')
 	{
+		if (stack->bi < 2)
+			return ;
 		tmp = stack->b[0];
 		i = -1;
 		while (++i < stack->bi - 1)
