@@ -19,6 +19,12 @@
 # define K_UP_W 13
 # define K_DOWN_S 1
 
+typedef struct s_xy
+{
+	int x;
+	int y;
+} t_xy;
+
 typedef struct s_map
 {
 	int width;
@@ -93,6 +99,6 @@ void draw_sprite(t_vars *v);
 
 int ft_keypress(int keycode, t_vars *v);
 
-
+void make_all(t_vars *v);
 
 #endif

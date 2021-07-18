@@ -36,7 +36,7 @@ int char_to_i(char a, t_vars *v)   //0-empty 1-wall 2-collect 3-exit 4-player
 		v->m.player++;
 		return (4);
 	}
-	map_error(7);
+	map_error(v, 7);
 	return (-1);
 }
 
@@ -48,14 +48,18 @@ void make_map(char *av[], t_vars *v)
 	int k;
 
 	if ((fd = open(av[1], O_RDONLY)) < 0)
-		map_error(8);
+		map_error(v, 8);
 	while (get_next_line(fd, &line) > 0)
 	{
 		v->m.height++;
 		v->m.width = ft_max(v->m.width, strlen(line));
+		free(line);
+		line = 0;
 	}
 	if (strcmp(line, "") != 0)
 		v->m.height++;
+	free(line);
+	line = 0;
 	v->m.map = (int **)malloc(sizeof(int *) * v->m.height);
 	for (int i = 0; i < v->m.height; i++)
 		v->m.map[i] = (int *)malloc(sizeof(int) * v->m.width);
@@ -64,9 +68,11 @@ void make_map(char *av[], t_vars *v)
 	while ((size = get_next_line(fd, &line)) >= 0)
 	{
 		if (strlen(line) > 0 && strlen(line) < v->m.width)
-			map_error(1);
+			map_error(v, 1);
 		for(int i = 0; i < v->m.width && line[i]; i++)
 			v->m.map[k][i] = char_to_i(line[i], v);  //0-empty 1-wall 2-collect 3-exit 4-player
+		free(line);
+		line = 0;
 		if (size == 0)
 			break;
 		k++;

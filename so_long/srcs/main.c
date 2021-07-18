@@ -8,28 +8,35 @@ void my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void ft_exit(t_vars *v, int i)
+{
+	for (int i = 0; i < v->m.height; i++)
+	{
+		free(v->m.map[i]);
+		v->m.map[i] = 0;
+	}
+	free(v->m.map);
+	v->m.map = 0;
+	while(1);
+	exit(i);
+}
+
 int check_collision(t_vars *v, int kc)
 {
+	t_xy xy;
+
+	xy.x = 0;
+	xy.y = 0;
 	if (kc == K_UP_W)
-	{
-		if (v->m.map[v->s.player.y - 1][v->s.player.x] == 1)
-			v->collision = 1;
-	}
+		xy.y = -1;
 	else if (kc == K_DOWN_S)
-	{
-		if (v->m.map[v->s.player.y + 1][v->s.player.x] == 1)
-			v->collision = 1;
-	}
+		xy.y = 1;
 	else if (kc == K_LEFT_A)
-	{
-		if (v->m.map[v->s.player.y][v->s.player.x - 1] == 1)
-			v->collision = 1;
-	}
+		xy.x = -1;
 	else if (kc == K_RIGHT_D)
-	{
-		if (v->m.map[v->s.player.y][v->s.player.x + 1] == 1)
+		xy.x = 1;
+	if (v->m.map[v->s.player.y + xy.y][v->s.player.x + xy.x] == 1)
 			v->collision = 1;
-	}
 	if (v->collision == 0)
 	{
 		v->move++;
@@ -42,7 +49,6 @@ int check_collision(t_vars *v, int kc)
 void finish_game(t_vars *v)
 {
 	printf("move: %d\n", v->move);
-//	printf("You have finished game in %d moves\n", v->move);
 	printf("Your score is %d/%d(yours/total) in %d moves\n", v->score, v->m.collect, v->move);
 	ft_exit(v, 0);
 }
@@ -65,7 +71,7 @@ int ft_keypress(int kc, t_vars *v)
 	else if (v->m.map[v->s.player.y][v->s.player.x] == 2)
 		v->score++;
 	v->m.map[v->s.player.y][v->s.player.x] = 4;
-	repeat(v);
+	map_repeat(v);
 	return 0;
 }
 
@@ -92,30 +98,8 @@ int main(int ac, char *av[])
 	memset(&v, 0, sizeof(t_vars));
 	default_map(&v);
 	make_map(av, &v);
-//	print_map(&v);
-//	printf("v->m.player: %d\n", v.m.player);
 	check_map_error(&v);
-//	printf("v->move: %d\n", v.move);
-//	printf("v->score: %d\n", v.score);
-//	printf("v->collision: %d\n", v.collision);
-//	print_map(&v);
-	v.mlx = mlx_init();
-	v.win = mlx_new_window(v.mlx, v.m.width * 32, v.m.height * 32, "Bye Andy");
-	//wall
-	v.s.wall.img = mlx_xpm_file_to_image(v.mlx, "./imgs/cloud_wall.xpm", &(v.s.wall.width), &(v.s.wall.height));
-	v.s.wall.addr = mlx_get_data_addr(v.s.wall.img, &(v.s.wall.bpp), &(v.s.wall.line_length), &(v.s.wall.endian));
-	//floor
-	v.s.floor.img = mlx_xpm_file_to_image(v.mlx, "./imgs/floor_2.xpm", &(v.s.floor.width), &(v.s.floor.height));
-	v.s.floor.addr = mlx_get_data_addr(v.s.floor.img, &(v.s.floor.bpp), &(v.s.floor.line_length), &(v.s.floor.endian));
-	//escape
-	v.s.escape.img = mlx_xpm_file_to_image(v.mlx, "./imgs/escape_3.xpm", &(v.s.escape.width), &(v.s.escape.height));
-	v.s.escape.addr = mlx_get_data_addr(v.s.escape.img, &(v.s.escape.bpp), &(v.s.escape.line_length), &(v.s.escape.endian));
-	//collect
-	v.s.collect.img = mlx_xpm_file_to_image(v.mlx, "./imgs/collect.xpm", &(v.s.collect.width), &(v.s.collect.height));
-	v.s.collect.addr = mlx_get_data_addr(v.s.collect.img, &(v.s.collect.bpp), &(v.s.collect.line_length), &(v.s.collect.endian));
-	//player
-	v.s.player.img = mlx_xpm_file_to_image(v.mlx, "./imgs/player.xpm", &(v.s.player.width), &(v.s.player.height));
-	v.s.player.addr = mlx_get_data_addr(v.s.player.img, &(v.s.player.bpp), &(v.s.player.line_length), &(v.s.player.endian));
+	make_all(&v);
 	map_repeat(&v);
 	mlx_hook(v.win, 2, 1L<<0, ft_keypress, &v);
 	mlx_loop(v.mlx);
@@ -125,19 +109,14 @@ int main(int ac, char *av[])
 
 void map_repeat(t_vars *v)
 {
-//	printf("v->collision: %d\n", v->collision);
 	if (v->collision == 0)
 		printf("move: %d\n", v->move);
-//	printf("before draw_map\n");
 	draw_map(v);
-//	printf("after draw_map\n");
 	draw_sprite(v);
-//	printf("after draw_sprite\n");
 }
 
 void draw_map(t_vars *v)
 {
-//	printf("in draw_map\n");
 	for (int i = 0; i < v->m.height; i++)
 	{
 		for (int k = 0; k < v->m.width; k++)
@@ -146,7 +125,6 @@ void draw_map(t_vars *v)
 				mlx_put_image_to_window(v->mlx, v->win, v->s.wall.img, k * v->s.wall.width, i * v->s.wall.height);
 			else
 				mlx_put_image_to_window(v->mlx, v->win, v->s.floor.img, k * v->s.wall.width, i * v->s.wall.height);
-		//	printf("after map[%d]\n", i);
 		}
 	}
 }

@@ -9,7 +9,8 @@ SRCS = 	srcs/get_next_line.c\
 		srcs/map_parsing.c\
 		srcs/main.c\
 		srcs/error.c\
-		srcs/utils.c
+		srcs/utils.c\
+		srcs/img.c
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@
