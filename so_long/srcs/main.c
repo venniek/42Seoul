@@ -17,7 +17,6 @@ void ft_exit(t_vars *v, int i)
 	}
 	free(v->m.map);
 	v->m.map = 0;
-	while(1);
 	exit(i);
 }
 
