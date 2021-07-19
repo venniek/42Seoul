@@ -1,13 +1,5 @@
 #include "../ft_so_long.h"
 
-void my_mlx_pixel_put(t_img *data, int x, int y, int color)
-{
-	char *dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
-
 void ft_exit(t_vars *v, int i)
 {
 	for (int i = 0; i < v->m.height; i++)

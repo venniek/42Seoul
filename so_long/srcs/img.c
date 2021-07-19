@@ -3,7 +3,6 @@
 void make_all(t_vars *v)
 {
 	v->mlx = mlx_init();
-	v->win = mlx_new_window(v->mlx, v->m.width * 32, v->m.height * 32, "Bye Andy");
 	//wall
 	v->s.wall.img = mlx_xpm_file_to_image(v->mlx, "./imgs/cloud_wall.xpm", &(v->s.wall.width), &(v->s.wall.height));
 	v->s.wall.addr = mlx_get_data_addr(v->s.wall.img, &(v->s.wall.bpp), &(v->s.wall.line_length), &(v->s.wall.endian));
@@ -19,4 +18,6 @@ void make_all(t_vars *v)
 	//player
 	v->s.player.img = mlx_xpm_file_to_image(v->mlx, "./imgs/woody.xpm", &(v->s.player.width), &(v->s.player.height));
 	v->s.player.addr = mlx_get_data_addr(v->s.player.img, &(v->s.player.bpp), &(v->s.player.line_length), &(v->s.player.endian));
+	v->win = mlx_new_window(v->mlx, v->m.width * v->s.wall.bpp, v->m.height * v->s.wall.bpp, "Bye Andy");
+
 }
