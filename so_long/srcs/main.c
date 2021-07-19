@@ -26,15 +26,18 @@ int check_collision(t_vars *v, int kc)
 		xy.x = -1;
 	else if (kc == K_RIGHT_D)
 		xy.x = 1;
+	else
+		return (1);
 	if (v->m.map[v->s.player.y + xy.y][v->s.player.x + xy.x] == 1)
 			v->collision = 1;
 	if (v->collision == 0)
 	{
+		v->m.map[v->s.player.y][v->s.player.x] = 0;
+		v->s.player.x += xy.x;
+		v->s.player.y += xy.y;
 		v->move++;
-		return (0);
 	}
-	else
-		return (1);
+	return (0);
 }
 
 void finish_game(t_vars *v)
@@ -49,15 +52,7 @@ int ft_keypress(int kc, t_vars *v)
 	v->collision = 0;
 	if (kc == K_ESC)
 		ft_exit(v, 0);
-	else if (kc == K_UP_W && check_collision(v, kc) == 0)
-		v->m.map[v->s.player.y--][v->s.player.x] = 0;
-	else if (kc == K_DOWN_S && check_collision(v, kc) == 0)
-		v->m.map[v->s.player.y++][v->s.player.x] = 0;
-	else if (kc == K_LEFT_A && check_collision(v, kc) == 0)
-		v->m.map[v->s.player.y][v->s.player.x--] = 0;
-	else if (kc == K_RIGHT_D && check_collision(v, kc) == 0)
-		v->m.map[v->s.player.y][v->s.player.x++] = 0;
-	else
+	if (check_collision(v, kc) == 1)
 		return (0);
 	if (v->m.map[v->s.player.y][v->s.player.x] == 3)
 		finish_game(v);
@@ -66,16 +61,6 @@ int ft_keypress(int kc, t_vars *v)
 	v->m.map[v->s.player.y][v->s.player.x] = 4;
 	map_repeat(v);
 	return 0;
-}
-
-void print_map(t_vars *v)
-{
-	for (int i = 0; i < v->m.height; i++)
-	{
-		for (int k = 0; k < v->m.width; k++)
-			printf("%2d", v->m.map[i][k]);
-		printf("\n");
-	}
 }
 
 int main(int ac, char *av[])
