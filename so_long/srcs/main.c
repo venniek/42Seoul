@@ -10,6 +10,7 @@ void ft_exit(t_vars *v, int i)
 	}
 	free(v->m.map);
 	v->m.map = 0;
+//	system("leaks so_long");
 	exit(i);
 }
 
@@ -45,6 +46,7 @@ void finish_game(t_vars *v)
 {
 	printf("move: %d\n", v->move);
 	printf("Your score is %d/%d(yours/total) in %d moves\n", v->score, v->m.collect, v->move);
+//	system("leaks so_long");
 	ft_exit(v, 0);
 }
 
@@ -95,13 +97,49 @@ int ft_click(t_vars *v)
 
 void map_repeat(t_vars *v)
 {
+	char *move;
+
 	if (v->collision == 0)
 		printf("move: %d\n", v->move);
 	draw_map(v);
 	draw_sprite(v);
-	mlx_string_put(v->mlx, v->win, 0, (v->m.height - 0.5) * v->s.wall.height, 0x000000,"move");
+	move = print_integer(v);
+	mlx_string_put(v->mlx, v->win, 0, (v->m.height - 0.5) * v->s.wall.height, 0x000000,"move: ");
+	mlx_string_put(v->mlx, v->win, v->s.wall.width * 2, (v->m.height - 0.5) * v->s.wall.height, 0x000000, move);
+	free(move);
+	move = 0;
+	// score??
+}
 
+char *print_integer(t_vars *v)
+{
+	char *move;
+	int mcopy;
+	int len;
 
+	len = 0;
+	mcopy = v->move;
+	while (mcopy > 0)
+	{
+		len++;
+		mcopy /= 10;
+	}
+	mcopy = v->move;
+	move = (char *)malloc(sizeof(char) * (len + 1));
+	for (int i = 0; i < len; i++)
+	{
+		move[i] = mcopy % 10 + '0';
+		mcopy /= 10;
+	}
+	move[len] = '\0';
+	for (int i = 0; i < len / 2; i++)
+	{
+		char tmp;
+		tmp = move[i];
+		move[i] = move[len - i - 1];
+		move[len - i - 1] = tmp;
+	}
+	return (move);
 }
 
 void draw_map(t_vars *v)

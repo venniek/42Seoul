@@ -101,5 +101,6 @@ int ft_keypress(int keycode, t_vars *v);
 int ft_click(t_vars *v);
 
 void make_all(t_vars *v);
+char *print_integer(t_vars *v);
 
 #endif
