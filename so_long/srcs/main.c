@@ -77,11 +77,17 @@ int main(int ac, char *av[])
 		ft_exit(&v, 1);
 	}
 	memset(&v, 0, sizeof(t_vars));
+	printf("1\n");
 	default_map(&v);
+		printf("2\n");
 	make_map(av, &v);
+		printf("3\n");
 	check_map_error(&v);
+		printf("4\n");
 	make_all(&v);
+		printf("5\n");
 	map_repeat(&v);
+		printf("6\n");
 	mlx_hook(v.win, 2, 1L<<0, ft_keypress, &v);
 	mlx_hook(v.win, 17, 0, ft_click, &v);
 	mlx_loop(v.mlx);
@@ -148,10 +154,14 @@ void draw_map(t_vars *v)
 	{
 		for (int k = 0; k < v->m.width; k++)
 		{
+			mlx_put_image_to_window(v->mlx, v->win, v->s.floor.img, k * v->s.floor.width, i * v->s.floor.height);
 			if (v->m.map[i][k] == 1)
-				mlx_put_image_to_window(v->mlx, v->win, v->s.wall.img, k * v->s.wall.width, i * v->s.wall.height);
-			else
-				mlx_put_image_to_window(v->mlx, v->win, v->s.floor.img, k * v->s.wall.width, i * v->s.wall.height);
+			{
+				if (i == 0 || i == v->m.height - 1 || k == 0 || k == v->m.width - 1)
+					mlx_put_image_to_window(v->mlx, v->win, v->s.wall.img, k * v->s.wall.width, i * v->s.wall.height);
+				else
+					mlx_put_image_to_window(v->mlx, v->win, v->s.column.img, k * v->s.column.width, i * v->s.column.height);
+			}
 		}
 	}
 }
@@ -163,7 +173,12 @@ void draw_sprite(t_vars *v)
 		for (int k = 0; k < v->m.width; k++)
 		{
 			if (v->m.map[i][k] == 2)
-				mlx_put_image_to_window(v->mlx, v->win, v->s.collect.img, k * v->s.collect.width, i * v->s.collect.height);
+			{
+				if (v->move % 2 == 0)
+					mlx_put_image_to_window(v->mlx, v->win, v->s.collect1.img, k * v->s.collect1.width, i * v->s.collect1.height);
+				else
+					mlx_put_image_to_window(v->mlx, v->win, v->s.collect2.img, k * v->s.collect2.width, i * v->s.collect2.height);
+			}
 			if (v->m.map[i][k] == 3)
 				mlx_put_image_to_window(v->mlx, v->win, v->s.escape.img, k * v->s.escape.width, i * v->s.escape.height);
 			if (v->m.map[i][k] == 4)

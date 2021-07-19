@@ -51,8 +51,10 @@ typedef struct s_img
 typedef struct s_sprite
 {
 	t_img wall;
+	t_img column;
 	t_img floor;
-	t_img collect;
+	t_img collect1;
+	t_img collect2;
 	t_img player;
 	t_img escape;
 } t_sprite;
