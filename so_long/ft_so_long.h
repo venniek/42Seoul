@@ -98,6 +98,7 @@ void draw_map(t_vars *v);
 void draw_sprite(t_vars *v);
 
 int ft_keypress(int keycode, t_vars *v);
+int ft_click(t_vars *v);
 
 void make_all(t_vars *v);
 

@@ -2,6 +2,7 @@
 
 void ft_exit(t_vars *v, int i)
 {
+	mlx_destroy_window(v->mlx, v->win);
 	for (int i = 0; i < v->m.height; i++)
 	{
 		free(v->m.map[i]);
@@ -80,8 +81,15 @@ int main(int ac, char *av[])
 	make_all(&v);
 	map_repeat(&v);
 	mlx_hook(v.win, 2, 1L<<0, ft_keypress, &v);
+	mlx_hook(v.win, 17, 0, ft_click, &v);
 	mlx_loop(v.mlx);
 	
+	return 0;
+}
+
+int ft_click(t_vars *v)
+{
+	ft_exit(v, 0);
 	return 0;
 }
 
@@ -91,6 +99,9 @@ void map_repeat(t_vars *v)
 		printf("move: %d\n", v->move);
 	draw_map(v);
 	draw_sprite(v);
+	mlx_string_put(v->mlx, v->win, 0, (v->m.height - 0.5) * v->s.wall.height, 0x000000,"move");
+
+
 }
 
 void draw_map(t_vars *v)
