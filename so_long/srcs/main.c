@@ -57,6 +57,8 @@ int ft_keypress(int kc, t_vars *v)
 		v->m.map[v->s.player.y][v->s.player.x--] = 0;
 	else if (kc == K_RIGHT_D && check_collision(v, kc) == 0)
 		v->m.map[v->s.player.y][v->s.player.x++] = 0;
+	else
+		return (0);
 	if (v->m.map[v->s.player.y][v->s.player.x] == 3)
 		finish_game(v);
 	else if (v->m.map[v->s.player.y][v->s.player.x] == 2)
