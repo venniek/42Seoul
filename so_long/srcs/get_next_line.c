@@ -1,4 +1,4 @@
-#include "../ft_so_long.h"
+#include "../includes/so_long.h"
 
 int	ft_newline(const char *save)
 {

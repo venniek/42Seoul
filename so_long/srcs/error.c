@@ -1,6 +1,6 @@
-#include "../ft_so_long.h"
+#include "../includes/so_long.h"
 
-void map_error(t_vars *v, int a)  ///빈줄 체크할건지???
+void	map_error(t_vars *v, int a)  ///빈줄 체크할건지???
 {
 	if (a == 1)
 		ft_putstr_fd("not rectangular\n", 2);
@@ -22,7 +22,7 @@ void map_error(t_vars *v, int a)  ///빈줄 체크할건지???
 	ft_exit(v, 1);
 }
 
-void check_map_error(t_vars *v)
+void	check_map_error(t_vars *v)
 {
 	if (v->m.escape == 0)
 		map_error(v, 3);
@@ -32,24 +32,32 @@ void check_map_error(t_vars *v)
 		map_error(v, 5);
 	if (v->m.collect == 0)
 		map_error(v, 6);
-	for (int i = 0; i < v->m.height; i++)
+	check_map_rec(v);
+}
+
+void	check_map_rec(t_vars *v)
+{
+	int	h;
+	int	w;
+
+	h = -1;
+	while (++h < v->m.height)
 	{
-		for (int k = 0; k < v->m.width; k++)
+		w = -1;
+		while (++w < v->m.width)
 		{
-			if (i == 0 || i == v->m.height - 1)
+			if (h == 0 || h == v->m.height - 1)
 			{
-				if (v->m.map[i][k] != 1)
+				if (v->m.map[h][w] != 1)
 					map_error(v, 2);
 			}
 			else
 			{
-				if (k == 0 || k == v->m.width - 1)
+				if (w == 0 || w == v->m.width - 1)
 				{
-					if (v->m.map[i][k] != 1)
+					if (v->m.map[h][w] != 1)
 						map_error(v, 2);
 				}
-				else
-					continue;
 			}
 		}
 	}

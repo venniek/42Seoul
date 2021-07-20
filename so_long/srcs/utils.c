@@ -1,4 +1,4 @@
-#include "../ft_so_long.h"
+#include "../includes/so_long.h"
 
 int ft_max(int a, int b)
 {
@@ -24,4 +24,31 @@ void	ft_putstr_fd(char *s, int fd)
 		ft_putchar_fd(s[i], fd);
 		i++;
 	}
+}
+
+void	*ft_memset(void *ptr, int value, size_t num)
+{
+	unsigned char	*a;
+
+	a = (unsigned char *)ptr;
+	while (num-- > 0)
+		*(a++) = (unsigned char)value;
+	return (ptr);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	if (s2[i] == '\0')
+		return (0);
+	else
+		return (-s2[i]);
 }

@@ -3,8 +3,7 @@
 
 # include <mlx.h>
 # include <stdlib.h>
-# include <stdio.h>    //delete!!!!!!!!!!!!
-# include <string.h>   //delete!!!!!!!
+# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
 
@@ -89,10 +88,14 @@ int				get_next_line(int fd, char **line);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 int ft_max(int a, int b);
+void	*ft_memset(void *ptr, int value, size_t num);
+int	ft_strcmp(const char *s1, const char *s2);
 
 void default_map(t_vars *v);
 void map_error(t_vars *v, int a);
 void check_map_error(t_vars *v);
+void check_map_rec(t_vars *v);
+
 void map_repeat(t_vars *v);
 void make_map(char *av[], t_vars *v);
 int char_to_i(char a, t_vars *v);
@@ -104,5 +107,6 @@ int ft_click(t_vars *v);
 
 void make_all(t_vars *v);
 char *print_integer(t_vars *v);
+void finish_game(t_vars *v);
 
 #endif

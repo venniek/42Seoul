@@ -1,4 +1,4 @@
-#include "../ft_so_long.h"
+#include "../includes/so_long.h"
 #include <string.h>
 
 void default_map(t_vars *v)
@@ -47,7 +47,7 @@ void make_map(char *av[], t_vars *v)
 	int size;
 	int k;
 
-	if ((fd = open(av[1], O_RDONLY)) < 0)
+	if (!ft_strcmp(av[1], "maps") || (fd = open(av[1], O_RDONLY)) < 0)
 		map_error(v, 8);
 	while (get_next_line(fd, &line) > 0)
 	{

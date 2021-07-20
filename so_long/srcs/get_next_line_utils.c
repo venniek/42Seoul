@@ -1,4 +1,4 @@
-#include "../ft_so_long.h"
+#include "../includes/so_long.h"
 
 unsigned int	ft_strlen(char *s)
 {
