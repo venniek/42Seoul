@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:25:53 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/24 17:59:50 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/20 15:32:56 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	make_print_num(t_flag *flag, t_pt *pt, long long val)
 {
-	unsigned int len;
+	unsigned int	len;
 
 	if (flag->dot == 1)
 	{
@@ -39,7 +39,7 @@ static int	make_print_num(t_flag *flag, t_pt *pt, long long val)
 	return (0);
 }
 
-int			make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
+int	make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	long long	val;
 
@@ -65,7 +65,7 @@ int			make_print_d(t_flag *flag, va_list *ap, t_pt *pt)
 	return (0);
 }
 
-int			make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
+int	make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned int	val;
 
@@ -86,7 +86,7 @@ int			make_print_u(t_flag *flag, va_list *ap, t_pt *pt)
 	return (0);
 }
 
-int			make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
+int	make_print_x(t_flag *flag, va_list *ap, t_pt *pt)
 {
 	unsigned int	val;
 

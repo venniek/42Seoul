@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:20:33 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:25:07 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/20 15:34:01 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	make_print_p(t_flag *flag, va_list *ap, t_pt *pt)
 		pt->minus = 1;
 	pt->v_len = ft_len(val, 16);
 	pt->b_len = ft_max(0, flag->width - pt->v_len - 2);
-	if (val == (unsigned long)NULL && flag->dot == 1 && flag->prec == -1)
+	if (val == NULL && flag->dot == 1 && flag->prec == -1)
 	{
 		pt->v_len = 0;
 		if (flag->width > 2)

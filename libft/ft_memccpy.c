@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 04:08:49 by naykim            #+#    #+#             */
-/*   Updated: 2021/03/14 12:36:14 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/20 15:29:40 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	{
 		str1[i] = str2[i];
 		if (str1[i] == (unsigned char)c)
-			return ((void*)(dest + i + 1));
+			return ((void *)(dest + i + 1));
 		i++;
 	}
 	return (NULL);

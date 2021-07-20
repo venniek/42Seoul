@@ -6,13 +6,13 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 16:29:34 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:12:29 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/20 15:30:54 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int g_bt;
+int	g_bt;
 
 static void	flag_all_new(t_flag *flag)
 {
@@ -35,7 +35,7 @@ static void	pt_all_new(t_pt *pt)
 
 static int	make_print(t_flag *flag, va_list *ap)
 {
-	t_pt pt;
+	t_pt	pt;
 
 	pt_all_new(&pt);
 	if (flag->type == 'c')
@@ -58,7 +58,7 @@ static int	make_print(t_flag *flag, va_list *ap)
 
 static int	parsing_str(const char **str, va_list *ap)
 {
-	t_flag flag;
+	t_flag	flag;
 
 	flag_all_new(&flag);
 	(*str)++;
@@ -80,9 +80,9 @@ static int	parsing_str(const char **str, va_list *ap)
 	return (make_print(&flag, ap));
 }
 
-int			ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-	va_list ap;
+	va_list	ap;
 
 	va_start(ap, str);
 	g_bt = 0;
