@@ -1,6 +1,6 @@
 #include "../includes/so_long.h"
 
-void	map_error(t_vars *v, int a)  ///빈줄 체크할건지???
+void	map_error(t_vars *v, int a)
 {
 	if (a == 1)
 		ft_putstr_fd("not rectangular\n", 2);
@@ -16,7 +16,7 @@ void	map_error(t_vars *v, int a)  ///빈줄 체크할건지???
 		ft_putstr_fd("no collectable item\n", 2);
 	else if (a == 7)
 		ft_putstr_fd("strange thing in map\n", 2);
-	else if(a == 8)
+	else if (a == 8)
 		ft_putstr_fd("no such map\n", 2);
 	ft_putstr_fd("Error\n", 2);
 	ft_exit(v, 1);
@@ -24,40 +24,39 @@ void	map_error(t_vars *v, int a)  ///빈줄 체크할건지???
 
 void	check_map_error(t_vars *v)
 {
-	if (v->m.escape == 0)
+	if (v->m.w == 0 || v->m.h == 0)
+		map_error(v, 8);
+	if (v->m.e == 0)
 		map_error(v, 3);
-	if (v->m.player == 0)
+	if (v->m.p == 0)
 		map_error(v, 4);
-	if (v->m.player > 1)
+	if (v->m.p > 1)
 		map_error(v, 5);
-	if (v->m.collect == 0)
+	if (v->m.c == 0)
 		map_error(v, 6);
 	check_map_rec(v);
 }
 
 void	check_map_rec(t_vars *v)
 {
-	int	h;
-	int	w;
+	int	i;
+	int	k;
 
-	h = -1;
-	while (++h < v->m.height)
+	i = -1;
+	while (++i < v->m.h)
 	{
-		w = -1;
-		while (++w < v->m.width)
+		k = -1;
+		while (++k < v->m.w)
 		{
-			if (h == 0 || h == v->m.height - 1)
+			if (i == 0 || i == v->m.h - 1)
 			{
-				if (v->m.map[h][w] != 1)
+				if (v->m.map[i][k] != 1)
 					map_error(v, 2);
 			}
-			else
+			else if (k == 0 || k == v->m.w - 1)
 			{
-				if (w == 0 || w == v->m.width - 1)
-				{
-					if (v->m.map[h][w] != 1)
-						map_error(v, 2);
-				}
+				if (v->m.map[i][k] != 1)
+					map_error(v, 2);
 			}
 		}
 	}

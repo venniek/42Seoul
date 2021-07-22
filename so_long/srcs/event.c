@@ -16,13 +16,13 @@ int	check_collision(t_vars *v, int kc)
 		xy.x = 1;
 	else
 		return (1);
-	if (v->m.map[v->s.player.y + xy.y][v->s.player.x + xy.x] == 1)
-			v->collision = 1;
+	if (v->m.map[v->s.p.y + xy.y][v->s.p.x + xy.x] == 1)
+		v->collision = 1;
 	if (v->collision == 0)
 	{
-		v->m.map[v->s.player.y][v->s.player.x] = 0;
-		v->s.player.x += xy.x;
-		v->s.player.y += xy.y;
+		v->m.map[v->s.p.y][v->s.p.x] = 0;
+		v->s.p.x += xy.x;
+		v->s.p.y += xy.y;
 		v->move++;
 	}
 	return (0);
@@ -35,45 +35,45 @@ int	ft_keypress(int kc, t_vars *v)
 		ft_exit(v, 0);
 	if (check_collision(v, kc) == 1)
 		return (0);
-	if (v->m.map[v->s.player.y][v->s.player.x] == 3)
+	if (v->m.map[v->s.p.y][v->s.p.x] == 3)
 		finish_game(v);
-	else if (v->m.map[v->s.player.y][v->s.player.x] == 2)
+	else if (v->m.map[v->s.p.y][v->s.p.x] == 2)
 		v->score++;
-	v->m.map[v->s.player.y][v->s.player.x] = 4;
+	v->m.map[v->s.p.y][v->s.p.x] = 4;
 	map_repeat(v);
-	return 0;
+	return (0);
 }
 
 int	ft_click(t_vars *v)
 {
 	ft_exit(v, 0);
-	return 0;
+	return (0);
 }
 
 void	ft_exit(t_vars *v, int i)
 {
-	int i;
+	int	k;
 
-	i = -1;
-	mlx_destroy_window(v->mlx, v->win);
+	k = -1;
+	if (v->mlx != 0)
+		mlx_destroy_window(v->mlx, v->win);
 	if (v->m.map != 0)
 	{
-		while (++i < v->m.height)
+		while (++k < v->m.h)
 		{
-			free(v->m.map[i]);
+			free(v->m.map[k]);
 			v->m.map[i] = 0;
 		}
 		free(v->m.map);
 		v->m.map = 0;
 	}
-//	system("leaks so_long");
 	exit(i);
 }
 
 void	finish_game(t_vars *v)
 {
 	printf("move: %d\n", v->move);
-	printf("Your score is %d/%d(yours/total) in %d moves\n", v->score, v->m.collect, v->move);
-//	system("leaks so_long");
+	printf("Your score is %d/%d(yours/total)", v->score, v->m.c);
+	printf(" in %d moves\n", v->move);
 	ft_exit(v, 0);
 }

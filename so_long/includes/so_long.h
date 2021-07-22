@@ -26,11 +26,11 @@ typedef struct s_xy
 
 typedef struct s_map
 {
-	int width;
-	int height;
-	int collect;
-	int player;
-	int escape;
+	int w;
+	int h;
+	int c;
+	int p;
+	int e;
 	int **map;
 } t_map;
 
@@ -38,10 +38,10 @@ typedef struct s_img
 {
 	void *img;
 	char *addr;
-	int width;
-	int height;
+	int w;
+	int h;
 	int bpp;
-	int line_length;
+	int len;
 	int endian;
 	int x;
 	int y;
@@ -49,13 +49,13 @@ typedef struct s_img
 
 typedef struct s_sprite
 {
-	t_img wall;
-	t_img column;
-	t_img floor;
-	t_img collect1;
-	t_img collect2;
-	t_img player;
-	t_img escape;
+	t_img w;
+	t_img col;
+	t_img f;
+	t_img c1;
+	t_img c2;
+	t_img p;
+	t_img e;
 } t_sprite;
 
 typedef struct s_vars
@@ -89,7 +89,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 int ft_max(int a, int b);
 void	*ft_memset(void *ptr, int value, size_t num);
-int	ft_strcmp(const char *s1, const char *s2);
+int	ft_strcmp(const char *s1, const char *s2, t_vars *v);
 
 void default_map(t_vars *v);
 void map_error(t_vars *v, int a);
@@ -98,6 +98,7 @@ void check_map_rec(t_vars *v);
 
 void map_repeat(t_vars *v);
 void make_map(char *av[], t_vars *v);
+void get_info(char *av[], t_vars *v, int *fd, int *size);
 int char_to_i(char a, t_vars *v);
 void draw_map(t_vars *v);
 void draw_sprite(t_vars *v);
@@ -108,5 +109,9 @@ int ft_click(t_vars *v);
 void make_all(t_vars *v);
 char *print_integer(t_vars *v);
 void finish_game(t_vars *v);
+void my_put_image(t_vars *v, int w, int h, t_img *img);
+void	make_info(char *av[], t_vars *v, int *fd, int *size);
 
+
+void	xpm_to_image(t_vars *v, t_img *img);
 #endif

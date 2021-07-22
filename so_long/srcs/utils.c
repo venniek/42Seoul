@@ -1,8 +1,10 @@
 #include "../includes/so_long.h"
 
-int ft_max(int a, int b)
+int	ft_max(int a, int b)
 {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	return (b);
 }
 
 void	ft_putchar_fd(char c, int fd)
@@ -36,11 +38,13 @@ void	*ft_memset(void *ptr, int value, size_t num)
 	return (ptr);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2, t_vars *v)
 {
 	size_t	i;
 
 	i = 0;
+	if (!s1)
+		map_error(v, 8);
 	while (s1[i])
 	{
 		if (s1[i] != s2[i])

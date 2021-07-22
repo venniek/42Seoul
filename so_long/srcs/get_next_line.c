@@ -23,7 +23,8 @@ int	update_save(char **save, int index, char **line)
 		*line = ft_strdup("");
 	else
 		*line = ft_substr(*save, 0, index);
-	if ((len = ft_strlen(*save) - index - 1) <= 0)
+	len = ft_strlen(*save) - index - 1;
+	if (len <= 0)
 	{
 		free(*save);
 		*save = 0;
@@ -70,11 +71,15 @@ int	get_next_line(int fd, char **line)
 	*line = 0;
 	if (!save)
 		save = ft_strdup("");
-	while ((size = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (1)
 	{
+		size = read(fd, buf, BUFFER_SIZE);
+		if (size <= 0)
+			break ;
 		buf[size] = '\0';
 		save = ft_strjoin(&save, buf);
-		if ((index  = ft_newline(save)) >= 0)
+		index = ft_newline(save);
+		if (index >= 0)
 			return (update_save(&save, index, line));
 	}
 	return (read_done(line, &save, size));

@@ -1,19 +1,42 @@
 #include "../includes/so_long.h"
 
-void make_all(t_vars *v)
+void	make_all(t_vars *v)
 {
+	int	w;
+	int	h;
+	int	bpp;
+
 	v->mlx = mlx_init();
-	v->s.wall.img = mlx_xpm_file_to_image(v->mlx, "./imgs/cloud_wall.xpm", &(v->s.wall.width), &(v->s.wall.height));
-	v->s.wall.addr = mlx_get_data_addr(v->s.wall.img, &(v->s.wall.bpp), &(v->s.wall.line_length), &(v->s.wall.endian));
-	v->s.column.img = mlx_xpm_file_to_image(v->mlx, "./imgs/column.xpm", &(v->s.column.width), &(v->s.column.height));
-	v->s.column.addr = mlx_get_data_addr(v->s.column.img, &(v->s.column.bpp), &(v->s.column.line_length), &(v->s.column.endian));
-	v->s.floor.img = mlx_xpm_file_to_image(v->mlx, "./imgs/floor.xpm", &(v->s.floor.width), &(v->s.floor.height));
-	v->s.floor.addr = mlx_get_data_addr(v->s.floor.img, &(v->s.floor.bpp), &(v->s.floor.line_length), &(v->s.floor.endian));
-	v->s.escape.img = mlx_xpm_file_to_image(v->mlx, "./imgs/door_open.xpm", &(v->s.escape.width), &(v->s.escape.height));
-	v->s.escape.addr = mlx_get_data_addr(v->s.escape.img, &(v->s.escape.bpp), &(v->s.escape.line_length), &(v->s.escape.endian));
-	v->s.collect1.img = mlx_xpm_file_to_image(v->mlx, "./imgs/ball_down.xpm", &(v->s.collect1.width), &(v->s.collect1.height));
-	v->s.collect1.addr = mlx_get_data_addr(v->s.collect1.img, &(v->s.collect1.bpp), &(v->s.collect1.line_length), &(v->s.collect1.endian));
-	v->s.player.img = mlx_xpm_file_to_image(v->mlx, "./imgs/woody.xpm", &(v->s.player.width), &(v->s.player.height));
-	v->s.player.addr = mlx_get_data_addr(v->s.player.img, &(v->s.player.bpp), &(v->s.player.line_length), &(v->s.player.endian));
-	v->win = mlx_new_window(v->mlx, v->m.width * v->s.wall.bpp, v->m.height * v->s.wall.bpp, "Bye Andy");
+	xpm_to_image(v, &v->s.w);
+	xpm_to_image(v, &v->s.col);
+	xpm_to_image(v, &v->s.f);
+	xpm_to_image(v, &v->s.c1);
+	xpm_to_image(v, &v->s.p);
+	xpm_to_image(v, &v->s.e);
+	w = v->m.w;
+	h = v->m.h;
+	bpp = v->s.w.bpp;
+	v->win = mlx_new_window(v->mlx, w * bpp, h * bpp, "Bye Andy");
+}
+
+void	xpm_to_image(t_vars *v, t_img *i)
+{
+	char	*filename;
+
+	if (i == &v->s.w)
+		filename = ft_strdup("./imgs/cloud_wall.xpm");
+	else if (i == &v->s.col)
+		filename = ft_strdup("./imgs/column.xpm");
+	else if (i == &v->s.f)
+		filename = ft_strdup("./imgs/floor.xpm");
+	else if (i == &v->s.c1)
+		filename = ft_strdup("./imgs/ball_down.xpm");
+	else if (i == &v->s.p)
+		filename = ft_strdup("./imgs/ball_down.xpm");
+	else if (i == &v->s.e)
+		filename = ft_strdup("./imgs/woody.xpm");
+	i->img = mlx_xpm_file_to_image(v->mlx, filename, &(i->w), &(i->h));
+	i->addr = mlx_get_data_addr(i->img, &(i->bpp), &(i->len), &(i->endian));
+	free(filename);
+	filename = 0;
 }
