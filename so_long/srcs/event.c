@@ -16,13 +16,13 @@ int	check_collision(t_vars *v, int kc)
 		xy.x = 1;
 	else
 		return (1);
-	if (v->m.map[v->s.p.y + xy.y][v->s.p.x + xy.x] == 1)
+	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 1)
 		v->collision = 1;
 	if (v->collision == 0)
 	{
-		v->m.map[v->s.p.y][v->s.p.x] = 0;
-		v->s.p.x += xy.x;
-		v->s.p.y += xy.y;
+		v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 0;
+		v->s.p.xy.x += xy.x;
+		v->s.p.xy.y += xy.y;
 		v->move++;
 	}
 	return (0);
@@ -35,11 +35,11 @@ int	ft_keypress(int kc, t_vars *v)
 		ft_exit(v, 0);
 	if (check_collision(v, kc) == 1)
 		return (0);
-	if (v->m.map[v->s.p.y][v->s.p.x] == 3)
+	if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 3)
 		finish_game(v);
-	else if (v->m.map[v->s.p.y][v->s.p.x] == 2)
+	else if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 2)
 		v->score++;
-	v->m.map[v->s.p.y][v->s.p.x] = 4;
+	v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 4;
 	map_repeat(v);
 	return (0);
 }

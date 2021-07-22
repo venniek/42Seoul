@@ -48,8 +48,8 @@ void	draw_sprite(t_vars *v)
 				my_put_image(v, w, h, &v->s.e);
 			if (v->m.map[h][w] == 4)
 			{
-				v->s.p.x = w;
-				v->s.p.y = h;
+				v->s.p.xy.x = w;
+				v->s.p.xy.y = h;
 				my_put_image(v, w, h, &v->s.p);
 			}
 		}

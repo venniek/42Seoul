@@ -53,11 +53,11 @@ void	get_info(char *av[], t_vars *v, int *fd, int *size)
 	char	*line;
 
 	*fd = open(av[1], O_RDONLY);
-	if (fd < 0)
+	if (*fd < 0)
 		map_error(v, 8);
 	while (1)
 	{
-		*size = get_next_line(fd, &line);
+		*size = get_next_line(*fd, &line);
 		v->m.h++;
 		if (v->m.w == 0 && ft_strlen(line) == 0)
 			map_error(v, 1);
@@ -66,7 +66,7 @@ void	get_info(char *av[], t_vars *v, int *fd, int *size)
 			v->m.h--;
 		free(line);
 		line = 0;
-		if (size == 0)
+		if (*size == 0)
 			break ;
 	}
 }
@@ -85,7 +85,7 @@ void	make_info(char *av[], t_vars *v, int *fd, int *size)
 	k = 0;
 	while (1)
 	{
-		*size = get_next_line(fd, &line);
+		*size = get_next_line(*fd, &line);
 		if (ft_strlen(line) > 0 && ft_strlen(line) != v->m.w)
 			map_error(v, 1);
 		i = -1;
@@ -93,7 +93,7 @@ void	make_info(char *av[], t_vars *v, int *fd, int *size)
 			v->m.map[k][i] = char_to_i(line[i], v);
 		free(line);
 		line = 0;
-		if (size == 0)
+		if (*size == 0)
 			break ;
 		k++;
 	}

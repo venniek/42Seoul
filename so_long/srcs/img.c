@@ -32,9 +32,9 @@ void	xpm_to_image(t_vars *v, t_img *i)
 	else if (i == &v->s.c1)
 		filename = ft_strdup("./imgs/ball_down.xpm");
 	else if (i == &v->s.p)
-		filename = ft_strdup("./imgs/ball_down.xpm");
-	else if (i == &v->s.e)
 		filename = ft_strdup("./imgs/woody.xpm");
+	else if (i == &v->s.e)
+		filename = ft_strdup("./imgs/door_open.xpm");
 	i->img = mlx_xpm_file_to_image(v->mlx, filename, &(i->w), &(i->h));
 	i->addr = mlx_get_data_addr(i->img, &(i->bpp), &(i->len), &(i->endian));
 	free(filename);
