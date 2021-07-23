@@ -27,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) -g3 -fsanitize=address $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) -g3 $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 all: $(NAME)
 
