@@ -14,7 +14,8 @@ int	main(int ac, char *av[])
 	make_map(av, &v);
 	check_map_error(&v);
 	make_all(&v);
-	map_repeat(&v);
+	draw_map(&v);
+	draw_sprite(&v);
 	mlx_hook(v.win, 2, 1L << 0, ft_keypress, &v);
 	mlx_hook(v.win, 17, 0, ft_click, &v);
 	mlx_loop(v.mlx);

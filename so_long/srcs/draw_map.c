@@ -1,13 +1,5 @@
 #include "../includes/so_long.h"
 
-void	map_repeat(t_vars *v)
-{
-	if (v->collision == 0)
-		printf("move: %d\n", v->move);
-	draw_map(v);
-	draw_sprite(v);
-}
-
 void	draw_map(t_vars *v)
 {
 	int	h;

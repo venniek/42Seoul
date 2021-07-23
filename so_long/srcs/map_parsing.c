@@ -3,6 +3,7 @@
 void	default_map(t_vars *v)
 {
 	v->move = 0;
+	v->score = 0;
 	v->mlx = 0;
 	v->win = 0;
 	v->collision = 0;

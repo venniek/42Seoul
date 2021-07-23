@@ -4,7 +4,7 @@ RM = rm -f
 
 NAME = so_long
 
-MLX = libmlx.dylib
+MLX = libmlx.a
 MLX_DIR = ./mlx
 
 INC = -I./includes -I./mlx
@@ -13,7 +13,7 @@ SRCS = 	srcs/get_next_line.c\
 		srcs/get_next_line_utils.c\
 		srcs/map_parsing.c\
 		srcs/main.c\
-		srcs/error.c\
+		srcs/check.c\
 		srcs/utils.c\
 		srcs/event.c\
 		srcs/draw_map.c\

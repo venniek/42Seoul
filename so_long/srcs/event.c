@@ -1,33 +1,5 @@
 #include "../includes/so_long.h"
 
-int	check_collision(t_vars *v, int kc)
-{
-	t_xy	xy;
-
-	xy.x = 0;
-	xy.y = 0;
-	if (kc == K_UP_W)
-		xy.y = -1;
-	else if (kc == K_DOWN_S)
-		xy.y = 1;
-	else if (kc == K_LEFT_A)
-		xy.x = -1;
-	else if (kc == K_RIGHT_D)
-		xy.x = 1;
-	else
-		return (1);
-	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 1)
-		v->collision = 1;
-	if (v->collision == 0)
-	{
-		v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 0;
-		v->s.p.xy.x += xy.x;
-		v->s.p.xy.y += xy.y;
-		v->move++;
-	}
-	return (0);
-}
-
 int	ft_keypress(int kc, t_vars *v)
 {
 	v->collision = 0;
@@ -40,7 +12,6 @@ int	ft_keypress(int kc, t_vars *v)
 	else if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 2)
 		v->score++;
 	v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 4;
-	map_repeat(v);
 	return (0);
 }
 

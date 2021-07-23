@@ -1,7 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <mlx.h>
+# include "../mlx/mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -91,7 +91,6 @@ void			make_info(char *av[], t_vars *v, int *fd, int *size);
 void			make_all(t_vars *v);
 void			xpm_to_image(t_vars *v, t_img *img);
 
-void			map_repeat(t_vars *v);
 void			draw_map(t_vars *v);
 void			draw_sprite(t_vars *v);
 void			my_put_image(t_vars *v, int w, int h, t_img *img);
@@ -99,11 +98,12 @@ void			my_put_image(t_vars *v, int w, int h, t_img *img);
 void			map_error(t_vars *v, int a);
 void			check_map_error(t_vars *v);
 void			check_map_rec(t_vars *v);
-
 int				check_collision(t_vars *v, int kc);
-void			finish_game(t_vars *v);
+void			no_collision(t_vars *v, t_xy *xy);
+
 int				ft_keypress(int keycode, t_vars *v);
 int				ft_click(t_vars *v);
 void			ft_exit(t_vars *v, int a);
+void			finish_game(t_vars *v);
 
 #endif
