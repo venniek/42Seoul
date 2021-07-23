@@ -85,7 +85,7 @@ int	check_collision(t_vars *v, int kc)
 	return (0);
 }
 
-void no_collision(t_vars *v, t_xy *xy)
+void	no_collision(t_vars *v, t_xy *xy)
 {
 	v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 0;
 	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.f);
