@@ -44,8 +44,19 @@ void	make_map(char *av[], t_vars *v)
 {
 	int	fd;
 	int	size;
+	int	i;
 
 	get_info(av, v, &fd, &size);
+	i = -1;
+	v->m.map = (int **)malloc(sizeof(int *) * v->m.h);
+	if (!v->m.map)
+		ft_exit(v, 1);
+	while (++i < v->m.h)
+	{
+		v->m.map[i] = (int *)malloc(sizeof(int) * v->m.w);
+		if (!v->m.map[i])
+			ft_exit(v, 1);
+	}
 	make_info(av, v, &fd, &size);
 }
 
@@ -78,10 +89,6 @@ void	make_info(char *av[], t_vars *v, int *fd, int *size)
 	int		k;
 	char	*line;
 
-	i = -1;
-	v->m.map = (int **)malloc(sizeof(int *) * v->m.h);
-	while (++i < v->m.h)
-		v->m.map[i] = (int *)malloc(sizeof(int) * v->m.w);
 	*fd = open(av[1], O_RDONLY);
 	k = 0;
 	while (1)

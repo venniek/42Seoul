@@ -27,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 $(NAME) : $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) -g3 $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 all: $(NAME)
 
@@ -40,4 +40,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libmlx.dylib
+.PHONY: all clean fclean re libmlx.a

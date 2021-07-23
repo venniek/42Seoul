@@ -43,7 +43,6 @@ void	ft_exit(t_vars *v, int i)
 
 void	finish_game(t_vars *v)
 {
-	printf("move: %d\n", v->move);
 	printf("Your score is %d/%d(yours/total)", v->score, v->m.c);
 	printf(" in %d moves\n", v->move);
 	ft_exit(v, 0);
