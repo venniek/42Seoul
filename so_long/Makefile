@@ -8,7 +8,7 @@ NAME_B = so_long_bonus
 MLX = libmlx.a
 MLX_DIR = ./mlx
 
-INC = -I./includes -I./mlx
+INC = -Iincludes
 
 SRCS = 	srcs/get_next_line.c\
 		srcs/get_next_line_utils.c\
@@ -40,12 +40,12 @@ OBJS_B = $(SRCS_B:.c=.o)
 $(NAME) : $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(INC) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 $(NAME_B) : $(OBJS_B)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) $(OBJS_B) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) $(OBJS_B) $(INC) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 bonus: $(NAME_B)
 

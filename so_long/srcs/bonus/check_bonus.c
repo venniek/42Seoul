@@ -100,8 +100,9 @@ void	no_collision(t_vars *v, t_xy *xy)
 	my_put_image(v, 0, v->m.h - 1, &v->s.w);
 	my_put_image(v, 1, v->m.h - 1, &v->s.w);
 	my_put_image(v, 2, v->m.h - 1, &v->s.w);
-	mlx_string_put(v->mlx, v->win, 0, (v->m.h - 0.5) * v->s.w.h, 0x000000, "move: ");
-	mlx_string_put(v->mlx, v->win, v->s.w.w * 1.5, (v->m.h - 0.5) * v->s.w.h, 0x000000, move);
+	my_put_image(v, 3, v->m.h - 1, &v->s.w);
+	my_string_put(v, 0, v->m.h, "move: ");
+	my_string_put(v, 2, v->m.h, move);
 	free(move);
 	move = 0;
 }

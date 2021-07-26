@@ -58,7 +58,7 @@ void	my_put_image(t_vars *v, int w, int h, t_img *img)
 	mlx_put_image_to_window(v->mlx, v->win, img->img, w * wid, h * hei);
 }
 
-void redraw_map(t_vars *v, int w, int h, int cur)
+void	redraw_map(t_vars *v, int w, int h, int cur)
 {
 	my_put_image(v, w, h, &v->s.f);
 	if (v->m.map[h][w] == 2 && cur % 2 == 0)

@@ -1,5 +1,5 @@
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../mlx/mlx.h"
 # include <stdlib.h>
@@ -112,6 +112,7 @@ void			finish_game(t_vars *v);
 
 int				ft_animation(t_vars *v);
 char			*integer_to_string(t_vars *v);
+void			my_string_put(t_vars *v, int w, int h, char *str);
 void			make_move(int len, char **move, int mcopy);
 
 #endif

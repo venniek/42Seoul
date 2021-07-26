@@ -42,6 +42,16 @@ char	*integer_to_string(t_vars *v)
 	return (move);
 }
 
+void	my_string_put(t_vars *v, int w, int h, char *str)
+{
+	int	wid;
+	int	hei;
+
+	wid = v->s.w.w * w + v->s.w.w / 2;
+	hei = v->s.w.h * h - v->s.w.h / 2;
+	mlx_string_put(v->mlx, v->win, wid, hei, 0x000000, str);
+}
+
 void	make_move(int len, char **move, int mcopy)
 {
 	int	i;

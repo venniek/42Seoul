@@ -28,16 +28,6 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void	*ft_memset(void *ptr, int value, size_t num)
-{
-	unsigned char	*a;
-
-	a = (unsigned char *)ptr;
-	while (num-- > 0)
-		*(a++) = (unsigned char)value;
-	return (ptr);
-}
-
 int	ft_strcmp(const char *s1, const char *s2, t_vars *v)
 {
 	size_t	i;
