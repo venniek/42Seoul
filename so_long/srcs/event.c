@@ -37,12 +37,11 @@ void	ft_exit(t_vars *v, int i)
 		free(v->m.map);
 		v->m.map = 0;
 	}
-//	system("leaks so_long");
 	exit(i);
 }
 
 void	finish_game(t_vars *v)
 {
-	printf("You collected all balls in %d moves\n", v->move);
+	printf("You collect all balls in %d moves!\n", v->move);
 	ft_exit(v, 0);
 }

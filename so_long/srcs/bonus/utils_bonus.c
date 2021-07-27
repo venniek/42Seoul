@@ -7,6 +7,13 @@ int	ft_max(int a, int b)
 	return (b);
 }
 
+int ft_min(int a, int b)
+{
+	if (a > b)
+		return (b);
+	return (a);
+}
+
 void	ft_putchar_fd(char c, int fd)
 {
 	if (fd < 0)
@@ -26,16 +33,6 @@ void	ft_putstr_fd(char *s, int fd)
 		ft_putchar_fd(s[i], fd);
 		i++;
 	}
-}
-
-void	*ft_memset(void *ptr, int value, size_t num)
-{
-	unsigned char	*a;
-
-	a = (unsigned char *)ptr;
-	while (num-- > 0)
-		*(a++) = (unsigned char)value;
-	return (ptr);
 }
 
 int	ft_strcmp(const char *s1, const char *s2, t_vars *v)

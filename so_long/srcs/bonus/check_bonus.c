@@ -94,12 +94,11 @@ void	no_collision(t_vars *v, t_xy *xy)
 		if (v->score == v->m.c)
 		{
 			v->move++;
-			printf("move: %d\n", v->move);
 			finish_game(v);
 		}
 		else
 		{
-			printf("You should collect all balls\n");
+			printf("You should collect all %d balls\n", v->m.c);
 			printf("If you can't, press ESC or RED CROSS on left top\n\n");
 		}
 		return ;
@@ -111,19 +110,24 @@ void	no_collision(t_vars *v, t_xy *xy)
 	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.f);
 	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.p);
 	v->move++;
-	print_move_on_map(v);
+//	print_move_on_map(v);
 }
 
-void print_move_on_map(t_vars *v)
+void	print_move_on_map(t_vars *v)
 {
 	int i;
+	char *str;
 
 	i = -1;
 	while (++i < ft_min(10, v->m.w))
-		my_put_image(i, 0, v->m.h - 1, &v->s.w);
+		my_put_image(v, i, v->m.h - 1, &v->s.w);
+	str = integer_to_string(v->move, v);
 	my_string_put(v, 0, v->m.h, "move: ");
-	my_string_put(v, 2, v->m.h, integer_to_string(v->move));
+	my_string_put(v, 2, v->m.h, str);
+	free(str);
+	str = integer_to_string(v->score, v);
 	my_string_put(v, 4, v->m.h, "score: ");
-	my_string_put(v, 6, v->m.h, integer_to_string(v->score));
-	
+	my_string_put(v, 6, v->m.h, str);
+	free(str);
+	str = 0;
 }

@@ -81,6 +81,7 @@ int				read_done(char **line, char **save, int size);
 int				get_next_line(int fd, char **line);
 
 int				ft_max(int a, int b);
+int				ft_min(int a, int b);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_strcmp(const char *s1, const char *s2, t_vars *v);
@@ -111,8 +112,10 @@ void			ft_exit(t_vars *v, int a);
 void			finish_game(t_vars *v);
 
 int				ft_animation(t_vars *v);
-char			*integer_to_string(t_vars *v);
+char			*integer_to_string(int n, t_vars *v);
 void			my_string_put(t_vars *v, int w, int h, char *str);
 void			make_move(int len, char **move, int mcopy);
+
+void			print_move_on_map(t_vars *v);
 
 #endif

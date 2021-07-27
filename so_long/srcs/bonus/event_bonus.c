@@ -7,11 +7,11 @@ int	ft_keypress(int kc, t_vars *v)
 		ft_exit(v, 0);
 	if (check_collision(v, kc) == 1)
 		return (0);
-	if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 3)
-		finish_game(v);
-	else if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 2)
+	if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 2)
 		v->score++;
-	v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 4;
+	print_move_on_map(v);
+	if (v->collision != 2)
+		v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 4;
 	return (0);
 }
 
@@ -43,7 +43,6 @@ void	ft_exit(t_vars *v, int i)
 
 void	finish_game(t_vars *v)
 {
-	printf("Your score is %d/%d(yours/total)", v->score, v->m.c);
-	printf(" in %d moves\n", v->move);
+	printf("You collect all balls in %d moves!\n", v->move);
 	ft_exit(v, 0);
 }

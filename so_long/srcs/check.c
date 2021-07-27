@@ -99,6 +99,7 @@ void	no_collision(t_vars *v, t_xy *xy)
 		}
 		else
 		{
+			printf("You have only %d of %d balls\n", v->score, v->m.c);
 			printf("You should collect all balls\n");
 			printf("If you can't, press ESC or RED CROSS on left top\n\n");
 		}

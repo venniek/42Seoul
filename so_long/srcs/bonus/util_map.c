@@ -21,24 +21,24 @@ int	ft_animation(t_vars *v)
 	return (0);
 }
 
-char	*integer_to_string(t_vars *v)
+char	*integer_to_string(int n, t_vars *v)
 {
 	char	*move;
-	int		mcopy;
+	int		ncopy;
 	int		len;
 
 	len = 0;
-	mcopy = v->move;
-	while (mcopy > 0)
+	ncopy = n;
+	while (ncopy > 0)
 	{
 		len++;
-		mcopy /= 10;
+		ncopy /= 10;
 	}
-	mcopy = v->move;
+	ncopy = n;
 	move = (char *)malloc(sizeof(char) * (len + 1));
 	if (move == NULL)
 		ft_exit(v, 1);
-	make_move(len, &move, mcopy);
+	make_move(len, &move, ncopy);
 	return (move);
 }
 
