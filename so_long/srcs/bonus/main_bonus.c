@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/28 14:49:09 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/28 14:49:11 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/so_long_bonus.h"
 
 int	main(int ac, char *av[])
@@ -13,9 +25,12 @@ int	main(int ac, char *av[])
 	}
 	if (!ft_strcmp(av[1], "maps", &v) || !ft_strcmp(av[1], "maps/", &v))
 		map_error(&v, 8);
+	if (ft_strlen(av[1]) < 5 || is_ber(av[1]) == 0)
+		map_error(&v, 8);
 	make_map(av, &v);
 	check_map_error(&v);
 	v.start = time(NULL);
+	v.now = v.start;
 	make_all(&v);
 	draw_map(&v);
 	draw_sprite(&v);
@@ -24,4 +39,22 @@ int	main(int ac, char *av[])
 	mlx_loop_hook(v.mlx, ft_animation, &v);
 	mlx_loop(v.mlx);
 	return (0);
+}
+
+int	is_ber(char *str)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(str);
+	i = len;
+	if (str[--i] != 'r')
+		return (0);
+	if (str[--i] != 'e')
+		return (0);
+	if (str[--i] != 'b')
+		return (0);
+	if (str[--i] != '.')
+		return (0);
+	return (1);
 }

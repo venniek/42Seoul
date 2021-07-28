@@ -29,7 +29,7 @@ SRCS_B = srcs/bonus/get_next_line_bonus.c\
 		srcs/bonus/event_bonus.c\
 		srcs/bonus/draw_map_bonus.c\
 		srcs/bonus/img_bonus.c\
-		srcs/bonus/util_map.c
+		srcs/bonus/util_map_bonus.c
 
 %.o: %.c
 	$(CC) -Imlx -c $< -o $@

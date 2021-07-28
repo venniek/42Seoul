@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/28 12:25:05 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/28 12:25:07 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/so_long_bonus.h"
 
 void	map_error(t_vars *v, int a)
@@ -110,24 +122,4 @@ void	no_collision(t_vars *v, t_xy *xy)
 	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.f);
 	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.p);
 	v->move++;
-//	print_move_on_map(v);
-}
-
-void	print_move_on_map(t_vars *v)
-{
-	int i;
-	char *str;
-
-	i = -1;
-	while (++i < ft_min(10, v->m.w))
-		my_put_image(v, i, v->m.h - 1, &v->s.w);
-	str = integer_to_string(v->move, v);
-	my_string_put(v, 0, v->m.h, "move: ");
-	my_string_put(v, 2, v->m.h, str);
-	free(str);
-	str = integer_to_string(v->score, v);
-	my_string_put(v, 4, v->m.h, "score: ");
-	my_string_put(v, 6, v->m.h, str);
-	free(str);
-	str = 0;
 }

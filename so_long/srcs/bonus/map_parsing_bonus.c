@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parsing_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/28 14:47:49 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/28 14:47:51 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/so_long_bonus.h"
 
 void	default_map(t_vars *v)
@@ -7,6 +19,7 @@ void	default_map(t_vars *v)
 	v->mlx = 0;
 	v->win = 0;
 	v->collision = 0;
+	v->patcnt = 0;
 	v->m.map = 0;
 	v->m.h = 0;
 	v->m.w = 0;

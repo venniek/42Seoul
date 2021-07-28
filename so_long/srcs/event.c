@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/28 12:23:43 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/28 12:23:49 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 int	ft_keypress(int kc, t_vars *v)
@@ -42,6 +54,6 @@ void	ft_exit(t_vars *v, int i)
 
 void	finish_game(t_vars *v)
 {
-	printf("You collect all balls in %d moves!\n", v->move);
+	printf("You collected all balls in %d moves!\n", v->move);
 	ft_exit(v, 0);
 }

@@ -58,6 +58,12 @@ typedef struct s_sprite
 	t_img	e2;
 }	t_sprite;
 
+typedef struct s_pat
+{
+	t_img	img;
+	t_xy	xy;
+}	t_pat;
+
 typedef struct s_vars
 {
 	void		*mlx;
@@ -65,9 +71,12 @@ typedef struct s_vars
 	int			move;
 	int			score;
 	int			collision;
+	int			patcnt;
 	t_map		m;
 	t_sprite	s;
+	t_pat		pat[5];
 	time_t		start;
+	time_t		now;
 }	t_vars;
 
 char			*ft_strjoin(char **s1, char *s2);
@@ -82,6 +91,7 @@ int				get_next_line(int fd, char **line);
 
 int				ft_max(int a, int b);
 int				ft_min(int a, int b);
+int				ft_abs(int a);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_strcmp(const char *s1, const char *s2, t_vars *v);
@@ -99,6 +109,7 @@ void			draw_map(t_vars *v);
 void			draw_sprite(t_vars *v);
 void			my_put_image(t_vars *v, int w, int h, t_img *img);
 void			redraw_map(t_vars *v, int w, int h, int cur);
+void			make_xy_and_img(t_vars *v, int w, int h, t_img *img);
 
 void			map_error(t_vars *v, int a);
 void			check_map_error(t_vars *v);
@@ -115,7 +126,11 @@ int				ft_animation(t_vars *v);
 char			*integer_to_string(int n, t_vars *v);
 void			my_string_put(t_vars *v, int w, int h, char *str);
 void			make_move(int len, char **move, int mcopy);
-
+int				moving_patrol(t_vars *v);
 void			print_move_on_map(t_vars *v);
+
+void			what_is_filename(char **filename, t_vars *v, t_img *i);
+int				is_pat(t_vars *v, int w, int h);
+int				is_ber(char *str);
 
 #endif

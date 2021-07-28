@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/28 14:48:12 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/28 14:48:13 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/so_long_bonus.h"
 
 int	ft_max(int a, int b)
@@ -7,11 +19,18 @@ int	ft_max(int a, int b)
 	return (b);
 }
 
-int ft_min(int a, int b)
+int	ft_min(int a, int b)
 {
 	if (a > b)
 		return (b);
 	return (a);
+}
+
+int	ft_abs(int a)
+{
+	if (a > 0)
+		return (a);
+	return (-1 * a);
 }
 
 void	ft_putchar_fd(char c, int fd)
