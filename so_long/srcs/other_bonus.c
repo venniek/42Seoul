@@ -57,7 +57,6 @@ void	ft_exit(t_vars *v, int i)
 		free(v->m.map);
 		v->m.map = 0;
 	}
-	system("leaks so_long_bonus");
 	exit(i);
 }
 
