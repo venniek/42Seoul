@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 void	draw_map(t_vars *v)
 {
@@ -48,7 +48,7 @@ void	draw_sprite(t_vars *v)
 		{
 			if (v->m.map[h][w] == 2 && is_pat(v, w, h) == 1)
 			{
-				make_xy_and_img(v, w, h, &v->pat[v->patcnt].img);
+				make_xy_and_img(v, w, h, &v->pat[v->patcnt]);
 				v->m.map[h][w] = 5;
 				v->patcnt++;
 				v->m.c--;
@@ -63,28 +63,11 @@ void	draw_sprite(t_vars *v)
 	}
 }
 
-int	is_pat(t_vars *v, int w, int h)
-{
-	if ((h + w) % 4 == 0 && h % 2 == 0 && v->patcnt < 5)
-		return (1);
-	return (0);
-}
-
 void	make_xy_and_img(t_vars *v, int w, int h, t_img *img)
 {
 	img->xy.x = w;
 	img->xy.y = h;
 	my_put_image(v, w, h, img);
-}
-
-void	my_put_image(t_vars *v, int w, int h, t_img *img)
-{
-	int	wid;
-	int	hei;
-
-	wid = img->w;
-	hei = img->h;
-	mlx_put_image_to_window(v->mlx, v->win, img->img, w * wid, h * hei);
 }
 
 void	redraw_map(t_vars *v, int w, int h, int cur)
@@ -101,5 +84,5 @@ void	redraw_map(t_vars *v, int w, int h, int cur)
 	else if (v->m.map[h][w] == 4)
 		my_put_image(v, w, h, &v->s.p);
 	else if (v->m.map[h][w] == 5)
-		my_put_image(v, w, h, &v->pat[0].img);
+		my_put_image(v, w, h, &v->pat[0]);
 }

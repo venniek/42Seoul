@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 void	default_map(t_vars *v)
 {
@@ -102,6 +102,8 @@ void	make_info(char *av[], t_vars *v, int *fd, int *size)
 	char	*line;
 
 	*fd = open(av[1], O_RDONLY);
+	if (*fd < 0)
+		map_error(v, 8);
 	k = 0;
 	while (1)
 	{

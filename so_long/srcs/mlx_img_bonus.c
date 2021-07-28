@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_bonus.c                                        :+:      :+:    :+:   */
+/*   mlx_img_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:47:42 by naykim            #+#    #+#             */
-/*   Updated: 2021/07/28 14:47:44 by naykim           ###   ########.fr       */
+/*   Updated: 2021/07/29 02:22:13 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 void	make_all(t_vars *v)
 {
@@ -30,7 +30,7 @@ void	make_all(t_vars *v)
 	xpm_to_image(v, &v->s.e1);
 	xpm_to_image(v, &v->s.e2);
 	while (++i < 5)
-		xpm_to_image(v, &v->pat[i].img);
+		xpm_to_image(v, &v->pat[i]);
 	w = v->m.w;
 	h = v->m.h;
 	bpp = v->s.w.bpp;
@@ -50,27 +50,12 @@ void	xpm_to_image(t_vars *v, t_img *i)
 	filename = 0;
 }
 
-void	what_is_filename(char **filename, t_vars *v, t_img *i)
+void	my_put_image(t_vars *v, int w, int h, t_img *img)
 {
-	int	k;
+	int	wid;
+	int	hei;
 
-	k = -1;
-	if (i == &v->s.w)
-		*filename = ft_strdup("./imgs/cloud_wall.xpm");
-	else if (i == &v->s.col)
-		*filename = ft_strdup("./imgs/column.xpm");
-	else if (i == &v->s.f)
-		*filename = ft_strdup("./imgs/floor.xpm");
-	else if (i == &v->s.c1)
-		*filename = ft_strdup("./imgs/ball_down.xpm");
-	else if (i == &v->s.c2)
-		*filename = ft_strdup("./imgs/ball_up.xpm");
-	else if (i == &v->s.p)
-		*filename = ft_strdup("./imgs/woody.xpm");
-	else if (i == &v->s.e1)
-		*filename = ft_strdup("./imgs/door_open.xpm");
-	else if (i == &v->s.e2)
-		*filename = ft_strdup("./imgs/door_close.xpm");
-	else if (i >= &v->pat[0].img && i <= &v->pat[4].img)
-		*filename = ft_strdup("./imgs/lotso.xpm");
+	wid = img->w;
+	hei = img->h;
+	mlx_put_image_to_window(v->mlx, v->win, img->img, w * wid, h * hei);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 void	map_error(t_vars *v, int a)
 {
@@ -46,10 +46,10 @@ void	check_map_error(t_vars *v)
 		map_error(v, 5);
 	if (v->m.c == 0)
 		map_error(v, 6);
-	check_map_rec(v);
+	check_map_wall(v);
 }
 
-void	check_map_rec(t_vars *v)
+void	check_map_wall(t_vars *v)
 {
 	int	i;
 	int	k;
@@ -74,52 +74,20 @@ void	check_map_rec(t_vars *v)
 	}
 }
 
-int	check_collision(t_vars *v, int kc)
+int	is_ber(char *str)
 {
-	t_xy	xy;
+	int	len;
+	int	i;
 
-	xy.x = 0;
-	xy.y = 0;
-	if (kc == K_UP_W)
-		xy.y = -1;
-	else if (kc == K_DOWN_S)
-		xy.y = 1;
-	else if (kc == K_LEFT_A)
-		xy.x = -1;
-	else if (kc == K_RIGHT_D)
-		xy.x = 1;
-	else
-		return (1);
-	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 1)
-		v->collision = 1;
-	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 3)
-		v->collision = 2;
-	if (v->collision != 1)
-		no_collision(v, &xy);
-	return (0);
-}
-
-void	no_collision(t_vars *v, t_xy *xy)
-{
-	if (v->collision == 2)
-	{
-		if (v->score == v->m.c)
-		{
-			v->move++;
-			finish_game(v);
-		}
-		else
-		{
-			printf("You should collect all %d balls\n", v->m.c);
-			printf("If you can't, press ESC or RED CROSS on left top\n\n");
-		}
-		return ;
-	}
-	v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 0;
-	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.f);
-	v->s.p.xy.x += xy->x;
-	v->s.p.xy.y += xy->y;
-	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.f);
-	my_put_image(v, v->s.p.xy.x, v->s.p.xy.y, &v->s.p);
-	v->move++;
+	len = ft_strlen(str);
+	i = len;
+	if (str[--i] != 'r')
+		return (0);
+	if (str[--i] != 'e')
+		return (0);
+	if (str[--i] != 'b')
+		return (0);
+	if (str[--i] != '.')
+		return (0);
+	return (1);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 void	default_map(t_vars *v)
 {
@@ -26,31 +26,6 @@ void	default_map(t_vars *v)
 	v->m.c = 0;
 	v->m.p = 0;
 	v->m.e = 0;
-}
-
-int	char_to_i(char a, t_vars *v)
-{
-	if (a == '0')
-		return (0);
-	if (a == '1')
-		return (1);
-	if (a == 'C')
-	{
-		v->m.c++;
-		return (2);
-	}
-	if (a == 'E')
-	{
-		v->m.e++;
-		return (3);
-	}
-	if (a == 'P')
-	{
-		v->m.p++;
-		return (4);
-	}
-	map_error(v, 7);
-	return (-1);
 }
 
 void	make_map(char *av[], t_vars *v)

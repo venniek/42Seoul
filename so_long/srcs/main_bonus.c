@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 int	main(int ac, char *av[])
 {
@@ -39,22 +39,4 @@ int	main(int ac, char *av[])
 	mlx_loop_hook(v.mlx, ft_animation, &v);
 	mlx_loop(v.mlx);
 	return (0);
-}
-
-int	is_ber(char *str)
-{
-	int	len;
-	int	i;
-
-	len = ft_strlen(str);
-	i = len;
-	if (str[--i] != 'r')
-		return (0);
-	if (str[--i] != 'e')
-		return (0);
-	if (str[--i] != 'b')
-		return (0);
-	if (str[--i] != '.')
-		return (0);
-	return (1);
 }

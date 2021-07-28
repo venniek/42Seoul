@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/29 02:58:35 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/29 02:58:37 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -51,7 +63,6 @@ typedef struct s_sprite
 	t_img	col;
 	t_img	f;
 	t_img	c1;
-	t_img	c2;
 	t_img	p;
 	t_img	e;
 }	t_sprite;
@@ -81,6 +92,7 @@ int				ft_max(int a, int b);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_strcmp(const char *s1, const char *s2, t_vars *v);
+int				is_ber(char *str);
 
 void			default_map(t_vars *v);
 int				char_to_i(char a, t_vars *v);
@@ -97,7 +109,7 @@ void			my_put_image(t_vars *v, int w, int h, t_img *img);
 
 void			map_error(t_vars *v, int a);
 void			check_map_error(t_vars *v);
-void			check_map_rec(t_vars *v);
+void			check_map_wall(t_vars *v);
 int				check_collision(t_vars *v, int kc);
 void			no_collision(t_vars *v, t_xy *xy);
 

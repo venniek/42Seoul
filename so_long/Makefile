@@ -8,7 +8,7 @@ NAME_B = so_long_bonus
 MLX = libmlx.a
 MLX_DIR = ./mlx
 
-INC = -Iincludes
+INC = -I./includes
 
 SRCS = 	srcs/get_next_line.c\
 		srcs/get_next_line_utils.c\
@@ -20,19 +20,22 @@ SRCS = 	srcs/get_next_line.c\
 		srcs/draw_map.c\
 		srcs/img.c
 
-SRCS_B = srcs/bonus/get_next_line_bonus.c\
-		srcs/bonus/get_next_line_utils_bonus.c\
-		srcs/bonus/map_parsing_bonus.c\
-		srcs/bonus/main_bonus.c\
-		srcs/bonus/check_bonus.c\
-		srcs/bonus/utils_bonus.c\
-		srcs/bonus/event_bonus.c\
-		srcs/bonus/draw_map_bonus.c\
-		srcs/bonus/img_bonus.c\
-		srcs/bonus/util_map_bonus.c
+SRCS_B = srcs/get_next_line_bonus.c\
+		srcs/get_next_line_utils_bonus.c\
+		srcs/map_parsing_bonus.c\
+		srcs/draw_map_bonus.c\
+		srcs/main_bonus.c\
+		srcs/error_bonus.c\
+		srcs/util_1_bonus.c\
+		srcs/util_2_bonus.c\
+		srcs/mlx_bonus.c\
+		srcs/mlx_img_bonus.c\
+		srcs/collision_bonus.c\
+		srcs/patrol_bonus.c\
+		srcs/other_bonus.c
 
 %.o: %.c
-	$(CC) -Imlx -c $< -o $@
+	$(CC) $(INC) -Imlx -c $< -o $@
 
 OBJS = $(SRCS:.c=.o)
 OBJS_B = $(SRCS_B:.c=.o)
@@ -40,12 +43,12 @@ OBJS_B = $(SRCS_B:.c=.o)
 $(NAME) : $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) $(OBJS) $(INC) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) -g3 -fsanitize=address $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 $(NAME_B) : $(OBJS_B)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) $(OBJS_B) $(INC) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) -g3 -fsanitize=address $(OBJS_B) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 bonus: $(NAME_B)
 

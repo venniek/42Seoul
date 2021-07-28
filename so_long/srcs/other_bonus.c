@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.c                                            :+:      :+:    :+:   */
+/*   finish_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/28 12:23:43 by naykim            #+#    #+#             */
-/*   Updated: 2021/07/28 12:23:49 by naykim           ###   ########.fr       */
+/*   Created: 2021/07/29 02:21:55 by naykim            #+#    #+#             */
+/*   Updated: 2021/07/29 02:21:57 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
-int	ft_keypress(int kc, t_vars *v)
+int	ft_animation(t_vars *v)
 {
-	v->collision = 0;
-	if (kc == K_ESC)
-		ft_exit(v, 0);
-	if (check_collision(v, kc) == 1)
-		return (0);
-	if (v->m.map[v->s.p.xy.y][v->s.p.xy.x] == 2)
-		v->score++;
-	if (v->collision != 2)
-		v->m.map[v->s.p.xy.y][v->s.p.xy.x] = 4;
-	return (0);
-}
+	int		h;
+	int		w;
+	int		i;
 
-int	ft_click(t_vars *v)
-{
-	ft_exit(v, 0);
+	i = -1;
+	while (++i < v->patcnt)
+		is_attack(v, i);
+	h = -1;
+	while (++h < v->m.h)
+	{
+		w = -1;
+		while (++w < v->m.w)
+		{
+			if (v->m.map[h][w] < 2)
+				continue ;
+			redraw_map(v, w, h, time(NULL) - v->start);
+		}
+	}
+	if (v->now != time(NULL))
+	{
+		moving_patrol(v);
+		v->now++;
+	}
 	return (0);
 }
 
@@ -49,7 +57,7 @@ void	ft_exit(t_vars *v, int i)
 		free(v->m.map);
 		v->m.map = 0;
 	}
-	system("leaks so_long");
+	system("leaks so_long_bonus");
 	exit(i);
 }
 

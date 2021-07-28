@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 int	ft_max(int a, int b)
 {
@@ -57,4 +57,22 @@ int	ft_strcmp(const char *s1, const char *s2, t_vars *v)
 		return (0);
 	else
 		return (-s2[i]);
+}
+
+int	is_ber(char *str)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(str);
+	i = len;
+	if (str[--i] != 'r')
+		return (0);
+	if (str[--i] != 'e')
+		return (0);
+	if (str[--i] != 'b')
+		return (0);
+	if (str[--i] != '.')
+		return (0);
+	return (1);
 }

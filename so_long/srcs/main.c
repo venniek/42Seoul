@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 int	main(int ac, char *av[])
 {
@@ -24,6 +24,8 @@ int	main(int ac, char *av[])
 		ft_exit(&v, 1);
 	}
 	if (!ft_strcmp(av[1], "maps", &v) || !ft_strcmp(av[1], "maps/", &v))
+		map_error(&v, 8);
+	if (ft_strlen(av[1]) < 5 || is_ber(av[1]) == 0)
 		map_error(&v, 8);
 	make_map(av, &v);
 	check_map_error(&v);
