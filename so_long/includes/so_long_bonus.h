@@ -134,7 +134,6 @@ int				patrol_move(t_vars *v, int i, int x, int y);
 
 int				ft_max(int a, int b);
 int				ft_min(int a, int b);
-int				ft_abs(int a);
 int				char_to_i(char a, t_vars *v);
 
 void			ft_putchar_fd(char c, int fd);

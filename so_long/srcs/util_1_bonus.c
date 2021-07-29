@@ -26,13 +26,6 @@ int	ft_min(int a, int b)
 	return (a);
 }
 
-int	ft_abs(int a)
-{
-	if (a > 0)
-		return (a);
-	return (-1 * a);
-}
-
 int	char_to_i(char a, t_vars *v)
 {
 	if (a == '0')
