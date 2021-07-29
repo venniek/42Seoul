@@ -37,25 +37,24 @@ void	ft_exit(t_vars *v, int i)
 	int	k;
 
 	k = -1;
-	if (v->mlx != 0)
+	if (v->mlx)
 		mlx_destroy_window(v->mlx, v->win);
-	if (v->m.map != 0)
+	if (v->m.map)
 	{
 		while (++k < v->m.h)
 		{
-			if (!v->m.map[k])
+			if (v->m.map[k])
 			{
 				free(v->m.map[k]);
-				v->m.map[i] = 0;
+				v->m.map[k] = 0;
 			}
 		}
-		if (!v->m.map)
+		if (v->m.map)
 		{
 			free(v->m.map);
 			v->m.map = 0;
 		}
 	}
-	system("leaks so_long");
 	exit(i);
 }
 
