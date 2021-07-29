@@ -43,12 +43,19 @@ void	ft_exit(t_vars *v, int i)
 	{
 		while (++k < v->m.h)
 		{
-			free(v->m.map[k]);
-			v->m.map[i] = 0;
+			if (!v->m.map[k])
+			{
+				free(v->m.map[k]);
+				v->m.map[i] = 0;
+			}
 		}
-		free(v->m.map);
-		v->m.map = 0;
+		if (!v->m.map)
+		{
+			free(v->m.map);
+			v->m.map = 0;
+		}
 	}
+	system("leaks so_long");
 	exit(i);
 }
 

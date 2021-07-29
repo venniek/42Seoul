@@ -47,7 +47,7 @@ void	is_attack(t_vars *v, int i)
 	paty = v->pat[i].xy.y;
 	if (paty == v->s.p.xy.y && patx == v->s.p.xy.x)
 	{
-		printf("------------YOU LOSE------------\n");
+		printf("------------YOU LOSE-------------\n");
 		printf("             !!NO!!              \n");
 		printf("!!Lotso the bad bear caught you!!\n");
 		printf("---------------------------------\n");
