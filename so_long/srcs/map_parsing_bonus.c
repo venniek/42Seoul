@@ -30,11 +30,9 @@ void	default_map(t_vars *v)
 
 void	make_map(char *av[], t_vars *v)
 {
-	int	fd;
-	int	size;
 	int	i;
 
-	get_info(av, v, &fd, &size);
+	get_info(av, v);
 	i = -1;
 	v->m.map = (int **)malloc(sizeof(int *) * v->m.h);
 	if (!v->m.map)
@@ -45,19 +43,21 @@ void	make_map(char *av[], t_vars *v)
 		if (!v->m.map[i])
 			ft_exit(v, 1);
 	}
-	make_info(av, v, &fd, &size);
+	make_info(av, v);
 }
 
-void	get_info(char *av[], t_vars *v, int *fd, int *size)
+void	get_info(char *av[], t_vars *v)
 {
 	char	*line;
+	int		fd;
+	int		size;
 
-	*fd = open(av[1], O_RDONLY);
-	if (*fd < 0)
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
 		map_error(v, 8);
 	while (1)
 	{
-		*size = get_next_line(*fd, &line);
+		size = get_next_line(fd, &line);
 		v->m.h++;
 		if (v->m.w == 0 && ft_strlen(line) == 0)
 			map_error(v, 1);
@@ -66,22 +66,26 @@ void	get_info(char *av[], t_vars *v, int *fd, int *size)
 			v->m.h--;
 		free(line);
 		line = 0;
-		if (*size == 0)
+		if (size == 0)
 			break ;
 	}
 }
 
-void	make_info(char *av[], t_vars *v, int *fd, int *size)
+void	make_info(char *av[], t_vars *v)
 {
 	int		i;
 	int		k;
+	int		fd;
+	int		size;
 	char	*line;
 
-	*fd = open(av[1], O_RDONLY);
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		map_error(v, 8);
 	k = 0;
 	while (1)
 	{
-		*size = get_next_line(*fd, &line);
+		size = get_next_line(fd, &line);
 		if (ft_strlen(line) > 0 && ft_strlen(line) != v->m.w)
 			map_error(v, 1);
 		i = -1;
@@ -89,7 +93,7 @@ void	make_info(char *av[], t_vars *v, int *fd, int *size)
 			v->m.map[k][i] = char_to_i(line[i], v);
 		free(line);
 		line = 0;
-		if (*size == 0)
+		if (size == 0)
 			break ;
 		k++;
 	}

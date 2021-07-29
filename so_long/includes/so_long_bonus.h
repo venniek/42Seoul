@@ -114,8 +114,8 @@ char			*ft_strdup(char *s);
 
 void			default_map(t_vars *v);
 void			make_map(char *av[], t_vars *v);
-void			get_info(char *av[], t_vars *v, int *fd, int *size);
-void			make_info(char *av[], t_vars *v, int *fd, int *size);
+void			get_info(char *av[], t_vars *v);
+void			make_info(char *av[], t_vars *v);
 
 int				ft_keypress(int keycode, t_vars *v);
 int				ft_click(t_vars *v);

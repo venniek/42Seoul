@@ -30,7 +30,7 @@ int	check_collision(t_vars *v, int kc)
 		return (1);
 	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 1)
 		v->collision = 1;
-	if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 3)
+	else if (v->m.map[v->s.p.xy.y + xy.y][v->s.p.xy.x + xy.x] == 3)
 		v->collision = 2;
 	if (v->collision != 1)
 		no_collision(v, &xy);

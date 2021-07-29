@@ -97,8 +97,8 @@ int				is_ber(char *str);
 void			default_map(t_vars *v);
 int				char_to_i(char a, t_vars *v);
 void			make_map(char *av[], t_vars *v);
-void			get_info(char *av[], t_vars *v, int *fd, int *size);
-void			make_info(char *av[], t_vars *v, int *fd, int *size);
+void			get_info(char *av[], t_vars *v);
+void			make_info(char *av[], t_vars *v);
 
 void			make_all(t_vars *v);
 void			xpm_to_image(t_vars *v, t_img *img);

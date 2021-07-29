@@ -67,18 +67,18 @@ char	*integer_to_string(int n, t_vars *v)
 void	print_move_on_map(t_vars *v)
 {
 	int		i;
-	char	*str;
+	char	*move;
 
 	i = -1;
 	while (++i < ft_min(10, v->m.w))
 		my_put_image(v, i, v->m.h - 1, &v->s.w);
-	str = integer_to_string(v->move, v);
+	move = integer_to_string(v->move, v);
 	my_string_put(v, 0, v->m.h, "move: ");
-	my_string_put(v, 2, v->m.h, str);
-	free(str);
-	str = integer_to_string(v->score, v);
+	my_string_put(v, 2, v->m.h, move);
+	free(move);
+	move = integer_to_string(v->score, v);
 	my_string_put(v, 4, v->m.h, "score: ");
-	my_string_put(v, 6, v->m.h, str);
-	free(str);
-	str = 0;
+	my_string_put(v, 6, v->m.h, move);
+	free(move);
+	move = 0;
 }
