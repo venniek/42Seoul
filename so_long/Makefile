@@ -70,7 +70,7 @@ clean:
 	$(RM) $(OBJS) $(OBJS_B)
 	
 fclean: clean
-	@$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
 	$(RM) $(NAME) $(MLX) $(NAME_B)
 
 re: fclean all
