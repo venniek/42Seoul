@@ -43,12 +43,12 @@ OBJS_B = $(SRCS_B:.c=.o)
 $(NAME) : $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) -g3 -fsanitize=address $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) $(OBJS) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 $(NAME_B) : $(OBJS_B)
 	$(MAKE) -C $(MLX_DIR)
 	cp $(MLX_DIR)/$(MLX) .
-	$(CC) $(CFLAGS) -g3 -fsanitize=address $(OBJS_B) -L. -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $(CFLAGS) $(OBJS_B) -L. -lmlx -framework OpenGL -framework AppKit -o $@
 
 bonus: $(NAME_B)
 
