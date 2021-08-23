@@ -1,5 +1,5 @@
-#IFNDEF PIPEX_H
-#DEFINE PIPEX_H
+#ifndef PIPEX_H
+#define PIPEX_H
 
 # include <unistd.h>   //access unlink close read fork pipe dup dup2 execve
 # include <stdlib.h>   //malloc free exit
