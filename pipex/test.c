@@ -1,36 +1,29 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include "pipex.h"
 
-int g_var = 1;
-char buf[] = "a write to stdout\n";
-
-int main()
+int ft_exit(int i)
 {
-	int l_var;
-	pid_t pid;
-
-	l_var = 10;
-	if (write(STDOUT_FILENO, buf, sizeof(buf) - 1) != sizeof(buf) - 1)
-	{
-		printf("write error\n");
-		exit(0);
-	}
-	printf("fork start!\n");
-	if ((pid = fork()) < 0)
-	{
-		printf("fork error\n");
-		exit(0);
-	}
-	else if (pid == 0)
-	{
-		g_var++;
-		l_var++;
-	}
-	else
-		sleep(3);
-
-	printf("pid = %ld, g_var = %d, l_var = %d\n", (long)getpid(), g_var, l_var);
+	if (i == 1)
+		exit(1);
 	exit(0);
+}
+
+int main(int ac, char **av, char **env)
+{
+	char **paths;
+
+	for (int i = 1; i < ac; i++)
+		printf("%d: %s\n", i, av[i]);
+	if (ac != 5)
+		ft_exit(1);
+	for (int i = 0; env[i] != 0; i++)
+	{
+		if (ft_strncmp(ft_substr(env[i], 0, 4), "PATH", 4) == 0)
+		{
+			paths = ft_split(ft_substr(env[i], 5, ft_strlen(env[i]) - 5), ':');
+			break;
+		}
+	}
+	for (int i = 0; paths[i] != 0; i++)
+		printf("%s\n", paths[i]);
+	ft_exit(0);
 }

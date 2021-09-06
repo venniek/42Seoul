@@ -7,6 +7,6 @@
 # include <sys/wait.h> // wait waitpid
 # include <stdio.h>    // perror
 # include <string.h>   // strerror
-
+# include "libft.h"
 
 #endif

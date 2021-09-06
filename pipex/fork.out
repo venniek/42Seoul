@@ -1,5 +1,0 @@
-a write to stdout
-fork start!
-pid = 12524, g_var = 2, l_var = 11
-fork start!
-pid = 12523, g_var = 1, l_var = 10
