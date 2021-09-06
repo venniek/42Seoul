@@ -27,7 +27,7 @@ clean :
 	$(RM) $(OBJS)
 
 fclean : clean
-	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME) $(LIBFT)
 
 re: fclean all
