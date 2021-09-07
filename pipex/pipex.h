@@ -9,4 +9,19 @@
 # include <string.h>   // strerror
 # include "libft.h"
 
+typedef struct s_var
+{
+	char **paths;
+	char **cmd1;
+	char **cmd2;
+	char *in;
+	char *out;
+} t_var;
+
+void check_infile_outfile(char **av, t_var *var);
+void erase_quote(char **av);
+int ft_exit(int i);
+
+
+
 #endif
