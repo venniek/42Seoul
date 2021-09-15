@@ -9,7 +9,8 @@ NAME = pipex
 
 INC = -I.
 
-SRCS = test.c
+SRCS = pipex.c\
+	preparation.c
 
 %.o: %.c
 	$(CC) $(INC) -I$(LIBFT_DIR) -c $< -o $@
