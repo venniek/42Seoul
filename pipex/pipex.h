@@ -9,6 +9,9 @@
 # include <string.h>   // strerror
 # include "libft.h"
 
+# define READ 0
+# define WRITE 1
+
 typedef struct s_var
 {
 	char *in;

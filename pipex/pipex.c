@@ -25,8 +25,8 @@ int	main(int ac, char **av, char **env)
 	if (pid < 0)
 		ft_exit(1);
 	if (pid == 0)   //child
-		child_process(&var, &pipe);
+		child_process(&var, env);
 	else
-		parent_process(&var, &pipe);
+		parent_process(&var, env);
 	ft_exit(0);
 }
