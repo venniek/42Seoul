@@ -1,10 +1,10 @@
 #include "pipex.h"
 
-void	erase_quote(char **av)
+void erase_quote(char **av)
 {
-	int	i;
-	int	j;
-	int	k;
+	int i;
+	int j;
+	int k;
 
 	i = -1;
 	while (av[++i])
@@ -27,26 +27,39 @@ void	erase_quote(char **av)
 	}
 }
 
-void	check_infile_outfile(char **av, t_var *var)
+void check_infile_outfile(char **av, t_var *var)
 {
 	int tmp;
 
 	var->in = ft_strdup(av[1]);
-	if (access(av[1], R_OK) != 0)
-		ft_exit(1);
-	var->fdinfile = open(var->in, O_RDWR);
-	if (tmp < 0)
-		ft_exit(1);
+	if (access(var->in, R_OK) < 0)
+	{
+		perror("error in access infile");
+		
+		strerror(errno);
+		ft_exit(1, var);
+	}
+	var->infile = open(var->in, O_RDONLY);
+	if (var->infile < 0)
+	{
+		perror("error in open infile");
+		strerror(errno);
+		ft_exit(1, var);
+	}
 	var->out = ft_strdup(av[4]);
-var->fdoutfile = open(var->out, O_RDWR | O_CREAT, 0666);
-
+	var->outfile = open(var->out, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
+	if (var->outfile < 0)
+	{
+		strerror(errno);
+		ft_exit(1, var);
+	}
 }
 
-void	make_paths(char **env, t_var *var)
+void make_paths(char **env, t_var *var)
 {
-	int		i;
-	int		tmp;
-	char	*tmpenv;
+	int i;
+	int tmp;
+	char *tmpenv;
 
 	i = -1;
 	while (env[++i])
@@ -61,30 +74,11 @@ void	make_paths(char **env, t_var *var)
 	}
 }
 
-void	find_cmd(t_var *var, int i, char **cmd, int *okay)
+void check_cmd_in_paths(t_var *var)
 {
-	char	*tmp;
-
-	if (access(*cmd, X_OK) == 0)
-	{
-		(*okay)++;
-		return;
-	}
-	tmp = ft_strdup(var->paths[i]);
-	tmp = ft_strjoin(tmp, "/");
-	tmp = ft_strjoin(tmp, *cmd);
-	if (access(tmp, X_OK) == 0)
-	{
-		(*okay)++;
-		*cmd = tmp;
-	}
-}
-
-void	check_cmd_in_paths(t_var *var)
-{
-	int	okay;
-	int	i;
-	int	len;
+	int okay;
+	int i;
+	int len;
 
 	okay = 0;
 	i = -1;
@@ -102,5 +96,28 @@ void	check_cmd_in_paths(t_var *var)
 			break;
 	}
 	if (okay != 2)
-		ft_exit(1);
+	{
+		perror("cmd error");
+		strerror(errno);
+		ft_exit(127, var);
+	}
+}
+
+void find_cmd(t_var *var, int i, char **cmd, int *okay)
+{
+	char *tmp;
+
+	if (access(*cmd, X_OK) == 0)
+	{
+		(*okay)++;
+		return;
+	}
+	tmp = ft_strdup(var->paths[i]);
+	tmp = ft_strjoin(tmp, "/");
+	tmp = ft_strjoin(tmp, *cmd);
+	if (access(tmp, X_OK) == 0)
+	{
+		(*okay)++;
+		*cmd = tmp;
+	}
 }

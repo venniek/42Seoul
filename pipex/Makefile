@@ -11,6 +11,7 @@ INC = -I.
 
 SRCS = pipex.c\
 		preparation.c\
+		processes.c
 
 %.o: %.c
 	$(CC) $(INC) -I$(LIBFT_DIR) -c $< -o $@
