@@ -31,26 +31,26 @@ void check_infile_outfile(char **av, t_var *var)
 {
 	int tmp;
 
-	var->in = ft_strdup(av[1]);
-	if (access(var->in, R_OK) < 0)
+	var->infile = ft_strdup(av[1]);
+	if (access(var->infile, R_OK) < 0)
 	{
-		perror("error in access infile");
-		
-		strerror(errno);
+		write(STDERR_FILENO, "bash: ", 7);
+		perror(var->infile);
 		ft_exit(1, var);
 	}
-	var->infile = open(var->in, O_RDONLY);
-	if (var->infile < 0)
+	var->infd = open(var->infile, O_RDONLY);
+	if (var->infd < 0)
 	{
-		perror("error in open infile");
-		strerror(errno);
-		ft_exit(1, var);
+		write(STDERR_FILENO, "bash: ", 7);
+		perror(var->infile);
+		ft_exit(4, var);
 	}
-	var->out = ft_strdup(av[4]);
-	var->outfile = open(var->out, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
-	if (var->outfile < 0)
+	var->outfile = ft_strdup(av[4]);
+	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
+	if (var->outfd < 0)
 	{
-		strerror(errno);
+		write(STDERR_FILENO, "bash: ", 7);
+		perror(var->outfile);
 		ft_exit(1, var);
 	}
 }
@@ -74,35 +74,6 @@ void make_paths(char **env, t_var *var)
 	}
 }
 
-void check_cmd_in_paths(t_var *var)
-{
-	int okay;
-	int i;
-	int len;
-
-	okay = 0;
-	i = -1;
-	while (var->paths[++i])
-	{
-		find_cmd(var, i, &var->cmd1[0], &okay);
-		if (okay == 1)
-			break;
-	}
-	i = -1;
-	while (var->paths[++i])
-	{
-		find_cmd(var, i, &var->cmd2[0], &okay);
-		if (okay == 2)
-			break;
-	}
-	if (okay != 2)
-	{
-		perror("cmd error");
-		strerror(errno);
-		ft_exit(127, var);
-	}
-}
-
 void find_cmd(t_var *var, int i, char **cmd, int *okay)
 {
 	char *tmp;
@@ -118,6 +89,7 @@ void find_cmd(t_var *var, int i, char **cmd, int *okay)
 	if (access(tmp, X_OK) == 0)
 	{
 		(*okay)++;
+		free(*cmd);
 		*cmd = tmp;
 	}
 }

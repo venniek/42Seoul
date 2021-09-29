@@ -2,8 +2,8 @@
 
 void default_var(t_var *var)
 {
-	var->in = 0;
-	var->out = 0;
+	var->infile = 0;
+	var->outfile = 0;
 	var->paths = 0;
 	var->cmd1 = 0;
 	var->cmd2 = 0;
@@ -11,15 +11,15 @@ void default_var(t_var *var)
 
 int ft_exit(int i, t_var *var)
 {
-	if (var->in)
+	if (var->infile)
 	{
-		free(var->in);
-		var->in = 0;
+		free(var->infile);
+		var->infile = 0;
 	}
-	if (var->out)
+	if (var->outfile)
 	{
-		free(var->out);
-		var->out = 0;
+		free(var->outfile);
+		var->outfile = 0;
 	}
 	if (var->paths)
 	{
@@ -51,40 +51,40 @@ int ft_exit(int i, t_var *var)
 		free(var->cmd1);
 		var->cmd1 = 0;
 	}
-	if (i == 127)
-		strerror(errno);
 	exit(i);
+}
+
+void prepare_everything(t_var *var, char **av, char **env)
+{
+	erase_quote(av);
+	check_infile_outfile(av, var);
+	var->cmd1 = ft_split(av[2], ' ');
+	var->cmd2 = ft_split(av[3], ' ');
+	make_paths(env, var);
 }
 
 int main(int ac, char **av, char **env)
 {
 	t_var var;
 	int pid;
-	int tmp;
+	int status;
 
 	default_var(&var);
 	if (ac != 5)
 		ft_exit(1, &var);
-	erase_quote(av);
-	check_infile_outfile(av, &var);
-	var.cmd1 = ft_split(av[2], ' ');
-	var.cmd2 = ft_split(av[3], ' ');
-	make_paths(env, &var);
-	//check_cmd_in_paths(&var);
+	prepare_everything(&var, av, env);
 	pipe(var.pp);
 	pid = fork();
 	if (pid < 0)
 		ft_exit(1, &var);
-	if (pid == 0) //child
+	if (pid == 0)
 		child_process_1(&var, env);
 	else
 	{
-		wait(0);
-		int pid2 = fork();
-		if (pid2 == 0)
-			child_process_2(&var, env);
+		waitpid(pid, &status, WNOHANG);
+		parent_process(&var, env);
 	}
-	close(var.outfile);
-	close(var.infile);
-	exit(0);
+	close(var.outfd);
+	close(var.infd);
+	ft_exit(0, &var);
 }
