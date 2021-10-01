@@ -46,7 +46,7 @@ void check_infile_outfile(char **av, t_var *var)
 		ft_exit(4, var);
 	}
 	var->outfile = ft_strdup(av[4]);
-	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, S_IWUSR);
+	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (var->outfd < 0)
 	{
 		write(STDERR_FILENO, "bash: ", 7);
