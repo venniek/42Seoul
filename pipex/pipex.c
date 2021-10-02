@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/02 15:36:55 by naykim            #+#    #+#             */
+/*   Updated: 2021/10/02 15:36:58 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-void default_var(t_var *var)
+void	default_var(t_var *var)
 {
 	var->infile = 0;
 	var->outfile = 0;
@@ -9,7 +21,7 @@ void default_var(t_var *var)
 	var->cmd2 = 0;
 }
 
-void prepare_everything(t_var *var, char **av, char **env)
+void	prepare_everything(t_var *var, char **av, char **env)
 {
 	erase_quote(av);
 	check_infile_outfile(av, var);
@@ -18,11 +30,13 @@ void prepare_everything(t_var *var, char **av, char **env)
 	make_paths(env, var);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	t_var var;
-	int pid;
-	int status;
+	t_var	var;
+	int		pid;
+	int		status;
+	int		pid2;
+	int		status2;
 
 	default_var(&var);
 	if (ac != 5)
@@ -33,10 +47,18 @@ int main(int ac, char **av, char **env)
 	if (pid < 0)
 		ft_exit(1, &var);
 	if (pid == 0)
-		child_process(&var, env);
-	else
 	{
-		waitpid(pid, &status, WNOHANG);
-//		printf("exit code of child_process: %d\n", WEXITSTATUS(status));
+		pid2 = fork();
+		if (pid2 == 0)
+			child_process_1(&var, env);
+		else
+		{
+			waitpid(pid2, &status2, WNOHANG);
+			if (WIFEXITED(status2) == 0)
+				ft_exit(-1, &var);
+			child_process_2(&var, env);
+		}
 	}
+	else
+		waitpid(pid, &status, WNOHANG);
 }

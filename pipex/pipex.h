@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/02 15:37:36 by naykim            #+#    #+#             */
+/*   Updated: 2021/10/02 15:37:38 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -31,6 +43,7 @@ void	prepare_everything(t_var *var, char **av, char **env);
 void	child_process(t_var *var, char **env);
 void	child_process_1(t_var *var, char **env);
 void	child_process_2(t_var *var, char **env);
+void cmd_check(t_var *var, char **cmd);
 
 int		ft_exit(int i, t_var *var);
 void	default_var(t_var *var);

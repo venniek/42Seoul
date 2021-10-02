@@ -15,7 +15,7 @@ SRCS = pipex.c\
 		utils.c
 
 %.o: %.c
-	$(CC) $(INC) -I$(LIBFT_DIR) -c $< -o $@
+	$(CC) -I. -I$(LIBFT_DIR) -c $< -o $@
 
 OBJS = $(SRCS:.c=.o)
 
@@ -35,4 +35,4 @@ fclean : clean
 
 re: fclean all
 
-.PHONY: all clean fclean re pipex
+.PHONY: all clean fclean re $(LIBFT)

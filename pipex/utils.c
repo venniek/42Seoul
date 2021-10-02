@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/02 15:37:54 by naykim            #+#    #+#             */
+/*   Updated: 2021/10/02 15:37:54 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void free_char(char *file)
@@ -30,6 +42,6 @@ int ft_exit(int i, t_var *var)
 	if (var->cmd1)
 		free_char_char(var->cmd1);
 	if (var->cmd2)
-		free_char_char(var->cmd1);
+		free_char_char(var->cmd2);
 	exit(i);
 }
