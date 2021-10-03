@@ -58,7 +58,7 @@ void	child_process_1(t_var *var, char **av, char **env)
 		perror(var->cmd1[0]);
 		close(var->infd);
 		close(var->pp[1]);
-		ft_exit(127, var);
+		ft_exit(1, var);
 	}
 	close(var->infd);
 	close(var->pp[1]);
@@ -87,7 +87,7 @@ void	child_process_2(t_var *var, char **av, char **env)
 		perror(var->cmd2[0]);
 		close(var->outfd);
 		close(var->pp[0]);
-		ft_exit(127, var);
+		ft_exit(1, var);
 	}
 	close(var->pp[0]);
 	ft_exit(0, var);
