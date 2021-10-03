@@ -47,11 +47,14 @@ void	check_infile_outfile(char **av, t_var *var)
 		write(STDERR_FILENO, "bash: ", 7);
 		perror(var->infile);
 	}
-	var->infd = open(var->infile, O_RDONLY);
-	if (var->infd < 0)
+	else
 	{
-		write(STDERR_FILENO, "bash: ", 7);
-		perror(var->infile);
+		var->infd = open(var->infile, O_RDONLY);
+		if (var->infd < 0)
+		{
+			write(STDERR_FILENO, "bash: ", 7);
+			perror(var->infile);
+		}
 	}
 	var->outfile = ft_strdup(av[4]);
 	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -59,7 +62,6 @@ void	check_infile_outfile(char **av, t_var *var)
 	{
 		write(STDERR_FILENO, "bash: ", 7);
 		perror(var->outfile);
-		ft_exit(1, var);
 	}
 }
 

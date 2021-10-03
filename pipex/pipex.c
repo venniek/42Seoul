@@ -24,7 +24,6 @@ void	default_var(t_var *var)
 void	prepare_everything(t_var *var, char **av, char **env)
 {
 	erase_quote(av);
-	check_infile_outfile(av, var);
 	var->cmd1 = ft_split(av[2], ' ');
 	var->cmd2 = ft_split(av[3], ' ');
 	make_paths(env, var);
@@ -34,31 +33,32 @@ int	main(int ac, char **av, char **env)
 {
 	t_var	var;
 	int		pid;
-	int		status;
 	int		pid2;
-	int		status2;
+	int		status;
 
 	default_var(&var);
 	if (ac != 5)
 		ft_exit(1, &var);
 	prepare_everything(&var, av, env);
-	pipe(var.pp);
+	if (pipe(var.pp) < 0)
+		ft_exit(1, &var);
 	pid = fork();
 	if (pid < 0)
 		ft_exit(1, &var);
 	if (pid == 0)
+		child_process_1(&var, av, env);
+	else
 	{
 		pid2 = fork();
+		if (pid2 < 0)
+			ft_exit(1, &var);
 		if (pid2 == 0)
-			child_process_1(&var, env);
-		else
 		{
-			waitpid(pid2, &status2, WNOHANG);
-			if (WIFEXITED(status2) == 0)
-				ft_exit(-1, &var);
-			child_process_2(&var, env);
+			child_process_2(&var, av, env);
 		}
+		waitpid(pid2, &status, WNOHANG);
+		close(var.pp[0]);
+		close(var.pp[1]);
+		ft_exit(WEXITSTATUS(status), &var);
 	}
-	else
-		waitpid(pid, &status, WNOHANG);
 }
