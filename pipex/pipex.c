@@ -56,9 +56,12 @@ int	main(int ac, char **av, char **env)
 		{
 			child_process_2(&var, av, env);
 		}
-		waitpid(pid2, &status, WNOHANG);
+		else
+		{
 		close(var.pp[0]);
 		close(var.pp[1]);
-		ft_exit(WEXITSTATUS(status), &var);
+		waitpid(pid2, &status, 0);
+		}
 	}
+	ft_exit(WEXITSTATUS(status), &var);
 }

@@ -40,7 +40,6 @@ void	make_paths(char **env, t_var *var);
 void	find_cmd(t_var *var, int i, char **cmd, int *okay);
 void	prepare_everything(t_var *var, char **av, char **env);
 
-void	child_process(t_var *var, char **av, char **env);
 void	child_process_1(t_var *var, char **av, char **env);
 void	child_process_2(t_var *var, char **av, char **env);
 void	cmd_check(t_var *var, char **cmd);

@@ -63,6 +63,7 @@ void check_infile(t_var *var, char **av)
 		{
 			write(STDERR_FILENO, "bash: ", 7);
 			perror(var->infile);
+			close(var->infd);
 			close(var->pp[1]);
 			ft_exit(1, var);
 		}
