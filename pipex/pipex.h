@@ -24,32 +24,34 @@
 
 typedef struct s_var
 {
-	char *infile;
-	char *outfile;
-	char **paths;
-	char **cmd1;
-	char **cmd2;
-	int infd;
-	int outfd;
-	int pp[2];
-} t_var;
+	char	*infile;
+	char	*outfile;
+	char	**paths;
+	char	**cmd1;
+	char	**cmd2;
+	int		infd;
+	int		outfd;
+	int		pp[2];
+	int		cmdchange;
+}	t_var;
 
 void	check_infile_outfile(char **av, t_var *var);
 void	erase_quote(char **av);
 void	make_paths(char **env, t_var *var);
 void	find_cmd(t_var *var, int i, char **cmd, int *okay);
-void	prepare_everything(t_var *var, char **av, char **env);
+void	prepare_everything(t_var *var, int ac, char **av, char **env);
 
 void	child_process_1(t_var *var, char **av, char **env);
 void	child_process_2(t_var *var, char **av, char **env);
 void	cmd_check(t_var *var, char **cmd);
+void	origin_cmd(char **cmd);
 
-int		ft_exit(int i, t_var *var);
 void	default_var(t_var *var);
 
-void	check_infile(t_var *var, char **av);
-void	check_outfile(t_var *var, char **av);
+int		ft_exit(int i, t_var *var);
 void	free_char(char *file);
 void	free_char_char(char **file);
+void	check_infile(t_var *var, char **av);
+void	check_outfile(t_var *var, char **av);
 
 #endif
