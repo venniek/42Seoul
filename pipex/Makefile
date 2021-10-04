@@ -1,5 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/10/04 17:02:01 by naykim            #+#    #+#              #
+#    Updated: 2021/10/04 17:02:03 by naykim           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -g3 -fsanitize=address
+CFLAGS = -Werror -Wextra -Wall
 RM = rm -f
 
 LIBFT = libft.a
