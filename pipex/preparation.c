@@ -12,6 +12,27 @@
 
 #include "pipex.h"
 
+void	default_var(t_var *var)
+{
+	var->infile = 0;
+	var->outfile = 0;
+	var->paths = 0;
+	var->cmd1 = 0;
+	var->cmd2 = 0;
+	var->cmdchange = 0;
+}
+
+void	prepare_everything(t_var *var, int ac, char **av, char **env)
+{
+	default_var(var);
+	if (ac != 5)
+		ft_exit(1, var);
+	erase_quote(av);
+	var->cmd1 = ft_split(av[2], ' ');
+	var->cmd2 = ft_split(av[3], ' ');
+	make_paths(env, var);
+}
+
 void	erase_quote(char **av)
 {
 	int	i;
@@ -36,32 +57,6 @@ void	erase_quote(char **av)
 				j--;
 			}
 		}
-	}
-}
-
-void	check_infile_outfile(char **av, t_var *var)
-{
-	var->infile = ft_strdup(av[1]);
-	if (access(var->infile, R_OK) < 0)
-	{
-		write(STDERR_FILENO, "bash: ", 7);
-		perror(var->infile);
-	}
-	else
-	{
-		var->infd = open(var->infile, O_RDONLY);
-		if (var->infd < 0)
-		{
-			write(STDERR_FILENO, "bash: ", 7);
-			perror(var->infile);
-		}
-	}
-	var->outfile = ft_strdup(av[4]);
-	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (var->outfd < 0)
-	{
-		write(STDERR_FILENO, "bash: ", 7);
-		perror(var->outfile);
 	}
 }
 

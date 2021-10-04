@@ -46,39 +46,17 @@ int	ft_exit(int i, t_var *var)
 	exit(i);
 }
 
-void	check_infile(t_var *var, char **av)
+void	close_and_exit(t_var *var, int i, int code)
 {
-	var->infile = ft_strdup(av[1]);
-	if (access(var->infile, R_OK) < 0)
+	if (i == 1)
 	{
-		write(STDERR_FILENO, "bash: ", 7);
-		perror(var->infile);
+		close(var->infd);
 		close(var->pp[1]);
-		ft_exit(1, var);
 	}
 	else
 	{
-		var->infd = open(var->infile, O_RDONLY);
-		if (var->infd < 0)
-		{
-			write(STDERR_FILENO, "bash: ", 7);
-			perror(var->infile);
-			close(var->infd);
-			close(var->pp[1]);
-			ft_exit(1, var);
-		}
-	}
-}
-
-void	check_outfile(t_var *var, char **av)
-{
-	var->outfile = ft_strdup(av[4]);
-	var->outfd = open(var->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	if (var->outfd < 0)
-	{
-		write(STDERR_FILENO, "bash: ", 7);
-		perror(var->outfile);
+		close(var->outfd);
 		close(var->pp[0]);
-		ft_exit(1, var);
 	}
+	ft_exit(code, var);
 }

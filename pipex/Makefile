@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g3 -fsanitize=address
 RM = rm -f
 
 LIBFT = libft.a
@@ -12,6 +12,7 @@ INC = -I.
 SRCS = pipex.c\
 		preparation.c\
 		processes.c\
+		check.c\
 		utils.c
 
 %.o: %.c
