@@ -43,20 +43,13 @@ int	ft_exit(int i, t_var *var)
 		free_char_char(var->cmd1);
 	if (var->cmd2)
 		free_char_char(var->cmd2);
-	exit(i);
-}
-
-void	close_and_exit(t_var *var, int i, int code)
-{
-	if (i == 1)
-	{
+	if (var->infd > 0)
 		close(var->infd);
-		close(var->pp[1]);
-	}
-	else
-	{
+	if (var->outfd > 0)
 		close(var->outfd);
+	if (var->pp[0] > 0)
 		close(var->pp[0]);
-	}
-	ft_exit(code, var);
+	if (var->pp[1] > 0)
+		close(var->pp[1]);
+	exit(i);
 }

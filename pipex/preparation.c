@@ -19,6 +19,10 @@ void	default_var(t_var *var)
 	var->paths = 0;
 	var->cmd1 = 0;
 	var->cmd2 = 0;
+	var->infd = 0;
+	var->outfd = 0;
+	var->pp[0] = 0;
+	var->pp[1] = 0;
 	var->cmdchange = 0;
 }
 
@@ -76,27 +80,5 @@ void	make_paths(char **env, t_var *var)
 			var->paths = ft_split(tmpenv, ':');
 			break ;
 		}
-	}
-}
-
-void	find_cmd(t_var *var, int i, char **cmd, int *okay)
-{
-	char	*tmp;
-
-	if (access(*cmd, F_OK) == 0)
-	{
-		(*okay)++;
-		var->cmdchange = 0;
-		return ;
-	}
-	tmp = ft_strdup(var->paths[i]);
-	tmp = ft_strjoin(tmp, "/");
-	tmp = ft_strjoin(tmp, *cmd);
-	if (access(tmp, F_OK) == 0)
-	{
-		(*okay)++;
-		free(*cmd);
-		*cmd = tmp;
-		var->cmdchange = 1;
 	}
 }

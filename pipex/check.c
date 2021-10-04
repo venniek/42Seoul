@@ -28,6 +28,28 @@ void	origin_cmd(char **cmd)
 	(*cmd) = ft_substr(*cmd, i + 1, len - i);
 }
 
+void	find_cmd(t_var *var, int i, char **cmd, int *okay)
+{
+	char	*tmp;
+
+	if (access(*cmd, F_OK) == 0)
+	{
+		(*okay)++;
+		var->cmdchange = 0;
+		return ;
+	}
+	tmp = ft_strdup(var->paths[i]);
+	tmp = ft_strjoin(tmp, "/");
+	tmp = ft_strjoin(tmp, *cmd);
+	if (access(tmp, F_OK) == 0)
+	{
+		(*okay)++;
+		free(*cmd);
+		*cmd = tmp;
+		var->cmdchange = 1;
+	}
+}
+
 void	cmd_check(t_var *var, char **cmd)
 {
 	int	i;
@@ -46,8 +68,6 @@ void	cmd_check(t_var *var, char **cmd)
 		write(STDERR_FILENO, "bash: ", 7);
 		write(STDERR_FILENO, cmd[0], ft_strlen(cmd[0]));
 		write(STDERR_FILENO, ": command not found\n", 21);
-		close(var->pp[0]);
-		close(var->pp[1]);
 		ft_exit(127, var);
 	}
 }
@@ -59,7 +79,6 @@ void	check_infile(t_var *var, char **av)
 	{
 		write(STDERR_FILENO, "bash: ", 7);
 		perror(var->infile);
-		close(var->pp[1]);
 		ft_exit(1, var);
 	}
 	else
@@ -69,8 +88,6 @@ void	check_infile(t_var *var, char **av)
 		{
 			write(STDERR_FILENO, "bash: ", 7);
 			perror(var->infile);
-			close(var->infd);
-			close(var->pp[1]);
 			ft_exit(1, var);
 		}
 	}
@@ -84,7 +101,6 @@ void	check_outfile(t_var *var, char **av)
 	{
 		write(STDERR_FILENO, "bash: ", 7);
 		perror(var->outfile);
-		close(var->pp[0]);
 		ft_exit(1, var);
 	}
 }

@@ -17,9 +17,9 @@ void	child_process_1(t_var *var, char **av, char **env)
 	close(var->pp[0]);
 	check_infile(var, av);
 	if (dup2(var->infd, STDIN_FILENO) < 0)
-		close_and_exit(var, 1, 1);
+		ft_exit(1, var);
 	if (dup2(var->pp[1], STDOUT_FILENO) < 0)
-		close_and_exit(var, 1, 1);
+		ft_exit(1, var);
 	cmd_check(var, var->cmd1);
 	if (execve(var->cmd1[0], var->cmd1, env) < 0)
 	{
@@ -27,9 +27,9 @@ void	child_process_1(t_var *var, char **av, char **env)
 		if (var->cmdchange == 1)
 			origin_cmd(&var->cmd1[0]);
 		perror(var->cmd1[0]);
-		close_and_exit(var, 1, 126);
+		ft_exit(126, var);
 	}
-	close_and_exit(var, 1, 0);
+	ft_exit(0, var);
 }
 
 void	child_process_2(t_var *var, char **av, char **env)
@@ -37,9 +37,9 @@ void	child_process_2(t_var *var, char **av, char **env)
 	close(var->pp[1]);
 	check_outfile(var, av);
 	if (dup2(var->pp[0], STDIN_FILENO) < 0)
-		close_and_exit(var, 0, 1);
+		ft_exit(1, var);
 	if (dup2(var->outfd, STDOUT_FILENO) < 0)
-		close_and_exit(var, 0, 1);
+		ft_exit(1, var);
 	cmd_check(var, var->cmd2);
 	if (execve(var->cmd2[0], var->cmd2, env) < 0)
 	{
@@ -47,9 +47,9 @@ void	child_process_2(t_var *var, char **av, char **env)
 		if (var->cmdchange == 1)
 			origin_cmd(&var->cmd2[0]);
 		perror(var->cmd2[0]);
-		close_and_exit(var, 0, 126);
+		ft_exit(126, var);
 	}
-	close_and_exit(var, 0, 1);
+	ft_exit(0, var);
 }
 
 void	parent_process(t_var *var, char **av, char **env, int *status2)

@@ -46,7 +46,6 @@ void	parent_process(t_var *var, char **av, char **env, int *status2);
 void	free_char(char *file);
 void	free_char_char(char **file);
 int		ft_exit(int i, t_var *var);
-void	close_and_exit(t_var *var, int i, int code);
 
 void	origin_cmd(char **cmd);
 void	cmd_check(t_var *var, char **cmd);
