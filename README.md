@@ -9,3 +9,4 @@
 |push_swap|sort integers in ascending order with only two stacks|2021.06.29|121|40|
 |so_long|make 2D game with MiniLibX|2021.07.30|120|17|
 |pipex|mimic pipe and redirection in shell|2021.10.04|100|15|
+|philosophers|threading a process, mutex| -ing |||
