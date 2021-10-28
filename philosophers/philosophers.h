@@ -13,15 +13,6 @@
 # define EAT 1
 # define SLEEP 2
 
-typedef struct s_phil
-{
-	pthread_t thread;
-	int tid;
-	int status;
-	int num;
-	int eat_cnt;
-} t_phil;
-
 typedef struct s_total
 {
 	int phil_cnt;
@@ -30,8 +21,18 @@ typedef struct s_total
 	int time_to_sleep;
 	int cnt_must_eat;
 	int tmp;
-	t_phil *phils;
+	struct timeval starttime;
 } t_total;
+
+typedef struct s_phil
+{
+	int status;
+	int num;
+	int eat_cnt;
+	pthread_mutex_t *mutex;
+	pthread_t tid;
+	t_total total;
+} t_phil;
 
 
 
@@ -40,7 +41,9 @@ int ft_atoi(const char *str);
 
 
 //philo.c
-
+int make_total(t_total *total, char **av);
+void *t_function(void *data);
+int make_threads(t_total tot);
 
 
 
