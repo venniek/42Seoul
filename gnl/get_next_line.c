@@ -58,7 +58,7 @@ int	read_done(char **line, char **save, int size)
 		*save = 0;
 		return (-1);
 	}
-	index = ft_newline(&save);
+	index = ft_newline(*save);
 	if (index >= 0)
 		return (update_save(save, index, line));
 	if (*save)
