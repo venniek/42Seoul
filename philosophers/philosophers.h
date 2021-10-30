@@ -20,30 +20,39 @@ typedef struct s_total
 	int time_to_eat;
 	int time_to_sleep;
 	int cnt_must_eat;
-	int tmp;
+	pthread_mutex_t printing;
+	pthread_mutex_t *fork;
 	struct timeval starttime;
 } t_total;
 
 typedef struct s_phil
 {
 	int status;
-	int num;
+	int id;
 	int eat_cnt;
-	pthread_mutex_t *mutex;
+	int left_id;
+	int right_id;
+	int is_dead;
 	pthread_t tid;
-	t_total total;
+	t_total *total;
 } t_phil;
 
 
 
 //utils.c
 int ft_atoi(const char *str);
+int get_time(struct timeval nowtime, t_phil phil);
 
-
-//philo.c
+//make_default.c
 int make_total(t_total *total, char **av);
+int make_total_mutex(t_total *total);
+int make_threads(t_total *tot);
+
+
+
+
+//philosophers.c
 void *t_function(void *data);
-int make_threads(t_total tot);
 
 
 

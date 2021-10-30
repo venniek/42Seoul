@@ -4,7 +4,9 @@ RM = rm -f
 
 INCLUDE = -lpthread
 
-SRCS = philosophers.c\
+SRCS = main.c\
+	make_default.c\
+	philosophers.c\
 	utils.c
 
 OBJS = $(SRCS:.c=.o)

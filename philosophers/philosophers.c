@@ -1,78 +1,32 @@
 #include "philosophers.h"
 
-pthread_mutex_t mutex;
-int cnt = 0;
-
-int make_total(t_total *total, char **av)
-{
-	gettimeofday(&total->starttime, NULL);
-	total->phil_cnt = ft_atoi(av[1]);
-	total->time_to_die = ft_atoi(av[2]);
-	total->time_to_eat = ft_atoi(av[3]);
-	total->time_to_sleep = ft_atoi(av[4]);
-	if (av[5])
-		total->cnt_must_eat = ft_atoi(av[5]);
-	else
-		total->cnt_must_eat = -1;
-	if (total->phil_cnt < 0 || total->time_to_die < 0 ||
-		total->time_to_eat < 0 || total->time_to_sleep < 0)
-		return (1);
-	return (0);
-}
-
 void *t_function(void *data)
 {
 	t_phil phil = *(t_phil *)data;
-	struct timeval nowtime;
+	struct timeval now;
 
-	pthread_mutex_lock(phil.mutex);
-	gettimeofday(&nowtime, NULL);
-	printf("time: %d\n", nowtime.tv_usec - phil.total.starttime.tv_usec);
-	pthread_mutex_unlock(phil.mutex);
+	pthread_mutex_lock(&phil.total->printing);
+
+	pthread_mutex_lock(&phil.total->fork[phil.left_id]);
+	gettimeofday(&now, NULL);
+	printf("%dms %d has taken a left fork #%d\n", get_time(now, phil), phil.id + 1, phil.left_id + 1);
+	pthread_mutex_lock(&phil.total->fork[phil.right_id]);
+	gettimeofday(&now, NULL);
+	printf("%dms %d has taken a right fork #%d\n", get_time(now, phil), phil.id + 1, phil.right_id + 1);
+	printf("%dms %d is eating\n", get_time(now, phil), phil.id + 1);
+	usleep(phil.total->time_to_eat);
+	pthread_mutex_unlock(&phil.total->fork[phil.left_id]);
+	pthread_mutex_unlock(&phil.total->fork[phil.right_id]);
+	pthread_mutex_unlock(&phil.total->printing);
+	gettimeofday(&now, NULL);
+	printf("%dms %d is sleeping\n", get_time(now, phil), phil.id + 1);
+	usleep(phil.total->time_to_sleep);
+	gettimeofday(&now, NULL);
+	printf("%dms %d is thinking\n", get_time(now, phil), phil.id + 1);
 	return (NULL);
 }
 
-int make_threads(t_total tot)
+int get_time(struct timeval nowtime, t_phil phil)
 {
-	t_phil *phils;
-	int i = 0;
-	pthread_mutex_t tmp_mutex;
-
-	phils = (t_phil *)malloc(sizeof(t_phil) * tot.phil_cnt);
-	pthread_mutex_init(&mutex, NULL);
-	while (i < tot.phil_cnt)
-	{
-		phils[i].mutex = &tmp_mutex;
-		phils[i].eat_cnt = 0;
-		phils[i].num = i + 1;
-		phils[i].status = THINK;
-		phils[i].total = tot;
-		if (pthread_create(&phils[i].tid, NULL, t_function, (void *)&phils[i]))
-			return (1);
-
-		i++;
-	}
-	i = 0;
-	while (i < tot.phil_cnt)
-	{
-		pthread_join(phils[i].tid, NULL);
-		i++;
-	}
-	pthread_mutex_destroy(&mutex);
-	return (0);
-}
-
-int main(int ac, char **av)
-{
-	t_total total;
-
-	if (!(ac == 5 || ac == 6))
-		exit(0);
-	if (make_total(&total, av))
-		return (1);
-	if (make_threads(total))
-		return (1);
-	usleep(2000000);
-
-	return 0;
+	return (nowtime.tv_usec - phil.total->starttime.tv_usec);
 }
