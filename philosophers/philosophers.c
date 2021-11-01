@@ -3,30 +3,62 @@
 void *t_function(void *data)
 {
 	t_phil phil = *(t_phil *)data;
-	struct timeval now;
-
-	pthread_mutex_lock(&phil.total->printing);
-
-	pthread_mutex_lock(&phil.total->fork[phil.left_id]);
-	gettimeofday(&now, NULL);
-	printf("%dms %d has taken a left fork #%d\n", get_time(now, phil), phil.id + 1, phil.left_id + 1);
-	pthread_mutex_lock(&phil.total->fork[phil.right_id]);
-	gettimeofday(&now, NULL);
-	printf("%dms %d has taken a right fork #%d\n", get_time(now, phil), phil.id + 1, phil.right_id + 1);
-	printf("%dms %d is eating\n", get_time(now, phil), phil.id + 1);
-	usleep(phil.total->time_to_eat);
-	pthread_mutex_unlock(&phil.total->fork[phil.left_id]);
-	pthread_mutex_unlock(&phil.total->fork[phil.right_id]);
-	pthread_mutex_unlock(&phil.total->printing);
-	gettimeofday(&now, NULL);
-	printf("%dms %d is sleeping\n", get_time(now, phil), phil.id + 1);
-	usleep(phil.total->time_to_sleep);
-	gettimeofday(&now, NULL);
-	printf("%dms %d is thinking\n", get_time(now, phil), phil.id + 1);
+	int now;
+	if (phil.total->is_dead == 1)
+		return (NULL);
+	while (1)
+	{
+		if (phil.total->got_fork[phil.left_fork] == 0 && phil.total->got_fork[phil.right_fork] == 0)
+		{
+			pthread_mutex_lock(&phil.total->fork[phil.left_fork]);
+			phil.total->got_fork[phil.left_fork] = 1;
+			pthread_mutex_lock(&phil.total->fork[phil.right_fork]);
+			phil.total->got_fork[phil.right_fork] = 1;
+			now = get_time(phil);
+			print_print(now, phil);
+			phil.last_eat = now;
+			while (1)
+			{
+				if ((get_time(phil) - phil.last_eat) > phil.total->time_to_eat)
+				{
+					printf("%dms %d is sleeping\n", get_time(phil), phil.id + 1);
+					break;
+				}
+				usleep(1);
+			}
+			phil.total->got_fork[phil.left_fork] = 0;
+			phil.total->got_fork[phil.right_fork] = 0;
+			pthread_mutex_unlock(&phil.total->fork[phil.left_fork]);
+			pthread_mutex_unlock(&phil.total->fork[phil.right_fork]);
+			while (1)
+			{
+				if ((get_time(phil) - phil.last_eat) > phil.total->time_to_eat + phil.total->time_to_sleep)
+				{
+					printf("%dms %d is thinking\n", get_time(phil), phil.id + 1);
+					break;
+				}
+				usleep(2);
+			}
+		}
+		if (get_time(phil) > 2000)
+			return NULL;
+	}
 	return (NULL);
 }
 
-int get_time(struct timeval nowtime, t_phil phil)
+void print_print(int now, t_phil phil)
 {
-	return (nowtime.tv_usec - phil.total->starttime.tv_usec);
+	pthread_mutex_lock(&phil.total->printing);
+	printf("%dms %d has taken a left fork #%d\n", now, phil.id + 1, phil.left_fork + 1);
+	printf("%dms %d has taken a right fork #%d\n", now, phil.id + 1, phil.right_fork + 1);
+	printf("%dms %d is eating\n", now, phil.id + 1);
+	pthread_mutex_unlock(&phil.total->printing);
+}
+
+int get_time(t_phil phil)
+{
+	struct timeval now;
+
+	gettimeofday(&now, NULL);
+	return (now.tv_usec - phil.total->starttime.tv_usec);
 }

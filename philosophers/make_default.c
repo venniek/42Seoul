@@ -3,6 +3,7 @@
 int make_total(t_total *total, char **av)
 {
 	gettimeofday(&total->starttime, NULL);
+	total->is_dead = 0;
 	total->phil_cnt = ft_atoi(av[1]);
 	total->time_to_die = ft_atoi(av[2]);
 	total->time_to_eat = ft_atoi(av[3]);
@@ -28,13 +29,15 @@ int make_total_mutex(t_total *total)
 	int i;
 
 	i = -1;
-	total->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (total->phil_cnt + 1));
+	pthread_mutex_init(&total->printing, NULL);
+	total->got_fork = (int *)malloc(sizeof(int) * total->phil_cnt);
+	total->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total->phil_cnt);
 	while (++i < total->phil_cnt)
 	{
+		total->got_fork[i] = 0;
 		if (pthread_mutex_init(&total->fork[i], NULL))
 			return (1);
 	}
-	pthread_mutex_init(&total->printing, NULL);
 	return (0);
 }
 
@@ -46,20 +49,24 @@ int make_threads(t_total *tot)
 	phils = (t_phil *)malloc(sizeof(t_phil) * tot->phil_cnt);
 	while (i < tot->phil_cnt)
 	{
-		phils[i].is_dead = 0;
 		phils[i].eat_cnt = 0;
 		phils[i].id = i;
 		phils[i].status = THINK;
 		phils[i].total = tot;
-		phils[i].left_id = (i + tot->phil_cnt - 1) % tot->phil_cnt;
-		phils[i].right_id = (i + 1) % tot->phil_cnt;
+		phils[i].left_fork = (i + tot->phil_cnt - 1) % tot->phil_cnt;
+		phils[i].right_fork = i;
+		phils[i].have_fork = 0;
 		if (pthread_create(&phils[i].tid, NULL, t_function, (void *)&phils[i]))
 			return (1);
 
 		i++;
 	}
 	i = -1;
-	while (i++ < tot->phil_cnt)
+	while (++i < tot->phil_cnt)
 		pthread_join(phils[i].tid, NULL);
+	pthread_mutex_destroy(&tot->printing);
+	i = -1;
+	while (++i < tot->phil_cnt)
+		pthread_mutex_destroy(&tot->fork[i]);
 	return (0);
 }

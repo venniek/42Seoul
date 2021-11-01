@@ -20,6 +20,8 @@ typedef struct s_total
 	int time_to_eat;
 	int time_to_sleep;
 	int cnt_must_eat;
+	int is_dead;
+	int *got_fork;
 	pthread_mutex_t printing;
 	pthread_mutex_t *fork;
 	struct timeval starttime;
@@ -28,11 +30,12 @@ typedef struct s_total
 typedef struct s_phil
 {
 	int status;
-	int id;
+	int id; 
 	int eat_cnt;
-	int left_id;
-	int right_id;
-	int is_dead;
+	int left_fork;
+	int right_fork;
+	int have_fork;
+	int last_eat;
 	pthread_t tid;
 	t_total *total;
 } t_phil;
@@ -41,7 +44,7 @@ typedef struct s_phil
 
 //utils.c
 int ft_atoi(const char *str);
-int get_time(struct timeval nowtime, t_phil phil);
+int get_time(t_phil phil);
 
 //make_default.c
 int make_total(t_total *total, char **av);
@@ -53,6 +56,7 @@ int make_threads(t_total *tot);
 
 //philosophers.c
 void *t_function(void *data);
+void print_print(int now, t_phil phil);
 
 
 
