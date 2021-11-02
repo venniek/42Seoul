@@ -22,9 +22,11 @@ typedef struct s_total
 	int cnt_must_eat;
 	int is_dead;
 	int *got_fork;
+	int starttime;
+	int *wait_time;
 	pthread_mutex_t printing;
 	pthread_mutex_t *fork;
-	struct timeval starttime;
+
 } t_total;
 
 typedef struct s_phil
@@ -56,7 +58,8 @@ int make_threads(t_total *tot);
 
 //philosophers.c
 void *t_function(void *data);
-void print_print(int now, t_phil phil);
+void print_print(t_phil phil, char *str);
+int is_first(t_phil *phil);
 
 
 
