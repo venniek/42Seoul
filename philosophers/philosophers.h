@@ -6,6 +6,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <sys/time.h>
 
@@ -22,8 +23,8 @@ typedef struct s_total
 	int cnt_must_eat;
 	int is_dead;
 	int *got_fork;
-	int starttime;
 	int *wait_time;
+	struct timeval starttime;
 	pthread_mutex_t printing;
 	pthread_mutex_t *fork;
 
@@ -37,7 +38,7 @@ typedef struct s_phil
 	int left_fork;
 	int right_fork;
 	int have_fork;
-	int last_eat;
+	long long last_eat;
 	pthread_t tid;
 	t_total *total;
 } t_phil;
@@ -47,6 +48,7 @@ typedef struct s_phil
 //utils.c
 int ft_atoi(const char *str);
 int get_time(t_phil phil);
+int get_time2(void);
 
 //make_default.c
 int make_total(t_total *total, char **av);

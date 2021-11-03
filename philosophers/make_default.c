@@ -3,9 +3,8 @@
 int make_total(t_total *total, char **av)
 {
 	int i;
-	struct timeval timetmp;
-	gettimeofday(&timetmp, NULL);
-	total->starttime = timetmp.tv_usec / 1000;
+
+	gettimeofday(&total->starttime, NULL);
 	total->is_dead = 0;
 	total->phil_cnt = ft_atoi(av[1]);
 	total->time_to_die = ft_atoi(av[2]);
@@ -14,7 +13,7 @@ int make_total(t_total *total, char **av)
 	total->wait_time = (int *)malloc(sizeof(int) * total->phil_cnt);
 	i = -1;
 	while (++i < total->phil_cnt)
-		total->wait_time[i] = total->starttime;
+		total->wait_time[i] = 0;
 	if (total->phil_cnt < 0 || total->time_to_die < 0 ||
 		total->time_to_eat < 0 || total->time_to_sleep < 0)
 		return (1);
@@ -56,8 +55,10 @@ int make_threads(t_total *tot)
 	phils = (t_phil *)malloc(sizeof(t_phil) * tot->phil_cnt);
 	while (i < tot->phil_cnt)
 	{
+		struct timeval now;
+		gettimeofday(&now, NULL);
 		phils[i].eat_cnt = 0;
-		phils[i].last_eat = tot->starttime;
+		phils[i].last_eat = (now.tv_usec - tot->starttime.tv_usec) / 1000;
 		phils[i].id = i;
 		phils[i].status = THINK;
 		phils[i].total = tot;
@@ -69,6 +70,8 @@ int make_threads(t_total *tot)
 
 		i++;
 	}
+	
+	printf("is_dead: %d\n", tot->is_dead);
 	i = -1;
 	while (++i < tot->phil_cnt)
 		pthread_join(phils[i].tid, NULL);
