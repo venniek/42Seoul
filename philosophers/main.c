@@ -10,6 +10,5 @@ int main(int ac, char **av)
 	return (1);
 	if (make_threads(&total))
 		return (1);
-	usleep(1000000);
 	return 0;
 }

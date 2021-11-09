@@ -7,7 +7,9 @@ INCLUDE = -lpthread
 SRCS = main.c\
 	make_default.c\
 	philosophers.c\
-	utils.c
+	utils.c\
+	phils_act.c\
+	threads.c
 
 OBJS = $(SRCS:.c=.o)
 
