@@ -45,7 +45,8 @@ void make_phil_sleep(t_phil *phil)
 
 void make_phil_think(t_phil *phil)
 {
-	while ((get_time(*phil) - phil->last_eat) < (phil->total->time_to_eat + phil->total->time_to_sleep))
+	while ((get_time(*phil) - phil->last_eat) < 
+		(phil->total->time_to_eat + phil->total->time_to_sleep))
 	{
 		if (phil->total->is_dead > 0)
 			return;

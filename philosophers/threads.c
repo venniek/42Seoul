@@ -8,13 +8,13 @@ void *dead_check(void *data)
 	{
 		if (phils[0].total->done_cnt == phils[0].total->phil_cnt)
 		{
-			printf("All phils eat enough\n");
+			printf("All philosophers are full\n");
 			return (NULL);
 		}
 		if (phils[0].total->is_dead > 0)
 		{
 			pthread_mutex_lock(&phils[0].total->printing);
-			printf("%lldms %d is died last_eat: %lld\n", get_time(phils[0]), phils[0].total->is_dead - 1, phils[phils[0].total->is_dead - 1].last_eat);
+			printf("%dms %d is died last_eat: %lld\n", get_time(phils[0]), phils[0].total->is_dead - 1, phils[phils[0].total->is_dead - 1].last_eat);
 			pthread_mutex_unlock(&phils[0].total->printing);
 			return (NULL);
 		}

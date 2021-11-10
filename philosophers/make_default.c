@@ -11,21 +11,12 @@ void fill_total(t_total *total, char **av)
 	total->time_to_die = ft_atoi(av[2]);
 	total->time_to_eat = ft_atoi(av[3]);
 	total->time_to_sleep = ft_atoi(av[4]);
+	total->done_cnt = 0;
 }
 
 int make_total(t_total *total, char **av)
 {
-	//	fill_total(total, av);
-	struct timeval tmp;
-
-	gettimeofday(&tmp, NULL);
-	total->starttime = milli_sec(tmp);
-	total->is_dead = 0;
-	total->phil_cnt = ft_atoi(av[1]);
-	total->time_to_die = ft_atoi(av[2]);
-	total->time_to_eat = ft_atoi(av[3]);
-	total->time_to_sleep = ft_atoi(av[4]);
-	total->done_cnt = 0;
+	fill_total(total, av);
 	if (total->phil_cnt < 0 || total->time_to_die < 0 ||
 		total->time_to_eat < 0 || total->time_to_sleep < 0)
 		return (1);
@@ -82,14 +73,7 @@ int make_threads(t_total *tot)
 	i = -1;
 	while (++i < tot->phil_cnt)
 	{
-		//		fill_phil(&phils[i], tot, i);
-		phils[i].eat_cnt = 0;
-		phils[i].total = tot;
-		phils[i].last_eat = get_time(phils[i]);
-		phils[i].id = i;
-		phils[i].status = THINK;
-		phils[i].left_fork = (i + tot->phil_cnt - 1) % tot->phil_cnt;
-		phils[i].right_fork = i;
+		fill_phil(&phils[i], tot, i);
 		if (pthread_create(&phils[i].tid, NULL, phil_function, (void *)&phils[i]))
 			return (1);
 	}
