@@ -6,7 +6,6 @@ INCLUDE = -lpthread
 
 SRCS = main.c\
 	make_default.c\
-	philosophers.c\
 	utils.c\
 	phils_act.c\
 	threads.c

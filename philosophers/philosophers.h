@@ -23,7 +23,7 @@ typedef struct s_total
 	int time_to_sleep;
 	int cnt_must_eat;
 	int is_dead;
-	int *is_done;
+	int done_cnt;
 	long long starttime;
 	pthread_t t_dead;
 	pthread_mutex_t printing;
@@ -38,7 +38,6 @@ typedef struct s_phil
 	int eat_cnt;
 	int left_fork;
 	int right_fork;
-	int have_fork;
 	long long last_eat;
 	pthread_t tid;
 	t_total *total;
