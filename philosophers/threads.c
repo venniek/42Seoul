@@ -14,7 +14,7 @@ void *dead_check(void *data)
 		if (phils[0].total->is_dead > 0)
 		{
 			pthread_mutex_lock(&phils[0].total->printing);
-			printf("%dms %d is died last_eat: %lld\n", get_time(phils[0]), phils[0].total->is_dead - 1, phils[phils[0].total->is_dead - 1].last_eat);
+			printf("%dms %d is died\n", get_time(phils[0]), phils[0].total->is_dead);
 			pthread_mutex_unlock(&phils[0].total->printing);
 			return (NULL);
 		}

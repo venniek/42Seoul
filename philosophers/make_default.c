@@ -86,6 +86,19 @@ int make_threads(t_total *tot)
 	pthread_mutex_destroy(&tot->printing);
 	i = -1;
 	while (++i < tot->phil_cnt)
+	{
 		pthread_mutex_destroy(&tot->fork[i]);
+		phils[i].total = 0;
+	}
+	if (tot->fork)
+	{
+		free(tot->fork);
+		tot->fork = 0;
+	}
+	if (phils)
+	{
+		free(phils);
+		phils = 0;
+	}
 	return (0);
 }

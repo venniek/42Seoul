@@ -44,11 +44,12 @@ typedef struct s_phil
 } t_phil;
 
 
+int free_total(t_total *total, int i);
 
 //utils.c
 int ft_atoi(const char *str);
 long long milli_sec(struct timeval time);
-long long get_time(t_phil phil);
+int get_time(t_phil phil);
 void print_print(t_phil phil, char *str);
 
 //make_default.c
