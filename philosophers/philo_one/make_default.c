@@ -93,7 +93,7 @@ int	make_threads(t_total *tot)
 	if (pthread_create(&tot->t_dead, NULL, dead_check, (void *)phils))
 		return (1);
 	join_threads(phils);
-	destroy_mutex(tot);
+	destroy_mutex(tot, phils);
 	if (phils)
 	{
 		free(phils);

@@ -19,20 +19,20 @@ void	join_threads(t_phil *phils)
 	pthread_join(phils->total->t_dead, NULL);
 	i = -1;
 	while (++i < phils->total->phil_cnt)
-	{
 		pthread_join(phils[i].tid, NULL);
-		phils[i].total = 0;
-	}
 }
 
-void	destroy_mutex(t_total *tot)
+void	destroy_mutex(t_total *tot, t_phil *phils)
 {
 	int	i;
 
 	pthread_mutex_destroy(&tot->printing);
 	i = -1;
 	while (++i < tot->phil_cnt)
+	{
 		pthread_mutex_destroy(&tot->fork[i]);
+		phils[i].total = 0;
+	}
 }
 
 void	*dead_check(void *data)

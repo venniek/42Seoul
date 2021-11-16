@@ -20,9 +20,7 @@ int	free_total(t_total *total, int i)
 		total->fork = 0;
 	}
 	if (i == 1)
-	{
 		write(2, "An error occured\n", 20);
-	}
 	return (i);
 }
 

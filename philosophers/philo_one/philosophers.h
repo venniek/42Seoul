@@ -70,6 +70,8 @@ void		fill_total(t_total *total, char **av);
 
 void		*p_function(void *data);
 void		*dead_check(void *data);
+void		join_threads(t_phil *phils);
+void		destroy_mutex(t_total *tot, t_phil *phils);
 
 void		make_phil_eat(t_phil *phil);
 void		make_phil_sleep(t_phil *phil);
