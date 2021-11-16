@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 18:11:09 by naykim            #+#    #+#             */
+/*   Updated: 2021/11/16 18:11:09 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
-int free_total(t_total *total, int i)
+int	free_total(t_total *total, int i)
 {
 	if (total->fork)
 	{
@@ -15,15 +26,15 @@ int free_total(t_total *total, int i)
 	return (i);
 }
 
-int error_manage(int i)
+int	error_manage(int i)
 {
 	write(2, "Argument Error", 14);
 	return (i);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_total total;
+	t_total	total;
 
 	if (!(ac == 5 || ac == 6))
 		return (error_manage(1));

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 18:11:14 by naykim            #+#    #+#             */
+/*   Updated: 2021/11/16 18:11:15 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	long long	atoi;
 	int			i;
@@ -27,17 +38,15 @@ int	ft_atoi(const char *str)
 			break ;
 		i++;
 	}
-	if (atoi > 2147483647)
-		return (-1);
-	return ((int)atoi * sign);
+	return (atoi * sign);
 }
 
-long long milli_sec(struct timeval time)
+long long	milli_sec(struct timeval time)
 {
-	return ((time.tv_sec * 1000000 + time.tv_usec) / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void print_print(t_phil phil, char *str)
+void	print_print(t_phil phil, char *str)
 {
 	pthread_mutex_lock(&phil.total->printing);
 	if (phil.total->is_dead > 0)
@@ -49,9 +58,9 @@ void print_print(t_phil phil, char *str)
 	pthread_mutex_unlock(&phil.total->printing);
 }
 
-int get_time(t_phil phil)
+int	get_time(t_phil phil)
 {
-	struct timeval now;
+	struct timeval	now;
 
 	gettimeofday(&now, NULL);
 	return ((int)(milli_sec(now) - phil.total->starttime));

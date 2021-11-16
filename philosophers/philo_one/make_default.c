@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_default.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 18:11:22 by naykim            #+#    #+#             */
+/*   Updated: 2021/11/16 18:11:23 by naykim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philosophers.h"
 
-void fill_total(t_total *total, char **av)
+void	fill_total(t_total *total, char **av)
 {
-	struct timeval tmp;
+	struct timeval	tmp;
 
 	gettimeofday(&tmp, NULL);
 	total->starttime = milli_sec(tmp);
 	total->is_dead = 0;
-	total->phil_cnt = ft_atoi(av[1]);
+	total->phil_cnt = (int)ft_atoi(av[1]);
 	total->time_to_die = ft_atoi(av[2]);
 	total->time_to_eat = ft_atoi(av[3]);
 	total->time_to_sleep = ft_atoi(av[4]);
 	total->done_cnt = 0;
 }
 
-int make_total(t_total *total, char **av)
+int	make_total(t_total *total, char **av)
 {
 	fill_total(total, av);
-	if (total->phil_cnt < 0 || total->time_to_die < 0 ||
-		total->time_to_eat < 0 || total->time_to_sleep < 0)
+	if (total->phil_cnt < 0 || total->time_to_die < 0
+		|| total->time_to_eat < 0 || total->time_to_sleep < 0)
 		return (1);
 	if (av[5])
 	{
@@ -34,14 +45,15 @@ int make_total(t_total *total, char **av)
 	return (0);
 }
 
-int make_total_mutex(t_total *total)
+int	make_total_mutex(t_total *total)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pthread_mutex_init(&total->printing, NULL))
 		return (1);
-	total->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * total->phil_cnt);
+	total->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* total->phil_cnt);
 	if (!total->fork)
 		return (1);
 	while (++i < total->phil_cnt)
@@ -52,7 +64,7 @@ int make_total_mutex(t_total *total)
 	return (0);
 }
 
-void fill_phil(t_phil *phil, t_total *tot, int i)
+void	fill_phil(t_phil *phil, t_total *tot, int i)
 {
 	phil->eat_cnt = 0;
 	phil->total = tot;
@@ -63,10 +75,10 @@ void fill_phil(t_phil *phil, t_total *tot, int i)
 	phil->right_fork = i;
 }
 
-int make_threads(t_total *tot)
+int	make_threads(t_total *tot)
 {
-	t_phil *phils;
-	int i;
+	t_phil	*phils;
+	int		i;
 
 	phils = (t_phil *)malloc(sizeof(t_phil) * tot->phil_cnt);
 	if (!phils)
@@ -75,27 +87,13 @@ int make_threads(t_total *tot)
 	while (++i < tot->phil_cnt)
 	{
 		fill_phil(&phils[i], tot, i);
-		if (pthread_create(&phils[i].tid, NULL, phil_function, (void *)&phils[i]))
+		if (pthread_create(&phils[i].tid, NULL, p_function, (void *)&phils[i]))
 			return (1);
 	}
 	if (pthread_create(&tot->t_dead, NULL, dead_check, (void *)phils))
 		return (1);
-	pthread_join(tot->t_dead, NULL);
-	i = -1;
-	while (++i < tot->phil_cnt)
-		pthread_join(phils[i].tid, NULL);
-	pthread_mutex_destroy(&tot->printing);
-	i = -1;
-	while (++i < tot->phil_cnt)
-	{
-		pthread_mutex_destroy(&tot->fork[i]);
-		phils[i].total = 0;
-	}
-	if (tot->fork)
-	{
-		free(tot->fork);
-		tot->fork = 0;
-	}
+	join_threads(phils);
+	destroy_mutex(tot);
 	if (phils)
 	{
 		free(phils);
