@@ -1,10 +1,11 @@
+
 #include "philosophers.h"
 
 int	ft_atoi(const char *str)
 {
-	int	atoi;
-	int	i;
-	int	sign;
+	long long	atoi;
+	int			i;
+	int			sign;
 
 	i = 0;
 	sign = 1;
@@ -26,7 +27,9 @@ int	ft_atoi(const char *str)
 			break ;
 		i++;
 	}
-	return (sign * atoi);
+	if (atoi > 2147483647)
+		return (-1);
+	return ((int)atoi * sign);
 }
 
 long long milli_sec(struct timeval time)

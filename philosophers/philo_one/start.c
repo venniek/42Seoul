@@ -1,3 +1,4 @@
+
 #include "philosophers.h"
 
 int free_total(t_total *total, int i)
@@ -14,12 +15,18 @@ int free_total(t_total *total, int i)
 	return (i);
 }
 
+int error_manage(int i)
+{
+	write(2, "Argument Error", 14);
+	return (i);
+}
+
 int main(int ac, char **av)
 {
 	t_total total;
 
 	if (!(ac == 5 || ac == 6))
-		return (0);
+		return (error_manage(1));
 	if (make_total(&total, av))
 		return (free_total(&total, 1));
 	if (make_threads(&total))

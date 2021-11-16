@@ -1,22 +1,22 @@
+
 #include "philosophers.h"
 
 void *dead_check(void *data)
 {
 	t_phil *phils = (t_phil *)data;
+	int i;
 
-	while (1)
+	while (!phils[0].total->is_dead && phils[0].total->done_cnt != phils[0].total->phil_cnt)
 	{
-		if (phils[0].total->done_cnt == phils[0].total->phil_cnt)
+		i = -1;
+		while (++i < phils[0].total->phil_cnt && phils[0].total->is_dead == 0)
 		{
-			printf("All philosophers are full\n");
-			return (NULL);
-		}
-		if (phils[0].total->is_dead > 0)
-		{
-			pthread_mutex_lock(&phils[0].total->printing);
-			printf("%dms %d is died\n", get_time(phils[0]), phils[0].total->is_dead);
-			pthread_mutex_unlock(&phils[0].total->printing);
-			return (NULL);
+			if (get_time(phils[i]) - phils[i].last_eat > phils[i].total->time_to_die)
+			{
+				print_print(phils[i], "is died");
+				phils[i].total->is_dead = 1;
+				return (NULL);
+			}
 		}
 	}
 	return (NULL);

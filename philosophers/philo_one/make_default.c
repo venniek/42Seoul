@@ -1,3 +1,4 @@
+
 #include "philosophers.h"
 
 void fill_total(t_total *total, char **av)

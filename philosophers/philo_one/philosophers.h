@@ -33,8 +33,8 @@ typedef struct s_total
 
 typedef struct s_phil
 {
-	int status;
 	int id;
+	int status;
 	int eat_cnt;
 	int left_fork;
 	int right_fork;
@@ -65,6 +65,7 @@ void fill_total(t_total *total, char **av);
 void *phil_function(void *data);
 void *dead_check(void *data);
 
+
 //phil_act.c
 void make_phil_eat(t_phil *phil);
 void make_phil_sleep(t_phil *phil);
@@ -72,7 +73,7 @@ void make_phil_think(t_phil *phil);
 
 //threads.c
 
-
+int error_manage(int i);
 
 
 #endif
