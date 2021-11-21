@@ -16,7 +16,7 @@ RM = rm -f
 
 INCLUDE = -lpthread
 
-SRCS = start.c\
+SRCS = main.c\
 	make_default.c\
 	utils.c\
 	phils_act.c\

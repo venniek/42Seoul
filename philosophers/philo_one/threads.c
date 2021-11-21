@@ -50,7 +50,7 @@ void	*dead_check(void *data)
 		{
 			if (get_time(phils[i]) - phils[i].last_eat > total->time_to_die)
 			{
-				print_print(phils[i], "is died");
+				print_print(phils[i], "died\n");
 				phils[i].total->is_dead = 1;
 				return (NULL);
 			}

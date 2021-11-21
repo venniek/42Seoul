@@ -18,6 +18,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <signal.h>
 # include <sys/wait.h>
 # include <sys/time.h>
@@ -33,9 +34,9 @@ typedef struct s_total
 	int				cnt_must_eat;
 	int				is_dead;
 	int				done_cnt;
-	long long		time_to_die;
-	long long		time_to_eat;
-	long long		time_to_sleep;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	long long		starttime;
 	pthread_t		t_dead;
 	pthread_mutex_t	printing;
@@ -54,8 +55,6 @@ typedef struct s_phil
 	pthread_t	tid;
 	t_total		*total;
 }	t_phil;
-
-int			free_total(t_total *total, int i);
 
 long long	ft_atoi(const char *str);
 long long	milli_sec(struct timeval time);
@@ -78,5 +77,6 @@ void		make_phil_sleep(t_phil *phil);
 void		make_phil_think(t_phil *phil);
 
 int			error_manage(int i);
+int			free_total(t_total *total, int i);
 
 #endif

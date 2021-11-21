@@ -38,6 +38,8 @@ long long	ft_atoi(const char *str)
 			break ;
 		i++;
 	}
+	if (atoi > 2147483647)
+		return (-1);
 	return (atoi * sign);
 }
 
@@ -54,7 +56,7 @@ void	print_print(t_phil phil, char *str)
 		pthread_mutex_unlock(&phil.total->printing);
 		return ;
 	}
-	printf("%dms %d %s\n", get_time(phil), phil.id + 1, str);
+	printf("%dms %d %s", get_time(phil), phil.id + 1, str);
 	pthread_mutex_unlock(&phil.total->printing);
 }
 

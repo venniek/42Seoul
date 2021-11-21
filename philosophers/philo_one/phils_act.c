@@ -24,9 +24,9 @@ void	make_phil_eat(t_phil *phil)
 	}
 	phil->eat_cnt++;
 	phil->last_eat = get_time(*phil);
-	print_print(*phil, "has taken a fork");
-	print_print(*phil, "has taken a fork");
-	print_print(*phil, "is eating");
+	print_print(*phil, "has taken a fork\n");
+	print_print(*phil, "has taken a fork\n");
+	print_print(*phil, "is eating\n");
 	phil->status = EAT;
 	if (phil->eat_cnt == phil->total->cnt_must_eat)
 	{
@@ -51,7 +51,7 @@ void	make_phil_sleep(t_phil *phil)
 	}
 	pthread_mutex_unlock(&phil->total->fork[phil->left_fork]);
 	pthread_mutex_unlock(&phil->total->fork[phil->right_fork]);
-	print_print(*phil, "is sleeping");
+	print_print(*phil, "is sleeping\n");
 	phil->status = SLEEP;
 }
 
@@ -64,6 +64,6 @@ void	make_phil_think(t_phil *phil)
 			return ;
 		usleep(1000);
 	}
-	print_print(*phil, "is thinking");
+	print_print(*phil, "is thinking\n");
 	phil->status = THINK;
 }

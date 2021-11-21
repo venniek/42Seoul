@@ -20,21 +20,21 @@ void	fill_total(t_total *total, char **av)
 	total->starttime = milli_sec(tmp);
 	total->is_dead = 0;
 	total->phil_cnt = (int)ft_atoi(av[1]);
-	total->time_to_die = ft_atoi(av[2]);
-	total->time_to_eat = ft_atoi(av[3]);
-	total->time_to_sleep = ft_atoi(av[4]);
+	total->time_to_die = (int)ft_atoi(av[2]);
+	total->time_to_eat = (int)ft_atoi(av[3]);
+	total->time_to_sleep = (int)ft_atoi(av[4]);
 	total->done_cnt = 0;
 }
 
 int	make_total(t_total *total, char **av)
 {
 	fill_total(total, av);
-	if (total->phil_cnt < 0 || total->time_to_die < 0
-		|| total->time_to_eat < 0 || total->time_to_sleep < 0)
+	if (total->phil_cnt <= 0 || total->time_to_die <= 0
+		|| total->time_to_eat <= 0 || total->time_to_sleep <= 0)
 		return (1);
 	if (av[5])
 	{
-		total->cnt_must_eat = ft_atoi(av[5]);
+		total->cnt_must_eat = (int)ft_atoi(av[5]);
 		if (total->cnt_must_eat <= 0)
 			return (1);
 	}

@@ -20,13 +20,13 @@ int	free_total(t_total *total, int i)
 		total->fork = 0;
 	}
 	if (i == 1)
-		write(2, "An error occured\n", 20);
+		write(2, "An error occured\n", 18);
 	return (i);
 }
 
 int	error_manage(int i)
 {
-	write(2, "Argument Error", 14);
+	write(2, "Argument error\n", 16);
 	return (i);
 }
 
@@ -36,6 +36,16 @@ int	main(int ac, char **av)
 
 	if (!(ac == 5 || ac == 6))
 		return (error_manage(1));
+	total.phil_cnt = 0;
+	total.cnt_must_eat = 0;
+	total.is_dead = 0;
+	total.done_cnt = 0;
+	total.time_to_eat = 0;
+	total.time_to_die = 0;
+	total.time_to_sleep = 0;
+	total.starttime = 0;
+	total.t_dead = 0;
+	total.fork = 0;
 	if (make_total(&total, av))
 		return (free_total(&total, 1));
 	if (make_threads(&total))
