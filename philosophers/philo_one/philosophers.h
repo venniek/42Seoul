@@ -79,4 +79,7 @@ void		make_phil_think(t_phil *phil);
 int			error_manage(int i);
 int			free_total(t_total *total, int i);
 
+
+void only_one_phil(t_total *tot, t_phil *phils);
+
 #endif

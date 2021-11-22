@@ -87,6 +87,11 @@ int	make_threads(t_total *tot)
 	while (++i < tot->phil_cnt)
 	{
 		fill_phil(&phils[i], tot, i);
+		if (tot->phil_cnt == 1)
+		{
+			only_one_phil(tot, phils);
+			return (0);
+		}
 		if (pthread_create(&phils[i].tid, NULL, p_function, (void *)&phils[i]))
 			return (1);
 	}
@@ -100,4 +105,15 @@ int	make_threads(t_total *tot)
 		phils = 0;
 	}
 	return (0);
+}
+
+void only_one_phil(t_total *tot, t_phil *phils)
+{
+	if (!phils || !tot)
+		return ;
+	while (get_time(phils[0]) - tot->starttime < tot->time_to_die)
+		usleep(100);
+	print_print(phils[0], "died\n");
+	free(phils);
+	phils = 0;
 }
