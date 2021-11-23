@@ -16,11 +16,11 @@ RM = rm -f
 
 INCLUDE = -lpthread
 
-SRCS = main.c\
+SRCS = utils.c\
 	make_default.c\
-	utils.c\
+	threads.c\
 	phils_act.c\
-	threads.c
+	main.c
 
 OBJS = $(SRCS:.c=.o)
 

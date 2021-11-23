@@ -58,7 +58,7 @@ typedef struct s_phil
 
 long long	ft_atoi(const char *str);
 long long	milli_sec(struct timeval time);
-int			get_time(t_phil phil);
+int			get_time(t_total *total);
 void		print_print(t_phil phil, char *str);
 
 int			make_total(t_total *total, char **av);
@@ -80,6 +80,6 @@ int			error_manage(int i);
 int			free_total(t_total *total, int i);
 
 
-void only_one_phil(t_total *tot, t_phil *phils);
+void only_one_phil(t_total *tot);
 
 #endif

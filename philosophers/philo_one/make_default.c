@@ -45,6 +45,15 @@ int	make_total(t_total *total, char **av)
 	return (0);
 }
 
+void only_one_phil(t_total *tot)
+{
+	if (!tot)
+		return ;
+	while (get_time(tot) < tot->time_to_die)
+		usleep(100);
+	printf("%dms 1 died\n", get_time(tot));
+}
+
 int	make_total_mutex(t_total *total)
 {
 	int	i;
@@ -68,7 +77,7 @@ void	fill_phil(t_phil *phil, t_total *tot, int i)
 {
 	phil->eat_cnt = 0;
 	phil->total = tot;
-	phil->last_eat = get_time(*phil);
+	phil->last_eat = get_time(phil->total);
 	phil->id = i;
 	phil->status = THINK;
 	phil->left_fork = (i + tot->phil_cnt - 1) % tot->phil_cnt;
@@ -80,6 +89,13 @@ int	make_threads(t_total *tot)
 	t_phil	*phils;
 	int		i;
 
+	if (tot->phil_cnt == 1)
+	{
+		only_one_phil(tot);
+		pthread_mutex_destroy(&tot->printing);
+		pthread_mutex_destroy(&tot->fork[0]);
+		return (0);
+	}
 	phils = (t_phil *)malloc(sizeof(t_phil) * tot->phil_cnt);
 	if (!phils)
 		return (1);
@@ -87,11 +103,6 @@ int	make_threads(t_total *tot)
 	while (++i < tot->phil_cnt)
 	{
 		fill_phil(&phils[i], tot, i);
-		if (tot->phil_cnt == 1)
-		{
-			only_one_phil(tot, phils);
-			return (0);
-		}
 		if (pthread_create(&phils[i].tid, NULL, p_function, (void *)&phils[i]))
 			return (1);
 	}
@@ -107,13 +118,3 @@ int	make_threads(t_total *tot)
 	return (0);
 }
 
-void only_one_phil(t_total *tot, t_phil *phils)
-{
-	if (!phils || !tot)
-		return ;
-	while (get_time(phils[0]) - tot->starttime < tot->time_to_die)
-		usleep(100);
-	print_print(phils[0], "died\n");
-	free(phils);
-	phils = 0;
-}

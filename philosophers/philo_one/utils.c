@@ -56,14 +56,14 @@ void	print_print(t_phil phil, char *str)
 		pthread_mutex_unlock(&phil.total->printing);
 		return ;
 	}
-	printf("%dms %d %s", get_time(phil), phil.id + 1, str);
+	printf("%dms %d %s\n", get_time(phil.total), phil.id + 1, str);
 	pthread_mutex_unlock(&phil.total->printing);
 }
 
-int	get_time(t_phil phil)
+int	get_time(t_total *total)
 {
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	return ((int)(milli_sec(now) - phil.total->starttime));
+	return ((int)(milli_sec(now) - total->starttime));
 }

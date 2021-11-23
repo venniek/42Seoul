@@ -48,9 +48,9 @@ void	*dead_check(void *data)
 		i = -1;
 		while (++i < total->phil_cnt && total->is_dead == 0)
 		{
-			if (get_time(phils[i]) - phils[i].last_eat > total->time_to_die)
+			if (get_time(phils[i].total) - phils[i].last_eat > total->time_to_die)
 			{
-				print_print(phils[i], "died\n");
+				print_print(phils[i], "died");
 				total->is_dead = 1;
 				return (NULL);
 			}
@@ -65,7 +65,10 @@ void	*p_function(void *data)
 
 	phil = (t_phil *)data;
 	if (phil->id % 2 == 0)
+	{
+		//print_print(*phil, "is thinking\n");
 		usleep(phil->total->time_to_eat * 100);
+	}
 	while (!phil->total->is_dead && phil->status != DONE)
 	{
 		if (phil->status == THINK)
