@@ -23,6 +23,10 @@
 # include <sys/wait.h>
 # include <sys/time.h>
 
+
+///// 놈 정리때 makefile 옵션 정리하기///////
+
+
 # define THINK 0
 # define EAT 1
 # define SLEEP 2

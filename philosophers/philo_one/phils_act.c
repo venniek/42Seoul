@@ -47,7 +47,7 @@ void	make_phil_sleep(t_phil *phil)
 			pthread_mutex_unlock(&phil->total->fork[phil->right_fork]);
 			return ;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 	pthread_mutex_unlock(&phil->total->fork[phil->left_fork]);
 	pthread_mutex_unlock(&phil->total->fork[phil->right_fork]);
@@ -62,7 +62,7 @@ void	make_phil_think(t_phil *phil)
 	{
 		if (phil->total->is_dead > 0)
 			return ;
-		usleep(1000);
+		usleep(100);
 	}
 	print_print(*phil, "is thinking");
 	phil->status = THINK;
