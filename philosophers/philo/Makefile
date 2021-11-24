@@ -25,7 +25,7 @@ SRCS = utils.c\
 
 OBJS = $(SRCS:.c=.o)
 
-NAME = philo_one
+NAME = philo
 
 all: $(NAME)
 
