@@ -30,12 +30,9 @@ long long	ft_atoi(const char *str)
 			sign = -1;
 		i++;
 	}
-	while (str[i])
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-			atoi = atoi * 10 + str[i] - '0';
-		else
-			break ;
+		atoi = atoi * 10 + str[i] - '0';
 		i++;
 	}
 	if (atoi > 2147483647)

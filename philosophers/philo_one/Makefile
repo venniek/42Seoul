@@ -11,13 +11,14 @@
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 RM = rm -f
 
 INCLUDE = -lpthread
 
 SRCS = utils.c\
-	make_default.c\
+	make_total.c\
+	make_threads.c\
 	threads.c\
 	phils_act.c\
 	main.c

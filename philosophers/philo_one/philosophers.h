@@ -19,13 +19,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <signal.h>
-# include <sys/wait.h>
 # include <sys/time.h>
-
-
-///// 놈 정리때 makefile 옵션 정리하기///////
-
 
 # define THINK 0
 # define EAT 1
@@ -45,7 +39,6 @@ typedef struct s_total
 	pthread_t		t_dead;
 	pthread_mutex_t	printing;
 	pthread_mutex_t	*fork;
-
 }	t_total;
 
 typedef struct s_phil
@@ -60,30 +53,30 @@ typedef struct s_phil
 	t_total		*total;
 }	t_phil;
 
-long long	ft_atoi(const char *str);
-long long	milli_sec(struct timeval time);
-int			get_time(t_total *total);
-void		print_print(t_phil phil, char *str);
+int			free_and_end(t_total *total, int i);
 
+void		fill_total(t_total *total, char **av);
 int			make_total(t_total *total, char **av);
 int			make_total_mutex(t_total *total);
-int			make_threads(t_total *tot);
-void		fill_phil(t_phil *phil, t_total *tot, int i);
-void		fill_total(t_total *total, char **av);
 
-void		*p_function(void *data);
-void		*dead_check(void *data);
-void		join_threads(t_phil *phils);
-void		destroy_mutex(t_total *tot, t_phil *phils);
+void		only_one_phil(t_total *tot);
+void		fill_phil(t_phil *phil, t_total *tot, int i);
+int			make_threads(t_total *tot);
+int			make_phil_threads(t_phil *phils, t_total *tot);
+int			make_dead_threads(t_phil *phils, t_total *tot);
 
 void		make_phil_eat(t_phil *phil);
 void		make_phil_sleep(t_phil *phil);
 void		make_phil_think(t_phil *phil);
 
-int			error_manage(int i);
-int			free_total(t_total *total, int i);
+void		join_threads(t_phil *phils);
+void		destroy_mutex(t_total *tot, t_phil *phils);
+void		*p_function(void *data);
+void		*dead_check(void *data);
 
-
-void only_one_phil(t_total *tot);
+long long	ft_atoi(const char *str);
+long long	milli_sec(struct timeval time);
+int			get_time(t_total *total);
+void		print_print(t_phil phil, char *str);
 
 #endif
