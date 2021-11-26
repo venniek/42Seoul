@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:11:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/11/16 18:11:30 by naykim           ###   ########.fr       */
+/*   Updated: 2021/11/26 11:57:38 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	make_phil_eat(t_phil *phil)
 		pthread_mutex_unlock(&phil->total->fork[phil->left_fork]);
 		pthread_mutex_unlock(&phil->total->fork[phil->right_fork]);
 		phil->status = DONE;
+		// pthread_mutex_lock(*total->done);
 		phil->total->done_cnt++;
+		// unlock();
 	}
 }
 

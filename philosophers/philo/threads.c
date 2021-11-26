@@ -76,6 +76,10 @@ void	*dead_check(void *data)
 			if (get_time(phils[i].total) - phils[i].last_eat
 				> total->time_to_die)
 			{
+				// pthread_mutex_lock(&total->printing);
+				// printf("aksjfd died");
+				// total->is_dead = 1;
+				// pthread_mutex_unlock(&total->printing);
 				print_print(phils[i], "died");
 				total->is_dead = 1;
 				return (NULL);
