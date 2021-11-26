@@ -6,7 +6,7 @@
 /*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:11:38 by naykim            #+#    #+#             */
-/*   Updated: 2021/11/16 18:11:39 by naykim           ###   ########.fr       */
+/*   Updated: 2021/11/26 09:46:32 by naykim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*p_function(void *data)
 	if (phil->total->done_cnt == phil->total->phil_cnt)
 	{
 		pthread_mutex_lock(&phil->total->printing);
-		printf("All philosophers has eaten enough\n");
+		printf("All philosophers have eaten enough\n");
 		pthread_mutex_unlock(&phil->total->printing);
 	}
 	return (NULL);
