@@ -18,7 +18,7 @@ void	only_one_phil(t_total *tot)
 		return ;
 	while (get_time(tot) < tot->time_to_die)
 		usleep(100);
-	printf("%dms 1 died\n", get_time(tot));
+	printf("%d 1 died\n", get_time(tot));
 }
 
 void	fill_phil(t_phil *phil, t_total *tot, int i)
@@ -41,6 +41,7 @@ int	make_threads(t_total *tot)
 	{
 		only_one_phil(tot);
 		pthread_mutex_destroy(&tot->printing);
+		pthread_mutex_destroy(&tot->m_done);
 		pthread_mutex_destroy(&tot->fork[0]);
 		return (0);
 	}

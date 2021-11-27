@@ -53,7 +53,7 @@ void	print_print(t_phil phil, char *str)
 		pthread_mutex_unlock(&phil.total->printing);
 		return ;
 	}
-	printf("%dms %d %s\n", get_time(phil.total), phil.id + 1, str);
+	printf("%d %d %s\n", get_time(phil.total), phil.id + 1, str);
 	pthread_mutex_unlock(&phil.total->printing);
 }
 

@@ -52,6 +52,8 @@ int	make_total_mutex(t_total *total)
 	i = -1;
 	if (pthread_mutex_init(&total->printing, NULL))
 		return (1);
+	if (pthread_mutex_init(&total->m_done, NULL))
+		return (1);
 	total->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* total->phil_cnt);
 	if (!total->fork)

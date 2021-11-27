@@ -27,6 +27,7 @@ void	destroy_mutex(t_total *tot, t_phil *phils)
 	int	i;
 
 	pthread_mutex_destroy(&tot->printing);
+	pthread_mutex_destroy(&tot->m_done);
 	i = -1;
 	while (++i < tot->phil_cnt)
 	{
@@ -51,12 +52,14 @@ void	*p_function(void *data)
 		else if (phil->status == SLEEP)
 			make_phil_think(phil);
 	}
+	pthread_mutex_lock(&phil->total->m_done);
 	if (phil->total->done_cnt == phil->total->phil_cnt)
 	{
 		pthread_mutex_lock(&phil->total->printing);
 		printf("All philosophers have eaten enough\n");
 		pthread_mutex_unlock(&phil->total->printing);
 	}
+	pthread_mutex_unlock(&phil->total->m_done);
 	return (NULL);
 }
 
@@ -76,12 +79,10 @@ void	*dead_check(void *data)
 			if (get_time(phils[i].total) - phils[i].last_eat
 				> total->time_to_die)
 			{
-				// pthread_mutex_lock(&total->printing);
-				// printf("aksjfd died");
-				// total->is_dead = 1;
-				// pthread_mutex_unlock(&total->printing);
-				print_print(phils[i], "died");
+				pthread_mutex_lock(&total->printing);
+				printf("%d %d died", get_time(total), phils[i].id + 1);
 				total->is_dead = 1;
+				pthread_mutex_unlock(&total->printing);
 				return (NULL);
 			}
 		}

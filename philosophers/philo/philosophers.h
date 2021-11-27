@@ -38,6 +38,7 @@ typedef struct s_total
 	long long		starttime;
 	pthread_t		t_dead;
 	pthread_mutex_t	printing;
+	pthread_mutex_t	m_done;
 	pthread_mutex_t	*fork;
 }	t_total;
 

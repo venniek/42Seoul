@@ -33,9 +33,9 @@ void	make_phil_eat(t_phil *phil)
 		pthread_mutex_unlock(&phil->total->fork[phil->left_fork]);
 		pthread_mutex_unlock(&phil->total->fork[phil->right_fork]);
 		phil->status = DONE;
-		// pthread_mutex_lock(*total->done);
+		pthread_mutex_lock(&phil->total->m_done);
 		phil->total->done_cnt++;
-		// unlock();
+		pthread_mutex_unlock(&phil->total->m_done);
 	}
 }
 
