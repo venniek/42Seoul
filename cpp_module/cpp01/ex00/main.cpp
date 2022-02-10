@@ -3,11 +3,11 @@
 int main()
 {
 	Zombie zombie1;
-	Zombie* zombie2 = zombie1.newZombie("nayHeap");
+	Zombie* zombie2 = Zombie::newZombie("nayHeap");
 	
 	zombie1.announce();
 	zombie2->announce();
-	zombie1.randomChump("nayStack");
+	Zombie::randomChump("nayStack");
 	delete zombie2;
 	return 0;
 }

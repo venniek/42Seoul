@@ -12,8 +12,8 @@ public:
 	Zombie();
 	Zombie(std::string name);
 	void announce();
-	Zombie* newZombie(std::string name);
-	void randomChump(std::string name);
+	static Zombie* newZombie(std::string name);
+	static void randomChump(std::string name);
 	~Zombie();
 };
 
