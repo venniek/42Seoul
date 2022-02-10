@@ -13,4 +13,6 @@ int main()
 	
 	std::cout << "str using PTR: " << *strPTR << std::endl;
 	std::cout << "str using REF: " << strREF << std::endl;
+
+	return 0;
 }
