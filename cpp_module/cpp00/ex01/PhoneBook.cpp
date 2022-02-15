@@ -64,10 +64,10 @@ void PhoneBook::SearchIndex()
 	{
 		std::cout << "Which index do you want to search: ";
 		std::cin >> index;
-		if (index >= 1 && index <= std::min(nowIndex, 7))
+		if (index >= 1 && index <= std::min(nowIndex, 8))
 			break ;
 		else
-			std::cout << "index should be between 1 and " << std::min(nowIndex, 7) << std::endl;
+			std::cout << "index should be between 1 and " << std::min(nowIndex, 8) << std::endl;
 	}
 	std::cout << std::endl;
 	contact[index - 1].ShowInfo();
@@ -82,6 +82,4 @@ std::string PhoneBook::ShortenString(std::string str)
 		return str;
 }
 
-PhoneBook::~PhoneBook()
-{
-}
+PhoneBook::~PhoneBook() {}

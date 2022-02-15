@@ -59,10 +59,6 @@ void Contact::ShowInfo()
 	std::cout << std::setw(17) << "darkest secret: " << GetDarkestSecret() << std::endl;
 }
 
-Contact::Contact()
-{
-}
+Contact::Contact() {}
 
-Contact::~Contact()
-{
-}
+Contact::~Contact() {}
