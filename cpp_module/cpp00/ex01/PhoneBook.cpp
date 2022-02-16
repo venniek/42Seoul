@@ -16,7 +16,7 @@ void PhoneBook::ShowPhoneBook()
 	std::cout << std::setw(43) << std::setfill('-') << "-" << std::endl;
 	std::cout << std::setfill(' ');
 	for (int i = 0; i < std::min(8, nowIndex); i++)
-	{
+	{ 
 		std::cout << std::setw(10) << i + 1 << "|"; 
 		std::cout << std::setw(10) << ShortenString(contact[i].GetFirstName()) << "|";
 		std::cout << std::setw(10) << ShortenString(contact[i].GetLastName()) << "|";
@@ -62,12 +62,20 @@ void PhoneBook::SearchIndex()
 	}
 	while (1)
 	{
-		std::cout << "Which index do you want to search: ";
+		std::cout << "Which index(number) do you want to search: ";
 		std::cin >> index;
-		if (index >= 1 && index <= std::min(nowIndex, 8))
-			break ;
+		if (std::cin.fail() == false)
+		{
+			if (index >= 1 && index <= std::min(nowIndex, 8))
+				break ;
+		}
 		else
-			std::cout << "index should be between 1 and " << std::min(nowIndex, 8) << std::endl;
+		{
+			std::cin.clear();
+			std::cin.ignore(100, '\n');
+		}
+		std::cout << "index should be between 1 and " << std::min(nowIndex, 8) << std::endl;
+		
 	}
 	std::cout << std::endl;
 	contact[index - 1].ShowInfo();
