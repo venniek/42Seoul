@@ -4,8 +4,7 @@
 #include "Weapon.hpp"
 #include <iostream>
 
-class HumanA
-{
+class HumanA {
 private:
 	std::string name;
 	Weapon &weapon;

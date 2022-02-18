@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 
-class Karen
-{
+class Karen {
 private:
 	void debug();
 	void info();
