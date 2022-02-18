@@ -4,29 +4,24 @@ Karen::Karen() {}
 
 Karen::~Karen() {}
 
-void Karen::debug()
-{
+void Karen::debug() {
 	std::cout << "[DEBUG] " << "This is debug message :(" << std::endl;
 }
 
-void Karen::info()
-{
+void Karen::info() {
 	std::cout << "[INFO] " << "This is info message." << std::endl;
 }
 
-void Karen::warning()
-{
+void Karen::warning() {
 	std::cout << "[WARNING] " << "! This is warning message !" << std::endl;
 }
 
-void Karen::error()
-{
+void Karen::error() {
 	std::cout << "[ERROR] " << "!!!! This is ERROR message !!!!" << std::endl;
 }
 
-void Karen::complain(std::string level)
-{
-	std::string command[4] = {"debug", "info", "warning", "error"};
+void Karen::complain(std::string level) {
+	std::string command[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	int message = 5;
 	
 	for (int i = 0; i < 4; i++) {

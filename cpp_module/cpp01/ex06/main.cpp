@@ -1,23 +1,14 @@
 #include "Karen.hpp"
 
-int main() {
+int main(int ac, char **av) {
 	Karen karen;
-	
-	std::cout << "============debug start===========" << std::endl;
-	karen.complain("debug");
-	std::cout << std::endl;
-	std::cout << "============info start===========" << std::endl;
-	karen.complain("info");
-	std::cout << std::endl;
-	std::cout << "============warning start===========" << std::endl;
-	karen.complain("warning");
-	std::cout << std::endl;
-	std::cout << "============error start===========" << std::endl;
-	karen.complain("error");
-	std::cout << std::endl;
-	std::cout << "============warning start===========" << std::endl;
-	karen.complain("warning");
-	std::cout << std::endl;
+
+	if (ac != 2)
+	{
+		std::cout << "You need one string argument." << std::endl;
+		return 1;
+	}
+	karen.complain(av[1]);
 
 	return 0;
 }
