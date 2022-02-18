@@ -6,29 +6,32 @@ Karen::~Karen() {}
 
 void Karen::debug()
 {
-	std::cout << "[DEBUG]" << std::endl;
-	std::cout << "This is debug message :(" << std::endl;
+	std::cout << "[DEBUG] " << "This is debug message :(" << std::endl;
 }
 
 void Karen::info()
 {
-	std::cout << "[INFO]" << std::endl;
-	std::cout << "This is info message." << std::endl;
+	std::cout << "[INFO] " << "This is info message." << std::endl;
 }
 
 void Karen::warning()
 {
-	std::cout << "[WARNING]" << std::endl;
-	std::cout << "! This is warning message !" << std::endl;
+	std::cout << "[WARNING] " << "! This is warning message !" << std::endl;
 }
 
 void Karen::error()
 {
-	std::cout << "[ERROR]" << std::endl;
-	std::cout << "!!!! This is ERROR message !!!!" << std::endl;
+	std::cout << "[ERROR] " << "!!!! This is ERROR message !!!!" << std::endl;
 }
 
 void Karen::complain(std::string level)
 {
+	std::string command[4] = {"debug", "info", "warning", "error"};
+	void (Karen::*f[4])() = {&Karen::debug, &Karen::info, &Karen::warning, &Karen::error};
 
+	for (int i = 0; i < 4; i++)
+	{
+		if (command[i] == level)
+			return (this->*(f[i]))();
+	}
 }
