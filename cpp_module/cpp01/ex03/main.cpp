@@ -1,22 +1,18 @@
 #include "HumanA.hpp"
 #include "HumanB.hpp"
-#include "Weapon.hpp"
 
-int main()
-{
+int main() {
 	{
 		Weapon club = Weapon("crude spiked club");
 
 		HumanA bob("Bob", club);
-
-		HumanA dod;
 		bob.attack();
 		club.setType("some other type of club");
 		bob.attack();
 	}
 	{
 		Weapon club = Weapon("crude spiked club");
-		
+
 		HumanB jim("jim");
 		jim.setWeapon(club);
 		jim.attack();
