@@ -18,6 +18,12 @@ void Fixed::setRawBits(int const raw) {
 	fixedPointValue = raw;
 }
 
+void Fixed::operator=(const Fixed &ref) {
+	std::cout << "Assignation operator called" << std::endl;
+	fixedPointValue = ref.getRawBits();
+}
+
+
 Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;
 } 
