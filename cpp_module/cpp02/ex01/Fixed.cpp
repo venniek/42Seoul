@@ -4,14 +4,6 @@ Fixed::Fixed() : fixedPointValue(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(int num) {
-	fixedPointValue = num;
-}
-
-Fixed::Fixed(float num) {
-
-}
-
 Fixed::Fixed(const Fixed &origin) {
 	std::cout << "Copy constructor called" << std::endl;
 	fixedPointValue = origin.getRawBits();
@@ -26,13 +18,11 @@ void Fixed::setRawBits(int const raw) {
 	fixedPointValue = raw;
 }
 
-float Fixed::toFloat() const {
-	
+void Fixed::operator=(const Fixed &ref) {
+	std::cout << "Assignation operator called" << std::endl;
+	fixedPointValue = ref.getRawBits();
 }
 
-int Fixed::toInt() const {
-	return roundf()
-}
 
 Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;

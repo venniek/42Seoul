@@ -2,7 +2,6 @@
 #define __FIXED_H__
 
 #include <iostream>
-#include <cmath>
 
 class Fixed {
 private:
@@ -10,13 +9,12 @@ private:
 	static const int fractionalBits = 8;
 public:
 	Fixed();
-	Fixed(int num);
-	Fixed(float num);
+	Fixed(int i);
+	Fixed(float f);
 	Fixed(const Fixed &origin);
 	int getRawBits() const;
 	void setRawBits(int const raw);
-	float toFloat() const;
-	int toInt() const;
+	void operator=(const Fixed &ref);
 	~Fixed();
 };
 
