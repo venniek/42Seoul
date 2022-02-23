@@ -4,6 +4,11 @@ Fixed::Fixed() : fixedPointValue(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
+Fixed::Fixed(int i): fixedPointValue(i / 256) {}
+
+Fixed::Fixed(float i): fixedPointValue(i / 256) {}
+
+
 Fixed::Fixed(const Fixed &origin) {
 	std::cout << "Copy constructor called" << std::endl;
 	fixedPointValue = origin.getRawBits();
@@ -23,6 +28,13 @@ void Fixed::operator=(const Fixed &ref) {
 	fixedPointValue = ref.getRawBits();
 }
 
+void Fixed::operator<<(const Fixed &ref) {
+	std::cout << ref.fixedPointValue;
+}
+
+float Fixed::toFloat(float f) const {
+	fixedPointValue = (roundf(f) << fractionalBits);
+}
 
 Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;
