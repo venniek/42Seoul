@@ -15,28 +15,28 @@ public:
 	Fixed(const Fixed &origin);
 
 	Fixed& operator=(const Fixed &ref);
-	a = b
-	a.operator=(b)
 
-	bool operator>(const Fixed &ref);
-	bool operator<(const Fixed &ref);
-	bool operator>=(const Fixed &ref);
-	bool operator<=(const Fixed &ref);
-	bool operator==(const Fixed &ref);
-	bool operator!=(const Fixed &ref);
+	bool operator>(const Fixed &ref) const;
+	bool operator<(const Fixed &ref) const;
+	bool operator>=(const Fixed &ref) const;
+	bool operator<=(const Fixed &ref) const;
+	bool operator==(const Fixed &ref) const;
+	bool operator!=(const Fixed &ref) const;
 	
-	Fixed& operator+(const Fixed &ref);
-	Fixed& operator-(const Fixed &ref);
-	Fixed& operator*(const Fixed &ref);
-	Fixed& operator/(const Fixed &ref);
+	Fixed operator+(const Fixed &ref);
+	Fixed operator-(const Fixed &ref);
+	Fixed operator*(const Fixed &ref);
+	Fixed operator/(const Fixed &ref);
 
-	void operator++(const Fixed &ref);
-	void operator--(const Fixed &ref);
+	Fixed operator++();
+	Fixed operator++(int);
+	Fixed operator--();
+	Fixed operator--(int);
 
-
-	int& min(const Fixed &ref1, const Fixed &ref2);
-	int& min(const Fixed &ref1, const Fixed &ref2);
-
+	const Fixed min(const Fixed &ref1, const Fixed &ref2);
+	const Fixed max(const Fixed &ref1, const Fixed &ref2);
+	Fixed min(Fixed &ref1, Fixed &ref2);
+	Fixed max(Fixed &ref1, Fixed &ref2);
 
 	int getRawBits() const;
 	void setRawBits(int const raw);

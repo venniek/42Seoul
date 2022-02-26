@@ -1,22 +1,17 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() : fixedPointValue(0) {
-	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(int i) {
-	std::cout << "Int constructor called" << std::endl;
 	fixedPointValue = i << fractionalBits;
 }
 
 Fixed::Fixed(float f) {
-	std::cout << "Float constructor called" << std::endl;
 	fixedPointValue = roundf(f * (1 << fractionalBits));
 }
 
-
 Fixed::Fixed(const Fixed &origin) {
-	std::cout << "Copy constructor called" << std::endl;
 	*this = origin; 
 }
 
@@ -29,9 +24,107 @@ void Fixed::setRawBits(int const raw) {
 }
 
 Fixed& Fixed::operator=(const Fixed &ref) {
-	std::cout << "Assignation operator called" << std::endl;
 	fixedPointValue = ref.getRawBits();
 	return *this;
+}
+
+bool Fixed::operator>(Fixed const &ref) const {
+	return this->getRawBits() > ref.getRawBits();
+}
+
+bool Fixed::operator<(const Fixed &ref) const {
+	return this->getRawBits() < ref.getRawBits();
+}
+
+bool Fixed::operator>=(const Fixed &ref) const {
+	return this->getRawBits() >= ref.getRawBits();
+}
+
+bool Fixed::operator<=(const Fixed &ref) const {
+	return this->getRawBits() <= ref.getRawBits();
+}
+
+bool Fixed::operator==(const Fixed &ref) const {
+	return this->getRawBits() == ref.getRawBits();
+}
+
+bool Fixed::operator!=(const Fixed &ref) const {
+	return this->getRawBits() != ref.getRawBits();
+}
+
+Fixed Fixed::operator+(const Fixed &ref) {
+	Fixed ret;
+	
+	ret.setRawBits(this->getRawBits() + ref.getRawBits());
+	return (ret);
+}
+
+Fixed Fixed::operator-(const Fixed &ref) {
+	Fixed ret;
+	
+	ret.setRawBits(this->getRawBits() - ref.getRawBits());
+	return (ret);
+
+}
+
+Fixed Fixed::operator*(const Fixed &ref) {
+	Fixed ret;
+	
+	ret.setRawBits(this->getRawBits() * ref.getRawBits());
+	return (ret);
+}
+
+Fixed Fixed::operator/(const Fixed &ref) {
+	Fixed ret;
+	
+	ret.setRawBits(this->getRawBits() / ref.getRawBits());
+	return (ret);
+}
+
+Fixed Fixed::operator++() {
+	this->fixedPointValue++;
+	return (*this);
+}
+
+Fixed Fixed::operator--() {
+	this->fixedPointValue--;
+	return (*this);
+}
+
+Fixed Fixed::operator++(int) {
+	Fixed ret(*this);
+	operator++();
+	return (ret);
+}
+
+Fixed Fixed::operator--(int) {
+	Fixed ret(*this);
+	operator--();
+	return (ret);
+}
+
+const Fixed min(const Fixed &ref1, const Fixed &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref2);
+	return (ref1);
+}
+const Fixed max(const Fixed &ref1, const Fixed &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref1);
+	return (ref2);
+}
+
+Fixed min(Fixed &ref1, Fixed &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref2);
+	return (ref1);
+
+}
+Fixed max(Fixed &ref1, Fixed &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref1);
+	return (ref2);
+
 }
 
 float Fixed::toFloat() const {
@@ -44,7 +137,6 @@ int Fixed::toInt() const {
 }
 
 Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const Fixed &ref) {
