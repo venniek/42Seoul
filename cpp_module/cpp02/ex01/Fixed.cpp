@@ -17,7 +17,7 @@ Fixed::Fixed(float f) {
 
 Fixed::Fixed(const Fixed &origin) {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = origin; 
+	*this = origin;
 }
 
 int Fixed::getRawBits() const {

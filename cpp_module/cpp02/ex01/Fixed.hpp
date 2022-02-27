@@ -13,7 +13,9 @@ public:
 	explicit Fixed(const int i);
 	explicit Fixed(const float f);
 	Fixed(const Fixed &origin);
+
 	Fixed& operator=(const Fixed &ref);
+
 	int getRawBits() const;
 	void setRawBits(int const raw);
 	int toInt() const;
