@@ -12,7 +12,7 @@ Fixed::Fixed(float f) {
 }
 
 Fixed::Fixed(const Fixed &origin) {
-	*this = origin; 
+	*this = origin;
 }
 
 int Fixed::getRawBits() const {
@@ -64,29 +64,28 @@ Fixed Fixed::operator-(const Fixed &ref) {
 	
 	ret.setRawBits(this->getRawBits() - ref.getRawBits());
 	return (ret);
-
 }
 
 Fixed Fixed::operator*(const Fixed &ref) {
 	Fixed ret;
 	
-	ret.setRawBits(this->getRawBits() * ref.getRawBits());
+	ret.setRawBits((this->getRawBits() * ref.getRawBits()) >> fractionalBits);
 	return (ret);
 }
 
 Fixed Fixed::operator/(const Fixed &ref) {
 	Fixed ret;
 	
-	ret.setRawBits(this->getRawBits() / ref.getRawBits());
+	ret.setRawBits((this->getRawBits() / ref.getRawBits()) << fractionalBits);
 	return (ret);
 }
 
-Fixed Fixed::operator++() {
+Fixed& Fixed::operator++() {
 	this->fixedPointValue++;
 	return (*this);
 }
 
-Fixed Fixed::operator--() {
+Fixed& Fixed::operator--() {
 	this->fixedPointValue--;
 	return (*this);
 }
@@ -103,28 +102,29 @@ Fixed Fixed::operator--(int) {
 	return (ret);
 }
 
-const Fixed min(const Fixed &ref1, const Fixed &ref2) {
-	if (ref1.getRawBits() > ref2.getRawBits())
-		return (ref2);
-	return (ref1);
-}
-const Fixed max(const Fixed &ref1, const Fixed &ref2) {
-	if (ref1.getRawBits() > ref2.getRawBits())
-		return (ref1);
-	return (ref2);
-}
-
-Fixed min(Fixed &ref1, Fixed &ref2) {
+Fixed& Fixed::min(Fixed &ref1, Fixed &ref2) {
 	if (ref1.getRawBits() > ref2.getRawBits())
 		return (ref2);
 	return (ref1);
 
 }
-Fixed max(Fixed &ref1, Fixed &ref2) {
+Fixed& Fixed::max(Fixed &ref1, Fixed &ref2) {
 	if (ref1.getRawBits() > ref2.getRawBits())
 		return (ref1);
 	return (ref2);
 
+}
+
+const Fixed& Fixed::min(Fixed const &ref1, Fixed const &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref2);
+	return (ref1);
+}
+
+const Fixed& Fixed::max(Fixed const &ref1, Fixed const &ref2) {
+	if (ref1.getRawBits() > ref2.getRawBits())
+		return (ref1);
+	return (ref2);
 }
 
 float Fixed::toFloat() const {
