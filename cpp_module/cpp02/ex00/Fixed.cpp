@@ -23,7 +23,6 @@ void Fixed::operator=(const Fixed &ref) {
 	fixedPointValue = ref.getRawBits();
 }
 
-
 Fixed::~Fixed() {
 	std::cout << "Destructor called" << std::endl;
 } 
