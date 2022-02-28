@@ -1,20 +1,25 @@
 #include "ClapTrap.hpp"
 
 void ClapTrap::attack(std::string const &target) {
-	std::cout << "ClapTrap " << _name << " attack " << target << ", causing " << _ad << " points of damage!" << std::endl;
+	if (_hitPoint < _attackDamage)
+		std::cout << "ClapTrap " << _name << " doesn't have enough hit points. Attack failed" << std::endl;
+	else {
+		std::cout << "ClapTrap " << _name << " attack " << target << ", causing " << _attackDamage<< " points of damage!" << std::endl;
+		_hitPoint -= _attackDamage;
+	}
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
 	std::cout << _name << " is attacked! " << amount << " of damages!" << std::endl;
-	_ep -= std::min(amount, _ep);
+	_energyPoint -= std::min(amount, _energyPoint);
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
 	std::cout << _name << " is repaired... Got " << amount << " of energy points..." << std::endl;
-	_ep += amount;
-	if (_ep > _initHit) {
-		_ep = _initHit;
-		std::cout << "Too much energy... Energy point is " << _ep << " now" << std::endl;
+	_energyPoint += amount;
+	if (_energyPoint > C_ENERGYPOINT) {
+		_energyPoint = C_ENERGYPOINT;
+		std::cout << "Too much energy... Energy point is " << _energyPoint << " now" << std::endl;
 	}
 }
 
@@ -23,19 +28,15 @@ std::string ClapTrap::getName() const {
 }
 
 unsigned int ClapTrap::getHit() const {
-	return _hit;
+	return _hitPoint;
 }
 
 unsigned int ClapTrap::getEp() const {
-	return _ep;
+	return _energyPoint;
 }
 
 unsigned int ClapTrap::getAd() const {
-	return _ad;
-}
-
-unsigned int ClapTrap::getInitHit() const {
-	return _initHit;
+	return _attackDamage;
 }
 
 void ClapTrap::setName(const std::string &name) {
@@ -43,44 +44,48 @@ void ClapTrap::setName(const std::string &name) {
 }
 
 void ClapTrap::setHit(unsigned int hit) {
-	_hit = hit;
+	_hitPoint = hit;
 }
 
 void ClapTrap::setEp(unsigned int ep) {
-	_ep = ep;
+	_energyPoint = ep;
 }
 
 void ClapTrap::setAd(unsigned int ad) {
-	_ad = ad;
+	_attackDamage= ad;
 }
 
-void ClapTrap::printStatus() {
-	std::cout << std::setw(30) << std::setfill('-') <<  _name + "'s status--------------" << std::endl;
-	std::cout << "name         : " << _name << std::endl;
-	std::cout << "hit point    : " << _hit << std::endl;
-	std::cout << "energy point : " << _ep << std::endl;
-	std::cout << "attack damage: " << _ad << std::endl;
-	std::cout << "initial energy point: " << _initHit << std::endl;
-	std::cout << std::setw(30) << "-" << std::endl << std::endl;
+void ClapTrap::printStatus() const {
+	std::cout << std::setw(40) << std::setfill('-') <<  _name + "'s status--------------" << std::setfill(' ') << std::endl;
+	std::cout << std::setw(25) << "name: " << _name << std::endl;
+	std::cout << std::setw(25) << "hit point: " << _hitPoint << std::endl;
+	std::cout << std::setw(25) << "energy point: " << _energyPoint << std::endl;
+	std::cout << std::setw(25) << "attack damage: " << _attackDamage<< std::endl;
+	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
 	std::setfill('-');
 }
 
-ClapTrap::ClapTrap(std::string name): _name(name), _hit(10), _ep(10), _ad(0), _initHit(_hit) {
-	std::cout << "ClapTrap " << _name << " start!!" << std::endl;
+ClapTrap::ClapTrap(): _name(""), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOINT), _attackDamage(C_ATTACKDAMAGE) {
+	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &origin): _initHit(origin.getInitHit()) {
+
+ClapTrap::ClapTrap(std::string name): _name(name), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOINT), _attackDamage(C_ATTACKDAMAGE) {
+	std::cout << "ClapTrap constructor with name \"" << name << "\" called" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &origin) {
 	*this = origin;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& origin) {
-	setName(origin.getName());
-	setHit(origin.getHit());
-	setEp(origin.getEp());
-	setAd(origin.getAd());
+	_name = origin.getName();
+	_hitPoint = origin.getHit();
+	_energyPoint = origin.getEp();
+	_attackDamage = origin.getAd();
 	return *this;
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "ClapTrap " << this->getName() << " is destroyed" << std::endl;
+	std::cout << "ClapTrap destructor called" << std::endl;
 }
