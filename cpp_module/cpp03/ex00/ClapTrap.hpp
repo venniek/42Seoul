@@ -5,6 +5,10 @@
 #include <iostream>
 #include <iomanip>
 
+#define C_HITPOINT 10
+#define C_ENERGYPOINT 10
+#define C_ATTACKDAMAGE 0
+
 class ClapTrap {
 private:
 	std::string _name;
@@ -12,26 +16,23 @@ private:
 	unsigned int _energyPoint;
 	unsigned int _attackDamage;
 
-	const unsigned int _initHit;
-
 public:
 	void attack(std::string const &target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
+	void printStatus() const;
 
 	std::string getName() const;
 	unsigned int getHit() const;
 	unsigned int getEp() const;
 	unsigned int getAd() const;
-	unsigned int getInitHit() const;
 
 	void setName(const std::string &name);
 	void setHit(unsigned int hit);
 	void setEp(unsigned int ep);
 	void setAd(unsigned int ad);
 
-	void printStatus();
-
+	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap& origin);
 	ClapTrap& operator=(const ClapTrap& origin);

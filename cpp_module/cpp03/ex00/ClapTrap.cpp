@@ -17,8 +17,8 @@ void ClapTrap::takeDamage(unsigned int amount) {
 void ClapTrap::beRepaired(unsigned int amount) {
 	std::cout << _name << " is repaired... Got " << amount << " of energy points..." << std::endl;
 	_energyPoint += amount;
-	if (_energyPoint > _initHit) {
-		_energyPoint = _initHit;
+	if (_energyPoint > C_ENERGYPOINT) {
+		_energyPoint = C_ENERGYPOINT;
 		std::cout << "Too much energy... Energy point is " << _energyPoint << " now" << std::endl;
 	}
 }
@@ -39,10 +39,6 @@ unsigned int ClapTrap::getAd() const {
 	return _attackDamage;
 }
 
-unsigned int ClapTrap::getInitHit() const {
-	return _initHit;
-}
-
 void ClapTrap::setName(const std::string &name) {
 	_name = name;
 }
@@ -59,22 +55,26 @@ void ClapTrap::setAd(unsigned int ad) {
 	_attackDamage= ad;
 }
 
-void ClapTrap::printStatus() {
+void ClapTrap::printStatus() const {
 	std::cout << std::setw(40) << std::setfill('-') <<  _name + "'s status--------------" << std::setfill(' ') << std::endl;
 	std::cout << std::setw(25) << "name: " << _name << std::endl;
 	std::cout << std::setw(25) << "hit point: " << _hitPoint << std::endl;
 	std::cout << std::setw(25) << "energy point: " << _energyPoint << std::endl;
 	std::cout << std::setw(25) << "attack damage: " << _attackDamage<< std::endl;
-	std::cout << std::setw(25) << "initial energy point: " << _initHit << std::endl;
 	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
 	std::setfill('-');
 }
 
-ClapTrap::ClapTrap(std::string name): _name(name), _hitPoint(10), _energyPoint(10), _attackDamage(0), _initHit(_hitPoint) {
-	std::cout << "ClapTrap " << _name << " start!!" << std::endl;
+ClapTrap::ClapTrap(): _name(""), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOINT), _attackDamage(C_ATTACKDAMAGE) {
+	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &origin): _initHit(origin.getInitHit()) {
+
+ClapTrap::ClapTrap(std::string name): _name(name), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOINT), _attackDamage(C_ATTACKDAMAGE) {
+	std::cout << "ClapTrap constructor with name \"" << name << "\" called" << std::endl;
+}
+
+ClapTrap::ClapTrap(const ClapTrap &origin) {
 	*this = origin;
 }
 
@@ -87,5 +87,5 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& origin) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "ClapTrap " << _name << " is destroyed" << std::endl;
+	std::cout << "ClapTrap destructor called" << std::endl;
 }
