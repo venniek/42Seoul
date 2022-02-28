@@ -12,19 +12,12 @@ void DiamondTrap::printStatus() const {
 
 DiamondTrap::DiamondTrap() : _name("") {
 	ClapTrap::_name = "_clap_name";
-	_hitPoint = FragTrap::getHit();
-	_energyPoint = ScavTrap::getEp();
-	_attackDamage = FragTrap::getAd();
+	_energyPoint = 20;
 	std::cout << "DiamondTrap default constructor called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(const std::string name): ClapTrap(name + "_clap_name"), ScavTrap(name), _name(name) {
-	_hitPoint = FragTrap::_hitPoint;
-		std::cout << this->_energyPoint << std::endl;
-
-	_energyPoint = ScavTrap::_energyPoint;
-		std::cout << ScavTrap::_energyPoint << std::endl;
-	_attackDamage = FragTrap::_attackDamage;
+DiamondTrap::DiamondTrap(const std::string name): ClapTrap(name + "_clap_name"),ScavTrap(name), FragTrap(name), _name(name) {
+	this->_energyPoint = 20;
 	std::cout << "DiamondTrap constructor with name \"" << _name << "\" called" << std::endl;
 }
 
