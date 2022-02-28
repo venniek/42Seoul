@@ -3,7 +3,7 @@
 int main() {
 	ClapTrap clap("A");
 	ClapTrap clap2(clap);
-
+	
 	clap.printStatus();
 	clap2.printStatus();
 
@@ -20,7 +20,5 @@ int main() {
 	clap.beRepaired(45);
 	clap.printStatus();
 
-	clap2.printStatus();
-	
 	return 0;
 }
