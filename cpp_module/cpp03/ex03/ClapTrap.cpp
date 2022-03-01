@@ -69,7 +69,6 @@ ClapTrap::ClapTrap(): _name(""), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOI
 	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-
 ClapTrap::ClapTrap(std::string name): _name(name), _hitPoint(C_HITPOINT), _energyPoint(C_ENERGYPOINT), _attackDamage(C_ATTACKDAMAGE) {
 	std::cout << "ClapTrap constructor with name \"" << name << "\" called" << std::endl;
 }

@@ -4,7 +4,7 @@
 #include "ClapTrap.hpp"
 
 #define F_HITPOINT 100
-#define F_ENERGYPOINT 800
+#define F_ENERGYPOINT 100
 #define F_ATTACKDAMAGE 30
 
 class FragTrap: virtual public ClapTrap {
