@@ -35,7 +35,7 @@ Cat::Cat(const Cat &origin) {
 
 Cat& Cat::operator=(const Cat &origin) {
 	Animal::operator=(origin);
-	this->brain = Brain::operator=(origin);
+	this->brain = origin.brain;
 	return (*this);
 }
 

@@ -8,11 +8,12 @@ private:
 	int fixedPointValue;
 	static const int fractionalBits = 8;
 public:
-	Fixed();
-	Fixed(const Fixed &origin);
 	int getRawBits() const;
 	void setRawBits(int const raw);
-	void operator=(const Fixed &ref);
+
+	Fixed();
+	Fixed(const Fixed &origin);
+	Fixed& operator=(const Fixed &ref);
 	~Fixed();
 };
 
