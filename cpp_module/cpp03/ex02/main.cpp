@@ -1,31 +1,31 @@
-#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main() {
 	ClapTrap clap("clap");
-	FragTrap frag("frag");
+	ScavTrap scav("scav");
 
 	clap.printStatus();
-	frag.printStatus();
+	scav.printStatus();
 	std::cout << std::endl;
 
-	clap.attack(frag.getName());
+	clap.attack(scav.getName());
+	scav.takeDamage(clap.getAd());
 	clap.printStatus();
-	frag.takeDamage(clap.getAd());
-	frag.printStatus();
+	scav.printStatus();
 	std::cout << std::endl;
 	
-	frag.attack(clap.getName());
-	frag.printStatus();
-	clap.takeDamage(frag.getAd());
+	scav.attack(clap.getName());
+	clap.takeDamage(scav.getAd());
 	clap.printStatus();
+	scav.printStatus();
 	std::cout << std::endl;
 	
 	clap.beRepaired(10);
 	clap.printStatus();
 	std::cout << std::endl;
 	
-	frag.beRepaired(45);
-	frag.printStatus();
-	
+	scav.beRepaired(45);
+	scav.printStatus();
+
 	return 0;
 }
