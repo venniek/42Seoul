@@ -15,7 +15,7 @@ Fixed::Fixed(): fixedPointValue(0) {
 
 Fixed::Fixed(const Fixed &origin) {
 	std::cout << "Copy constructor called" << std::endl;
-	fixedPointValue = origin.getRawBits();
+	*this = origin;
 }
 
 Fixed& Fixed::operator=(const Fixed &ref) {
