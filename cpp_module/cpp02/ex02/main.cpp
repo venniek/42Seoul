@@ -33,12 +33,12 @@ int main() {
 	std::cout << "a != b ? " << (a != b) << std::endl << std::endl;
 
 	a.setRawBits(1000);
-	std::cout << "a: " << a.toFloat() << std::endl;
-	std::cout << "b: " << b.toFloat() << std::endl;
-	std::cout << "a + b ? " << (a + b).toFloat() << std::endl;
-	std::cout << "a - b ? " << (a - b).toFloat() << std::endl;
-	std::cout << "a * b ? " << (a * b).toFloat()<< std::endl;
-	std::cout << "a / b ? " << (a / b).toFloat() << std::endl;
+	std::cout << "a: " << a << std::endl;
+	std::cout << "b: " << b << std::endl;
+	std::cout << "a + b ? " << a + b << std::endl;
+	std::cout << "a - b ? " << a - b << std::endl;
+	std::cout << "a * b ? " << a * b<< std::endl;
+	std::cout << "a / b ? " << a / b << std::endl;
 
 	return 0;
 }
