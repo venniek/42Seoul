@@ -46,7 +46,6 @@ ScavTrap::ScavTrap(const ScavTrap &origin): ClapTrap(origin) {
 	*this = origin;
 }
 
-
 ScavTrap& ScavTrap::operator=(const ScavTrap &origin) {
 	ClapTrap::operator=(origin);
 	_guardMode = origin._guardMode;

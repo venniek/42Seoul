@@ -21,8 +21,6 @@ public:
 	ScavTrap(const ScavTrap &origin);
 	ScavTrap &operator=(const ScavTrap &origin);
 	~ScavTrap();
-
-
 };
 
 #endif
