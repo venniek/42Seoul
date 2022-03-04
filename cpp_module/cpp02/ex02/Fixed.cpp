@@ -1,31 +1,11 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed() : fixedPointValue(0) {
-}
-
-Fixed::Fixed(int i) {
-	fixedPointValue = i << fractionalBits;
-}
-
-Fixed::Fixed(float f) {
-	fixedPointValue = roundf(f * (1 << fractionalBits));
-}
-
-Fixed::Fixed(const Fixed &origin) {
-	*this = origin;
-}
-
 int Fixed::getRawBits() const {
 	return fixedPointValue;
 }
 
 void Fixed::setRawBits(int const raw) {
 	fixedPointValue = raw;
-}
-
-Fixed& Fixed::operator=(const Fixed &ref) {
-	fixedPointValue = ref.getRawBits();
-	return *this;
 }
 
 bool Fixed::operator>(Fixed const &ref) const {
@@ -81,12 +61,12 @@ Fixed Fixed::operator/(const Fixed &ref) {
 }
 
 Fixed& Fixed::operator++() {
-	this->fixedPointValue++;
+	++this->fixedPointValue;
 	return (*this);
 }
 
 Fixed& Fixed::operator--() {
-	this->fixedPointValue--;
+	--this->fixedPointValue;
 	return (*this);
 }
 
@@ -106,13 +86,12 @@ Fixed& Fixed::min(Fixed &ref1, Fixed &ref2) {
 	if (ref1.getRawBits() > ref2.getRawBits())
 		return (ref2);
 	return (ref1);
-
 }
+
 Fixed& Fixed::max(Fixed &ref1, Fixed &ref2) {
 	if (ref1.getRawBits() > ref2.getRawBits())
 		return (ref1);
 	return (ref2);
-
 }
 
 const Fixed& Fixed::min(Fixed const &ref1, Fixed const &ref2) {
@@ -136,8 +115,26 @@ int Fixed::toInt() const {
 	return fixedPointValue >> fractionalBits;
 }
 
-Fixed::~Fixed() {
+Fixed::Fixed() : fixedPointValue(0) { }
+
+Fixed::Fixed(const int i) {
+	fixedPointValue = i << fractionalBits;
 }
+
+Fixed::Fixed(const float f) {
+	fixedPointValue = roundf(f * (1 << fractionalBits));
+}
+
+Fixed::Fixed(const Fixed &origin) {
+	*this = origin;
+}
+
+Fixed& Fixed::operator=(const Fixed &ref) {
+	setRawBits(ref.getRawBits());
+	return *this;
+}
+
+Fixed::~Fixed() { }
 
 std::ostream& operator<<(std::ostream& out, const Fixed &ref) {
 	out << ref.toFloat();
