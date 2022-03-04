@@ -18,14 +18,14 @@ void ScavTrap::guardGate() const {
 }
 
 void ScavTrap::printStatus() const {
-	std::cout << std::setw(40) << std::setfill('-') <<  _name + "'s status--------------" << std::setfill(' ') << std::endl;
+	std::cout << std::setw(40) << std::setfill('-') << _name + "'s status--------------" << std::setfill(' ') << std::endl;
 	std::cout << std::setw(25) << "name: " << _name << std::endl;
 	std::cout << std::setw(25) << "hit point: " << _hitPoint << std::endl;
 	std::cout << std::setw(25) << "energy point: " << _energyPoint << std::endl;
 	std::cout << std::setw(25) << "attack damage: " << _attackDamage<< std::endl;
 	guardGate();
 	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
-	std::setfill('-');
+	std::setfill(' ');
 }
 
 ScavTrap::ScavTrap() : ClapTrap(""), _guardMode(false) {
@@ -54,5 +54,5 @@ ScavTrap& ScavTrap::operator=(const ScavTrap &origin) {
 }
 
 ScavTrap::~ScavTrap() {
-	std::cout << "ScavTrap destructor called" << std::endl;
+	std::cout << "ScavTrap " << _name << "'s destructor called" << std::endl;
 }

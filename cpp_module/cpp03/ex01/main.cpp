@@ -9,15 +9,15 @@ int main() {
 	std::cout << std::endl;
 
 	clap.attack(scav.getName());
-	clap.printStatus();
 	scav.takeDamage(clap.getAd());
+	clap.printStatus();
 	scav.printStatus();
 	std::cout << std::endl;
 	
 	scav.attack(clap.getName());
-	scav.printStatus();
 	clap.takeDamage(scav.getAd());
 	clap.printStatus();
+	scav.printStatus();
 	std::cout << std::endl;
 	
 	clap.beRepaired(10);
@@ -26,6 +26,6 @@ int main() {
 	
 	scav.beRepaired(45);
 	scav.printStatus();
-	
+
 	return 0;
 }
