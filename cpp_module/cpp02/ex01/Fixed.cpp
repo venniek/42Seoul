@@ -21,12 +21,12 @@ Fixed::Fixed() : fixedPointValue(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(int i) {
+Fixed::Fixed(const int i) {
 	std::cout << "Int constructor called" << std::endl;
 	fixedPointValue = i << fractionalBits;
 }
 
-Fixed::Fixed(float f) {
+Fixed::Fixed(const float f) {
 	std::cout << "Float constructor called" << std::endl;
 	fixedPointValue = roundf(f * (1 << fractionalBits));
 }
