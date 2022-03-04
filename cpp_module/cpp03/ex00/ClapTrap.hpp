@@ -29,8 +29,8 @@ public:
 
 	void setName(const std::string &name);
 	void setHit(unsigned int hit);
-	void setEp(unsigned int ep);
-	void setAd(unsigned int ad);
+	void setEp(unsigned int energyPoint);
+	void setAd(unsigned int attackDamage);
 
 	ClapTrap();
 	ClapTrap(std::string name);

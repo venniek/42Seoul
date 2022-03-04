@@ -47,12 +47,12 @@ void ClapTrap::setHit(unsigned int hit) {
 	_hitPoint = hit;
 }
 
-void ClapTrap::setEp(unsigned int ep) {
-	_energyPoint = ep;
+void ClapTrap::setEp(unsigned int energyPoint) {
+	_energyPoint = energyPoint;
 }
 
-void ClapTrap::setAd(unsigned int ad) {
-	_attackDamage= ad;
+void ClapTrap::setAd(unsigned int attackDamage) {
+	_attackDamage= attackDamage;
 }
 
 void ClapTrap::printStatus() const {
@@ -75,6 +75,7 @@ ClapTrap::ClapTrap(std::string name): _name(name), _hitPoint(C_HITPOINT), _energ
 }
 
 ClapTrap::ClapTrap(const ClapTrap &origin) {
+	std::cout << "ClapTrap copy constructor called" << std::endl;
 	*this = origin;
 }
 
@@ -87,5 +88,5 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& origin) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "ClapTrap destructor called" << std::endl;
+	std::cout << "ClapTrap " << this->getName() << "'s destructor called" << std::endl;
 }
