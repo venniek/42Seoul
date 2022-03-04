@@ -88,5 +88,5 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& origin) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "ClapTrap " << this->getName() << "'s destructor called" << std::endl;
+	std::cout << "ClapTrap " << _name << "'s destructor called" << std::endl;
 }
