@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-void ClapTrap::attack(std::string const &target) {
+void ClapTrap::attack(const std::string &target) {
 	if (_hitPoint < _attackDamage)
 		std::cout << "ClapTrap " << _name << " doesn't have enough hit points. Attack failed" << std::endl;
 	else {

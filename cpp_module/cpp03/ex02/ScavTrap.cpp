@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-void ScavTrap::attack(std::string const &target) {
+void ScavTrap::attack(const std::string &target) {
 	std::cout << "ScavTrap " << _name << " attack " << target << "! " << _attackDamage<< " of damages!" << std::endl;
 }
 
@@ -45,7 +45,6 @@ ScavTrap::ScavTrap(const std::string name): ClapTrap(name), _guardMode(false) {
 ScavTrap::ScavTrap(const ScavTrap &origin): ClapTrap(origin) {
 	*this = origin;
 }
-
 
 ScavTrap& ScavTrap::operator=(const ScavTrap &origin) {
 	ClapTrap::operator=(origin);

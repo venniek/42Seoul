@@ -17,7 +17,7 @@ protected:
 	unsigned int _attackDamage;
 
 public:
-	void attack(std::string const &target);
+	void attack(const std::string &target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 	void printStatus() const;
@@ -33,7 +33,7 @@ public:
 	void setAd(unsigned int attackDamage);
 
 	ClapTrap();
-	ClapTrap(std::string name);
+	ClapTrap(const std::string name);
 	ClapTrap(const ClapTrap& origin);
 	ClapTrap& operator=(const ClapTrap& origin);
 	~ClapTrap();

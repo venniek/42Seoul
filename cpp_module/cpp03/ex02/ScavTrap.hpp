@@ -13,7 +13,7 @@ private:
 public:
 	void guardGate() const;
 	void printStatus() const;
-	void attack(std::string const &target);
+	void attack(const std::string &target);
 	void beRepaired(unsigned int amount);
 
 	ScavTrap();
