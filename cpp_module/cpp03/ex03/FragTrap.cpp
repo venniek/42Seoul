@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-void FragTrap::attack(std::string const &target) {
+void FragTrap::attack(const std::string &target) {
 	std::cout << "FragTrap " << _name << " attack " << target << "! " << _attackDamage<< " of damages!" << std::endl;
 }
 
@@ -52,5 +52,5 @@ FragTrap& FragTrap::operator=(const FragTrap &origin) {
 }
 
 FragTrap::~FragTrap() {
-	std::cout << "FragTrap destructor called" << std::endl;
+	std::cout << "FragTrap " << _name << "'s destructor called" << std::endl;
 }

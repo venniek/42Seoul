@@ -13,6 +13,10 @@ void ScavTrap::beRepaired(unsigned int amount) {
 	}
 }
 
+bool ScavTrap::getGuardMode() const {
+	return _guardMode;
+}
+
 void ScavTrap::guardGate() const {
 	std::cout << "ScavTrap [GATE KEEPER MODE] " << (_guardMode == true ? "on" : "off") << std::endl;
 }

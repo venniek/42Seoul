@@ -11,10 +11,11 @@ class ScavTrap: virtual public ClapTrap {
 protected:
 	bool _guardMode;
 public:
+	void attack(const std::string &target);
+	void beRepaired(unsigned int amount);
+	bool getGuardMode() const;
 	void guardGate() const;
 	void printStatus() const;
-	void attack(std::string const &target);
-	void beRepaired(unsigned int amount);
 
 	ScavTrap();
 	ScavTrap(const std::string name);

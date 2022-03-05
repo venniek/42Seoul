@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-void ScavTrap::attack(std::string const &target) {
+void ScavTrap::attack(const std::string &target) {
 	std::cout << "ScavTrap " << _name << " attack " << target << "! " << _attackDamage<< " of damages!" << std::endl;
 }
 
@@ -11,6 +11,10 @@ void ScavTrap::beRepaired(unsigned int amount) {
 		_energyPoint = S_ENERGYPOINT;
 		std::cout << "Too much energy... Energy point is " << _energyPoint << " now" << std::endl;
 	}
+}
+
+bool ScavTrap::getGuardMode() const {
+	return _guardMode;
 }
 
 void ScavTrap::guardGate() const {

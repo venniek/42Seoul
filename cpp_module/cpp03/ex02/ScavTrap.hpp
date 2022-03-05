@@ -11,10 +11,11 @@ class ScavTrap: public ClapTrap {
 private:
 	bool _guardMode;
 public:
-	void guardGate() const;
-	void printStatus() const;
 	void attack(const std::string &target);
 	void beRepaired(unsigned int amount);
+	bool getGuardMode() const;
+	void guardGate() const;
+	void printStatus() const;
 
 	ScavTrap();
 	ScavTrap(const std::string name);
