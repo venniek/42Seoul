@@ -25,7 +25,7 @@ Animal::Animal(const Animal &origin) {
 }
 
 Animal& Animal::operator=(const Animal &origin) {
-	this->_type = origin._type;
+	this->_type = origin.getType();
 	return (*this);
 }
 

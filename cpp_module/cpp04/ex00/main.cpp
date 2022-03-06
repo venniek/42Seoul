@@ -16,7 +16,7 @@ int main()
 	j->makeSound();
 	meta->makeSound();
 	
-	std::cout << "===============================" << std::endl;
+	std::cout << "=========================================" << std::endl;
 	std::cout << wrong->getType() << " " << std::endl;
 	std::cout << wrongcat->getType() << " " << std::endl;
 	wrong->makeSound();
