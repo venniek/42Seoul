@@ -4,14 +4,14 @@
 #include <iostream>
 #include <string>
 
+#define B_COUNT 100
+
 class Brain {
 private:
-	unsigned int count;
-	std::string ideas[100];
+	std::string ideas[B_COUNT];
 public:
-	void getIdeas() const;
-	void addIdeas(std::string add);
-	void removeIdeas();
+	std::string getIdeas(const int i) const;
+	void setIdeas(std::string str, const int i);
 
 	Brain();
 	Brain(const Brain &origin);

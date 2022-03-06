@@ -4,14 +4,14 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class Cat: public Animal {
+class Cat: public virtual Animal {
 private:
-	Brain *brain;
+	Brain* brain;
 public:
 	void setType(const std::string type);
 	void makeSound() const;
-	Brain *getBrain();
-	void setBrain(Brain *brain);
+	Brain* getBrain() const;
+	void setBrain();
 
 	Cat();
 	Cat(std::string type);

@@ -1,16 +1,16 @@
-#ifndef __Dog_H__
-#define __Dog_H__
+#ifndef __DOG_H__
+#define __DOG_H__
 
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class Dog: public Animal {
+class Dog: public virtual Animal {
 private:
-	Brain *brain;
+	Brain* brain;
 public:
 	void setType(const std::string type);
 	void makeSound() const;
-	Brain *getBrain();
+	Brain* getBrain() const;
 	void setBrain(Brain *brain);
 
 	Dog();

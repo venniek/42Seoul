@@ -16,7 +16,7 @@ public:
 	Animal(std::string type);
 	Animal(const Animal &origin);
 	Animal& operator=(const Animal &origin);
-	~Animal();
+	virtual ~Animal();
 };
 
 #endif
