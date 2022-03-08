@@ -10,15 +10,13 @@ private:
 public:
 	void whoAmI() const;
 	void printStatus() const;
+	void attack(const std::string& target);
 
 	DiamondTrap();
 	DiamondTrap(const std::string name);
 	DiamondTrap(const DiamondTrap &origin);
 	DiamondTrap& operator=(const DiamondTrap &origin);
 	~DiamondTrap();
-
-	using FragTrap::attack;
-	using ScavTrap::beRepaired;
 };
 
 #endif

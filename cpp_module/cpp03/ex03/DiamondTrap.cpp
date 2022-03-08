@@ -1,8 +1,8 @@
 #include "DiamondTrap.hpp"
 
 void DiamondTrap::whoAmI() const {
-	std::cout << std::setw(25) << "DiamondTrap name : " << _name << std::endl;
-	std::cout << std::setw(25) << "ClapTrap name    : " << ClapTrap::_name << std::endl;
+	std::cout << std::setw(25) << "DiamondTrap name: " << this->_name << std::endl;
+	std::cout << std::setw(25) << "ClapTrap name: " << ClapTrap::_name << std::endl;
 }
 
 void DiamondTrap::printStatus() const {
@@ -14,6 +14,10 @@ void DiamondTrap::printStatus() const {
 	whoAmI();
 	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
 	std::setfill(' ');
+}
+
+void DiamondTrap::attack(const std::string& target) {
+	ScavTrap::attack(target);
 }
 
 DiamondTrap::DiamondTrap() : ClapTrap("_clap_name"), _name("") {

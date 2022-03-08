@@ -6,7 +6,6 @@ int main() {
 	diamond.whoAmI();
 	std::cout << std::endl;
 
-	diamond.takeDamage(20);
 	diamond.printStatus();
 	std::cout << std::endl;
 	
@@ -14,8 +13,8 @@ int main() {
 	diamond.printStatus();
 	std::cout << std::endl;
 	
-	diamond.beRepaired(45);
-	diamond.printStatus();
+	// diamond.beRepaired(45);
+	// diamond.takeDamage(20);
 	
 	return 0;
 }
