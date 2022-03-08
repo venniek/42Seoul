@@ -1,16 +1,16 @@
 #include "DiamondTrap.hpp"
 
 void DiamondTrap::whoAmI() const {
-	std::cout << std::setw(25) << "DiamondTrap name: " << this->_name << std::endl;
-	std::cout << std::setw(25) << "ClapTrap name: " << ClapTrap::_name << std::endl;
+	std::cout << std::setw(20) << "DiamondTrap name: " << this->_name << std::endl;
+	std::cout << std::setw(20) << "ClapTrap name: " << ClapTrap::_name << std::endl;
 }
 
 void DiamondTrap::printStatus() const {
 	std::cout << std::setw(40) << std::setfill('-') << _name + "'s status--------------" << std::setfill(' ') << std::endl;
-	std::cout << std::setw(25) << "name: " << _name << std::endl;
-	std::cout << std::setw(25) << "hit point: " << _hitPoint << std::endl;
-	std::cout << std::setw(25) << "energy point: " << _energyPoint << std::endl;
-	std::cout << std::setw(25) << "attack damage: " << _attackDamage<< std::endl;
+	std::cout << std::setw(20) << "name: " << _name << std::endl;
+	std::cout << std::setw(20) << "hit point: " << _hitPoint << std::endl;
+	std::cout << std::setw(20) << "energy point: " << _energyPoint << std::endl;
+	std::cout << std::setw(20) << "attack damage: " << _attackDamage<< std::endl;
 	whoAmI();
 	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
 	std::setfill(' ');

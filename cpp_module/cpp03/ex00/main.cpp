@@ -12,14 +12,14 @@ int main() {
 	clap1.takeDamage(10);
 	clap1.printStatus();
 
-	clap2.takeDamage(45);
+	clap2.takeDamage(3);
 	clap2.printStatus();
 
 	clap1.beRepaired(10);
 	clap1.printStatus();
 
-	clap1.beRepaired(45);
-	clap1.printStatus();
+	clap2.beRepaired(45);
+	clap2.printStatus();
 
 	return 0;
 }

@@ -1,7 +1,12 @@
 #include "FragTrap.hpp"
 
 void FragTrap::attack(const std::string &target) {
-	std::cout << "FragTrap " << _name << " attack " << target << "! " << _attackDamage<< " of damages!" << std::endl;
+	if (_hitPoint < _attackDamage)
+		std::cout << "FragTrap " << _name << " doesn't have enough hit points. Attack failed" << std::endl;
+	else {
+		std::cout << "FragTrap " << _name << " attack " << target << ", causing " << _attackDamage<< " points of damage!" << std::endl;
+		_hitPoint -= _attackDamage;
+	}
 }
 
 void FragTrap::beRepaired(unsigned int amount) {
@@ -25,7 +30,7 @@ void FragTrap::printStatus() const {
 	std::cout << std::setw(25) << "attack damage: " << _attackDamage<< std::endl;
 	highFivesGuys();
 	std::cout << std::setw(40) << std::setfill('-') << "-" << std::endl << std::endl;
-	std::setfill('-');
+	std::setfill(' ');
 }
 
 FragTrap::FragTrap() : ClapTrap("") {

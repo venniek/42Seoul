@@ -1,7 +1,12 @@
 #include "ScavTrap.hpp"
 
 void ScavTrap::attack(const std::string &target) {
-	std::cout << "ScavTrap " << _name << " attack " << target << "! " << _attackDamage<< " of damages!" << std::endl;
+	if (_hitPoint < _attackDamage)
+		std::cout << "ScavTrap " << _name << " doesn't have enough hit points. Attack failed" << std::endl;
+	else {
+		std::cout << "ScavTrap " << _name << " attack " << target << ", causing " << _attackDamage<< " points of damage!" << std::endl;
+		_hitPoint -= _attackDamage;
+	}
 }
 
 void ScavTrap::beRepaired(unsigned int amount) {
