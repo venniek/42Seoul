@@ -5,8 +5,6 @@
 #include <iostream>
 #include <iomanip>
 
-#define EXCEPTION 1
-
 class Bureaucrat {
 private:
 	const std::string _name;

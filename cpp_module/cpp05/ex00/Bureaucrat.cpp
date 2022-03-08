@@ -12,7 +12,7 @@ void Bureaucrat::UpGrade(int up) {
 	std::cout << "let's upgrade " << _name << "'s grade about " << up << std::endl;
 	try {
 		if (_grade - up < Bureaucrat::GradeTooHighException) {
-			throw EXCEPTION;
+			throw Bureaucrat::GradeTooHighException;
 		}
 		_grade -= up;
 		std::cout << "Upgrade succeed. Now grade is " << _grade << "." << std::endl;
@@ -26,7 +26,7 @@ void Bureaucrat::DownGrade(int down) {
 	std::cout << "let's downgrade " << _name << "'s grade about " << down << std::endl;
 	try {
 		if (_grade + down > Bureaucrat::GradeTooLowException) {
-			throw EXCEPTION;
+			throw Bureaucrat::GradeTooLowException;
 		}
 		_grade += down;
 		std::cout << "Downgrade succeed. Now grade is " << _grade << "." << std::endl;
