@@ -7,6 +7,8 @@
 
 #define INVEN_SIZE 4
 
+class AMateria;
+
 class ICharacter {
 public:
 	virtual std::string const & getName() const = 0;

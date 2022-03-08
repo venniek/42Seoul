@@ -1,11 +1,15 @@
 #include "Ice.hpp"
 
+AMateria* Ice::clone() const {
+	return (new Ice(*this));
+}
+
 void Ice::use(ICharacter& target) {
 	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }
 
 Ice::Ice(): AMateria("ice") {
-	std:cout << "Ice default constructor called" << std::endl;
+	std::cout << "Ice default constructor called" << std::endl;
 }
 
 Ice::Ice(std::string const &type): AMateria(type) {

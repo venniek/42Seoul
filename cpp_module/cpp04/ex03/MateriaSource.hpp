@@ -4,9 +4,12 @@
 #include "IMateriaSource.hpp"
 
 class MateriaSource: public IMateriaSource {
+private:
+	int _learnedCount;
+	AMateria* _materias[M_SIZE];
 public:
 	void learnMateria(AMateria* m);
-	AMateria* createMateria(std::string const *type);
+	AMateria* createMateria(std::string const &type);
 
 	MateriaSource();
 	MateriaSource(const MateriaSource& copy);

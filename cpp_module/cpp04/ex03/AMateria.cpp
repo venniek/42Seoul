@@ -1,11 +1,11 @@
 #include "AMateria.hpp"
 
-std::string& const AMateria::getType() const {
+std::string const &AMateria::getType() const {
 	return _type;
 }
 
 AMateria::AMateria(): _type("") {
-	std:cout << "AMateria default constructor called" << std::endl;
+	std::cout << "AMateria default constructor called" << std::endl;
 }
 
 AMateria::AMateria(std::string const &type): _type(type) {

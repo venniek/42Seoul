@@ -1,9 +1,7 @@
 #include "Cure.hpp"
 
 AMateria* Cure::clone() const {
-	Cure* ret = new Cure(*this);
-
-	return ret;
+	return (new Cure(*this));
 }
 
 void Cure::use(ICharacter& target) {
@@ -11,7 +9,7 @@ void Cure::use(ICharacter& target) {
 }
 
 Cure::Cure(): AMateria("cure") {
-	std:cout << "Cure default constructor called" << std::endl;
+	std::cout << "Cure default constructor called" << std::endl;
 }
 
 Cure::Cure(std::string const &type): AMateria(type) {

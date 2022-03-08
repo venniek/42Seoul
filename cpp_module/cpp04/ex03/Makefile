@@ -1,4 +1,7 @@
-SRCS = main.cpp AMateria.cpp ICharacter.cpp IMateriaSource.cpp
+SRCS = AMateria.cpp Cure.cpp Ice.cpp\
+		Character.cpp\
+		MateriaSource.cpp\
+		main.cpp
 
 CPP = c++
 FLAG = -Werror -Wall -Wextra

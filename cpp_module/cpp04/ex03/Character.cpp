@@ -4,19 +4,19 @@ AMateria* Character::getAMateria(int idx) const {
 	return _inventory[idx];
 }
 
-std::string& const Character::getName() const {
+std::string const &Character::getName() const {
 	return _name;
 }
 
 void Character::equip(AMateria* m) {
-	if (_inven_count > 0 && _inven_count < AMA_SIZE) {
-		_inventory[_inven_count] = m;
-		++_inven_count;
+	if (_invenCount > 0 && _invenCount < INVEN_SIZE) {
+		_inventory[_invenCount] = m;
+		++_invenCount;
 	}
 }
 
 void Character::unequip(int idx) {
-	if (idx >= 0 && idx < inven_count && _inventory[idx]) {
+	if (idx >= 0 && idx < _invenCount && _inventory[idx]) {
 		_inventory[idx] = NULL;
 		return ;
 	}
@@ -24,20 +24,20 @@ void Character::unequip(int idx) {
 }
 
 void Character::use(int idx, ICharacter& target) {
-	if (idx >= 0 && idx < AMA_SIZE && _inventory[idx]) {
+	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx]) {
 		_inventory[idx]->use(target);
 		return ;
 	}
 	std::cout << "FAIL to use" << std::endl;
 }
 
-Character::Character(): _name(""), _inven_count(0) {
+Character::Character(): _name(""), _invenCount(0) {
 	for (int i = 0; i < INVEN_SIZE; ++i)
 		_inventory[i] = NULL;
 	std::cout << "Character Default constructor called" << std::endl;
 }
 
-explicit Character::Character(const std::string& name): _name(name), _inven_count(0) {
+Character::Character(const std::string& name) {
 	*this = Character();
 	_name = name;
 	std::cout << "Character constructor with name \"" << name << std::cout << "\" called" << std::endl;
@@ -45,14 +45,22 @@ explicit Character::Character(const std::string& name): _name(name), _inven_coun
 
 Character::Character(const Character& copy) {
 	*this = copy;
-	std::cout << "Character copy constructor called" << std:endl;
+	std::cout << "Character copy constructor called" << std::endl;
 }
 
 Character& Character::operator=(const Character& origin) {
-
+	this->_invenCount = 0;
+	for (int i = 0; i < INVEN_SIZE; i++) {
+		if (this->_inventory[i])
+			delete this->_inventory[i];
+		this->_inventory[i] = origin._inventory[i];
+		if (origin._inventory[i])
+			this->_invenCount++;
+	}
+	std::cout << "Character assignation operator called" << std::endl;
+	return *this;
 }
 
 Character::~Character() {
-
-
+	std::cout << "Character " << _name << " destructor called" << std::endl;
 }

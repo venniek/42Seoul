@@ -5,9 +5,9 @@
 
 class Character: public ICharacter {
 private:
-	int _inven_count;
-	AMateria* _inventory[INVEN_SIZE];
 	std::string _name;
+	int _invenCount;
+	AMateria* _inventory[INVEN_SIZE];
 public:
 	AMateria* getAMateria(int idx) const;
 	std::string const & getName() const;
@@ -16,7 +16,7 @@ public:
 	void use(int idx, ICharacter& target);
 	
 	Character();
-	explicit Character(const std::string& name);
+	Character(const std::string& name);
 	Character(const Character& copy);
 	Character& operator=(const Character& origin);
 	~Character();
