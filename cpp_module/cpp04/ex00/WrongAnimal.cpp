@@ -13,7 +13,7 @@ void WrongAnimal::makeSound() const {
 }
 
 WrongAnimal::WrongAnimal(): _type("WrongAnimal") {
-	std::cout << "WrongAnimal constructor called" << std::endl;
+	std::cout << "WrongAnimal default constructor called" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(std::string type): _type("WrongAnimal_" + type) {
@@ -25,10 +25,11 @@ WrongAnimal::WrongAnimal(const WrongAnimal &origin) {
 }
 
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal &origin) {
-	this->_type = origin._type;
+	if (this != &origin)
+		this->_type = origin._type;
 	return (*this);
 }
 
 WrongAnimal::~WrongAnimal() {
-	std::cout << "WrongAnimal destructor called" << std::endl;
+	std::cout << "WrongAnimal " << _type << " destructor called" << std::endl;
 }

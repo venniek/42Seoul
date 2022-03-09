@@ -1,7 +1,7 @@
 SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 
 CPP = c++
-FLAG = -Werror -Wall -Wextra
+FLAG = -Werror -Wall -Wextra -std=c++98
 
 NAME = Animal
 

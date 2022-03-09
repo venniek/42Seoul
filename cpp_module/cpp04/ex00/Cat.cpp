@@ -10,23 +10,24 @@ void Cat::makeSound() const {
 
 Cat::Cat(): Animal() {
 	_type = "Cat";
-	std::cout << "Cat constructor called" << std::endl;
+	std::cout << "Cat default constructor called" << std::endl;
 }
 
-Cat::Cat(std::string type): Animal() {
+Cat::Cat(std::string type): Animal(type) {
 	_type = "Cat_" + type;
 	std::cout << "Cat constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Cat::Cat(const Cat &origin) {
+Cat::Cat(const Cat &origin): Animal(origin) {
 	*this = origin;
 }
 
 Cat& Cat::operator=(const Cat &origin) {
-	Animal::operator=(origin);
+	if (this != &origin)
+		Animal::operator=(origin);
 	return (*this);
 }
 
 Cat::~Cat() {
-	std::cout << "Cat destructor called" << std::endl;
+	std::cout << "Cat " << _type << " destructor called" << std::endl;
 }
