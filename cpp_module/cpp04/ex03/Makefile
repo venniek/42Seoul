@@ -4,7 +4,7 @@ SRCS = AMateria.cpp Cure.cpp Ice.cpp\
 		main.cpp
 
 CPP = c++
-FLAG = -Werror -Wall -Wextra
+FLAG = -Werror -Wall -Wextra -std=c++98
 
 NAME = Materia
 

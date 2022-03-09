@@ -2,9 +2,7 @@
 #define __IMATERIASOURCE_H__
 
 #include "AMateria.hpp"
-#include <string>
-
-#define M_SIZE 4
+#define INVEN_SIZE 4
 
 class IMateriaSource {
 public:

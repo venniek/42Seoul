@@ -6,10 +6,9 @@
 class Character: public ICharacter {
 private:
 	std::string _name;
-	int _invenCount;
-	AMateria* _inventory[INVEN_SIZE];
+	AMateria _inventory[INVEN_SIZE];
 public:
-	AMateria* getAMateria(int idx) const;
+	AMateria getAMateria(int idx) const;
 	std::string const & getName() const;
 	void equip(AMateria* m);
 	void unequip(int idx);

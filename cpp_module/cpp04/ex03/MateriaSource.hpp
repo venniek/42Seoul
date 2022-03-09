@@ -5,8 +5,7 @@
 
 class MateriaSource: public IMateriaSource {
 private:
-	int _learnedCount;
-	AMateria* _materias[M_SIZE];
+	AMateria _materias[INVEN_SIZE];
 public:
 	void learnMateria(AMateria* m);
 	AMateria* createMateria(std::string const &type);

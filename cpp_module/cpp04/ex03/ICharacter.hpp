@@ -1,9 +1,8 @@
 #ifndef __ICHARACTER_H__
 #define __ICHARACTER_H__
 
-#include <string>
-#include <iostream>
 #include "AMateria.hpp"
+#include <string>
 
 #define INVEN_SIZE 4
 

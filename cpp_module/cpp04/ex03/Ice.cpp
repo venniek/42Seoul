@@ -17,13 +17,14 @@ Ice::Ice(std::string const &type): AMateria(type) {
 }
 
 Ice::Ice(const Ice& copy) {
-	*this = copy;
 	std::cout << "Ice copy constructor called" << std::endl;
+	*this = copy;
 }
 
 Ice& Ice::operator=(const Ice& origin) {
-	_type = origin.getType();
 	std::cout << "Ice assignation operator called" << std::endl;
+	if (this != &origin)
+		_type = origin.getType();
 	return *this;
 }
 

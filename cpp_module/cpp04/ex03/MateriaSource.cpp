@@ -1,16 +1,17 @@
 #include "MateriaSource.hpp"
 
 void MateriaSource::learnMateria(AMateria* m) {
-	if (this->_learnedCount >= M_SIZE)
-		std::cout << "no more learning" << std::endl;
-	else {
-		this->_materias[this->_learnedCount] = m;
-		this->_learnedCount++;
+	for (int i = 0; i < INVEN_SIZE; i++) {
+		if (!_materias[i]) {
+			_materias[i] = *m;
+			return ;
+		}
 	}
+	std::cout << "no more space. FAIL to learn" << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const &type) {
-	for (int i = 0; i < M_SIZE; i++) {
+	for (int i = 0; i < INVEN_SIZE; i++) {
 		if (type == this->_materias[i]->getType())
 			return this->_materias[i]->clone();
 	}
@@ -18,7 +19,7 @@ AMateria* MateriaSource::createMateria(std::string const &type) {
 }
 
 MateriaSource::MateriaSource(): _learnedCount(0) {
-	for (int i = 0; i < M_SIZE; i++)
+	for (int i = 0; i < INVEN_SIZE; i++)
 		this->_materias[i] = NULL;
 	std::cout << "MateriaSource default constructor called" << std::endl;
 }
@@ -29,7 +30,7 @@ MateriaSource::MateriaSource(const MateriaSource& copy) {
 }
 
 MateriaSource& MateriaSource::operator=(const MateriaSource& origin) {
-	for (int i = 0; i < M_SIZE; i++) {
+	for (int i = 0; i < INVEN_SIZE; i++) {
 		if (this->_materias[i])
 			delete this->_materias[i];
 		if (origin._materias[i])
@@ -42,7 +43,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& origin) {
 }
 
 MateriaSource::~MateriaSource() {
-	for (int i = 0; i < M_SIZE; i++) {
+	for (int i = 0; i < INVEN_SIZE; i++) {
 		if (this->_materias[i])
 			delete this->_materias[i];
 	}

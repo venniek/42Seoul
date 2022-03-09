@@ -13,13 +13,14 @@ AMateria::AMateria(std::string const &type): _type(type) {
 }
 
 AMateria::AMateria(const AMateria& copy) {
-	*this = copy;
 	std::cout << "AMateria copy constructor called" << std::endl;
+	*this = copy;
 }
 
 AMateria& AMateria::operator=(const AMateria& origin) {
-	_type = origin.getType();
 	std::cout << "AMateria assignation operator called" << std::endl;
+	if (this != &origin)
+		_type = origin.getType();
 	return *this;
 }
 

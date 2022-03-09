@@ -1,7 +1,9 @@
 #include "Character.hpp"
 
-AMateria* Character::getAMateria(int idx) const {
-	return _inventory[idx];
+AMateria Character::getAMateria(int idx) const {
+	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx])
+		return _inventory[idx];
+	return NULL;
 }
 
 std::string const &Character::getName() const {
@@ -9,55 +11,53 @@ std::string const &Character::getName() const {
 }
 
 void Character::equip(AMateria* m) {
-	if (_invenCount > 0 && _invenCount < INVEN_SIZE) {
-		_inventory[_invenCount] = m;
-		++_invenCount;
+	for (int i = 0; i < INVEN_SIZE; i++) {
+		if (_inventory[i] == 0) {
+			_inventory[i] = *m;
+			return;
+		}
 	}
+	std::cout << "no space in inventory. FAIL to equip" << std::endl;
 }
 
 void Character::unequip(int idx) {
-	if (idx >= 0 && idx < _invenCount && _inventory[idx]) {
-		_inventory[idx] = NULL;
-		return ;
+	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx]) {
+		_inventory[idx] = 0;
+		return;
 	}
-	std::cout << "FAIL to unequip" <<std::endl;
+	std::cout << "wrong index. FAIL to unequip" << std::endl;
 }
 
 void Character::use(int idx, ICharacter& target) {
 	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx]) {
-		_inventory[idx]->use(target);
-		return ;
+		_inventory[idx].use(target);
+		return;
 	}
-	std::cout << "FAIL to use" << std::endl;
+	std::cout << "wrong index. FAIL to use" << std::endl;
 }
 
-Character::Character(): _name(""), _invenCount(0) {
-	for (int i = 0; i < INVEN_SIZE; ++i)
-		_inventory[i] = NULL;
+Character::Character(): _name("") {
 	std::cout << "Character Default constructor called" << std::endl;
+	for (int i = 0; i < INVEN_SIZE; ++i)
+		_inventory[i] = 0;
 }
 
-Character::Character(const std::string& name) {
-	*this = Character();
-	_name = name;
+Character::Character(const std::string& name): _name(name) {
 	std::cout << "Character constructor with name \"" << name << std::cout << "\" called" << std::endl;
-} 
+	for (int i = 0; i < INVEN_SIZE; ++i)
+		_inventory[i] = 0;
+}
 
 Character::Character(const Character& copy) {
-	*this = copy;
 	std::cout << "Character copy constructor called" << std::endl;
+	*this = copy;
 }
 
 Character& Character::operator=(const Character& origin) {
-	this->_invenCount = 0;
-	for (int i = 0; i < INVEN_SIZE; i++) {
-		if (this->_inventory[i])
-			delete this->_inventory[i];
-		this->_inventory[i] = origin._inventory[i];
-		if (origin._inventory[i])
-			this->_invenCount++;
-	}
 	std::cout << "Character assignation operator called" << std::endl;
+	for (int i = 0; i < INVEN_SIZE; i++) {
+		_inventory[i] = origin.getAMateria[i];
+	}
 	return *this;
 }
 
