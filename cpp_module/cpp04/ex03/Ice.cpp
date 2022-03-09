@@ -16,7 +16,7 @@ Ice::Ice(std::string const &type): AMateria(type) {
 	std::cout << "Ice constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Ice::Ice(const Ice& copy) {
+Ice::Ice(const Ice& copy): AMateria(copy) {
 	std::cout << "Ice copy constructor called" << std::endl;
 	*this = copy;
 }

@@ -16,7 +16,7 @@ Cure::Cure(std::string const &type): AMateria(type) {
 	std::cout << "Cure constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Cure::Cure(const Cure& copy) {
+Cure::Cure(const Cure& copy): AMateria(copy) {
 	std::cout << "Cure copy constructor called" << std::endl;
 	*this = copy;
 }

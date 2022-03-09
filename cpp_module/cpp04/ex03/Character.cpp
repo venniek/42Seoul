@@ -1,6 +1,6 @@
 #include "Character.hpp"
 
-AMateria Character::getAMateria(int idx) const {
+AMateria* Character::getAMateria(int idx) const {
 	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx])
 		return _inventory[idx];
 	return NULL;
@@ -13,7 +13,7 @@ std::string const &Character::getName() const {
 void Character::equip(AMateria* m) {
 	for (int i = 0; i < INVEN_SIZE; i++) {
 		if (_inventory[i] == 0) {
-			_inventory[i] = *m;
+			_inventory[i] = m;
 			return;
 		}
 	}
@@ -30,7 +30,7 @@ void Character::unequip(int idx) {
 
 void Character::use(int idx, ICharacter& target) {
 	if (idx >= 0 && idx < INVEN_SIZE && _inventory[idx]) {
-		_inventory[idx].use(target);
+		_inventory[idx]->use(target);
 		return;
 	}
 	std::cout << "wrong index. FAIL to use" << std::endl;
@@ -43,7 +43,7 @@ Character::Character(): _name("") {
 }
 
 Character::Character(const std::string& name): _name(name) {
-	std::cout << "Character constructor with name \"" << name << std::cout << "\" called" << std::endl;
+	std::cout << "Character constructor with name \"" << name << "\" called" << std::endl;
 	for (int i = 0; i < INVEN_SIZE; ++i)
 		_inventory[i] = 0;
 }
@@ -56,11 +56,15 @@ Character::Character(const Character& copy) {
 Character& Character::operator=(const Character& origin) {
 	std::cout << "Character assignation operator called" << std::endl;
 	for (int i = 0; i < INVEN_SIZE; i++) {
-		_inventory[i] = origin.getAMateria[i];
+		_inventory[i] = origin.getAMateria(i);
 	}
 	return *this;
 }
 
 Character::~Character() {
+	for (int i = 0; i < INVEN_SIZE; i++) {
+		if (_inventory[i])
+			delete _inventory[i];
+	}
 	std::cout << "Character " << _name << " destructor called" << std::endl;
 }
