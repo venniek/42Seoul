@@ -1,7 +1,7 @@
 SRCS = main.cpp Bureaucrat.cpp
 
 CPP = c++
-FLAG = -Werror -Wall -Wextra
+FLAG = -Werror -Wall -Wextra -std=c++98
 
 NAME = Bureaucrat
 
