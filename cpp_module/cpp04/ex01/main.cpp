@@ -22,25 +22,23 @@ void test_normal(void) {
 
 void test_array(void) {
 	Animal* meta[B_COUNT / 20];
-	Dog* copyDog = new Dog("copy");
+	Dog*	collie;
 
-	for (int i = 0 ; i < B_COUNT / 20 ; ++i) {
+	for (int i = 0 ; i < B_COUNT / 20; ++i) {
 		if (!(i % 2)) {
 			meta[i] = new Cat(std::to_string(i / 2 + 1));
 		} else {
 			meta[i] = new Dog(std::to_string(i / 2 + 1));
 		}
 	}
-	std::cout << std::endl << "copy test" << std::endl;
-	*copyDog = *dynamic_cast<Dog*>(meta[1]);
-	meta[1]->setType("change");
-	std::cout << "meta[1]'s type: " << meta[1]->getType() << std::endl;
-	std::cout << "copyDog's type: " << copyDog->getType() << std::endl;
-	std::cout << std::endl;
-	for (int i = 0 ; i < B_COUNT / 20 ; ++i)
+	collie = new Dog((*dynamic_cast<Dog *>(meta[1])));
+	collie->getBrain()->setIdeas("hello", 0);
+	std::cout << (*collie->getBrain()).getIdeas(0) << std::endl;
+	for (int i = 0 ; i < B_COUNT / 20; ++i)
 		delete meta[i];
-	delete copyDog;
+	delete collie;
 }
+
 
 int main(void) {
 	std::cout << std::setfill('=') << std::setw(50) << "=\n" << std::setfill(' ');
@@ -48,5 +46,6 @@ int main(void) {
 	std::cout << std::setfill('=') << std::setw(50) << "=\n" << std::setfill(' ');
 	test_array();
 	std::cout << std::setfill('=') << std::setw(50) << "=\n" << std::setfill(' ');
+
 	return 0;
 }

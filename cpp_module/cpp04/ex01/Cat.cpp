@@ -9,31 +9,43 @@ void Cat::makeSound() const {
 }
 
 Brain* Cat::getBrain() const {
-	return brain;
+	return _brain;
 }
 
-Cat::Cat(): Animal() {
+void Cat::setBrain(Brain* const brain) {
+	if (_brain)
+		delete _brain;
+	_brain = brain;
+}
+
+Cat::Cat(): Animal(), _brain(0) {
 	_type = "Cat";
-	brain = new Brain;
-	std::cout << "Cat constructor called" << std::endl;
+	_brain = new Brain();
+	std::cout << "Cat default constructor called" << std::endl;
 }
 
-Cat::Cat(std::string type): Animal() {
+Cat::Cat(std::string type): Animal(type), _brain(0) {
 	_type = "Cat_" + type;
-	brain = new Brain;
+	_brain = new Brain();
 	std::cout << "Cat constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Cat::Cat(const Cat &origin) {
+Cat::Cat(const Cat &origin): Animal(origin) {
 	*this = origin;
 }
 
 Cat& Cat::operator=(const Cat &origin) {
-	Animal::operator=(origin);
-	*this->brain = *origin.getBrain();
+	if (this != &origin) {
+		Animal::operator=(origin);
+		if (_brain)
+			delete _brain;
+		_brain = new Brain();
+		*_brain = *origin.getBrain();
+	}
 	return (*this);
 }
 
 Cat::~Cat() {
+	delete _brain;
 	std::cout << "Cat " << _type << " destructor called" << std::endl;
 }

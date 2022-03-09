@@ -1,11 +1,14 @@
 #include "Brain.hpp"
 
 std::string Brain::getIdeas(const int i) const {
-	return ideas[i];
+	if (i >= 0 && i < B_COUNT)
+		return ideas[i];
+	return NULL;
 }
 
 void Brain::setIdeas(std::string str, const int i) {
-	ideas[i] = str;
+	if (i >= 0 && i < B_COUNT)
+		ideas[i] = str;
 }
 
 Brain::Brain() {
@@ -17,8 +20,10 @@ Brain::Brain(const Brain &origin) {
 }
 
 Brain& Brain::operator=(const Brain &origin) {
-	for (int i = 0; i < B_COUNT; ++i)
-		this->ideas[i] = origin.getIdeas(i);
+	if (this != &origin) {
+		for (int i = 0; i < B_COUNT; ++i)
+			this->ideas[i] = origin.getIdeas(i);
+	}
 	return (*this);
 }
 

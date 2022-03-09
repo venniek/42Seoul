@@ -6,12 +6,12 @@
 
 class Dog: public Animal {
 private:
-	Brain* brain;
+	Brain* _brain;
 public:
 	void setType(const std::string type);
 	void makeSound() const;
 	Brain* getBrain() const;
-	void setBrain(Brain *brain);
+	void setBrain(Brain* const brain);
 
 	Dog();
 	Dog(std::string type);

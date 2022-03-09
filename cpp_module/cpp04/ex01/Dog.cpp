@@ -9,31 +9,43 @@ void Dog::makeSound() const {
 }
 
 Brain* Dog::getBrain() const {
-	return brain;
+	return _brain;
 }
 
-Dog::Dog(): Animal() {
+void Dog::setBrain(Brain* const brain) {
+	if (_brain)
+		delete _brain;
+	_brain = brain;
+}
+
+Dog::Dog(): Animal(), _brain(0) {
 	_type = "Dog";
-	brain = new Brain;
-	std::cout << "Dog constructor called" << std::endl;
+	_brain = new Brain();
+	std::cout << "Dog default constructor called" << std::endl;
 }
 
-Dog::Dog(std::string type): Animal() {
+Dog::Dog(std::string type): Animal(type), _brain(0) {
 	_type = "Dog_" + type;
-	brain = new Brain;
+	_brain = new Brain();
 	std::cout << "Dog constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Dog::Dog(const Dog &origin) {
+Dog::Dog(const Dog &origin): Animal(origin) {
 	*this = origin;
 }
 
 Dog& Dog::operator=(const Dog &origin) {
-	Animal::operator=(origin);
-	*this->brain = *origin.getBrain();
+	if (this != &origin) {
+		Animal::operator=(origin);
+		if (_brain)
+			delete _brain;
+		_brain = new Brain();
+		*_brain = *origin.getBrain();
+	}
 	return (*this);
 }
 
 Dog::~Dog() {
+	delete _brain;
 	std::cout << "Dog " << _type << " destructor called" << std::endl;
 }
