@@ -4,7 +4,7 @@ std::string Form::getName() const {
 	return _name;
 }
 
-boolean Form::getIsSigned() const {
+bool Form::getIsSigned() const {
 	return _isSigned;
 }
 
@@ -17,15 +17,7 @@ int Form::getGradeForExec() const {
 }
 
 void Form::beSinged(Bureaucrat& crat) {
-	try {
-		if (crat.getGrade() >= GradeTooHighException && crat.getGrade() <= _gradeForSign)
-			_isSigned = true;
-		else if (crat.getGrade() > GradeTooLowException)
-			throw GradeTooLowException;
-	}
-	catch {
-
-	}
+	
 }
 
 void Form::signForm(Bureaucrat& crat) {
@@ -36,12 +28,19 @@ void Form::signForm(Bureaucrat& crat) {
 }
 
 
-std::ostream& operator<<(std::ostream& out, const Bureaucrat &ref) {
+std::ostream& operator<<(std::ostream& out, const Form &ref) {
 	out << std::endl;
 	out << std::setw(30) << std::setfill('-') << ref.getName() + "'s status--------" << std::setfill(' ') << std::endl;
-	out << std::setw(15) << "name: " << ref.getName() << std::endl;
-	out << std::setw(15) << "grade: " << ref.getGrade() << std::endl;
+	out << std::setw(20) << "name: " << ref.getName() << std::endl;
+	out << std::setw(20) << "isSigned: " << (ref.getIsSigned() == true ? "true" : "false") << std::endl;
+	out << std::setw(20) << "grade for sign: " << ref.getGradeForSign() << std::endl;
+	out << std::setw(20) << "grade for execute: " << ref.getGradeForExec() << std::endl;
 	out << std::setw(30) << std::setfill('-') << "\n" << std::endl;
 	out << std::setfill(' ');
 	return out;
 }
+
+	// std::string _name;
+	// bool _isSigned;
+	// int _gradeForSign;
+	// int _gradeForExec;

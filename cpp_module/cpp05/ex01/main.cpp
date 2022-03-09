@@ -1,21 +1,51 @@
+// Copyright @bigpel66
+
 #include "Bureaucrat.hpp"
 
-int main() {
-	Bureaucrat crat150("crat150");
-	Bureaucrat crat10("crat10", 10);
+void b_call(const Bureaucrat& b, void (Bureaucrat::*f)(void)) {
+	try {
+		(*(const_cast<Bureaucrat*>(&b)).*f)();
+		std::cout << b << std::endl;
+	} catch (std::exception& e) {
+		std::cerr << e.what();
+	}
+}
 
-	std::cout << crat150;
-	std::cout << crat10;
+void b_make(const std::string& name, const int& grade) {
+	try {
+		Bureaucrat b(name, grade);
+		std::cout << b << std::endl;
+	} catch (std::exception& e) {
+		std::cerr << e.what();
+	}
+}
 
-	crat150.DownGrade(5);
-	std::cout << crat150;
-	crat10.DownGrade(5);
-	std::cout << crat10;
+int main(void) {
+	Bureaucrat j("naykim", 1);
+	Bureaucrat h("mikyan", 150);
 
-	crat150.UpGrade(50);
-	std::cout << crat150;
-	crat10.UpGrade(50);
-	std::cout << crat10;
+	std::cout << j << std::endl;
+	std::cout << h << std::endl << std::endl;
+
+	std::cout << j.getName() << " - increment from " << j.getGrade() << std::endl;
+	b_call(j, &Bureaucrat::incrementGrade);
+	std::cout << h.getName() << " - decrement from " << h.getGrade() << std::endl;
+	b_call(h, &Bureaucrat::decrementGrade);
+	std::cout << std::endl;
+
+	std::cout << j.getName() << " - decrement from " << j.getGrade() << std::endl;
+	b_call(j, &Bureaucrat::decrementGrade);
+	std::cout << h.getName() << " - increment from " << h.getGrade() << std::endl;
+	b_call(h, &Bureaucrat::incrementGrade);
+	std::cout << std::endl;
 	
+	std::cout << j.getName() << " - decrement from " << j.getGrade() << std::endl;
+	b_call(j, &Bureaucrat::decrementGrade);
+	std::cout << h.getName() << " - increment from " << h.getGrade() << std::endl;
+	b_call(h, &Bureaucrat::incrementGrade);
+
+	std::cout << "constructor with 0, 151" << std::endl;
+	b_make("make_1", 0);
+	b_make("make_2", 151);
 	return 0;
 }
