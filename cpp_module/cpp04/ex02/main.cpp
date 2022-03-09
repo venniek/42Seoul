@@ -3,6 +3,7 @@
 #include <iomanip>
 
 void test_normal(void) {
+	// Animal animal("tmp");
 	const Animal* i = new Cat("i");
 	const Animal* j = new Dog("j");
 	const Animal* k = new Dog("k");

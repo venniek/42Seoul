@@ -2,16 +2,11 @@
 #define __DOG_H__
 
 #include "Animal.hpp"
-#include "Brain.hpp"
 
 class Dog: public Animal {
-private:
-	Brain* brain;
 public:
 	void setType(const std::string type);
 	void makeSound() const;
-	Brain* getBrain() const;
-	void setBrain(Brain *brain);
 
 	Dog();
 	Dog(std::string type);

@@ -9,7 +9,7 @@ void Animal::setType(const std::string type) {
 }
 
 Animal::Animal(): _type("Animal") {
-	std::cout << "Animal constructor called" << std::endl;
+	std::cout << "Animal default constructor called" << std::endl;
 }
 
 Animal::Animal(std::string type): _type("Animal_" + type) {
@@ -21,7 +21,8 @@ Animal::Animal(const Animal &origin) {
 }
 
 Animal& Animal::operator=(const Animal &origin) {
-	this->_type = origin.getType();
+	if (this != &origin)
+		this->_type = origin.getType();
 	return (*this);
 }
 

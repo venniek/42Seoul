@@ -8,29 +8,23 @@ void Cat::makeSound() const {
 	std::cout << _type << " is making sound... Meow Meow Meow..." << std::endl;
 }
 
-Brain* Cat::getBrain() const {
-	return brain;
-}
-
 Cat::Cat(): Animal() {
 	_type = "Cat";
-	brain = new Brain;
-	std::cout << "Cat constructor called" << std::endl;
+	std::cout << "Cat default constructor called" << std::endl;
 }
 
-Cat::Cat(std::string type): Animal() {
+Cat::Cat(std::string type): Animal(type) {
 	_type = "Cat_" + type;
-	brain = new Brain;
 	std::cout << "Cat constructor with type \"" << type << "\" called" << std::endl;
 }
 
-Cat::Cat(const Cat &origin) {
+Cat::Cat(const Cat &origin): Animal(origin) {
 	*this = origin;
 }
 
 Cat& Cat::operator=(const Cat &origin) {
-	Animal::operator=(origin);
-	*this->brain = *origin.getBrain();
+	if (this != &origin)
+		Animal::operator=(origin);
 	return (*this);
 }
 
