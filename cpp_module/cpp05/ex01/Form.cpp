@@ -8,6 +8,10 @@ bool Form::getIsSigned() const {
 	return _isSigned;
 }
 
+void Form::setIsSigned(bool _bool) {
+	_isSigned = _bool;
+}
+
 int Form::getGradeForSign() const {
 	return _gradeForSign;
 }
@@ -16,17 +20,59 @@ int Form::getGradeForExec() const {
 	return _gradeForExec;
 }
 
-void Form::beSinged(Bureaucrat& crat) {
-	
+void Form::beSigned(Bureaucrat& crat) {
+	if (crat.getGrade() < GRADE_HIGH)
+		throw GradeTooHighException();
+	if (crat.getGrade() <= this->_gradeForSign) {
+		this->_isSigned = true;
+		return;
+	}
+	throw GradeTooLowException();
 }
 
-void Form::signForm(Bureaucrat& crat) {
-	if (_isSigned == true)
-		std::cout << crat.getName() << " signs " << this->getName() << std::endl;
-	else
-		std::cout << crat.getName() << "cannot sign " << this->getName() << " because " << std::endl;
+const char* Form::GradeTooHighException::what(void) const throw() {
+	return "Form grade is too high\n";
 }
 
+const char* Form::GradeTooLowException::what(void) const throw() {
+	return "Form grade is too low\n";
+}
+
+Form::Form(): _name(""), _isSigned(false), _gradeForSign(GRADE_HIGH), _gradeForExec(GRADE_HIGH) {
+	std::cout << "Form default constructor called" << std::endl;
+}
+
+Form::Form(const std::string name, const int forSign, const int forExec): _name(name), _isSigned(false), _gradeForSign(forSign), _gradeForExec(forExec) {
+	std::cout << "Form constructor with arguments called" << std::endl;
+	if (_gradeForSign < GRADE_HIGH || _gradeForExec < GRADE_HIGH)
+		throw GradeTooHighException();
+	if (_gradeForSign > GRADE_LOW || _gradeForExec > GRADE_LOW)
+		throw GradeTooLowException();
+}
+
+Form::Form(const Form& copy) {
+	std::cout << "Form copy constructor called" << std::endl;
+	*this = copy;
+}
+
+Form& Form::operator=(const Form& origin) {
+	std::cout << "Form assignation operator called" << std::endl;
+	if (this != &origin) {
+		this->_name = origin.getName();
+		this->_isSigned = origin.getIsSigned();
+		this->_gradeForSign = origin.getGradeForSign();
+		this->_gradeForExec = origin.getGradeForExec();
+	}
+	if (this->_gradeForSign < GRADE_HIGH || this->_gradeForExec < GRADE_HIGH)
+		throw GradeTooHighException();
+	if (this->_gradeForSign > GRADE_LOW || this->_gradeForExec > GRADE_LOW)
+		throw GradeTooLowException();
+	return (*this);
+}
+
+Form::~Form() {
+	std::cout << "Form " << _name << " destructor called" << std::endl;
+}
 
 std::ostream& operator<<(std::ostream& out, const Form &ref) {
 	out << std::endl;
@@ -39,8 +85,3 @@ std::ostream& operator<<(std::ostream& out, const Form &ref) {
 	out << std::setfill(' ');
 	return out;
 }
-
-	// std::string _name;
-	// bool _isSigned;
-	// int _gradeForSign;
-	// int _gradeForExec;

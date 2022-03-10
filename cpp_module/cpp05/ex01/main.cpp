@@ -1,51 +1,39 @@
-// Copyright @bigpel66
+#include "Form.hpp"
 
-#include "Bureaucrat.hpp"
-
-void b_call(const Bureaucrat& b, void (Bureaucrat::*f)(void)) {
+void try_sign(Form& form, Bureaucrat& b) {
 	try {
-		(*(const_cast<Bureaucrat*>(&b)).*f)();
-		std::cout << b << std::endl;
-	} catch (std::exception& e) {
+		std::cout << form.getName() << " can be signed by " << b.getName() << " ?" << std::endl;
+		form.beSigned(b);
+	}
+	catch (std::exception& e) {
 		std::cerr << e.what();
 	}
-}
-
-void b_make(const std::string& name, const int& grade) {
-	try {
-		Bureaucrat b(name, grade);
-		std::cout << b << std::endl;
-	} catch (std::exception& e) {
-		std::cerr << e.what();
-	}
+	b.signForm(form);
 }
 
 int main(void) {
-	Bureaucrat j("naykim", 1);
-	Bureaucrat h("mikyan", 150);
+	Form form_j("high-level", 5, 1);
+	Form form_h("low-level", 140, 130);
+	Bureaucrat b_1("b_1", 2);
+	Bureaucrat b_2("b_2", 50);
 
-	std::cout << j << std::endl;
-	std::cout << h << std::endl << std::endl;
+	std::cout << "form_j: " << form_j << std::endl;
+	std::cout << "form_h: " << form_h << std::endl;
+	std::cout << "b_1: " << b_1 << std::endl;
+	std::cout << "b_2: " << b_2 << std::endl;
 
-	std::cout << j.getName() << " - increment from " << j.getGrade() << std::endl;
-	b_call(j, &Bureaucrat::incrementGrade);
-	std::cout << h.getName() << " - decrement from " << h.getGrade() << std::endl;
-	b_call(h, &Bureaucrat::decrementGrade);
+	form_j.setIsSigned(false);
+	try_sign(form_j, b_1);
+	std::cout << std::endl;
+	form_j.setIsSigned(false);
+	try_sign(form_j, b_2);
+	std::cout << std::endl;
+	form_h.setIsSigned(false);
+	try_sign(form_h, b_1);
+	std::cout << std::endl;
+	form_h.setIsSigned(false);
+	try_sign(form_h, b_2);
 	std::cout << std::endl;
 
-	std::cout << j.getName() << " - decrement from " << j.getGrade() << std::endl;
-	b_call(j, &Bureaucrat::decrementGrade);
-	std::cout << h.getName() << " - increment from " << h.getGrade() << std::endl;
-	b_call(h, &Bureaucrat::incrementGrade);
-	std::cout << std::endl;
-	
-	std::cout << j.getName() << " - decrement from " << j.getGrade() << std::endl;
-	b_call(j, &Bureaucrat::decrementGrade);
-	std::cout << h.getName() << " - increment from " << h.getGrade() << std::endl;
-	b_call(h, &Bureaucrat::incrementGrade);
-
-	std::cout << "constructor with 0, 151" << std::endl;
-	b_make("make_1", 0);
-	b_make("make_2", 151);
 	return 0;
 }

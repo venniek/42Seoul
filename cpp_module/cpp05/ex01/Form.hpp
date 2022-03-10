@@ -4,6 +4,8 @@
 #include "Bureaucrat.hpp"
 #include <iomanip>
 
+class Bureaucrat;
+
 class Form {
 private:
 	std::string _name;
@@ -13,10 +15,10 @@ private:
 public:
 	std::string getName() const;
 	bool getIsSigned() const;
+	void setIsSigned(bool _bool);
 	int getGradeForSign() const;
 	int getGradeForExec() const;
-	void beSinged(Bureaucrat& crat);
-	void signForm();
+	void beSigned(Bureaucrat& crat);
 
 	class GradeTooHighException: public std::exception {
 	public:
@@ -29,7 +31,7 @@ public:
 	};
 
 	Form();
-	Form(const std::string name);
+	Form(const std::string name, const int forSign, const int forExec);
 	Form(const Form& copy);
 	Form& operator=(const Form& origin);
 	~Form();
