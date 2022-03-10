@@ -10,13 +10,13 @@ int Bureaucrat::getGrade() const {
 
 void Bureaucrat::incrementGrade() {
 	if (_grade - 1 < GRADE_HIGH)
-		throw GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException();
 	--_grade;
 }
 
 void Bureaucrat::decrementGrade() {
 	if (_grade + 1 > GRADE_LOW)
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 	++_grade;
 }
 
@@ -41,18 +41,18 @@ const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
 Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _grade(grade) {
 	std::cout << "Bureaucrat constructor with argument called" << std::endl;
 	if (_grade < GRADE_HIGH)
-		throw GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException();
 	if (_grade > GRADE_LOW)
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) {
 	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
 	if (_grade < GRADE_HIGH)
-		throw GradeTooHighException();
+		throw Bureaucrat::GradeTooHighException();
 	if (_grade > GRADE_LOW)
-		throw GradeTooLowException();
+		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin) {
