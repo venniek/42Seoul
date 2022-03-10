@@ -18,7 +18,6 @@ Cure::Cure(std::string const &type): AMateria(type) {
 
 Cure::Cure(const Cure& copy): AMateria(copy) {
 	std::cout << "Cure copy constructor called" << std::endl;
-	*this = copy;
 }
 
 Cure& Cure::operator=(const Cure& origin) {

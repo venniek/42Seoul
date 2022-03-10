@@ -18,7 +18,6 @@ Ice::Ice(std::string const &type): AMateria(type) {
 
 Ice::Ice(const Ice& copy): AMateria(copy) {
 	std::cout << "Ice copy constructor called" << std::endl;
-	*this = copy;
 }
 
 Ice& Ice::operator=(const Ice& origin) {

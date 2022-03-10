@@ -65,6 +65,7 @@ Character::~Character() {
 	for (int i = 0; i < INVEN_SIZE; i++) {
 		if (_inventory[i])
 			delete _inventory[i];
+		_inventory[i] = 0;
 	}
 	std::cout << "Character " << _name << " destructor called" << std::endl;
 }
