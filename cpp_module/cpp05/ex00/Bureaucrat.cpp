@@ -29,6 +29,7 @@ const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
 }
 
 Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _grade(grade) {
+	std::cout << "Bureaucrat constructor with argument called" << std::endl;
 	if (_grade < GRADE_HIGH)
 		throw GradeTooHighException();
 	if (_grade > GRADE_LOW)
@@ -36,6 +37,7 @@ Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) {
+	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
 	if (_grade < GRADE_HIGH)
 		throw GradeTooHighException();
@@ -44,6 +46,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& copy) {
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin) {
+	std::cout << "Bureaucrat assignation operator called" << std::endl;
 	if (this != &origin) {
 		*(const_cast<std::string*>(&_name)) = origin.getName();
 		_grade = origin.getGrade();
@@ -51,7 +54,9 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin) {
 	return *this;
 }
 
-Bureaucrat::~Bureaucrat() { }
+Bureaucrat::~Bureaucrat() {
+	std::cout << "Bureaucrat " << _name << " destructor called" << std::endl;
+}
 
 std::ostream& operator<<(std::ostream& out, const Bureaucrat &ref) {
 	out << "<" << ref.getName() << ">, bureaucrat grade is <" << ref.getGrade() << ">" << std::endl;
