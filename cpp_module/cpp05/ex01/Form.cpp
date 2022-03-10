@@ -21,13 +21,11 @@ int Form::getGradeForExec() const {
 }
 
 void Form::beSigned(Bureaucrat& crat) {
-	if (crat.getGrade() < GRADE_HIGH)
-		throw GradeTooHighException();
 	if (crat.getGrade() <= this->_gradeForSign) {
 		this->_isSigned = true;
 		return;
 	}
-	throw GradeTooLowException();
+	throw Form::GradeTooHighException();
 }
 
 const char* Form::GradeTooHighException::what(void) const throw() {
@@ -45,9 +43,9 @@ Form::Form(): _name(""), _isSigned(false), _gradeForSign(GRADE_HIGH), _gradeForE
 Form::Form(const std::string name, const int forSign, const int forExec): _name(name), _isSigned(false), _gradeForSign(forSign), _gradeForExec(forExec) {
 	std::cout << "Form constructor with arguments called" << std::endl;
 	if (_gradeForSign < GRADE_HIGH || _gradeForExec < GRADE_HIGH)
-		throw GradeTooHighException();
+		throw Form::GradeTooHighException();
 	if (_gradeForSign > GRADE_LOW || _gradeForExec > GRADE_LOW)
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 }
 
 Form::Form(const Form& copy) {
@@ -64,9 +62,9 @@ Form& Form::operator=(const Form& origin) {
 		this->_gradeForExec = origin.getGradeForExec();
 	}
 	if (this->_gradeForSign < GRADE_HIGH || this->_gradeForExec < GRADE_HIGH)
-		throw GradeTooHighException();
+		throw Form::GradeTooHighException();
 	if (this->_gradeForSign > GRADE_LOW || this->_gradeForExec > GRADE_LOW)
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 	return (*this);
 }
 
