@@ -20,31 +20,42 @@ int Form::getGradeForExec() const {
 	return _gradeForExec;
 }
 
-void Form::beSigned(Bureaucrat& crat) {
+void Form::beSigned(const Bureaucrat& crat) {
 	if (crat.getGrade() <= this->_gradeForSign) {
 		this->_isSigned = true;
 		return;
 	}
+	this->_isSigned = false;
 	throw Form::GradeTooHighException();
 }
 
+void Form::isExecutable(const Bureaucrat& executor) const {
+	if (this->_isSigned == false || executor.getGrade() > this->_gradeForExec)
+		throw Form::CantExecute();
+}
+
 const char* Form::GradeTooHighException::what(void) const throw() {
-	return "Form grade is too high\n";
+	return "Form grade is too high";
 }
 
 const char* Form::GradeTooLowException::what(void) const throw() {
-	return "Form grade is too low\n";
+	return "Form grade is too low";
 }
 
-Form::Form(): _name(""), _isSigned(false), _gradeForSign(GRADE_HIGH), _gradeForExec(GRADE_HIGH) {
+const char* Form::CantExecute::what(void) const throw() {
+	return "Form isn't executable. Because Form isn't signed or Form's grade for execute is too HIGH.";
+}
+
+Form::Form(): _name(""), _isSigned(false), _gradeForSign(Form::lowestGrade), _gradeForExec(Form::lowestGrade) {
 	std::cout << "Form default constructor called" << std::endl;
 }
 
-Form::Form(const std::string name, const int forSign, const int forExec): _name(name), _isSigned(false), _gradeForSign(forSign), _gradeForExec(forExec) {
+Form::Form(const std::string name, const int forSign, const int forExec):
+	_name(name), _isSigned(false), _gradeForSign(forSign), _gradeForExec(forExec) {
 	std::cout << "Form constructor with arguments called" << std::endl;
-	if (_gradeForSign < GRADE_HIGH || _gradeForExec < GRADE_HIGH)
+	if (_gradeForSign < Form::highestGrade || _gradeForExec < Form::highestGrade)
 		throw Form::GradeTooHighException();
-	if (_gradeForSign > GRADE_LOW || _gradeForExec > GRADE_LOW)
+	if (_gradeForSign > Form::lowestGrade || _gradeForExec > Form::lowestGrade)
 		throw Form::GradeTooLowException();
 }
 
@@ -61,9 +72,9 @@ Form& Form::operator=(const Form& origin) {
 		this->_gradeForSign = origin.getGradeForSign();
 		this->_gradeForExec = origin.getGradeForExec();
 	}
-	if (this->_gradeForSign < GRADE_HIGH || this->_gradeForExec < GRADE_HIGH)
+	if (this->_gradeForSign < Form::highestGrade || this->_gradeForExec < Form::highestGrade)
 		throw Form::GradeTooHighException();
-	if (this->_gradeForSign > GRADE_LOW || this->_gradeForExec > GRADE_LOW)
+	if (this->_gradeForSign > Form::lowestGrade || this->_gradeForExec > Form::lowestGrade)
 		throw Form::GradeTooLowException();
 	return (*this);
 }

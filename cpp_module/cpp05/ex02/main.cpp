@@ -1,28 +1,76 @@
-#include "Form.hpp"
+#include "Bureaucrat.hpp"
+// #include "PresidentialPardonForm.hpp"
+// #include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-int main(void) {
-	Form form_j("high-level", 5, 1);
-	Form form_h("low-level", 140, 130);
-	Bureaucrat b_1("b_1", 2);
-	Bureaucrat b_2("b_2", 50);
+int	main(void)
+{
+	Form			*form = NULL;
+	Bureaucrat		bob("bob", 1);
+	Bureaucrat		phil("phil", 40);
+	Bureaucrat		luc("luc", 150);
 
-	std::cout << "form_j: " << form_j << std::endl;
-	std::cout << "form_h: " << form_h << std::endl;
-	std::cout << "b_1: " << b_1 << std::endl;
-	std::cout << "b_2: " << b_2 << std::endl;
+	// try
+	// {
+	// 	form = new PresidentialPardonForm("28Z");
+	// 	form->execute(bob);
+	// 	delete form;
+	// 	form = NULL;
+	// }
+	// catch (std::exception &e)
+	// {
+	// 	std::cout << e.what() << std::endl;
+	// }
 
-	form_j.setIsSigned(false);
-	b_1.signForm(form_j);
-	std::cout << std::endl;
-	form_j.setIsSigned(false);
-	b_2.signForm(form_j);
-	std::cout << std::endl;
-	form_h.setIsSigned(false);
-	b_1.signForm(form_h);
-	std::cout << std::endl;
-	form_h.setIsSigned(false);
-	b_1.signForm(form_h);
-	std::cout << std::endl;
+	// try
+	// {
+	// 	form = new PresidentialPardonForm("28A");
+	// 	form->beSigned(bob);
+	// 	form->execute(bob);
+	// 	delete form;
+	// 	form = NULL;
+	// }
+	// catch (std::exception &e)
+	// {
+	// 	std::cout << e.what() << std::endl;
+	// }
+
+
+	// try
+	// {
+	// 	form = new RobotomyRequestForm("28B");
+	// 	form->beSigned(bob);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	form->execute(phil);
+	// 	delete form;
+	// 	form = NULL;
+	// }
+	// catch (std::exception &e)
+	// {
+	// 	std::cout << e.what() << std::endl;
+	// }
+
+
+	try
+	{
+		form = new ShrubberyCreationForm("28C");
+		form->beSigned(bob);
+		form->execute(phil);
+		form->execute(luc);
+		delete form;
+		form = NULL;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 
 	return 0;
 }

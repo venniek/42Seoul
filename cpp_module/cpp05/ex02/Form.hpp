@@ -12,23 +12,34 @@ private:
 	bool _isSigned;
 	int _gradeForSign;
 	int _gradeForExec;
+
+	static const int highestGrade = 1;
+	static const int lowestGrade = 150;
+
 public:
 	std::string getName() const;
 	bool getIsSigned() const;
 	void setIsSigned(bool _bool);
 	int getGradeForSign() const;
 	int getGradeForExec() const;
-	void beSigned(Bureaucrat& crat);
-	virtual void execute(Bureaucrat const& executor) const = 0;
+
+	void beSigned(const Bureaucrat& crat);
+	virtual void execute(const Bureaucrat& executor) const = 0;
+	void isExecutable(const Bureaucrat& executor) const;
 
 	class GradeTooHighException: public std::exception {
 	public:
-		const char* what(void) const throw();
+		const char* what() const throw();
 	};
 
 	class GradeTooLowException: public std::exception {
 	public:
-		const char* what(void) const throw();
+		const char* what() const throw();
+	};
+
+	class CantExecute: public std::exception {
+	public:
+		const char* what() const throw();
 	};
 
 	Form();

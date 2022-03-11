@@ -6,9 +6,6 @@
 #include <exception>
 #include "Form.hpp"
 
-#define GRADE_HIGH 1
-#define GRADE_LOW 150
-
 class Form;
 
 class Bureaucrat {
@@ -16,13 +13,16 @@ private:
 	const std::string _name;
 	int _grade;
 
+	static const int highestGrade = 1;
+	static const int lowestGrade = 150;
+
 public:
 	const std::string getName() const;
 	int getGrade() const;
 	void incrementGrade();
 	void decrementGrade();
-	void signForm(Form& form);
-	void executeForm(Form const& form);
+	void signForm(Form& form) const;
+	void executeForm(const Form& form) const;
 
 	class GradeTooHighException: public std::exception {
 	public:
@@ -34,6 +34,7 @@ public:
 		const char* what(void) const throw();
 	};
 
+	Bureaucrat();
 	Bureaucrat(const std::string name, const int& grade);
 	Bureaucrat(const Bureaucrat& copy);
 	Bureaucrat& operator=(const Bureaucrat& origin);

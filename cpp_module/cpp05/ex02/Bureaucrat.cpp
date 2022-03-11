@@ -9,50 +9,60 @@ int Bureaucrat::getGrade() const {
 }
 
 void Bureaucrat::incrementGrade() {
-	if (_grade - 1 < GRADE_HIGH)
+	if (_grade - 1 < Bureaucrat::highestGrade)
 		throw Bureaucrat::GradeTooHighException();
 	--_grade;
 }
 
 void Bureaucrat::decrementGrade() {
-	if (_grade + 1 > GRADE_LOW)
+	if (_grade + 1 > Bureaucrat::lowestGrade)
 		throw Bureaucrat::GradeTooLowException();
 	++_grade;
 }
 
-void Bureaucrat::signForm(Form& form) {
+void Bureaucrat::signForm(Form& form) const {
 	try {
 		form.beSigned(*this);
 		std::cout << this->getName() << " signs " << form.getName() << "." << std::endl;
 	}
 	catch (std::exception& e) {
-		std::cerr << this->getName() << " cannot sign " << form.getName() << ". Because " << e.what();
+		std::cerr << this->getName() << " cannot sign " << form.getName() << ". Because " << e.what() << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(const Form& form) const {
+	try {
+		form.execute(*this);
+		std::cout << this->_name << " executes Form " << form.getName() << std::endl;
+	}
+	catch(Form::CantExecute &e) {
+		std::cout << e.what() << std::endl;
 	}
 }
 
 const char* Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Bureaucrat grade is too high\n";
+	return "Bureaucrat grade is too high";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Bureaucrat grade is too low\n";
+	return "Bureaucrat grade is too low";
+}
+
+Bureaucrat::Bureaucrat(): _name(""), _grade(Bureaucrat::lowestGrade) {
+	std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _grade(grade) {
-	std::cout << "Bureaucrat constructor with argument called" << std::endl;
-	if (_grade < GRADE_HIGH)
+	std::cout << "Bureaucrat constructor with name \"" << name << "\" called" << std::endl;
+	if (_grade < Bureaucrat::highestGrade)
 		throw Bureaucrat::GradeTooHighException();
-	if (_grade > GRADE_LOW)
+	if (_grade > Bureaucrat::lowestGrade)
 		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) {
 	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
-	if (_grade < GRADE_HIGH)
-		throw Bureaucrat::GradeTooHighException();
-	if (_grade > GRADE_LOW)
-		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin) {

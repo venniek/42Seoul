@@ -2,14 +2,19 @@
 #define __SHRUBBERYCREATIONFORM_H__
 
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 #include <fstream>
+#include <iostream>
 
 class ShrubberyCreationForm: public Form {
+private:
+	std::string _target;
 public:
-	void execute(Bureaucrat const& executor) const;
+	std::string getTarget() const;
+	void execute(const Bureaucrat& executor) const;
 
 	ShrubberyCreationForm();
-	ShrubberyCreationForm(const std::string name);
+	ShrubberyCreationForm(const std::string& target);
 	ShrubberyCreationForm(const ShrubberyCreationForm& copy);
 	ShrubberyCreationForm& operator=(const ShrubberyCreationForm& origin);
 	~ShrubberyCreationForm();
