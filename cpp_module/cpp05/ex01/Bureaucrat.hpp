@@ -6,8 +6,8 @@
 #include <exception>
 #include "Form.hpp"
 
-#define GRADE_HIGH 1
-#define GRADE_LOW 150
+#define Bureaucrat::highestGrade 1
+#define Bureaucrat::lowestGrade 150
 
 class Form;
 
