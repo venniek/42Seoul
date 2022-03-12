@@ -16,7 +16,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 							"   `&%\\ ` /%&'    |.|        \\ '|8'\n"
 							"       |o|        | |         | |\n"
 							"       |.|        | |         | |\n"
-							"    \\\\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_";;
+							"    \\\\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_";
 
 	this->isExecutable(executor);
 	newfile.open(_target + "_shrubbery");
@@ -24,6 +24,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 		newfile << drawing;
 		newfile.close();
 	}
+	std::cout << "Shrubbery Form executed successfully" << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(): Form("Shrubbery", 145, 137), _target("") {
