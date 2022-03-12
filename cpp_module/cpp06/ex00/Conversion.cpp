@@ -24,11 +24,55 @@ double Conversion::getDouble() const {
 	return _inDouble;
 }
 
+void Conversion::setType() {
+	_type = checkTypeException();
+	if (_type != Conversion::noType)
+		return;
+	if ((_origin[0] >= '0' && _origin[0] <= '9') || _origin[0] == '-' || _origin[0] == '.') {
+		_type = checkTypeNumeric();
+		if (_type != Conversion::noType)
+			return;
+	}
+	if (_origin[1])
+		return;
+	_type = Conversion::charType;
+}
 
-void Conversion::setAll() {
-	stringstream origin(_origin);
+int Conversion::checkTypeException() {
+	char* doubleSpecial[] = { "inf", "+inf", "-inf", "nan" };
+	char* floatSpecial[] = { "inff", "+inff", "-inff", "nanf" };
 
-	origin >> _inChar;
+	for (int i = 0; i < 4; i++) {
+		if (doubleSpecial[i] == _origin)
+			return Conversion::doubleType;
+		else if (floatSpecial[i] == _origin)
+			return Conversion::floatType;
+	}
+}
+
+int Conversion::checkTypeNumeric() {
+	int i = 0;
+	int dot = 0;
+
+	if (_origin[0] == '-' && _origin[1])
+		i++;
+	if (input[i] == '.' && (_origin[i + 1] == 'f' || _origin[i + 1] == 0))
+		return Conversion::noType;
+	while (ft_isdigit(_origin[i]) || _origin[i] == '.') {
+		if (_origin[i] == '.')
+			dot++;
+		if (dot > 1)
+			return Conversion::noType;
+		i++;
+	}
+	if (!_origin[i]) {
+		if (dot == 1)
+			return Conversion::doubleType;
+		retturn Conversion::intType;
+	}
+	else if (_origin[i] == 'f' && !_origin[i + 1] && dot == 1)
+		return Conversion::floatType;
+	return Conversion::noType;
 }
 
 void Conversion::printChar() const {
@@ -48,21 +92,32 @@ void Conversion::printDouble() const {
 }
 
 void Conversion::printAllType() const {
+	if (_type == Conversion::noType) {
+		std::cout << "No type" << std::endl;
+		return;
+	}
 	printChar();
 	printInt();
 	printFloat();
 	printDouble();
 }
 
-
 Conversion::Conversion(): _origin("") {
 	std::cout << "Conversion default constructor called" << std::endl;
-	setAll();
+	_type = Conversion::noType;
+	_inChar = 0;
+	_inInt = 0;
+	_inFloat = 0;
+	_inDouble = 0;
 }
 
-Conversion::Conversion(std::string& origin): _origin(origin) {
+Conversion::Conversion(char* origin): _origin(origin) {
 	std::cout << "Conversion constructor with argument called" << std::endl;
-	setAll();
+	_type = Conversion::noType;
+	_inChar = 0;
+	_inInt = 0;
+	_inFloat = 0;
+	_inDouble = 0;
 }
 
 Conversion::Conversion(const Conversion& copy) {

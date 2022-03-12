@@ -7,7 +7,7 @@
 
 class Conversion {
 private:
-	std::string _origin;
+	char* _origin;
 	int _type;
 	char _inChar;
 	int _inInt;
@@ -28,7 +28,10 @@ public:
 	float getFloat() const;
 	double getDouble() const;
 
-	void setAll();
+	void setType();
+	int checkTypeException();
+	int checkTypeNumeric();
+
 	void printChar() const;
 	void printInt() const;
 	void printFloat() const;
@@ -36,7 +39,7 @@ public:
 	void printAllType() const;
 
 	Conversion();
-	Conversion(std::string& origin);
+	Conversion(char* origin);
 	Conversion(const Conversion& copy);
 	Conversion& operator=(const Conversion& origin);
 	~Conversion();
