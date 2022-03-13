@@ -1,4 +1,4 @@
-SRCS = main.cpp Conversion.cpp
+SRCS = main.cpp Conversion.cpp utils.cpp
 
 CPP = c++
 FLAG = -Werror -Wall -Wextra -std=c++98

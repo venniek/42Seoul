@@ -21,7 +21,7 @@ private:
 	static const int doubleType = 3;
 
 public:
-	int getOrigin() const;
+	char* getOrigin() const;
 	int getType() const;
 	char getChar() const;
 	int getInt() const;
@@ -44,5 +44,7 @@ public:
 	Conversion& operator=(const Conversion& origin);
 	~Conversion();
 };
+
+bool ft_isdigit(char c);
 
 #endif

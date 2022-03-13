@@ -1,6 +1,6 @@
 #include "Conversion.hpp"
 
-int Conversion::getOrigin() const {
+char* Conversion::getOrigin() const {
 	return _origin;
 }
 
@@ -56,7 +56,7 @@ int Conversion::checkTypeNumeric() {
 
 	if (_origin[0] == '-' && _origin[1])
 		i++;
-	if (input[i] == '.' && (_origin[i + 1] == 'f' || _origin[i + 1] == 0))
+	if (_origin[i] == '.' && (_origin[i + 1] == 'f' || _origin[i + 1] == 0))
 		return Conversion::noType;
 	while (ft_isdigit(_origin[i]) || _origin[i] == '.') {
 		if (_origin[i] == '.')
@@ -68,7 +68,7 @@ int Conversion::checkTypeNumeric() {
 	if (!_origin[i]) {
 		if (dot == 1)
 			return Conversion::doubleType;
-		retturn Conversion::intType;
+		return Conversion::intType;
 	}
 	else if (_origin[i] == 'f' && !_origin[i + 1] && dot == 1)
 		return Conversion::floatType;
@@ -128,7 +128,7 @@ Conversion::Conversion(const Conversion& copy) {
 Conversion& Conversion::operator=(const Conversion& origin) {
 	std::cout << "Conversion assignation operator called" << std::endl;
 	if (this != &origin) {
-		this->origin = origin.getOrigin();
+		this->_origin = origin.getOrigin();
 		this->_type = origin.getType();
 		this->_inChar = origin.getChar();
 		this->_inInt = origin.getInt();
@@ -138,6 +138,6 @@ Conversion& Conversion::operator=(const Conversion& origin) {
 	return (*this);
 }
 
-~Conversion() {
+Conversion::~Conversion() {
 	std::cout << "Conversion destructor called" << std::endl;
 }
