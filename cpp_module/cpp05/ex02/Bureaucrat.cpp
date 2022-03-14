@@ -36,16 +36,16 @@ void Bureaucrat::executeForm(const Form& form) const {
 		std::cout << this->_name << " executes Form " << form.getName() << std::endl;
 	}
 	catch(Form::CantExecute &e) {
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
 const char* Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Bureaucrat grade is too high";
+	return "Grade is too high.";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Bureaucrat grade is too low";
+	return "Grade is too low.";
 }
 
 Bureaucrat::Bureaucrat(): _name(""), _grade(Bureaucrat::lowestGrade) {

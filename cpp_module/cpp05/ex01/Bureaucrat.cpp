@@ -31,11 +31,11 @@ void Bureaucrat::signForm(Form& form) {
 }
 
 const char* Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Grade is too high\n";
+	return "Grade is too high.";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Grade is too low\n";
+	return "Grade is too low.";
 }
 
 Bureaucrat::Bureaucrat(): _name(""), _grade(Bureaucrat::lowestGrade) {

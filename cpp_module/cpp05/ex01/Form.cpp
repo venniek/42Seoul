@@ -8,10 +8,6 @@ bool Form::getIsSigned() const {
 	return _isSigned;
 }
 
-void Form::setIsSigned(bool _bool) {
-	_isSigned = _bool;
-}
-
 int Form::getGradeForSign() const {
 	return _gradeForSign;
 }

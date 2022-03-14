@@ -21,7 +21,7 @@ int	main(void)
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	if (form) {
 		delete form;
@@ -39,12 +39,13 @@ int	main(void)
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	if (form) {
 		delete form;
 		form = NULL;
 	}
+	std::cout << "=======================================" << std::endl;
 
 	std::cout << std::endl;
 	std::cout << "=======================================" << std::endl;

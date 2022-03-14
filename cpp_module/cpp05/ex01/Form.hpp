@@ -18,19 +18,18 @@ private:
 public:
 	std::string getName() const;
 	bool getIsSigned() const;
-	void setIsSigned(bool _bool);
 	int getGradeForSign() const;
 	int getGradeForExec() const;
 	void beSigned(const Bureaucrat& crat);
 
 	class GradeTooHighException: public std::exception {
 	public:
-		const char* what(void) const throw();
+		const char* what() const throw();
 	};
 
 	class GradeTooLowException: public std::exception {
 	public:
-		const char* what(void) const throw();
+		const char* what() const throw();
 	};
 
 	Form();
