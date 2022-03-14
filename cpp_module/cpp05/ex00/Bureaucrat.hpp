@@ -5,13 +5,13 @@
 #include <iostream>
 #include <exception>
 
-#define Bureaucrat::highestGrade 1
-#define Bureaucrat::lowestGrade 150
-
 class Bureaucrat {
 private:
 	const std::string _name;
 	int _grade;
+
+	static const int highestGrade = 1;
+	static const int lowestGrade = 150;
 
 public:
 	const std::string getName() const;
@@ -29,6 +29,7 @@ public:
 		const char* what(void) const throw();
 	};
 
+	Bureaucrat();
 	Bureaucrat(const std::string name, const int& grade);
 	Bureaucrat(const Bureaucrat& copy);
 	Bureaucrat& operator=(const Bureaucrat& origin);

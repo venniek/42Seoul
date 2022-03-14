@@ -12,13 +12,16 @@ private:
 	bool _isSigned;
 	int _gradeForSign;
 	int _gradeForExec;
+
+	static const int highestGrade = 1;
+	static const int lowestGrade = 150;
 public:
 	std::string getName() const;
 	bool getIsSigned() const;
 	void setIsSigned(bool _bool);
 	int getGradeForSign() const;
 	int getGradeForExec() const;
-	void beSigned(Bureaucrat& crat);
+	void beSigned(const Bureaucrat& crat);
 
 	class GradeTooHighException: public std::exception {
 	public:

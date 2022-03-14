@@ -26,16 +26,20 @@ void Bureaucrat::signForm(Form& form) {
 		std::cout << this->getName() << " signs " << form.getName() << "." << std::endl;
 	}
 	catch (std::exception& e) {
-		std::cerr << this->getName() << " cannot sign " << form.getName() << ". Because " << e.what();
+		std::cerr << this->getName() << " cannot sign " << form.getName() << ". Because " << e.what() << std::endl;
 	}
 }
 
 const char* Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Bureaucrat grade is too high\n";
+	return "Grade is too high\n";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Bureaucrat grade is too low\n";
+	return "Grade is too low\n";
+}
+
+Bureaucrat::Bureaucrat(): _name(""), _grade(Bureaucrat::lowestGrade) {
+	std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _grade(grade) {
@@ -49,10 +53,6 @@ Bureaucrat::Bureaucrat(const std::string name, const int& grade): _name(name), _
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) {
 	std::cout << "Bureaucrat copy constructor called" << std::endl;
 	*this = copy;
-	if (_grade < Bureaucrat::highestGrade)
-		throw Bureaucrat::GradeTooHighException();
-	if (_grade > Bureaucrat::lowestGrade)
-		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin) {
