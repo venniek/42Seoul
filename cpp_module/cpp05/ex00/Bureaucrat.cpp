@@ -21,11 +21,11 @@ void Bureaucrat::decrementGrade() {
 }
 
 const char* Bureaucrat::GradeTooHighException::what(void) const throw() {
-	return "Bureaucrat grade is too high.";
+	return "Grade is too high.";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw() {
-	return "Bureaucrat grade is too low.";
+	return "Grade is too low.";
 }
 
 Bureaucrat::Bureaucrat(): _name(""), _grade(Bureaucrat::lowestGrade) {
