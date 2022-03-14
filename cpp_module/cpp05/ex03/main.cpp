@@ -18,11 +18,15 @@ int	main(void)
 
 	std::cout << "\n===========president" << std::endl;
 	form = intern.makeForm("president", "Maynard");
+	form->beSigned(naykim);
+	form->execute(naykim);
 	if (form)
 		delete form;
 
 	std::cout << "\n===========shrubbery" << std::endl;
 	form = intern.makeForm("shrubbery", "Danny");
+	form->beSigned(naykim);
+	form->execute(naykim);
 	if (form)
 		delete form;
 

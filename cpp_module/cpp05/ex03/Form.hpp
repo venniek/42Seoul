@@ -19,7 +19,6 @@ private:
 public:
 	std::string getName() const;
 	bool getIsSigned() const;
-	void setIsSigned(bool _bool);
 	int getGradeForSign() const;
 	int getGradeForExec() const;
 

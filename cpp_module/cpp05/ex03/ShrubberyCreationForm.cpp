@@ -1,8 +1,11 @@
 #include "ShrubberyCreationForm.hpp"
 
-
 std::string ShrubberyCreationForm::getTarget() const {
 	return _target;
+}
+
+void ShrubberyCreationForm::setTarget(std::string& target) {
+	_target = target;
 }
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
@@ -25,6 +28,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 		newfile.close();
 	}
 	std::cout << "Shrubbery Form executed successfully" << std::endl;
+
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(): Form("Shrubbery", 145, 137), _target("") {
@@ -43,7 +47,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& copy):
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& origin) {
 	std::cout << "ShrubberyCreationForm assignation operator called" << std::endl;
 	if (this != &origin) {
-		*this = *(dynamic_cast<ShrubberyCreationForm*>(&Form::operator=(origin)));
+		Form::operator=(origin);
 		this->_target = origin.getTarget();
 	}
 	return *this;

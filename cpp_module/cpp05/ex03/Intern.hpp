@@ -7,14 +7,13 @@
 #include "Bureaucrat.hpp"
 
 class Intern {
-private:
-	std::string forms[3];
-	Form* makeforms[3];
-	
 public:
-	const std::string& getForms(const int& idx) const;
-	Form* getMakeForms(const int& idx) const;
 	Form* makeForm(const std::string& name, const std::string& target) const;
+
+	class CantFindForm: public std::exception {
+	public:
+		const char* what(void) const throw();
+	};
 
 	Intern();
 	Intern(const Intern& copy);

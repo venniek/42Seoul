@@ -15,7 +15,7 @@ $(NAME): $(SRCS)
 all: $(NAME)
 
 clean:
-	rm -f $(NAME)
+	rm -f $(NAME) $(wildcard *_shrubbery)
 
 re: clean all
 

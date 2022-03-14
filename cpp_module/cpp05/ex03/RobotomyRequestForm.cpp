@@ -4,6 +4,10 @@ const std::string& RobotomyRequestForm::getTarget() const {
 	return _target;
 }
 
+void RobotomyRequestForm::setTarget(std::string& target) {
+	_target = target;
+}
+
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
 	this->isExecutable(executor);
 	std::cout << "* unbearable drilling noises *" << std::endl;
@@ -29,7 +33,7 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& copy): Form(
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& origin) {
 	std::cout << "RobotomyRequestForm assignation operator called" << std::endl;
 	if (this != &origin) {
-		*this = *(dynamic_cast<RobotomyRequestForm*>(&Form::operator=(origin)));
+		Form::operator=(origin);
 		this->_target = origin.getTarget();
 	}
 	return *this;

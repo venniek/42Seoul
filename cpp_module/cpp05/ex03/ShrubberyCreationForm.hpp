@@ -11,6 +11,7 @@ private:
 	std::string _target;
 public:
 	std::string getTarget() const;
+	void setTarget(std::string& target);
 	void execute(const Bureaucrat& executor) const;
 
 	ShrubberyCreationForm();

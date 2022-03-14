@@ -1,13 +1,5 @@
 #include "Intern.hpp"
 
-const std::string& Intern::getForms(const int& idx) const {
-	return forms[idx];
-}
-
-Form* Intern::getMakeForms(const int& idx) const {
-	return makeforms[idx];
-}
-
 Form* Intern::makeForm(const std::string& name, const std::string& target) const {
 	Form* ret = 0;
 	std::string forms[3] = {"shrubbery", "robotomy", "president"};
@@ -22,18 +14,17 @@ Form* Intern::makeForm(const std::string& name, const std::string& target) const
 			delete makeforms[i];
 	}
 	if (ret == NULL)
-		std::cout << "Intern didn't find the form \"" << name << "\"." << std::endl;
-	else
-		std::cout << "Intern creates the right form \"" << name << "\"." << std::endl;
+		throw Intern::CantFindForm();
+	std::cout << "Intern creates the right form \"" << name << "\"." << std::endl;
 	return ret;
+}
+
+const char* Intern::CantFindForm::what(void) const throw() {
+	return "Intern didn't find the form.";
 }
 
 Intern::Intern() {
 	std::cout << "Intern default constructor called" << std::endl;
-	for (int i = 0; i < 3; i++) {
-		forms[i] = "";
-		makeforms[i] = NULL;
-	}
 }
 
 Intern::Intern(const Intern& copy) {
@@ -43,12 +34,8 @@ Intern::Intern(const Intern& copy) {
 
 Intern& Intern::operator=(const Intern& origin) {
 	std::cout << "Intern assignation operator called" << std::endl;
-	if (this != &origin) {
-		for (int i = 0; i < 3; i++) {
-			forms[i] = origin.getForms(i);
-			makeforms[i] = origin.getMakeForms(i);
-		}
-	}
+	if (this == &origin)
+		std::cout << "same address." << std::endl;
 	return (*this);
 }
 
