@@ -26,4 +26,7 @@ int	main( void ) {
 	iter(intTable, 5, &plusFive);
 	std::cout << std::endl;
 	iter(intTable, 5, &display);
+	delete[] intTable;
+
+	return 0;
 }
