@@ -9,7 +9,8 @@ private:
 	std::string _target;
 public:
 	const std::string& getTarget() const;
-	virtual void execute(const Bureaucrat& executor) const;
+	void setTarget(std::string& target);
+	void execute(const Bureaucrat& executor) const;
 
 	PresidentialPardonForm();
 	PresidentialPardonForm(const std::string& target);

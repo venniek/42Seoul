@@ -16,7 +16,7 @@ int	main(void)
 	try
 	{
 		form = new PresidentialPardonForm("28A");
-		std::cout << "bob shouldn't success. There's no sign." << std::endl;
+		std::cout << "--bob shouldn't success. There's no sign.--" << std::endl;
 		form->execute(bob);
 	}
 	catch (std::exception &e)
@@ -31,10 +31,10 @@ int	main(void)
 	try
 	{
 		form = new PresidentialPardonForm("28A");
-		std::cout << "bob should success." << std::endl;
+		std::cout << "--bob should success.--" << std::endl;
 		bob.signForm(*form);
 		form->execute(bob);
-		std::cout << "phil and luc shouldn't success." << std::endl;
+		std::cout << "--phil and luc shouldn't success.--" << std::endl;
 		phil.signForm(*form);
 	}
 	catch (std::exception &e)
@@ -73,6 +73,7 @@ int	main(void)
 		delete form;
 		form = NULL;
 	}
+	std::cout << "=======================================" << std::endl;
 
 
 	std::cout << std::endl;
@@ -93,6 +94,7 @@ int	main(void)
 		delete form;
 		form = NULL;
 	}
+	std::cout << "=======================================" << std::endl;
 
 	return 0;
 }

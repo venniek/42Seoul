@@ -4,6 +4,10 @@ const std::string& PresidentialPardonForm::getTarget() const {
 	return _target;
 }
 
+void PresidentialPardonForm::setTarget(std::string& target) {
+	_target = target;
+}
+
 void PresidentialPardonForm::execute(const Bureaucrat& executor) const {
 	this->isExecutable(executor);
 	std::cout << _target << " has been pardoned by Zafod Beeblebrox." << std::endl;
@@ -25,7 +29,7 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& cop
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& origin) {
 	std::cout << "PresidentialPardonForm assignation operator called" << std::endl;
 	if (this != &origin) {
-		*this = *(dynamic_cast<PresidentialPardonForm*>(&Form::operator=(origin)));
+		Form::operator=(origin);
 		this->_target = origin.getTarget();
 	}
 	return *this;

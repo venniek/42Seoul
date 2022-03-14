@@ -11,7 +11,7 @@ private:
 public:
 	const std::string& getTarget() const;
 	void setTarget(std::string& target);
-	virtual void execute(const Bureaucrat& executor) const;
+	void execute(const Bureaucrat& executor) const;
 
 	RobotomyRequestForm();
 	RobotomyRequestForm(const std::string& target);
