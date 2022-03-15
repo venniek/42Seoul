@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <limits>
 
 class Conversion {
 private:
-	char* _origin;
+	const char* _origin;
 	int _type;
 	char _inChar;
 	int _inInt;
@@ -21,13 +22,14 @@ private:
 	static const int doubleType = 3;
 
 public:
-	char* getOrigin() const;
+	const char* getOrigin() const;
 	int getType() const;
 	char getChar() const;
 	int getInt() const;
 	float getFloat() const;
 	double getDouble() const;
 
+	void setAll();
 	void setType();
 	int checkTypeException();
 	int checkTypeNumeric();
@@ -37,9 +39,13 @@ public:
 	void printFloat() const;
 	void printDouble() const;
 	void printAllType() const;
+	
+	int checkCharImpossible(double n) const;
+	int checkIntImpossible(double n) const;
+	std::string checkPlusZero(double n) const;
 
 	Conversion();
-	Conversion(char* origin);
+	Conversion(const char* str);
 	Conversion(const Conversion& copy);
 	Conversion& operator=(const Conversion& origin);
 	~Conversion();

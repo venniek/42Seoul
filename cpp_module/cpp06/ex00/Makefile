@@ -1,9 +1,9 @@
-SRCS = main.cpp Conversion.cpp utils.cpp
+SRCS = main.cpp Conversion.cpp
 
 CPP = c++
 FLAG = -Werror -Wall -Wextra -std=c++98
 
-NAME = conversion
+NAME = convert
 
 $(NAME): $(SRCS)
 	$(CPP) $(FLAG) -o $(NAME) $(SRCS)
