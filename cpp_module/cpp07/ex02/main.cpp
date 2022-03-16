@@ -39,24 +39,21 @@ int main(int, char**)
 	}
 
 	std::cout << std::endl << "==============exception test" << std::endl;
-	try
-	{
+	try {
 		numbers[-2] = 0;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	try
-	{
+	try	{
 		numbers[MAX_VAL] = 0;
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	try
-	{
+	try	{
 		numbers[std::max(0, MAX_VAL - 1)] = 1000;
 		std::cout << numbers << std::endl;
 	}

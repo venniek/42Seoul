@@ -7,8 +7,8 @@ void display( T &whatever ) {
 }
 
 template<typename T>
-void plusFive(T& whatever) {
-	whatever += 5;
+void plusBaek(T& whatever) {
+	whatever += 100;
 }
 
 int	main( void ) {
@@ -19,11 +19,13 @@ int	main( void ) {
 	strTable[1] = "Fine, and you dear sir?";
 	strTable[2] = "Very fine indeed!";
 	iter(strTable, 3, &display);
+	iter(strTable, 3, &plusBaek);
+	iter(strTable, 3, &display);
 	std::cout << std::endl;
 	for (int i = 0; i < 5; i ++)
 		intTable[i] = i * 3 + 7;
 	iter(intTable, 5, &display);
-	iter(intTable, 5, &plusFive);
+	iter(intTable, 5, &plusBaek);
 	std::cout << std::endl;
 	iter(intTable, 5, &display);
 	delete[] intTable;
