@@ -1,3 +1,3 @@
 #include "A.hpp"
 
-Base::~Base() { }
+A::~A() { }

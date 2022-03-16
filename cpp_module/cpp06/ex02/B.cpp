@@ -1,1 +1,3 @@
-Base::~Base() { }
+#include "B.hpp"
+
+B::~B() { }
