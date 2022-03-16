@@ -24,6 +24,14 @@ double Conversion::getDouble() const {
 	return _inDouble;
 }
 
+void Conversion::setAll() {
+	setType();
+	_inChar = _origin[0];
+	_inInt = atoi(_origin);
+	_inFloat = atof(_origin);
+	_inDouble = atof(_origin);
+}
+
 void Conversion::setType() {
 	_type = checkTypeException();
 	if (_type != Conversion::noType)
@@ -38,14 +46,6 @@ void Conversion::setType() {
 	_type = Conversion::charType;
 }
 
-void Conversion::setAll() {
-	setType();
-	_inChar = _origin[0];
-	_inInt = atoi(_origin);
-	_inFloat = atof(_origin);
-	_inDouble = atof(_origin);
-}
-
 int Conversion::checkTypeException() {
 	std::string doubleSpecial[4] = { "inf", "+inf", "-inf", "nan" };
 	std::string floatSpecial[4] = { "inff", "+inff", "-inff", "nanf" };
@@ -53,7 +53,7 @@ int Conversion::checkTypeException() {
 	for (int i = 0; i < 4; i++) {
 		if (doubleSpecial[i] == _origin)
 			return Conversion::doubleType;
-		else if (floatSpecial[i] == _origin)
+		if (floatSpecial[i] == _origin)
 			return Conversion::floatType;
 	}
 	return Conversion::noType;
@@ -228,5 +228,4 @@ Conversion& Conversion::operator=(const Conversion& origin) {
 	return (*this);
 }
 
-Conversion::~Conversion() {
-}
+Conversion::~Conversion() { }

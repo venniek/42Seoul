@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
+#include <cstdlib>
 #include <limits>
 
 class Conversion {
@@ -50,7 +50,5 @@ public:
 	Conversion& operator=(const Conversion& origin);
 	~Conversion();
 };
-
-bool ft_isdigit(char c);
 
 #endif

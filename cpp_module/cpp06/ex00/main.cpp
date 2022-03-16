@@ -1,5 +1,3 @@
-#include <string>
-#include <iostream>
 #include "Conversion.hpp"
 
 int main(int ac, char **av) {
@@ -10,7 +8,6 @@ int main(int ac, char **av) {
 	}
 	Conversion cv(av[1]);
 
-	cv.setAll();
 	cv.printAllType();
-
+	return 0;
 }
