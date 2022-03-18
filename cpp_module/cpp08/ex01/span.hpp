@@ -16,7 +16,7 @@ public:
 	std::vector<int> getStore() const;
 
 	void addNumber(int number);
-	void addByIterator( std::vector<int>::iterator begin, std::vector<int>::iterator end);
+	void addByIterator(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 	int shortestSpan() const;
 	int longestSpan() const;
 	
