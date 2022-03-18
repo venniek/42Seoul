@@ -23,12 +23,12 @@ int Span::shortestSpan() const {
 	int ret = -1;
 
 	if (_store.size() <= 1)
-		throw std::logic_error("Not enough number(0 or 1)");
+		throw Span::NoSpan();
 	sort(tmp.begin(), tmp.end());
-	ret = tmp[1] - tmp[0];
-	for (unsigned int i = 1; i < tmp.size() - 1; i++) {
-		if (ret > tmp[i + 1] - tmp[i])
-			ret = tmp[i + 1] - tmp[i];
+	ret = *(tmp.begin() + 1) - *tmp.begin();
+	for (std::vector<int>::iterator i = tmp.begin() + 1; i < tmp.end() - 1 && ret != 0; i++) {
+		if (*(i + 1) - *i < ret)
+			ret = *(i + 1) - *i;
 	}
 	return ret;
 }
@@ -37,13 +37,13 @@ int Span::longestSpan() const {
 	std::vector<int> tmp = this->_store;
 	
 	if (_store.size() <= 1)
-		throw std::logic_error("Not enough number(0 or 1)");
+		throw Span::NoSpan();
 	sort(tmp.begin(), tmp.end());
-	return tmp[tmp.size() - 1] - tmp[0];
+	return *(tmp.end() - 1) - *tmp.begin();
 }
 
 const char* Span::NoSpan::what(void) const throw() {
-	return "No enough numbers.";
+	return "Not enough numbers(0 or 1).";
 }
 
 Span::Span(): _maxsize(0) {

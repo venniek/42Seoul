@@ -22,7 +22,7 @@ int	main( void ){
 	}
 	catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
-		it = v.begin();
+		it = v.end();
 	}
 	displayIterator(it, v.end());
 	try {
@@ -31,7 +31,7 @@ int	main( void ){
 	}
 	catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
-		it = v.begin();
+		it = v.end();
 	}
 	displayIterator(it, v.end());
 }
