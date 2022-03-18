@@ -13,23 +13,33 @@ std::vector<int> Span::getStore() const {
 }
 
 void Span::addNumber(int number) {
-	if (getNowSize() == getMaxSize()) {
-		std::cout << "storage is full." << std::endl;
-		return;
-	}
+	if (getNowSize() == getMaxSize())
+		throw std::out_of_range("Storage is full");
 	_store.push_back(number);
 }
 
-void Span::addByIterator( std::vector<int>::iterator begin, std::vector<int>::iterator end) {
-
-}
-
 int Span::shortestSpan() const {
+	std::vector<int> tmp = this->_store;
+	int ret = -1;
 
+	if (_store.size() <= 1)
+		throw std::logic_error("Not enough number(0 or 1)");
+	sort(tmp.begin(), tmp.end());
+	ret = tmp[1] - tmp[0];
+	for (unsigned int i = 1; i < tmp.size() - 1; i++) {
+		if (ret > tmp[i + 1] - tmp[i])
+			ret = tmp[i + 1] - tmp[i];
+	}
+	return ret;
 }
 
 int Span::longestSpan() const {
-
+	std::vector<int> tmp = this->_store;
+	
+	if (_store.size() <= 1)
+		throw std::logic_error("Not enough number(0 or 1)");
+	sort(tmp.begin(), tmp.end());
+	return tmp[tmp.size() - 1] - tmp[0];
 }
 
 const char* Span::NoSpan::what(void) const throw() {
