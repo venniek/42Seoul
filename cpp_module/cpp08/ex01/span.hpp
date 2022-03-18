@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <exception>
+#include <algorithm>
+#include <iterator>
 
 class Span {
 private:

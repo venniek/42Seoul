@@ -54,7 +54,7 @@ Span& Span::operator=(const Span& origin) {
 	if (this != &origin) {
 		this->_maxsize = origin.getMaxSize();
 		this->_store.clear();
-		this->_store.assign(origin.getStore().begin(), origin.getStore().end());
+		std::copy(origin.getStore().begin(), origin.getStore().end(), this->_store.begin());
 	}
 	return *this;
 }
