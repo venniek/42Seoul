@@ -24,7 +24,7 @@ void Span::addByIterator(std::vector<int>::iterator begin, std::vector<int>::ite
 	if (getMaxSize() - getNowSize() < tmp.size()) {
 		throw std::out_of_range("Not enough storage");
 	}
-	copy(tmp.begin(), tmp.end() - 1, std::back_inserter(this->_store));
+	copy(tmp.begin(), tmp.end(), std::back_inserter(this->_store));
 }
 
 int Span::shortestSpan() const {
@@ -73,7 +73,7 @@ Span& Span::operator=(const Span& origin) {
 	if (this != &origin) {
 		this->_maxsize = origin.getMaxSize();
 		this->_store.clear();
-		std::copy(origin.getStore().begin(), origin.getStore().end(), this->_store.begin());
+		copy(origin.getStore().begin(), origin.getStore().end(), this->_store.begin());
 	}
 	return *this;
 }

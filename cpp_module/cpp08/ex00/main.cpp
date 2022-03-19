@@ -3,9 +3,9 @@
 #include "easyfind.hpp"
 
 template<typename T>
-void	displayIterator(T it, T end){
-    if (it != end)
- 		std::cout << "iterator: " << *it << std::endl;
+void displayIterator(T it, T end) {
+	if (it != end)
+ 		std::cout << "*iterator: " << *it << std::endl;
 	else
 		std::cout << "iterator reached the end of container" << std::endl;
 }
@@ -32,7 +32,7 @@ int	main() {
 	for (int i = 1; i < 60; i+=2)
 		v.push_back(i);
 	std::cout << "=====v: " << std::endl;
-	for (int i = 0; i < v.size(); i++)
+	for (unsigned long i = 0; i < v.size(); i++)
 		std::cout << v[i] << " ";
 	std::cout << std::endl;
 
