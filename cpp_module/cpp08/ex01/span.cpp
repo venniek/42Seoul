@@ -18,6 +18,15 @@ void Span::addNumber(int number) {
 	_store.push_back(number);
 }
 
+void Span::addByIterator(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+	std::vector<int> tmp(begin, end);
+	
+	if (getMaxSize() - getNowSize() < tmp.size()) {
+		throw std::out_of_range("Not enough storage");
+	}
+	copy(tmp.begin(), tmp.end() - 1, std::back_inserter(this->_store));
+}
+
 int Span::shortestSpan() const {
 	std::vector<int> tmp = this->_store;
 	int ret = -1;

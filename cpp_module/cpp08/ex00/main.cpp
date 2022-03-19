@@ -10,28 +10,35 @@ void	displayIterator(T it, T end){
 		std::cout << "iterator reached the end of container" << std::endl;
 }
 
-int	main( void ){
-	std::vector<int>	v;
-	std::vector<int>::iterator	it;
+void findNumber(std::vector<int> v, int n) {
+	std::vector<int>::iterator it;
+
+	std::cout << "LET'S FIND " << n << " IN V" << std::endl;
+	try {
+		it = easyfind(v, n);
+		std::cout << "found " << n << " in vector" << std::endl;
+	}
+	catch (std::exception& e) {
+		it = v.end();
+		std::cout << e.what() << std::endl;
+	}
+	displayIterator(it, v.end());
+	std::cout << std::endl;
+}
+
+int	main() {
+	std::vector<int> v;
 
 	for (int i = 1; i < 60; i+=2)
 		v.push_back(i);
-	try {
-		it = easyfind(v, 43);
-		std::cout << "found 43 in v" << std::endl;
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-		it = v.end();
-	}
-	displayIterator(it, v.end());
-	try {
-		it = easyfind(v, 42);
-		std::cout << "found 42 in v" << std::endl;
-	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-		it = v.end();
-	}
-	displayIterator(it, v.end());
+	std::cout << "=====v: " << std::endl;
+	for (int i = 0; i < v.size(); i++)
+		std::cout << v[i] << " ";
+	std::cout << std::endl;
+
+	findNumber(v, 41);
+	findNumber(v, 42);
+	findNumber(v, 43);
+
+	return 0;
 }
