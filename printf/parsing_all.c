@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 02:25:52 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/24 17:58:31 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:03:16 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void		parsing_minus(const char **str, t_flag *flag)
+void	parsing_minus(const char **str, t_flag *flag)
 {
 	flag->minus = 1;
 	(*str)++;
 }
 
-void		parsing_zero(const char **str, t_flag *flag)
+void	parsing_zero(const char **str, t_flag *flag)
 {
 	flag->zero = 1;
 	(*str)++;
 }
 
-void		parsing_width(const char **str, t_flag *flag, va_list *ap)
+void	parsing_width(const char **str, t_flag *flag, va_list *ap)
 {
-	int n;
+	int	n;
 
 	if (**str == '*')
 	{
@@ -48,7 +48,7 @@ void		parsing_width(const char **str, t_flag *flag, va_list *ap)
 
 static void	parsing_prec_star(t_flag *flag, va_list *ap, const char **str)
 {
-	long long n;
+	long long	n;
 
 	n = va_arg(*ap, int);
 	if (n < 0)
@@ -60,7 +60,7 @@ static void	parsing_prec_star(t_flag *flag, va_list *ap, const char **str)
 	(*str)++;
 }
 
-void		parsing_prec(const char **str, t_flag *flag, va_list *ap)
+void	parsing_prec(const char **str, t_flag *flag, va_list *ap)
 {
 	flag->dot = 1;
 	(*str)++;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:31:10 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/24 18:00:52 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:05:15 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void		print_c(t_pt *pt, char val)
+void	print_c(t_pt *pt, char val)
 {
 	int	i;
 
@@ -32,10 +32,10 @@ void		print_c(t_pt *pt, char val)
 	g_bt += pt->b_len + pt->v_len;
 }
 
-void		print_s(t_pt *pt, char *val)
+void	print_s(t_pt *pt, char *val)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = -1;
 	k = -1;
@@ -58,7 +58,7 @@ void		print_s(t_pt *pt, char *val)
 
 static void	print_p_null(t_pt *pt)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->minus == 0)
@@ -75,9 +75,9 @@ static void	print_p_null(t_pt *pt)
 	}
 }
 
-void		print_p(t_pt *pt, unsigned long val)
+void	print_p(t_pt *pt, unsigned long val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->v_len == 0)
@@ -102,9 +102,9 @@ void		print_p(t_pt *pt, unsigned long val)
 	g_bt += pt->v_len + pt->b_len + 2;
 }
 
-void		print_per(t_pt *pt, char val)
+void	print_per(t_pt *pt, char val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->z_len > 0)

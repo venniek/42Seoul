@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 16:15:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/24 18:22:32 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:04:07 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define ERROR -1
 
-typedef struct	s_flag
+typedef struct s_flag
 {
 	char		minus;
 	char		zero;
@@ -34,7 +34,7 @@ typedef struct	s_flag
 	char		type;
 }				t_flag;
 
-typedef struct	s_pt
+typedef struct s_pt
 {
 	int			b_len;
 	int			z_len;
