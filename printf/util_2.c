@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   util_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:23:45 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 16:23:51 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:04:29 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void		ft_putchar(char c)
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-void		ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ void		ft_putstr(char *s)
 	}
 }
 
-void		ft_putnbr(long long n)
+void	ft_putnbr(long long n)
 {
 	if (n == -2147483648)
 		ft_putstr("-2147483648");
@@ -48,7 +48,7 @@ void		ft_putnbr(long long n)
 	}
 }
 
-void		ft_putnbr_hex(unsigned long n, char c)
+void	ft_putnbr_hex(unsigned long n, char c)
 {
 	if (n >= 16)
 		ft_putnbr_hex(n / 16, c);
@@ -58,7 +58,7 @@ void		ft_putnbr_hex(unsigned long n, char c)
 		ft_putchar(HEX_U[n % 16]);
 }
 
-char		*ft_strchr(char *str, int a)
+char	*ft_strchr(char *str, int a)
 {
 	size_t	i;
 	char	*s;

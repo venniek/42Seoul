@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 04:36:59 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 04:37:07 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:05:58 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	print_else(t_pt *pt)
 {
-	int k;
+	int	k;
 
 	k = -1;
 	if (pt->minus / 10 == 1)
@@ -23,9 +23,9 @@ static void	print_else(t_pt *pt)
 		ft_putchar('0');
 }
 
-void		print_d(t_pt *pt, long long val)
+void	print_d(t_pt *pt, long long val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->minus % 10 == 0)
@@ -45,9 +45,9 @@ void		print_d(t_pt *pt, long long val)
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
-void		print_u(t_pt *pt, unsigned int val)
+void	print_u(t_pt *pt, unsigned int val)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->minus % 10 == 0)
@@ -67,9 +67,9 @@ void		print_u(t_pt *pt, unsigned int val)
 	g_bt += pt->b_len + pt->z_len + pt->v_len + pt->minus / 10;
 }
 
-void		print_x(t_pt *pt, unsigned int val, char c)
+void	print_x(t_pt *pt, unsigned int val, char c)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (pt->minus % 10 == 0)

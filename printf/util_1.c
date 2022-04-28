@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naykim <naykim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: nayeon <nayeon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:23:28 by naykim            #+#    #+#             */
-/*   Updated: 2021/04/13 16:23:34 by naykim           ###   ########.fr       */
+/*   Updated: 2022/04/09 20:06:30 by nayeon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ long long	ft_max(long long a, long long b)
 		return (b);
 }
 
-size_t		ft_len(unsigned long n, int base)
+size_t	ft_len(unsigned long n, int base)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (n == 0)
@@ -43,9 +43,9 @@ size_t		ft_len(unsigned long n, int base)
 	return (i);
 }
 
-size_t		ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (str[i])
@@ -53,7 +53,7 @@ size_t		ft_strlen(char *str)
 	return (i);
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	atoi;
 	int	i;
