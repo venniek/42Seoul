@@ -1,8 +1,8 @@
 #ifndef __VECTOR_HPP__
-#ifndef __VECTOR_HPP__
+#define __VECTOR_HPP__
 
 namespace ft {
-    template <typename T, >
+    template <typename T, typename Alloc = allocator<T> >
     class vector {
     private:
         typedef allocator_type::reference reference;
@@ -10,10 +10,10 @@ namespace ft {
     public:
         explicit vector (const allocator_type& alloc = allocator_type());
         explicit vector (size_type n, const value_type& val = value_type(),
-                const allocator_type& alloc = allocator_type());
+                        const allocator_type& alloc = allocator_type());
         template <class InputIterator>
-        vector (InputIterator first, InputIterator last,
-                const allocator_type& alloc = allocator_type());
+                    vector (InputIterator first, InputIterator last,
+                        const allocator_type& alloc = allocator_type());
         vector (const vector& x);
         ~vector();
         vector& operator=(const vector& x);
