@@ -86,12 +86,12 @@ namespace ft {
 
     template<typename T, typename InputIterator>
     typename iterator_traits<T *>::difference_type distance2(InputIterator first, InputIterator last) {
-        typename iterator_traits<T *>::difference_type rtn = 0;
+        typename iterator_traits<T *>::difference_type cnt = 0;
         while (first != last) {
             first++;
-            rtn++;
+            cnt++;
         }
-        return (rtn);
+        return (cnt);
     }
 
     // RI == Random Iterator
@@ -105,11 +105,15 @@ namespace ft {
         typedef typename iterator_traits<iterator_type*>::reference reference;
         RI* _ptr;
 
-        // constructor ========
+        // ================ constructor ==============================================
+        // default
         vector_iter() : _ptr(0) {};
-        vector_iter(RI *ptr) : _ptr(ptr) {};
-        vector_iter(const vector_iter &rhd) : +ptr(rhd._ptr) {};
-        vector_iter& operator=(const vector_iter &rhd) { // b = a;
+        // with argument
+        vector_iter(iterator_type *ptr) : _ptr(ptr) {};
+        // copy
+        vector_iter(const vector_iter &rhd) : _ptr(rhd._ptr) {};
+        // operator= overload
+        vector_iter& operator=(const vector_iter &rhd) {
             if (this == &rhd)
                 return (*this);
             this->_ptr = rhd._ptr;
@@ -118,129 +122,85 @@ namespace ft {
 
         // input_iterator_tag
         template<typename U>
-        bool operator==(const vector_iter<UI> &rhd) const; // a == b
-        template<typename U>
-        bool operator!=(const vector_iter<U> &rhd) const; // a != b
-        RI& operator*() const; // &*a
-        RI* operator->() const; // a->m
-
-        // bidirectional_iterator_tag
-        vector_iter& operator--(); // --a;
-        vector_iter operator--(int);
-        vector_iter& operator++(); // ++a;
-        vector_iter operator++(int); // a++;
-
-        // vector_iter
-        vector_iter operator+(difference_type n) const; // a + n;
-        vector_iter operator-(difference_type n) const; // a - n;
-        template<typename U>
-        difference_type operator-(const vector_iter<U> &rhd) const;
-        friend vector_iter operator+(difference_type n, const vector_iter &rhd) {
-            return rhd.operator+(n);
+        bool operator==(const vector_iter<U> &rhd) const {
+            return this->_ptr == rhd._ptr;
         }
         template<typename U>
-        bool operator<(const vector_iter<U> &rhd) const;
+        bool operator!=(const vector_iter<U> &rhd) const; {
+            return this->_ptr != rhd._ptr;
+        }
+        RI& operator*() const {
+            return *(this->_ptr);
+        }
+        RI* operator->() const {
+            return this->_ptr;
+        }
+
+        // bidirectional_iterator_tag
+        vector_iter& operator--() { // --a
+            --(this->_ptr);
+            return *this;
+        }
+        vector_iter operator--(int) { // a--
+            vector_iter tmp(*this);
+            (this->_ptr)--;
+            return tmp;
+        }
+        vector_iter& operator++() { // ++a
+            ++(this->_ptr);
+            return *this;
+        }
+        vector_iter operator++(int) { // a++
+            vector_iter tmp(*this);
+            (this->_ptr)++;
+            return tmp;
+        }
+
+        // vector_iter
+        vector_iter operator+(difference_type n) const {
+            return this->_ptr + n;
+        }
+        vector_iter operator-(difference_type n) const {
+            return this->_ptr - n;
+        }
         template<typename U>
-        bool operator>(const vector_iter<U> &rhd) const;
+        difference_type operator-(const vector_iter<U> &rhd) const {
+            return this->_ptr - rhd._ptr;
+        }
+        friend vector_iter operator+(difference_type n, const vector_iter &rhd) {
+            return this->_ptr + rhd._ptr;
+        }
         template<typename U>
-        bool operator<=(const vector_iter<U> &rhd) const;
+        bool operator<(const vector_iter<U> &rhd) const {
+            return this->_ptr < rhd._ptr;
+        }
         template<typename U>
-        bool operator>=(const vector_iter<U> &rhd) const;
-        vector_iter& operator+=(difference_type n); // a + n;
-        vector_iter& operator[](const difference_type n) const; // a[n];
+        bool operator>(const vector_iter<U> &rhd) const {
+            return this->_ptr > rhd._ptr;
+        }
+        template<typename U>
+        bool operator<=(const vector_iter<U> &rhd) const {
+            return this->_ptr <= rhd._ptr;
+        }
+        template<typename U>
+        bool operator>=(const vector_iter<U> &rhd) const {
+            return this->_ptr >= rhd._ptr;
+        }
+        vector_iter& operator+=(difference_type n) {
+            this->_ptr = this->_ptr + n;
+            return *this;
+        }
+        vector_iter& operator-=(difference_type n) {
+            this->_ptr = this->_ptr - n;
+            return *this;
+        }
+        vector_iter& operator[](const difference_type n) const {
+            return *(this->_ptr + n);
+        }
         operator vector_iter(const RI) () const {
             return (vector_iter<const RI)(this->_ptr));
         }
     };
-    // input_iter
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator==(const vector_iter<U> &rhd) const {
-        return (this->_ptr == rhd._ptr);
-    }
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator!=(const vector_iter<U> &rhd) const {
-        return this->_ptr != rhd._ptr;
-    }
-    template<typename RI>
-    RI &vector_iter<RI>::operator*() const { // *a
-        return *(this->_ptr);
-    }
-    template<typename RI>
-    RI* vector_iter<RI>::operator->() const {
-        return this->_ptr;
-    }
-    //bidirectional
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator--() { // --a;
-        --(this->_ptr);
-        return *this;
-    }
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator--(int) { // a--;
-        vector_iter<RI> tmp(*this);
-        (this->_ptr)--;
-        return tmp;
-    }
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator++() { // ++a;
-        ++(this->_ptr);
-        return *this;
-    }
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator++(int) { // a++;
-        vector_iter<RI> tmp(*this);
-        (this->_ptr)++;
-        return tmp;
-    }
-    template<typename RI>
-    vector_iter<RI> vector_iter<RI>::operator+(difference_type n) const {
-        return vector_iter<RI> (this->_ptr + n);
-    }
-    template<typename RI>
-    vector_iter<RI> vector_iter<RI>::operator-(difference_type n) const {
-        return vector_iter<RI> (this->_ptr - n);
-    }
-    template<typename RI>
-    template<typename U>
-    typename iterator_traits<RI*>::difference_type vector_iter<RI>::operator-(const vector_iter<U> &rhd) const {
-        return this->_ptr - rhd._ptr;
-    }
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator<(const vector_iter<U> &rhd) const {
-        return this->_ptr < rhd._ptr;
-    }
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator>(const vector_iter<U> &rhd) const {
-        return this->_ptr < rhd._ptr;
-    }
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator<=(const vector_iter<U> &rhd) const {
-        return this->_ptr < rhd._ptr;
-    }
-    template<typename RI>
-    template<typename U>
-    bool vector_iter<RI>::operator>=(const vector_iter<U> &rhd) const {
-        return this->_ptr < rhd._ptr;
-    }
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator+=(difference_type n) {
-        this->_ptr = this->ptr + n;
-        return *this;
-    }
-    template<typename RI>
-    vector_iter<RI>& vector_iter<RI>::operator-=(difference_type n) {
-        this->_ptr = this->ptr - n;
-        return *this;
-    }
-    template<typename RI>
-    RI& vector_iter<RI>::operator[](const difference_)type n) const {
-        return *(this->_ptr + n);
-    }
 
     // reverse iterator
     template<typename T>
@@ -293,7 +253,6 @@ namespace ft {
             ++(_ptr);
             return (rhd);
 		}
-
 		reverse_iterator_tag& operator-=(difference_type n) {
             _ptr += n;
             return (*this);

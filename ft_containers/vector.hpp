@@ -1,6 +1,8 @@
 #ifndef __VECTOR_HPP__
 #define __VECTOR_HPP__
 
+# include "vector_iter.hpp"
+
 namespace ft {
     template <typename T, typename Alloc = allocator<T> >
     class vector {
