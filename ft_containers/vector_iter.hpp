@@ -67,7 +67,7 @@ namespace ft {
     struct iterator_traits {
         typedef typename iterator::value_type value_type;
         typedef typename iterator::difference_type difference_type;
-        typedef typename iterator::pointer;
+        typedef typename iterator::pointer pointer;
         typedef typename iterator::reference reference;
     };
     template<typename T>
@@ -127,7 +127,7 @@ namespace ft {
             return this->_ptr == rhd._ptr;
         }
         template<typename U>
-        bool operator!=(const vector_iter<U> &rhd) const; {
+        bool operator!=(const vector_iter<U> &rhd) const {
             return this->_ptr != rhd._ptr;
         }
         RI& operator*() const {
@@ -161,6 +161,7 @@ namespace ft {
         vector_iter operator+(difference_type n) const {
             return this->_ptr + n;
         }
+
         vector_iter operator-(difference_type n) const {
             return this->_ptr - n;
         }
@@ -169,7 +170,7 @@ namespace ft {
             return this->_ptr - rhd._ptr;
         }
         friend vector_iter operator+(difference_type n, const vector_iter &rhd) {
-            return this->_ptr + rhd._ptr;
+            return rhd.operator+(n);
         }
         template<typename U>
         bool operator<(const vector_iter<U> &rhd) const {
@@ -195,11 +196,11 @@ namespace ft {
             this->_ptr = this->_ptr - n;
             return *this;
         }
-        vector_iter& operator[](const difference_type n) const {
+        RI& operator[](const difference_type n) const {
             return *(this->_ptr + n);
         }
-        operator vector_iter(const RI) () const {
-            return (vector_iter<const RI)(this->_ptr));
+        operator vector_iter<const RI> () const {
+            return (vector_iter<const RI>(this->_ptr));
         }
     };
 
