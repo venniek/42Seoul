@@ -29,7 +29,7 @@ namespace ft {
         typedef reverse_iterator_tag<const_iterator> const_reverse_iterator;
 
         // constructor, destructor, operator=---------------------------------------
-        explicit vector(const allocator_type& alloc = allocator_type()) : _alloc(alloc), _array(0), _size(0), _capacity(1) {};        
+        explicit vector(const allocator_type& alloc = allocator_type()) : _alloc(alloc), _array(0), _size(0), _capacity(0) {};        
         explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n) {
             _array = _alloc.allocate(n);
             for (size_type i = 0; i < n; i++)
@@ -77,7 +77,7 @@ namespace ft {
 
         // capacity =======================================================
         size_type size() const {
-            return _size();
+            return _size;
         }
         size_type max_size() const {
             return _alloc.max_size();
@@ -86,6 +86,7 @@ namespace ft {
             if (n < _size) {
                 
                 _size = n;
+
             }
             else if (n > _size) {
                 if (n > _capacity) {
@@ -166,9 +167,8 @@ namespace ft {
         }
         void push_back(const value_type& val) {
             if (_size == _capacity)
-                reserve(_capacity * 2);
+                reserve(_capacity == 0 ? 1 : _capacity * 2);
             insert(end(), val);
-            ++_size;
         }
         void pop_back() {
             _alloc.destroy(end() - 1);
