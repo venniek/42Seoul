@@ -6,8 +6,8 @@ using namespace std;
 int main() {
     vector<int> std_int;
     ft::vector<int> ft_int;
-    vector<string> std_str;
-    ft::vector<string> ft_str;
+    // vector<string> std_str;
+    // ft::vector<string> ft_str;
 
     // std_int===========================
     std_int.push_back(1);
@@ -15,19 +15,17 @@ int main() {
     std_int.push_back(3);
     std_int.push_back(4);
 
-    // // cout << "1" << endl;
-    // // ft_int============================
+    // ft_int============================
     ft_int.push_back(1);
-    cout << "2" << endl;
-    // ft_int.push_back(2);
-    // ft_int.push_back(3);
-    // ft_int.push_back(4);
+    ft_int.push_back(2);
+    ft_int.push_back(3);
+    ft_int.push_back(4);
 
-    // // begin
-    // cout << "begin: " << endl;
-    // cout << "std::begin(): " << *std_int.begin() << endl;
-    // cout << "ft::begin(): " << *ft_int.begin() << endl;
-    // cout << endl;
+    // begin
+    cout << "begin: " << endl;
+    cout << "std::begin(): " << *std_int.begin() << endl;
+    cout << "ft::begin(): " << *ft_int.begin() << endl;
+    cout << endl;
     
     // // end
     // cout << "end: " << endl;

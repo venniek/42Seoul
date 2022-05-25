@@ -3,6 +3,7 @@
 
 # include "vector_iter.hpp"
 # include <iostream>
+# include <memory>
 
 namespace ft {
     template <typename T, typename Alloc = std::allocator<T> >
@@ -28,20 +29,19 @@ namespace ft {
         typedef reverse_iterator_tag<const_iterator> const_reverse_iterator;
 
         // constructor, destructor, operator=---------------------------------------
-        explicit vector(const allocator_type& alloc = allocator_type()) : _alloc(alloc), _array(0), _size(0), _capacity(0) {};        
+        explicit vector(const allocator_type& alloc = allocator_type()) : _alloc(alloc), _array(0), _size(0), _capacity(1) {};        
         explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _size(n), _capacity(n) {
             _array = _alloc.allocate(n);
             for (size_type i = 0; i < n; i++)
                 _alloc.construct(_array + i, val);
         }
-        template <class InputIterator>
-        vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc) {
+        vector(iterator first, iterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc) {
             difference_type diff = last - first;
             _array = _alloc.allocate(diff);
             _size = diff;
             _capacity = diff;
             for (int i = 0; i < diff; i++)
-                _alloc.construct(_array + i, *(first + i));
+                _alloc.construct(_array + i, first + i);
         }
         vector(const vector& x) {
             *this = x;
@@ -112,6 +112,7 @@ namespace ft {
                 for (size_t i = 0; i < _size; i++) {
                     _alloc.construct(tmp + i, _array[i]);
                 }
+				// _alloc.deallocate(_array);
                 // free_array(_size, _capacity, &_array, _alloc);
                 _array = tmp;
                 _capacity = n;
@@ -167,7 +168,6 @@ namespace ft {
             if (_size == _capacity)
                 reserve(_capacity * 2);
             insert(end(), val);
-            std::cout << "after insert" << std::endl;
             ++_size;
         }
         void pop_back() {
@@ -179,9 +179,7 @@ namespace ft {
                 reserve(_capacity * 2);
             for (size_type i = _size; i > size_type(position - begin()); --i)
                 _array[i] = _array[i - 1];
-            std::cout << position - begin() << std::endl;
-            _array[position - begin()] = val;
-            std::cout << "after position - begin()" << std::endl;
+			_array[position - begin()] = val;
             ++_size;
             return position;
         }
