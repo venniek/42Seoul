@@ -3,7 +3,7 @@ SRCS = test_vector.cpp
 CPP = c++
 FLAG = -Werror -Wall -Wextra -std=c++98
 
-NAME = Vector
+NAME = FT_containers
 
 $(NAME): $(SRCS)
 	$(CPP) $(FLAG) -o $(NAME) $(SRCS)

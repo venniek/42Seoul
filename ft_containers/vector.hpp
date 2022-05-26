@@ -83,22 +83,13 @@ namespace ft {
             return _alloc.max_size();
         }
         void resize (size_type n, value_type val = value_type()) {
-            if (n < _size) {
-                
-                _size = n;
-
+            while (_size > n)
+                pop_back();
+            if (n > _capacity) {
+                reserve(n);
             }
-            else if (n > _size) {
-                if (n > _capacity) {
-                    while (_size < n)
-                        push_back(val);
-                }
-                else {
-                    while (_size < n)
-                        _array[_size++] = val;
-                }
-                _size = n;
-            }
+            while (_size < n)
+                _array[_size++] = val;
         }
         size_type capacity() const {
             return _capacity;
@@ -108,12 +99,12 @@ namespace ft {
         }
         void reserve (size_type n) {
             if (n > _capacity) {
-                T* tmp = _alloc.allocate(n);
+                value_type* tmp = _alloc.allocate(n);
                 size_type tmp_size = _size;
                 for (size_t i = 0; i < _size; i++) {
                     _alloc.construct(tmp + i, _array[i]);
                 }
-				// _alloc.deallocate(_array);
+				_alloc.deallocate(_array, _size);
                 // free_array(_size, _capacity, &_array, _alloc);
                 _array = tmp;
                 _capacity = n;
@@ -154,13 +145,12 @@ namespace ft {
         // element access =================================================
         
         // modifier========================================================
-        template <class InputIterator>
-        void assign (InputIterator first, InputIterator last) {
+        void assign(iterator first, iterator last) {
             clear();
-            for (InputIterator i = first; i < last; ++i)
-                push_back(*i);
+            for (iterator i = first; i < last; ++i)
+                push_back(i);
         }
-        void assign (size_type n, const value_type& val) {
+        void assign(size_type n, const value_type& val) {
             clear();
             for (size_type i = 0; i < n; ++i)
                 push_back(val);
@@ -171,10 +161,12 @@ namespace ft {
             insert(end(), val);
         }
         void pop_back() {
-            _alloc.destroy(end() - 1);
-            --_size;
+            if (_size != 0) {
+                --_size;
+                _alloc.destroy(_array + _size);
+            }
         }
-        iterator insert (iterator position, const value_type& val) {
+        iterator insert(iterator position, const value_type& val) {
             if (_size + 1 > _capacity)
                 reserve(_capacity * 2);
             for (size_type i = _size; i > size_type(position - begin()); --i)
@@ -183,7 +175,7 @@ namespace ft {
             ++_size;
             return position;
         }
-        void insert (iterator position, size_type n, const value_type& val) {
+        void insert(iterator position, size_type n, const value_type& val) {
             if (_size + n > _capacity)
                 reserve(_capacity * 2);
             for (size_type i = _size + n - 1; i > position - begin(); --i)
@@ -192,7 +184,7 @@ namespace ft {
                 insert(i, val);
         }
         template <class InputIterator>
-            void insert (iterator position, InputIterator first, InputIterator last) {
+            void insert(iterator position, InputIterator first, InputIterator last) {
             size_type n = last - first;
             if (_size + n > _capacity)
                 reserve(_capacity * 2);
@@ -201,19 +193,21 @@ namespace ft {
             for (size_type i = 0; i < n; ++i)
                 insert(position + i, *(first + i));
             }
-        iterator erase (iterator position) {
+        iterator erase(iterator position) {
             for (iterator i = position; i < end() - 1; ++i)
                 _array[i - begin()] = _array[i - begin() + 1];
             pop_back();
+            return position;
         }
-        iterator erase (iterator first, iterator last) {
+        iterator erase(iterator first, iterator last) {
             size_type diff = last - first;
             for (size_type i = first - begin(); i < _size - diff; ++i)
                 _array[i] = _array[i + diff];
             for (size_type i = 0; i < diff; ++i)
                 pop_back();
+            return first;
         }
-        void swap (vector<value_type>& x) {
+        void swap(vector<value_type>& x) {
             for (size_type i = 0; i < std::min(_size, x.size()); ++i) {
                 value_type tmp = x[i];
                 x[i] = _array[i];
@@ -290,25 +284,6 @@ namespace ft {
     }
     template <typename T, typename Alloc>
     void swap(vector<T,Alloc>& x, vector<T,Alloc>& y) {   
-        // for (size_type i = 0; i < std::min(x.size(), y.size()); ++i) {
-        //     value_type tmp = x[i];
-        //     x[i] = y[i];
-        //     y[i] = tmp;
-        // }
-        // if (y.size() >= x.size()) {
-        //     size_type size_tmp = x.size();
-        //     for (size_type i = size_tmp; i < y.size(); ++i)
-        //         x.push_back(y[i]);
-        //     while (y.size() != size_tmp)
-        //         pop_back();
-        // }
-        // else {
-        //     size_type size_tmp = y.size();
-        //     for (size_type i = size_tmp; i < x.size(); ++i)
-        //         y.push_back(x[i]);
-        //     while (x.size() != size_tmp)
-        //         x.pop_back();
-        // }
         x.swap(y);
     }
     // nonmember function overload=====================================
