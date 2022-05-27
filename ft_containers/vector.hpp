@@ -40,25 +40,33 @@ namespace ft {
             _array = _alloc.allocate(diff);
             _size = diff;
             _capacity = diff;
-            for (int i = 0; i < diff; i++)
-                _alloc.construct(_array + i, first + i);
+            for (difference_type i = 0; i < diff; ++i)
+                _alloc.construct(_array + i, *(first + i));
         }
-        vector(const vector& x) {
+        vector(const vector& x): _array(0), _size(0), _capacity(0) {
             *this = x;
         }
         ~vector() {
-            _alloc.deallocate(_array, _capacity);
+            clear();
+            if (_array)
+                _alloc.deallocate(_array, _capacity);
+            _array = 0;
         }
         vector& operator=(const vector& x) {
             if (this != &x) {
+                if (this->_array) {
+                    clear();
+                   _alloc.deallocate(this->_array, this->_capacity);
+                    this->_array = 0;
+                    this->_size = 0;
+                    this->_capacity = 0;
+                }
                 this->_alloc = x._alloc;
-                if (this->_array)
-                    _alloc.deallocate(this->_array, this->_capacity);
-                this->_array = allocate(x._size);
-                this->_size = x._size;
-                for (int i = 0; i < this->_size; i++)
-                    this->_alloc.construct(this->_array + i, *(x.begin() + i));
+                this->_array = _alloc.allocate(x._capacity);
                 this->_capacity = x._capacity;
+                for (size_type i = 0; i < x._size; ++i)
+                    _alloc.construct(this->_array + i, x[i]);
+                this->_size = x._size;
             }
             return *this;
         }
@@ -104,8 +112,11 @@ namespace ft {
                 for (size_t i = 0; i < _size; i++) {
                     _alloc.construct(tmp + i, _array[i]);
                 }
-				_alloc.deallocate(_array, _size);
-                // free_array(_size, _capacity, &_array, _alloc);
+				                    clear();
+                   _alloc.deallocate(this->_array, this->_capacity);
+                    this->_array = 0;
+                    this->_size = 0;
+                    this->_capacity = 0;
                 _array = tmp;
                 _capacity = n;
                 _size = tmp_size;
@@ -148,7 +159,7 @@ namespace ft {
         void assign(iterator first, iterator last) {
             clear();
             for (iterator i = first; i < last; ++i)
-                push_back(i);
+                push_back(*i);
         }
         void assign(size_type n, const value_type& val) {
             clear();
@@ -184,15 +195,16 @@ namespace ft {
                 insert(i, val);
         }
         template <class InputIterator>
-            void insert(iterator position, InputIterator first, InputIterator last) {
+        void insert(iterator position, InputIterator first, InputIterator last) {
             size_type n = last - first;
+            difference_type diff = position - begin();
             if (_size + n > _capacity)
                 reserve(_capacity * 2);
-            for (size_type i = _size + n - 1; i > position - begin(); --i)
+            for (difference_type i = _size + n - 1; i > diff; --i)
                 _array[i] = _array[i - n];
-            for (size_type i = 0; i < n; ++i)
+            for ( i = 0; i < n; ++i)
                 insert(position + i, *(first + i));
-            }
+        }
         iterator erase(iterator position) {
             for (iterator i = position; i < end() - 1; ++i)
                 _array[i - begin()] = _array[i - begin() + 1];
@@ -208,25 +220,20 @@ namespace ft {
             return first;
         }
         void swap(vector<value_type>& x) {
-            for (size_type i = 0; i < std::min(_size, x.size()); ++i) {
-                value_type tmp = x[i];
-                x[i] = _array[i];
-                _array[i] = tmp;
-            }
-            if (_size >= x.size()) {
-                size_type size_tmp = x.size();
-                for (size_type i = size_tmp; i < _size; ++i)
-                    x.push_back(_array[i]);
-                while (_size != size_tmp)
-                    pop_back();
-            }
-            else {
-                size_type size_tmp = _size;
-                for (size_type i = size_tmp; i < x.size(); ++i)
-                    push_back(x[i]);
-                while (x.size() != size_tmp)
-                    x.pop_back();
-            }
+            allocator_type tmp_alloc = x._alloc;
+            value_type* tmp_array = x._array;
+            size_type tmp_size = x._size;
+            size_type tmp_capacity = x._capacity;
+ 
+            x._alloc = this->_alloc;
+            x._array = this->_array;
+            x._size = this->_size;
+            x._capacity = this->_capacity;
+
+            this->_alloc = tmp_alloc;
+            this->_array = tmp_array;
+            this->_size = tmp_size;
+            this->_capacity = tmp_capacity;
         }
         void clear() {
             while (_size > 0)
