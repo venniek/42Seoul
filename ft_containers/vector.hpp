@@ -50,7 +50,6 @@ namespace ft {
             clear();
             if (_array)
                 _alloc.deallocate(_array, _capacity);
-            _array = 0;
         }
         vector& operator=(const vector& x) {
             if (this != &x) {
@@ -106,7 +105,12 @@ namespace ft {
             return _size == 0;
         }
         void reserve (size_type n) {
-            if (n > _capacity) {
+            if (n == 0) {
+                _array = _alloc.allocate(1);
+                _capacity = 1;
+                _size = 0;
+            }
+            else if (n > _capacity) {
                 value_type* tmp = _alloc.allocate(n);
                 size_type tmp_size = _size;
                 for (size_t i = 0; i < _size; i++) {
@@ -168,7 +172,7 @@ namespace ft {
         }
         void push_back(const value_type& val) {
             if (_size == _capacity)
-                reserve(_capacity == 0 ? 1 : _capacity * 2);
+                reserve(_capacity * 2);
             insert(end(), val);
         }
         void pop_back() {
@@ -178,32 +182,33 @@ namespace ft {
             }
         }
         iterator insert(iterator position, const value_type& val) {
+            size_type diff = position - begin();
             if (_size + 1 > _capacity)
                 reserve(_capacity * 2);
-            for (size_type i = _size; i > size_type(position - begin()); --i)
+            for (size_type i = _size; i > diff; --i)
                 _array[i] = _array[i - 1];
-			_array[position - begin()] = val;
+            _alloc.construct(_array + diff, val);
             ++_size;
             return position;
         }
         void insert(iterator position, size_type n, const value_type& val) {
+            size_type diff = position - begin();
             if (_size + n > _capacity)
                 reserve(_capacity * 2);
-            for (size_type i = _size + n - 1; i > position - begin(); --i)
+            for (size_type i = _size + n - 1; i > diff; --i)
                 _array[i] = _array[i - n];
             for (iterator i = position; i < position + n; ++i)
                 insert(i, val);
         }
-        template <class InputIterator>
-        void insert(iterator position, InputIterator first, InputIterator last) {
+        void insert(iterator position, iterator first, iterator last) {
             size_type n = last - first;
-            difference_type diff = position - begin();
+            size_type diff = position - begin();
             if (_size + n > _capacity)
                 reserve(_capacity * 2);
-            for (difference_type i = _size + n - 1; i > diff; --i)
+            for (size_type i = _size + n - 1; i > diff; --i)
                 _array[i] = _array[i - n];
-            for ( i = 0; i < n; ++i)
-                insert(position + i, *(first + i));
+            for (size_type i = 0; i < n; ++i)
+                _array[diff + i] = *(first + i);
         }
         iterator erase(iterator position) {
             for (iterator i = position; i < end() - 1; ++i)
