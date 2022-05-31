@@ -2,6 +2,7 @@
 #define __VECTOR_HPP__
 
 # include "vector_iter.hpp"
+# include "utils.hpp"
 # include <iostream>
 # include <memory>
 
@@ -35,7 +36,9 @@ namespace ft {
             for (size_type i = 0; i < n; i++)
                 _alloc.construct(_array + i, val);
         }
-        vector(iterator first, iterator last, const allocator_type& alloc = allocator_type()): _alloc(alloc) {
+        template <typename InputIterator>
+        vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+        typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr): _alloc(alloc) {
             difference_type diff = last - first;
             _array = _alloc.allocate(diff);
             _size = diff;
@@ -113,14 +116,10 @@ namespace ft {
             else if (n > _capacity) {
                 value_type* tmp = _alloc.allocate(n);
                 size_type tmp_size = _size;
-                for (size_t i = 0; i < _size; i++) {
+                for (size_t i = 0; i < _size; i++)
                     _alloc.construct(tmp + i, _array[i]);
-                }
-				                    clear();
-                   _alloc.deallocate(this->_array, this->_capacity);
-                    this->_array = 0;
-                    this->_size = 0;
-                    this->_capacity = 0;
+                clear();
+                _alloc.deallocate(this->_array, this->_capacity);
                 _array = tmp;
                 _capacity = n;
                 _size = tmp_size;
@@ -161,12 +160,25 @@ namespace ft {
         
         // modifier========================================================
         void assign(iterator first, iterator last) {
+            difference_type n = last - first;
             clear();
+            if (n > _capacity) {
+                if (n > _capacity * 2)
+                    reserve(n);
+                else
+                    reserve(_capacity * 2);
+            }
             for (iterator i = first; i < last; ++i)
                 push_back(*i);
         }
         void assign(size_type n, const value_type& val) {
             clear();
+            if (_size + n > _capacity) {
+                if (_size + n > _capacity * 2)
+                    reserve(_size + n);
+                else
+                    reserve(_capacity * 2);
+            }
             for (size_type i = 0; i < n; ++i)
                 push_back(val);
         }
@@ -183,8 +195,12 @@ namespace ft {
         }
         iterator insert(iterator position, const value_type& val) {
             size_type diff = position - begin();
-            if (_size + 1 > _capacity)
-                reserve(_capacity * 2);
+            if (_size + 1 > _capacity) {
+                if (_size + 1 > _capacity * 2)
+                    reserve(_size + 1);
+                else
+                    reserve(_capacity * 2);
+            }
             for (size_type i = _size; i > diff; --i)
                 _array[i] = _array[i - 1];
             _alloc.construct(_array + diff, val);
@@ -193,22 +209,34 @@ namespace ft {
         }
         void insert(iterator position, size_type n, const value_type& val) {
             size_type diff = position - begin();
-            if (_size + n > _capacity)
-                reserve(_capacity * 2);
+            if (_size + 1 > _capacity) {
+                if (_size + n > _capacity * 2)
+                    reserve(_size + n);
+                else
+                    reserve(_capacity * 2);
+            }
             for (size_type i = _size + n - 1; i > diff; --i)
                 _array[i] = _array[i - n];
-            for (iterator i = position; i < position + n; ++i)
-                insert(i, val);
+            for (size_type i = 0; i < n; ++i) {
+                ++_size;
+                _array[diff + i] = val;
+            }
         }
         void insert(iterator position, iterator first, iterator last) {
             size_type n = last - first;
             size_type diff = position - begin();
-            if (_size + n > _capacity)
-                reserve(_capacity * 2);
+            if (_size + n > _capacity) {
+                if (_size + n > _capacity * 2)
+                    reserve(_size + n);
+                else
+                    reserve(_capacity * 2);
+            }
             for (size_type i = _size + n - 1; i > diff; --i)
                 _array[i] = _array[i - n];
-            for (size_type i = 0; i < n; ++i)
+            for (size_type i = 0; i < n; ++i) {
+                ++_size;
                 _array[diff + i] = *(first + i);
+            }
         }
         iterator erase(iterator position) {
             for (iterator i = position; i < end() - 1; ++i)
@@ -271,15 +299,7 @@ namespace ft {
     }
     template <typename T, typename Alloc>
     bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-        while (lhs.begin() != lhs.end()) {
-            if (rhs.begin() == rhs.end() || *lhs.begin() >= *rhs.begin()) 
-                return false;
-            else if (*lhs.begin() < *rhs.begin())
-                return true;
-            ++lhs.begin();
-            ++rhs.begin();
-        }
-        return (rhs.begin() != rhs.end());
+        return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
     }
     template <typename T, typename Alloc>
     bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {

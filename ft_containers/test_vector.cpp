@@ -179,44 +179,31 @@ using namespace std;
 //     return 0;
 // }
 #include "common.hpp"
+#include <list>
 
-#define  TESTED_NAMESPACE ft
 #define TESTED_TYPE int
-
 
 int		main(void)
 {
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(10);
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct2;
+	std::list<TESTED_TYPE> lst;
+	std::list<TESTED_TYPE>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+    std::vector<int> v;
+	for (int i = 1; i < 5; ++i)
+		v.push_back(i * 3);
 
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = (vct.size() - i) * 3;
+    //ft::vector<int> vft(v.begin(), v.end());
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(lst.begin(), lst.end());
 	printSize(vct);
 
-    std::cout << "---before vct2.insert(end(), 42)" << std::endl;
-	vct2.insert(vct2.end(), 42);
-    std::cout << "---before vct2.insert(begin(), 2, 21)" << std::endl;
-	vct2.insert(vct2.begin(), 2, 21);
-	printSize(vct2);
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	printSize(vct);
 
-    std::cout << "---before vct2.insert(end() - 2, 42)" << std::endl;
-	vct2.insert(vct2.end() - 2, 42);
-	printSize(vct2);
-
-    std::cout << "---before vct2.insert(end() - 2, 84)" << std::endl;
-	vct2.insert(vct2.end(), 2, 84);
-	printSize(vct2);
-
-    std::cout << "---before vct2.resize(4)" << std::endl;
-	// vct2.resize(4);
-	// printSize(vct2);
-
-    // std::cout << "---before vct2.insert(vct2.begin() + 2, vct.begin(), vct.end())" << std::endl;
-	// vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
-	// vct.clear();
-	// printSize(vct2);
-
-    // std::cout << "---before printSize(vct)" << std::endl;
-	// printSize(vct);
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	printSize(vct);
 	return (0);
 }

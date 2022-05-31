@@ -16,7 +16,12 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true
 	// Cannot limit capacity's max value because it's implementation dependent
 
 	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "capacity: ";
+	if (isCapacityOk  == "KO") {
+		std::cout << " size: " << size << " capacity: " << capacity << isCapacityOk << std::endl;
+	}
+	else
+		std::cout << "OK" << std::endl;
 	std::cout << "max_size: " << vct.max_size() << std::endl;
 	if (print_content)
 	{

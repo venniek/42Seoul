@@ -79,10 +79,10 @@ namespace ft {
     };
     template<typename T>
     struct iterator_traits<T* const> {
-    typedef T value_type;
-    typedef T* pointer;
-    typedef T& reference;
-    typedef ptrdiff_t difference_type;
+        typedef T value_type;
+        typedef T* pointer;
+        typedef T& reference;
+        typedef ptrdiff_t difference_type;
     };
 
     template<typename T, typename InputIterator>
@@ -213,7 +213,7 @@ namespace ft {
         typedef typename iterator_traits<T>::difference_type difference_type;
         typedef typename iterator_traits<T>::pointer pointer;
         typedef typename iterator_traits<T>::reference reference;
-    private:
+
         iterator_type _ptr;
     public:
         reverse_iterator_tag(): _ptr() {};
@@ -229,6 +229,9 @@ namespace ft {
         reverse_iterator_tag operator+(difference_type n) const {
 		    return (reverse_iterator_tag(_ptr - n));
 		}
+        friend reverse_iterator_tag operator+(difference_type n, const reverse_iterator_tag &rhd) {
+            return rhd.operator+(n);
+        }
 		reverse_iterator_tag& operator++() {
             --_ptr;
             return (*this);
@@ -270,12 +273,58 @@ namespace ft {
 		}
 		//설명 : operator= c+11에 있는데 사용하는 테스트기에 테스트가 있어서 만듬
 		template <class Iter>
-		reverse_iterator_tag& operator= (const reverse_iterator_tag<Iter>& rev_it)
+		reverse_iterator_tag& operator=(const reverse_iterator_tag<Iter>& rev_it)
 		{
 			this->_ptr = rev_it.base();
 			return (*this);
 		}
     };
+
+	//===========================Non-member function overloads======================
+	template <class Iterator>
+	reverse_iterator_tag<Iterator> operator+ (
+            typename reverse_iterator_tag<Iterator>::difference_type n,
+             const reverse_iterator_tag<Iterator>& rev_it)
+	{
+		return (reverse_iterator_tag<Iterator>(rev_it.base() - n)); //base 이름 바꾸자.
+	}
+	 
+	// 설명 : reverse_iterator - const_reverse_iterator
+	// 설명 : 이거 c+11기능인데, 테스트케이스에 있어서 그냥 해줬음.
+	// 설명 : c+98에는 left, right같은 타입만 받음.
+	template <class Iterator_left, class Iterator_right>
+	ptrdiff_t operator- (
+            const reverse_iterator_tag<Iterator_left>& lhs,
+             const reverse_iterator_tag<Iterator_right>& rhs)
+	{
+		return (rhs.base() - lhs.base()); //base 이름 바꾸자.
+	}
+
+	template <class Iterator1, class Iterator2>
+	  bool operator== (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() == rhs.base()); }
+	template <class Iterator1, class Iterator2>
+	  bool operator!= (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() != rhs.base()); }
+
+	template <class Iterator1, class Iterator2>
+	  bool operator<  (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() > rhs.base()); }
+	template <class Iterator1, class Iterator2>
+	  bool operator<= (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() >= rhs.base()); }
+	template <class Iterator1, class Iterator2>
+	  bool operator>  (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() < rhs.base()); }
+	template <class Iterator1, class Iterator2>
+	  bool operator>= (const reverse_iterator_tag<Iterator1>& lhs,
+					   const reverse_iterator_tag<Iterator2>& rhs)
+		{ return (lhs.base() <= rhs.base()); }
 
 }
 
