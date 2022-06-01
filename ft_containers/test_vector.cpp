@@ -187,23 +187,25 @@ int		main(void)
 {
 	std::list<TESTED_TYPE> lst;
 	std::list<TESTED_TYPE>::iterator lst_it;
+  std::vector<TESTED_TYPE> v;
+  std::vector<TESTED_TYPE>::iterator v_it;
 	for (int i = 1; i < 5; ++i)
 		lst.push_back(i * 3);
-    std::vector<int> v;
 	for (int i = 1; i < 5; ++i)
 		v.push_back(i * 3);
 
-    //ft::vector<int> vft(v.begin(), v.end());
+  ft::vector<int> vft(v.begin(), v.end());
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(lst.begin(), lst.end());
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct2(v.begin(), v.end());
 	printSize(vct);
 
 	lst_it = lst.begin();
 	for (int i = 1; lst_it != lst.end(); ++i)
 		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
+	vct.assign(v.begin(), v.end());
 	printSize(vct);
 
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	vct.insert(vct.end(), v.rbegin(), v.rend());
 	printSize(vct);
 	return (0);
 }

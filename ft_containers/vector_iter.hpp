@@ -144,7 +144,7 @@ namespace ft {
         }
         vector_iter operator--(int) { // a--
             vector_iter tmp(*this);
-            (this->_ptr)--;
+            --(this->_ptr);
             return tmp;
         }
         vector_iter& operator++() { // ++a
@@ -153,7 +153,7 @@ namespace ft {
         }
         vector_iter operator++(int) { // a++
             vector_iter tmp(*this);
-            (this->_ptr)++;
+            ++(this->_ptr);
             return tmp;
         }
 
@@ -189,11 +189,11 @@ namespace ft {
             return this->_ptr >= rhd._ptr;
         }
         vector_iter& operator+=(difference_type n) {
-            this->_ptr = this->_ptr + n;
+            this->_ptr += n;
             return *this;
         }
         vector_iter& operator-=(difference_type n) {
-            this->_ptr = this->_ptr - n;
+            this->_ptr -= n;
             return *this;
         }
         RI& operator[](const difference_type n) const {
