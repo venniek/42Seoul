@@ -1,5 +1,5 @@
 #ifndef __RED_BLACK_TREE_H__
-# define __RED_BLACK_TREE_H__
+#define __RED_BLACK_TREE_H__
 
 # define RED true
 # define BLACK false
@@ -32,30 +32,73 @@ namespace ft {
 			tree = makeNode(key, RED, NULL, NULL, NULL);
 		}
 		~Rbtree() {
-			clear();
+			clearAll();
 		}
 
-		rbt_node *makeNode(key_type key, bool color, rbt_node *left = NULL, rbt_node *right = NULL, rbt_node *parent) {
+		rbt_node *makeNode(key_type key, bool color, rbt_node *parent = NULL, rbt_node *left = NULL, rbt_node *right = NULL) {
 			rbt_node *res = new rbt_node;
 
 			res->key = key;
 			res->color = color;
+			res->parent = parent;
 			res->left = left;
 			res->right = right;
-			res->parent = parent;
-
 			return res;
 		}
-		void insertNode(key_type key) {
+		void insertNode(rbt_node *parent, key_type key) {
 
 		}
 		void deleteNode(key_type key);
 		void searchNode(key_type key);
-		void clear();
+		void clearAll() {
+			
+		}
 
 		// -----utils_tree-----
-		void left_rotate(rbt_node *node);
-		void right_rotate(rbt_node *node);
+		rbt_node *getGrandNode(rbt_node *curr) {
+			return curr->parent->parent;
+		}
+		rbt_node *getUncleNode(rbt_node *curr) {
+			rbt_node *grand = getGrandNode(curr);
+			if (grand == nullptr)
+				return nullptr;
+			if (grand->left == curr->parent)
+				return grand->right;
+			return grand->left;
+		}
+		void left_rotate(rbt_node *x) {
+			rbt_node *y = x->right;
+			int flag;
+
+			if (x->parent->left == x)
+				flag = 0;
+			else
+				flag = 1;
+			y->parent = x->parent;
+			x->right = y->left;
+			y->left = x;
+			if (flag == 0)
+				y->parent->left = y;
+			else
+				y->parent->right = y;
+		}
+		void right_rotate(rbt_node *node) {
+			rbt_node *y = x->left;
+			int flag;
+
+			if (x->parent->left == x)
+				flag = 0;
+			else
+				flag = 1;
+			y->parent = x->parent;
+			x->left = y->right;
+			y->right = x;
+			if (flag == 0)
+				y->parent->left = y;
+			else
+				y->parent->right = y;
+		}
+		void insert_fix()
 		void check_right(rbt_node *node);
 		
 	};
