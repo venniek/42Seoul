@@ -10,12 +10,12 @@ int main() {
 	bst.insertNode(60);
 	bst.insertNode(75);
 	bst.insertNode(57);
+	bst.inOrderTraverse(bst.root);
+	std::cout << std::endl;
 
-	// bst.printTree();
-	// cout << endl
-	// 	<< "After deleting" << endl;
-	// bst.deleteNode(40);
-	// bst.printTree();
-	bst.traverse(bst.root);
+	std::cout << "before deleting 40" << std::endl;
+	bst.deleteNode(40);
+	std::cout << "after delete node 40" << std::endl;
+	bst.inOrderTraverse(bst.root);
 	return 0;
 }

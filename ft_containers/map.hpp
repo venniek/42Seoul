@@ -2,6 +2,7 @@
 #define __MAP_H__
 
 #include <iostream>
+#include "pair.hpp"
 
 namespace ft {
 
