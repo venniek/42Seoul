@@ -8,7 +8,7 @@ namespace ft {
 	// tree class
 	template<typename T, typename Alloc = std::allocator<T> >
 	class Rbtree {
-	public:
+	private:
 		// color enum: BLACK = 0, RED = 1
 		enum Color { BLACK, RED	};
 		// node struct
@@ -24,21 +24,29 @@ namespace ft {
 		typedef Node<value_type> *RbtNode;
 		size_t count;
 		RbtNode root;
+		RbtNode nil;
 	public:
 		// -----constructor, destructor
-		Rbtree(): count(0), root(NULL) {}
-		Rbtree(T key): count(0), root(NULL) { insertNode(root, key); }
+		Rbtree(): count(0), nil(makeNilNode()) 
+		{
+			root = nil;
+		}
+		Rbtree(T key): count(0), nil(makeNilNode())
+		{ 
+			root = nil;
+			insertNode(key);
+		}
 		~Rbtree() { /*clearAll();*/ }
 
 		// -----operation insert, delete, search
 		void insertNode(value_type key)  {
-			RbtNode node = makeNode(key, Rbtree::RED);
+			RbtNode node = makeNode(key, RED);
 			RbtNode now = root;
-			RbtNode parent = NULL;
+			RbtNode y = NULL;
 
-			while (now != NULL)
+			while (now != nil)
 			{
-				parent = now;
+				y = now;
 				if (now->key == key)
 					return ;
 				if (now->key > key)
@@ -47,17 +55,17 @@ namespace ft {
 					now = now->right;
 			}
 			++count;
-			node->parent = parent;
-			if (parent == NULL)
+			node->parent = y;
+			if (y == NULL)
 			{ // tmp가 루트가 된다
 				root = node;
-				node->color = Rbtree::BLACK;
+				node->color = BLACK;
 				return ;
 			}
-			if (parent->key > key)
-				parent->left = node;
+			if (y->key > key)
+				y->left = node;
 			else
-				parent->right = node;
+				y->right = node;
 			if (node->parent->parent == NULL) // tmp가 루트의 자식. 바꿔줄 필요 없다.
 				return ;
 			insertFix(node);	
@@ -65,11 +73,11 @@ namespace ft {
 		void deleteNode(value_type key)
 		{
 			RbtNode x, y;  // y: 대체할 노드
-			RbtNode z = NULL; // z: 지울 노드
+			RbtNode z = nil; // z: 지울 노드
 			RbtNode now = root;
 			int y_origin_c;
 
-			while (now != NULL) // 지울 노드 찾기
+			while (now != nil) // 지울 노드 찾기
 			{
 				if (now->key == key)
 				{
@@ -81,25 +89,25 @@ namespace ft {
 				else
 					now = now->left;
 			}
-			if (z == NULL) // key not found in tree
+			if (z == nil) // key not found in tree
+			{
+				std::cout << key << " is not in the tree" << std::endl;
 				return ;
+			}
 			y = z;
 			y_origin_c = y->color; // 없어지는 색 == 지울 노드(바뀔 수 있음. 우선 대입해놓기)
-			if (z->left == NULL) // 자식 없거나 하나인지 검사
+			if (z->left == nil) // 자식 없거나 하나인지 검사
 			{
-				std::cout << "30" << std::endl;
 				x = z->right;
 				nodeReplace(z, z->right);
 			}
-			else if (z->right == NULL)
+			else if (z->right == nil)
 			{
-			std::cout << "31" << std::endl;
 				x = z->left;
 				nodeReplace(z, z->left);
 			}
 			else // 자식 둘 다 있으면 successor의 색을 지우게 된다.
 			{
-			std::cout << "32" << std::endl;
 				y = minimum(z->right); // y는 z의 successor
 				y_origin_c = y->color;
 				x = y->right;
@@ -116,40 +124,53 @@ namespace ft {
 				y->left->parent = y;
 				y->color = z->color;
 			}
-			std::cout << "3" << std::endl;
 			delete z;
-			if (y_origin_c == BLACK)
+			if (y_origin_c == BLACK) {
+				std::cout << "deleteFix start" << std::endl;
 				deleteFix(x);
-			std::cout << "4" << std::endl;
+			}
 		}
 		RbtNode searchNode(value_type key)
 		{
 			RbtNode now = root;
-			while (now != NULL && now->key != key)
+			while (now != nil && now->key != key)
 			{
 				if (now->key > key)
 					now = now->left;
 				else
 					now = now->right;
 			}
+			if (now->key != key)
+				return NULL;
 			return now;
 		}
 
 		// -----utils_tree
-		RbtNode makeNode(value_type key, int color, RbtNode parent = NULL, RbtNode left = NULL, RbtNode right = NULL)
+		RbtNode makeNode(value_type key, int color)
 		{
 			RbtNode res = new Node<value_type>;
 
 			res->key = key;
 			res->color = color;
-			res->parent = parent;
-			res->left = left;
-			res->right = right;
+			res->parent = NULL;
+			res->left = nil;
+			res->right = nil;
 			return res;
+		}
+		RbtNode makeNilNode()
+		{
+			RbtNode nil = new Node<value_type>;
+
+			nil->key = 0;
+			nil->color = BLACK;
+			nil->parent = NULL;
+			nil->left = NULL;
+			nil->right = NULL;
+			return nil;
 		}
 		RbtNode minimum(RbtNode node)
 		{
-			while (node->left != NULL)
+			while (node->left != nil)
 			{
 				node = node->left;
 			}
@@ -157,7 +178,7 @@ namespace ft {
 		}
 		RbtNode maximum(RbtNode node)
 		{
-			while (node->right != NULL)
+			while (node->right != nil)
 			{
 				node = node->right;
 			}
@@ -165,14 +186,14 @@ namespace ft {
 		}
 		RbtNode getGrandNode(RbtNode curr)
 		{
-			if (curr->parent == NULL)
+			if (curr->parent == nil)
 				return NULL;
 			return curr->parent->parent;
 		}
 		RbtNode getUncleNode(RbtNode curr)
 		{
 			RbtNode grand = getGrandNode(curr);
-			if (grand == nullptr)
+			if (grand == nil)
 				return nullptr;
 			if (grand->left == curr->parent)
 				return grand->right;
@@ -183,7 +204,7 @@ namespace ft {
 			RbtNode y = x->right;
 			
 			x->right = y->left;
-			if (y->left != NULL)
+			if (y->left != nil)
 				y->left->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -200,15 +221,15 @@ namespace ft {
 			RbtNode y = x->left;
 
 			x->left = y->right;
-			if (y->right != NULL)
+			if (y->right != nil)
 				y->right->parent = x;
-			y->right->parent = x;
+			y->parent = x->parent;
 			if (x->parent == NULL)
 				root = y;
-			else if (x->parent->left == x)
-				x->parent->left = y;
-			else
+			else if (x->parent->right == x)
 				x->parent->right = y;
+			else
+				x->parent->left = y;
 			y->right = x;
 			x->parent = y;
 		}
@@ -255,22 +276,13 @@ namespace ft {
 		}
 		void deleteFix(RbtNode x)
 		{
-			RbtNode s;
-		//		std::cout << "start deleteFix" <<std::endl;
-			if (x == NULL) {
-				std::cout << "x is null" << std::endl;
-				// return ;
-				std::cout << "hi ; " << std::endl; std::cout  <<s->color << std::endl;
-				return ;
-			}
-			while (x != root && x->color == Rbtree::BLACK)
+			RbtNode s; // x's sibling
+			while (x != root && x->color == BLACK)
 			{
-				std::cout << "1start deleteFix" <<std::endl;
 				if (x == x->parent->left)
 				{
-					std::cout << "2start deleteFix" <<std::endl;
 					s = x->parent->right;
-					if (s->color == Rbtree::RED)
+					if (s->color == RED)
 					{
 						s->color = BLACK;
 						x->parent->color = RED;
@@ -300,13 +312,10 @@ namespace ft {
 				}
 				else
 				{
-					std::cout << "3start deleteFix" <<std::endl;
 					s = x->parent->left;
-					std::cout << "hello print" << s->color <<std::endl;
 					if (s->color == RED)
 					{
 
-						std::cout << "4start deleteFix" <<std::endl;
 						s->color = BLACK;
 						x->parent->color = RED;
 						rightRotate(x->parent);
@@ -314,13 +323,11 @@ namespace ft {
 					}
 					if (s->right->color + s->right->color == 0)
 					{
-						std::cout << "5start deleteFix" <<std::endl;
 						s->color = RED;
 						x = x->parent;
 					}
 					else
 					{
-						std::cout << "6start deleteFix" <<std::endl;
 						if (s->left->color == BLACK)
 						{
 							s->right->color = BLACK;
@@ -340,27 +347,17 @@ namespace ft {
 		}
 		void nodeReplace(RbtNode u, RbtNode v)
 		{
-			if (u->parent == NULL) // u == root
+			if (u->parent == nil) // u == root
 				root = v;
 			else if (u == u->parent->left) // u == left child
 				u->parent->left = v;
 			else // u == right child
 				u->parent->right = v;
-			if (v == NULL)
-				return ;
 			v->parent = u->parent;
-		}
-		void inOrderTraverse(RbtNode node)
-		{
-			std::cout << node->key << " ";
-			if (node->left)
-			{ inOrderTraverse(node->left); }
-			if (node->right)
-			{ inOrderTraverse(node->right); }
 		}
 		void printHelper(RbtNode root, std::string indent, bool last)
 		{
-			if (root != NULL)
+			if (root != nil)
 			{
 				std::cout << indent;
 				if (last)

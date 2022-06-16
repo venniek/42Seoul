@@ -79,12 +79,6 @@ private:
 	{
 		NodePtr s;
 
-		if (x == NULL) {
-				std::cout << "x is null" << std::endl;
-				// return ;
-				std::cout << "hi ; " << std::endl; std::cout  <<s->color << std::endl;
-				return ;
-			}
 		while (x != root && x->color == 0)
 		{
 			if (x == x->parent->left)
@@ -183,6 +177,7 @@ private:
 			if (node->data == key)
 			{
 				z = node;
+				break;
 			}
 
 			if (node->data <= key)
