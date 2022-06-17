@@ -34,6 +34,6 @@ int main() {
 	bst.deleteNode(55);
 	std::cout << "after delete node 55" << std::endl;
 	bst.printTree();
-	// bst.inOrderTraverse(bst.root);
+	system("leaks a.out");
 	return 0;
 }

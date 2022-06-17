@@ -3,6 +3,7 @@
 
 # include <memory>
 # include <iostream>
+# include "pair.hpp"
 
 namespace ft {
 	// tree class
@@ -22,21 +23,28 @@ namespace ft {
 		};
 		typedef T value_type;
 		typedef Node<value_type> *RbtNode;
-		size_t count;
+		typedef Alloc allocator_type;
+		std::allocator<Node<value_type> > _alloc;
 		RbtNode root;
 		RbtNode nil;
 	public:
 		// -----constructor, destructor
-		Rbtree(): count(0), nil(makeNilNode()) 
+		Rbtree(): nil(makeNilNode()) 
 		{
 			root = nil;
 		}
-		Rbtree(T key): count(0), nil(makeNilNode())
+		Rbtree(T key): nil(makeNilNode())
 		{ 
 			root = nil;
 			insertNode(key);
 		}
-		~Rbtree() { /*clearAll();*/ }
+		~Rbtree()
+		{
+			if (root)
+				_alloc.deallocate(root, 1);
+			if (nil)
+				_alloc.deallocate(nil, 1);
+		}
 
 		// -----operation insert, delete, search
 		void insertNode(value_type key)  {
@@ -47,14 +55,13 @@ namespace ft {
 			while (now != nil)
 			{
 				y = now;
-				if (now->key == key)
+				if (now->key.first == key.first)
 					return ;
-				if (now->key > key)
+				if (now->key.first > key.first)
 					now = now->left;
 				else
 					now = now->right;
 			}
-			++count;
 			node->parent = y;
 			if (y == NULL)
 			{ // tmp가 루트가 된다
@@ -124,7 +131,7 @@ namespace ft {
 				y->left->parent = y;
 				y->color = z->color;
 			}
-			delete z;
+			_alloc.deallocate(z, 1);
 			if (y_origin_c == BLACK) {
 				deleteFix(x);
 			}
@@ -147,7 +154,7 @@ namespace ft {
 		// -----utils_tree
 		RbtNode makeNode(value_type key, int color)
 		{
-			RbtNode res = new Node<value_type>;
+			RbtNode res = _alloc.allocate(1);
 
 			res->key = key;
 			res->color = color;
@@ -158,7 +165,7 @@ namespace ft {
 		}
 		RbtNode makeNilNode()
 		{
-			RbtNode nil = new Node<value_type>;
+			RbtNode nil = _alloc.allocate(1);
 
 			nil->key = 0;
 			nil->color = BLACK;
