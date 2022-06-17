@@ -534,7 +534,7 @@ int main()
 
 	bst.printTree();
 	cout << endl
-		 << "After deleting" << endl;
+		<< "After deleting" << endl;
 	bst.deleteNode(40);
 	bst.printTree();
 }

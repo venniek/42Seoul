@@ -126,7 +126,6 @@ namespace ft {
 			}
 			delete z;
 			if (y_origin_c == BLACK) {
-				std::cout << "deleteFix start" << std::endl;
 				deleteFix(x);
 			}
 		}
