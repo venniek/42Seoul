@@ -63,14 +63,10 @@ private:
 	NodePtr searchTreeHelper(NodePtr node, int key)
 	{
 		if (node == TNULL || key == node->data)
-		{
 			return node;
-		}
 
 		if (key < node->data)
-		{
 			return searchTreeHelper(node->left, key);
-		}
 		return searchTreeHelper(node->right, key);
 	}
 
@@ -154,17 +150,11 @@ private:
 	void rbTransplant(NodePtr u, NodePtr v)
 	{
 		if (u->parent == nullptr)
-		{
 			root = v;
-		}
 		else if (u == u->parent->left)
-		{
 			u->parent->left = v;
-		}
 		else
-		{
 			u->parent->right = v;
-		}
 		v->parent = u->parent;
 	}
 
@@ -181,13 +171,9 @@ private:
 			}
 
 			if (node->data <= key)
-			{
 				node = node->right;
-			}
 			else
-			{
 				node = node->left;
-			}
 		}
 
 		if (z == TNULL)
@@ -214,9 +200,7 @@ private:
 			y_original_color = y->color;
 			x = y->right;
 			if (y->parent == z)
-			{
 				x->parent = y;
-			}
 			else
 			{
 				rbTransplant(y, y->right);
@@ -231,9 +215,7 @@ private:
 		}
 		delete z;
 		if (y_original_color == 0)
-		{
 			deleteFix(x);
-		}
 	}
 
 	// For balancing the tree after insertion
@@ -466,28 +448,17 @@ public:
 		{
 			y = x;
 			if (node->data < x->data)
-			{
 				x = x->left;
-			}
 			else
-			{
 				x = x->right;
-			}
 		}
-
 		node->parent = y;
 		if (y == nullptr)
-		{
 			root = node;
-		}
 		else if (node->data < y->data)
-		{
 			y->left = node;
-		}
 		else
-		{
 			y->right = node;
-		}
 
 		if (node->parent == nullptr)
 		{
@@ -496,10 +467,7 @@ public:
 		}
 
 		if (node->parent->parent == nullptr)
-		{
 			return;
-		}
-
 		insertFix(node);
 	}
 
@@ -516,9 +484,7 @@ public:
 	void printTree()
 	{
 		if (root)
-		{
 			printHelper(this->root, "", true);
-		}
 	}
 };
 
@@ -533,8 +499,25 @@ int main()
 	bst.insert(57);
 
 	bst.printTree();
-	cout << endl
-		<< "After deleting" << endl;
+	std::cout << "delete 40" << std::endl;
 	bst.deleteNode(40);
+	std::cout << "after delete node 40" << std::endl;
 	bst.printTree();
+	std::cout << "delete 65" << std::endl;
+	bst.deleteNode(65);
+	std::cout << "after delete node 65" << std::endl;
+	bst.printTree();
+	std::cout << "delete 75" << std::endl;
+	bst.deleteNode(75);
+	std::cout << "after delete node 75" << std::endl;
+	bst.printTree();
+	std::cout << "delete 60" << std::endl;
+	bst.deleteNode(60);
+	std::cout << "after delete node 60" << std::endl;
+	bst.printTree();
+	std::cout << "delete 55" << std::endl;
+	bst.deleteNode(55);
+	std::cout << "after delete node 55" << std::endl;
+	bst.printTree();
+	return 0;
 }

@@ -346,7 +346,7 @@ namespace ft {
 		}
 		void nodeReplace(RbtNode u, RbtNode v)
 		{
-			if (u->parent == nil) // u == root
+			if (u->parent == NULL) // u == root
 				root = v;
 			else if (u == u->parent->left) // u == left child
 				u->parent->left = v;
@@ -376,13 +376,10 @@ namespace ft {
 				printHelper(root->right, indent, true);
 			}
 		}
-
 		void printTree()
 		{
 			if (root)
-			{
 				printHelper(root, "", true);
-			}
 		}
 	};
 }
