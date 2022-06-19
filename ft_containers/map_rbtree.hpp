@@ -7,7 +7,7 @@
 
 namespace ft {
 	// tree class
-	template<typename T, typename Alloc = std::allocator<T> >
+	template<typename Key, typename Value, typename Alloc = std::allocator<ft::pair<Key, Value> > >
 	class Rbtree {
 	private:
 		// color enum: BLACK = 0, RED = 1
@@ -21,10 +21,10 @@ namespace ft {
 			Node *right;
 			Node *parent;
 		};
-		typedef T value_type;
-		typedef Node<value_type> *RbtNode;
+		typedef ft::pair<Key, Value> pair_t;
+		typedef Node<pair_t> *RbtNode;
 		typedef Alloc allocator_type;
-		std::allocator<Node<value_type> > _alloc;
+		std::allocator<Node<pair_t> > _alloc;
 		RbtNode root;
 		RbtNode nil;
 	public:
@@ -40,14 +40,15 @@ namespace ft {
 		}
 		~Rbtree()
 		{
-			if (root)
-				_alloc.deallocate(root, 1);
+			while (root)
+				_alloc.deallocate(minimum(root), 1);
 			if (nil)
 				_alloc.deallocate(nil, 1);
 		}
 
 		// -----operation insert, delete, search
-		void insertNode(value_type key)  {
+		void insertNode(pair_t key)
+		{
 			RbtNode node = makeNode(key, RED);
 			RbtNode now = root;
 			RbtNode y = NULL;
@@ -69,7 +70,7 @@ namespace ft {
 				node->color = BLACK;
 				return ;
 			}
-			if (y->key > key)
+			if (y->key.first > key.first)
 				y->left = node;
 			else
 				y->right = node;
@@ -77,7 +78,7 @@ namespace ft {
 				return ;
 			insertFix(node);	
 		}
-		void deleteNode(value_type key)
+		void deleteNode(pair_t key)
 		{
 			RbtNode x, y;  // y: 대체할 노드
 			RbtNode z = nil; // z: 지울 노드
@@ -86,12 +87,12 @@ namespace ft {
 
 			while (now != nil) // 지울 노드 찾기
 			{
-				if (now->key == key)
+				if (now->key.first == key.first)
 				{
 					z = now;
 					break;
 				}
-				else if (now->key < key)
+				else if (now->key.first < key.first)
 					now = now->right;
 				else
 					now = now->left;
@@ -136,12 +137,12 @@ namespace ft {
 				deleteFix(x);
 			}
 		}
-		RbtNode searchNode(value_type key)
+		RbtNode searchNode(Key key)
 		{
 			RbtNode now = root;
-			while (now != nil && now->key != key)
+			while (now != nil && now->key.first != key)
 			{
-				if (now->key > key)
+				if (now->key.first > key)
 					now = now->left;
 				else
 					now = now->right;
@@ -152,7 +153,7 @@ namespace ft {
 		}
 
 		// -----utils_tree
-		RbtNode makeNode(value_type key, int color)
+		RbtNode makeNode(pair_t key, int color)
 		{
 			RbtNode res = _alloc.allocate(1);
 
