@@ -1,6 +1,8 @@
 #ifndef __MAP_ITER_HPP__
 #define __MAP_ITER_HPP__
 
+# include "map_rbtree.hpp"
+
 namespace ft
 {
 	template<typename T, typename node_type>

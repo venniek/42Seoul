@@ -22,30 +22,37 @@ namespace ft {
             second = pr.second;
             return *this;
         }
-        // ----- non-member function overload
-        bool operator==(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return lhs.first == rhs.first && lhs.second == rhs.second;
-        }
-        bool operator!=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return !(lhs == rhs);
-        }
-        bool operator< (const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second);
-        }
-        bool operator<=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return !(rhs < lhs);
-        }
-        bool operator> (const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return rhs < lhs;
-        }
-        bool operator>=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
-            return !(lhs < rhs);
-        }
-        // ----- make_pair
-        pair<first_type, second_type> make_pair(first_type x, second_type y) {
-            return pair<first_type, second_type>(x, y);
-        }
     };
+    // ----- non-member function overload
+    template<typename first_type, typename second_type>
+    bool operator==(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return lhs.first == rhs.first && lhs.second == rhs.second;
+    }
+    template<typename first_type, typename second_type>
+    bool operator!=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return !(lhs == rhs);
+    }
+    template<typename first_type, typename second_type>
+    bool operator< (const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second);
+    }
+    template<typename first_type, typename second_type>
+    bool operator<=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return !(rhs < lhs);
+    }
+    template<typename first_type, typename second_type>
+    bool operator> (const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return rhs < lhs;
+    }
+    template<typename first_type, typename second_type>
+    bool operator>=(const pair<first_type, second_type>& lhs, const pair<first_type, second_type>& rhs) {
+        return !(lhs < rhs);
+    }
+    // ----- make_pair
+    template<typename first_type, typename second_type>
+    pair<first_type, second_type> make_pair(first_type x, second_type y) {
+        return pair<first_type, second_type>(x, y);
+    }
 }
 
 

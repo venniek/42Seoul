@@ -23,7 +23,7 @@ namespace ft {
 		};
 		typedef ft::pair<Key, Value> pair_t;
 		typedef Node<pair_t> *RbtNode;
-		typedef Alloc allocator_type;
+		typedef Alloc allocator_type; 
 		std::allocator<Node<pair_t> > _alloc;
 		RbtNode root;
 		RbtNode nil;
@@ -33,17 +33,19 @@ namespace ft {
 		{
 			root = nil;
 		}
-		Rbtree(T key): nil(makeNilNode())
-		{ 
+		Rbtree(pair_t p): nil(makeNilNode())
+		{
 			root = nil;
-			insertNode(key);
+			insertNode(p);
 		}
 		~Rbtree()
 		{
-			while (root)
-				_alloc.deallocate(minimum(root), 1);
+			this->clear();
 			if (nil)
+			{
+				_alloc.destroy(nil);
 				_alloc.deallocate(nil, 1);
+			}
 		}
 
 		// -----operation insert, delete, search
@@ -361,6 +363,14 @@ namespace ft {
 			else // u == right child
 				u->parent->right = v;
 			v->parent = u->parent;
+		}
+		void clear()
+		{
+			while (root)
+			{
+				_alloc.destroy(minimum(root));
+				_alloc.deallocate(minimum(root), 1);
+			}
 		}
 		void printHelper(RbtNode root, std::string indent, bool last)
 		{
