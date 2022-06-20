@@ -7,7 +7,7 @@ namespace ft {
         typedef T1 first_type;
         typedef T2 second_type;
         first_type first;
-        first_type second;
+        second_type second;
 
         // ----- constructor
         pair() { }

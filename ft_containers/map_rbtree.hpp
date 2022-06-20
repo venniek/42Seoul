@@ -7,7 +7,7 @@
 
 namespace ft {
 	// tree class
-	template<typename Key, typename Value, typename Alloc = std::allocator<ft::pair<Key, Value> > >
+	template<typename Key, typename T, typename Compare, typename Alloc = std::allocator<ft::pair<Key, T> > >
 	class Rbtree {
 	private:
 		// color enum: BLACK = 0, RED = 1
@@ -15,13 +15,16 @@ namespace ft {
 		// node struct
 		template<typename type>
 		struct Node {
-			type key;
+			type data;
 			int color;
 			Node *left;
 			Node *right;
 			Node *parent;
 		};
-		typedef ft::pair<Key, Value> pair_t;
+		typedef Key key_type;
+		typedef T mapped_type;
+		typedef ft::pair<key_type, mapped_type> pair_t;
+		typedef Compare key_compare;
 		typedef Node<pair_t> *RbtNode;
 		typedef Alloc allocator_type; 
 		std::allocator<Node<pair_t> > _alloc;
@@ -32,11 +35,6 @@ namespace ft {
 		Rbtree(): nil(makeNilNode()) 
 		{
 			root = nil;
-		}
-		Rbtree(pair_t p): nil(makeNilNode())
-		{
-			root = nil;
-			insertNode(p);
 		}
 		~Rbtree()
 		{
@@ -49,33 +47,34 @@ namespace ft {
 		}
 
 		// -----operation insert, delete, search
-		void insertNode(pair_t key)
+		void insertNode(pair_t nvalue)
 		{
-			RbtNode node = makeNode(key, RED);
+			RbtNode node = makeNode(nvalue, RED);
 			RbtNode now = root;
-			RbtNode y = NULL;
+			RbtNode x = NULL; // 부모 노드 저장
+			key_compare comp = this->key_comp();
 
 			while (now != nil)
 			{
-				y = now;
-				if (now->key.first == key.first)
+				x = now;
+				if (now->data.first == nvalue.first)
 					return ;
-				if (now->key.first > key.first)
+				if (key_compare())
 					now = now->left;
 				else
 					now = now->right;
 			}
-			node->parent = y;
-			if (y == NULL)
+			node->parent = x;
+			if (x == NULL)
 			{ // tmp가 루트가 된다
 				root = node;
 				node->color = BLACK;
 				return ;
 			}
-			if (y->key.first > key.first)
-				y->left = node;
+			if (x->key.first > key.first)
+				x->left = node;
 			else
-				y->right = node;
+				x->right = node;
 			if (node->parent->parent == NULL) // tmp가 루트의 자식. 바꿔줄 필요 없다.
 				return ;
 			insertFix(node);	
