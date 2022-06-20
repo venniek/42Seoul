@@ -129,10 +129,10 @@ namespace ft
 		{
 			return _tree->maximum(_tree->root);
 		}
-		reverse_iterator rbegin() { return reverse_iterator(end()); }
-		const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); };
-		reverse_iterator rend() { return reverse_iterator(begin()); };
-		const_reverse_iterator rend() const { return const_reverse_iterator(begin()); };
+		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
+		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
+		reverse_iterator rend() { return reverse_iterator(this->begin()); };
+		const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
 
 		// ------ capacity
 		bool empty() const
@@ -154,10 +154,10 @@ namespace ft
 		{
 			if (!_tree->searchNode(k))
 			{
-				node_ptr tmp = _allocTree.allocate(1);
-				_allocTree.construct(tmp, node_type(pair<Key, T>()));
-				tmp->data.first = k;
-				insert(tmp->key);
+				value_type tmp = _alloc.allocate(1);
+				_alloc.construct(tmp, value_type());
+				tmp.first = k;
+				this->insert(tmp);
 				_allocTree.destroy(tmp);
 				_allocTree.deallocate(tmp, 1);
 			}
@@ -172,7 +172,7 @@ namespace ft
 			ft::pair<iterator, bool> ret;
 
 			ret.second = true;
-			if (_tree->searchNode(val.first) != end())
+			if (_tree->searchNode(val.first) != this->end())
 				ret.second = false;
 			else
 			{
@@ -225,7 +225,7 @@ namespace ft
 		}
 		void swap(map &x)
 		{
-			node_ptr tmp = x._tree;
+			tree_ptr tmp = x._tree;
 			size_type tmp_size = x._size;
 
 			x._tree = this->_tree;
@@ -254,7 +254,7 @@ namespace ft
 		{
 			iterator it = this->begin();
 
-			while (it._tree != NULL && it != this->end())
+			while (it != NULL && it != this->end())
 			{
 				if (it->first == k)
 					break;
@@ -266,7 +266,7 @@ namespace ft
 		{
 			const_iterator it = this->begin();
 
-			while (it._tree != NULL && it != this->end())
+			while (it != NULL && it != this->end())
 			{
 				if (it->first == k)
 					break;
