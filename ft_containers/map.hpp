@@ -79,18 +79,26 @@ namespace ft
 	public:
 		// ----- constructor, destructor, operator=
 		// empty constructor
-		explicit map(const key_compare &comp = key_comp(), const allocator_type &alloc = allocator_type())
-					: _tree(_allocTree.allocate(1)), _alloc(alloc), k_comp(comp), _size(0) { }
+		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+					: _tree(0), _alloc(alloc), k_comp(comp), _size(0)
+		{
+			this->_tree = _allocTree.allocate(1);
+			_allocTree.construct(this->_tree, tree_type());
+		}
 		// range constructor 
 		template <typename InputIterator>
-		map(InputIterator first, InputIterator last, const key_compare &comp = key_comp(), const allocator_type &alloc = allocator_type())
-					: _tree(_allocTree.allocate(1)), _alloc(alloc), k_comp(comp), _size(0)
+		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+					: _alloc(alloc), k_comp(comp), _size(0)
 		{
+			this->_tree = _allocTree.allocate(1);
+			_allocTree.construct(this->_tree, tree_type());
 			insert(first, last);
 		}
 		// copy constructor
-		map(const map &x) : _tree(_allocTree.allocate(1)), _alloc(x._alloc), k_comp(x.key_comp), _size(0)
+		map(const map &x) : _alloc(x._alloc), k_comp(x.key_comp), _size(0)
 		{
+			this->_tree = _allocTree.allocate(1);
+			_allocTree.construct(this->_tree, tree_type());
 			*this = x;
 		}
 		// assignation operator
@@ -115,19 +123,19 @@ namespace ft
 		// ----- iterators
 		iterator begin()
 		{
-			return _tree->minimum(_tree->root);
+			return iterator(_tree->minimum(_tree->root));
 		}
 		const_iterator begin() const
 		{
-            return _tree->minimum(_tree->root);
+            return const_iterator(_tree->minimum(_tree->root));
 		}
 		iterator end()
 		{
-			return _tree->maximum(_tree->root);
+			return iterator(_tree->maximum(_tree->root));
 		}
 		const_iterator end() const
 		{
-			return _tree->maximum(_tree->root);
+			return const_iterator(_tree->maximum(_tree->root));
 		}
 		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
 		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
@@ -172,7 +180,7 @@ namespace ft
 			ft::pair<iterator, bool> ret;
 
 			ret.second = true;
-			if (_tree->searchNode(val.first) != this->end())
+			if (_tree->searchNode(val.first) != _tree->nil)
 				ret.second = false;
 			else
 			{
@@ -253,12 +261,11 @@ namespace ft
 		iterator find(const key_type &k)
 		{
 			iterator it = this->begin();
+			iterator ite = this->end();
 
-			while (it != NULL && it != this->end())
+			for (; it != ite; it++)
 			{
-				if (it->first == k)
-					break;
-				++it;
+				if (it->)
 			}
 			return it;
 		}
@@ -339,7 +346,6 @@ namespace ft
 		ft::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 		{
 			return make_pair<const_iterator, const_iterator>(this->lower_bound(k), this->upper_bound(k));
-
 		}
 		// ----- allocator
 		allocator_type get_allocator() const
@@ -372,7 +378,6 @@ namespace ft
 	template <typename Key, typename T, typename Compare, typename Alloc>
 	bool operator<=(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs) {
 		return !(lhs > rhs);
-
 	}
 	template <typename Key, typename T, typename Compare, typename Alloc>
 	bool operator>(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs) {

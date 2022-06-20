@@ -9,19 +9,19 @@ namespace ft
 	class mapIter
 	{
 	public:
-		node_type *_node;
-	
 		typedef T value_type;
 		typedef ptrdiff_t difference_type;
 		typedef value_type &reference;
 		typedef value_type *pointer;
 
+		node_type *_node;
 		mapIter(): _node(NULL) { }
 		mapIter(node_type *src)
 		{
 			_node = src;
 		}
-		mapIter(value_type &src)
+		template<typename RmapIter>
+		mapIter(RmapIter &src)
 		{
 			this->_node = src._node;
 		}
@@ -93,7 +93,7 @@ namespace ft
 		}
 		reference operator*() const
 		{
-			return _node->key;
+			return _node;
 		}
 		pointer operator->() const
 		{

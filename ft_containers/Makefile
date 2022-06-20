@@ -1,4 +1,4 @@
-SRCS = test_vector.cpp
+SRCS = test_map.cpp
 
 CPP = c++
 FLAG = -Werror -Wall -Wextra -std=c++98

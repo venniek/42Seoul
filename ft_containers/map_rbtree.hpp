@@ -28,9 +28,10 @@ namespace ft {
 		typedef Node<pair_t> *RbtNode;
 		typedef Alloc allocator_type; 
 		std::allocator<Node<pair_t> > _alloc;
+	
+	public:
 		RbtNode root;
 		RbtNode nil;
-	public:
 		// -----constructor, destructor
 		Rbtree(): nil(makeNilNode()) 
 		{
@@ -52,14 +53,12 @@ namespace ft {
 			RbtNode node = makeNode(nvalue, RED);
 			RbtNode now = root;
 			RbtNode x = NULL; // 부모 노드 저장
-			key_compare comp = this->key_comp();
+			key_compare comp = key_compare();
 
 			while (now != nil)
 			{
 				x = now;
-				if (now->data.first == nvalue.first)
-					return ;
-				if (key_compare())
+				if (comp(nvalue.first, now->data.first))
 					now = now->left;
 				else
 					now = now->right;
@@ -71,36 +70,24 @@ namespace ft {
 				node->color = BLACK;
 				return ;
 			}
-			if (x->key.first > key.first)
+			if (comp(nvalue.first, now->data.first))
 				x->left = node;
 			else
 				x->right = node;
 			if (node->parent->parent == NULL) // tmp가 루트의 자식. 바꿔줄 필요 없다.
 				return ;
-			insertFix(node);	
+			insertFix(node);
 		}
-		void deleteNode(pair_t key)
+		void deleteNode(key_type dkey)
 		{
 			RbtNode x, y;  // y: 대체할 노드
-			RbtNode z = nil; // z: 지울 노드
-			RbtNode now = root;
+			RbtNode z; // z: 지울 노드
 			int y_origin_c;
 
-			while (now != nil) // 지울 노드 찾기
-			{
-				if (now->key.first == key.first)
-				{
-					z = now;
-					break;
-				}
-				else if (now->key.first < key.first)
-					now = now->right;
-				else
-					now = now->left;
-			}
+			z = searchNode(dkey);
 			if (z == nil) // key not found in tree
 			{
-				std::cout << key << " is not in the tree" << std::endl;
+				std::cout << dkey << " is not in the tree" << std::endl;
 				return ;
 			}
 			y = z;
@@ -134,22 +121,21 @@ namespace ft {
 				y->color = z->color;
 			}
 			_alloc.deallocate(z, 1);
-			if (y_origin_c == BLACK) {
+			if (y_origin_c == BLACK)
 				deleteFix(x);
-			}
 		}
-		RbtNode searchNode(Key key)
+		RbtNode searchNode(key_type skey)
 		{
 			RbtNode now = root;
-			while (now != nil && now->key.first != key)
+			key_compare comp = key_compare();
+
+			while (now != nil && now->data.first != skey)
 			{
-				if (now->key.first > key)
+				if (comp(skey, now->data.first))
 					now = now->left;
 				else
 					now = now->right;
 			}
-			if (now->key != key)
-				return NULL;
 			return now;
 		}
 
@@ -158,7 +144,7 @@ namespace ft {
 		{
 			RbtNode res = _alloc.allocate(1);
 
-			res->key = key;
+			res->data = key;
 			res->color = color;
 			res->parent = NULL;
 			res->left = nil;
@@ -169,7 +155,7 @@ namespace ft {
 		{
 			RbtNode nil = _alloc.allocate(1);
 
-			nil->key = 0;
+			nil->data = pair_t();
 			nil->color = BLACK;
 			nil->parent = NULL;
 			nil->left = NULL;
@@ -179,17 +165,13 @@ namespace ft {
 		RbtNode minimum(RbtNode node)
 		{
 			while (node->left != nil)
-			{
 				node = node->left;
-			}
 			return node;
 		}
 		RbtNode maximum(RbtNode node)
 		{
 			while (node->right != nil)
-			{
 				node = node->right;
-			}
 			return node;
 		}
 		RbtNode getGrandNode(RbtNode curr)
@@ -388,7 +370,7 @@ namespace ft {
 				}
 
 				std::string sColor = root->color ? "RED" : "BLACK";
-				std::cout << root->key << "(" << sColor << ")" << std::endl;
+				std::cout << root->data.first << "(" << sColor << ")" << std::endl;
 				printHelper(root->left, indent, false);
 				printHelper(root->right, indent, true);
 			}
