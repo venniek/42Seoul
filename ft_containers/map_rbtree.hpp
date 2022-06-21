@@ -6,32 +6,33 @@
 # include "pair.hpp"
 
 namespace ft {
+	// color enum: BLACK = 0, RED = 1
+	enum Color { BLACK, RED	};
+	// node struct
+	template<typename type>
+	struct Node {
+		type data;
+		int color;
+		Node *left;
+		Node *right;
+		Node *parent;
+	};
 	// tree class
 	template<typename Key, typename T, typename Compare, typename Alloc = std::allocator<ft::pair<Key, T> > >
 	class Rbtree {
-	private:
-		// color enum: BLACK = 0, RED = 1
-		enum Color { BLACK, RED	};
-		// node struct
-		template<typename type>
-		struct Node {
-			type data;
-			int color;
-			Node *left;
-			Node *right;
-			Node *parent;
-		};
+	public:
+
 		typedef Key key_type;
 		typedef T mapped_type;
 		typedef ft::pair<key_type, mapped_type> pair_t;
 		typedef Compare key_compare;
 		typedef Node<pair_t> *RbtNode;
-		typedef Alloc allocator_type; 
+		typedef Alloc allocator_type;
+
 		std::allocator<Node<pair_t> > _alloc;
-	
-	public:
 		RbtNode root;
 		RbtNode nil;
+		
 		// -----constructor, destructor
 		Rbtree(): nil(makeNilNode()) 
 		{
@@ -174,6 +175,31 @@ namespace ft {
 				node = node->right;
 			return node;
 		}
+		RbtNode successor(RbtNode x)
+		{
+			if (x->right != nil)
+				return minimum(x->right);
+			RbtNode y = x->parent;
+			while (y != nil && x == y->right)
+			{
+				x = y;
+				y = y->parent;
+			}
+			return y;
+		}
+		RbtNode predecessor(RbtNode x)
+		{
+			if (x->left != nil)
+				return maximum(x->left);
+			RbtNode y = x->parent;
+			while (y != nil && x == y->left)
+			{
+				x = y;
+				y = y->parent;
+			}
+
+			return y;
+		}
 		RbtNode getGrandNode(RbtNode curr)
 		{
 			if (curr->parent == nil)
@@ -227,13 +253,13 @@ namespace ft {
 		{
 			RbtNode tmp = getUncleNode(node);
 
-			while (node->parent->color == Rbtree::RED)
+			while (node->parent->color == ft::RED)
 			{ // 나도 red, 부모도 red
-				if (tmp->color == Rbtree::RED)
+				if (tmp->color == ft::RED)
 				{ // case 2. z.uncle = red
-					tmp->color = Rbtree::BLACK;
-					node->parent->color = Rbtree::BLACK;
-					node->parent->parent->color = Rbtree::RED;
+					tmp->color = ft::BLACK;
+					node->parent->color = ft::BLACK;
+					node->parent->parent->color = ft::RED;
 					node = node->parent->parent;
 				}
 				else {
@@ -244,8 +270,8 @@ namespace ft {
 							node = node->parent;
 							rightRotate(node);
 						}
-						node->parent->color = Rbtree::BLACK; // case 4. line(right)
-						node->parent->parent->color = Rbtree::RED;
+						node->parent->color = ft::BLACK; // case 4. line(right)
+						node->parent->parent->color = ft::RED;
 						leftRotate(node->parent->parent);
 					}
 					else {
@@ -254,15 +280,15 @@ namespace ft {
 							node = node->parent;
 							leftRotate(node);
 						}
-						node->parent->color = Rbtree::BLACK; // case 4. line(left)
-						node->parent->parent->color = Rbtree::RED;
+						node->parent->color = ft::BLACK; // case 4. line(left)
+						node->parent->parent->color = ft::RED;
 						rightRotate(node->parent->parent);
 					}
 				}
 				if (node == root)
 					break;
 			}
-			root->color = Rbtree::BLACK;
+			root->color = ft::BLACK;
 		}
 		void deleteFix(RbtNode x)
 		{

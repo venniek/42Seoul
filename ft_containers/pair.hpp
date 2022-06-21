@@ -10,12 +10,10 @@ namespace ft {
         second_type second;
 
         // ----- constructor
-        pair() { }
+        pair(): first(first_type()), second(second_type()) { }
         pair(const first_type &a, const second_type &b): first(a), second(b) { }
         template<typename U, typename V> 
-        pair(const pair<U, V>& pr) {
-            *this = pr;
-        }
+        pair(const pair<U, V>& pr): first(pr.first), second(pr.second) { }
         // ----- operator=
         pair& operator=(const pair &pr) {
             first = pr.first;

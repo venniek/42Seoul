@@ -1,28 +1,14 @@
 #ifndef __MAP_H__
-#define __MAP_H__
+# define __MAP_H__
 
-#include <iostream>
-#include "pair.hpp"
-#include "map_rbtree.hpp"
-#include "map_iter.hpp"
-#include "vector_iter.hpp"
+# include <iostream>
+# include "pair.hpp"
+# include "map_rbtree.hpp"
+# include "map_iter.hpp"
+# include "utils.hpp"
 
 namespace ft
 {
-    template <typename A1, typename A2, typename Result>
-    struct binary_function
-    {
-        typedef A1 first_argument_type;
-        typedef A2 second_argument_type;
-        typedef Result result_type;
-    };
-
-	template <typename Key>
-	struct less : binary_function<Key, Key, bool>
-	{
-		bool operator()(const Key &x, const Key &y) const { return x < y; }
-	};
-
 	template <typename Key,                                           // map::key_type
 			typename T,                                             // map::mapped_type
 			typename Compare = less<Key>,                           // map::key_compare
@@ -34,7 +20,7 @@ namespace ft
 		// ----- member types
 		typedef Key key_type;
 		typedef T mapped_type;
-		typedef ft::pair<const key_type, mapped_type> value_type;
+		typedef ft::pair<key_type, mapped_type> value_type;
 		typedef Compare key_compare;
 		typedef Alloc allocator_type;
 		typedef typename allocator_type::reference reference;
@@ -70,11 +56,10 @@ namespace ft
 		size_type _size;
 		
     public:
-        typedef ft::mapIter<value_type, tree_type> iterator;
-		typedef ft::mapIter<const value_type, tree_type> const_iterator;
-		typedef ft::reverse_iterator_tag<iterator> reverse_iterator;
-		typedef ft::reverse_iterator_tag<const_iterator> const_reverse_iterator;
-
+        typedef mapIter<key_type, mapped_type, key_compare> iterator;
+		typedef mapConstIter<key_type, mapped_type, key_compare> const_iterator;
+		// typedef mapReverseIter<key_type, mapped_type, key_compare> reverse_iterator;
+		// typedef mapConstReverseIter<key_type, mapped_type, key_compare> const_reverse_iterator;
 
 	public:
 		// ----- constructor, destructor, operator=
@@ -123,24 +108,24 @@ namespace ft
 		// ----- iterators
 		iterator begin()
 		{
-			return iterator(_tree->minimum(_tree->root));
+			return iterator(_tree, _tree->minimum(_tree->root));
 		}
 		const_iterator begin() const
 		{
-            return const_iterator(_tree->minimum(_tree->root));
+			return const_iterator(_tree, _tree->minimum(_tree->root));
 		}
 		iterator end()
 		{
-			return iterator(_tree->maximum(_tree->root));
+			return iterator(_tree, NULL);
 		}
 		const_iterator end() const
 		{
-			return const_iterator(_tree->maximum(_tree->root));
+			return const_iterator(_tree, NULL);
 		}
-		reverse_iterator rbegin() { return reverse_iterator(this->end()); }
-		const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
-		reverse_iterator rend() { return reverse_iterator(this->begin()); };
-		const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
+		// reverse_iterator rbegin() { return reverse_iterator(this->end()); }
+		// const_reverse_iterator rbegin() const { return const_reverse_iterator(this->end()); };
+		// reverse_iterator rend() { return reverse_iterator(this->begin()); };
+		// const_reverse_iterator rend() const { return const_reverse_iterator(this->begin()); };
 
 		// ------ capacity
 		bool empty() const
@@ -162,12 +147,9 @@ namespace ft
 		{
 			if (!_tree->searchNode(k))
 			{
-				value_type tmp = _alloc.allocate(1);
-				_alloc.construct(tmp, value_type());
+				value_type tmp = value_type();
 				tmp.first = k;
 				this->insert(tmp);
-				_allocTree.destroy(tmp);
-				_allocTree.deallocate(tmp, 1);
 			}
 			return this->find(k)->second;
 		}
@@ -212,11 +194,11 @@ namespace ft
 		// erase2 single
 		size_type erase(const key_type &k)
 		{
-			iterator tmp = find(k);
+			iterator tmp = (iterator)find(k);
 
 			if (tmp == this->end())
 				return 0;
-			_tree->deleteNode(tmp.first);
+			_tree->deleteNode(tmp->first);
 			--_size;
 			return 1;
 		}
@@ -260,26 +242,12 @@ namespace ft
 		// ----- operations
 		iterator find(const key_type &k)
 		{
-			iterator it = this->begin();
-			iterator ite = this->end();
-
-			for (; it != ite; it++)
-			{
-				if (it->)
-			}
+			iterator it(_tree, _tree->searchNode(k));
 			return it;
 		}
 		const_iterator find(const key_type &k) const
 		{
-			const_iterator it = this->begin();
-
-			while (it != NULL && it != this->end())
-			{
-				if (it->first == k)
-					break;
-				++it;
-			}
-			return it;
+			return const_iterator(_tree, _tree->searchNode(k));
 		}
 		size_type count(const key_type &k) const
 		{

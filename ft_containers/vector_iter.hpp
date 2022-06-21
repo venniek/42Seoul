@@ -4,50 +4,6 @@
 # include <iostream>
 
 namespace ft {
-    // enable_if =====================================================
-    template<bool Cond, typename T = void>
-    struct enable_if {};
-    template<typename T> 
-    struct enable_if<true, T> { typedef T type; };
-    // ===============================================================
-
-    // is_integral ===================================================
-    template<typename T, bool _bool>
-    struct integral_constant  {
-        typedef bool value_type;
-        typedef T type; // type은 false or true
-        static const value_type value = _bool;
-    };
-    template<typename T>
-    struct is_integral : public integral_constant<T, false> {} ; 
-	template<>
-	struct is_integral<bool> : public integral_constant<bool, true> {} ;
-	template<>
-	struct is_integral<char> : public integral_constant<char, true> {} ;
-	template<>
-	struct is_integral<wchar_t> : public integral_constant<wchar_t, true> {} ;
-	template<>
-	struct is_integral<signed char> : public integral_constant<signed char, true> {} ;
-	template<>
-	struct is_integral<short int> : public integral_constant<short int, true> {} ;
-	template<>
-	struct is_integral<int> : public integral_constant<int, true> {} ;
-	template<>
-	struct is_integral<long int> : public integral_constant<long int, true> {} ;
-	template<>
-	struct is_integral<long long int> : public integral_constant<long long int, true> {} ;
-	template<>
-	struct is_integral<unsigned char> : public integral_constant<unsigned char, true> {} ;
-	template<>
-	struct is_integral<unsigned short int> : public integral_constant<unsigned short int, true> {} ;
-	template<>
-	struct is_integral<unsigned int> : public integral_constant<unsigned int, true> {} ;
-	template<>
-	struct is_integral<unsigned long int> : public integral_constant<unsigned long int, true> {} ;
-	template<>
-	struct is_integral<unsigned long long int> : public integral_constant<unsigned long long, true> {} ;
-    // ===============================================================
-
     struct input_iterator_tag {};
     struct output_iterator_tag {};
     struct forward_iterator_tag : public input_iterator_tag, output_iterator_tag {};
