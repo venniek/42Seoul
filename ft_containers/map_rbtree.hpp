@@ -40,12 +40,38 @@ namespace ft {
 		}
 		~Rbtree()
 		{
+			std::cout << "Rbtree destructor" << std::endl;
 			this->clear();
 			if (nil)
 			{
 				_alloc.destroy(nil);
 				_alloc.deallocate(nil, 1);
 			}
+		}
+		Rbtree(const Rbtree &copy)
+		{
+			*this = copy;
+		}
+		Rbtree& operator=(const Rbtree& origin)
+		{
+			if (this != &origin)
+			{
+				std::cout << "operator = " <<std::endl;
+				
+				std::cout <<"what root = " << origin.root <<std::endl;
+				this->clear();
+				RbtNode now;
+				if (origin.root == origin.nil)
+					now = origin.root;
+				else
+					now = this->minimum(origin.root);
+				while (now != origin.nil)
+				{
+					this->insertNode(now->data);
+					now = this->successor(now);
+				}
+			}
+			return *this;
 		}
 
 		// -----operation insert, delete, search
@@ -55,7 +81,6 @@ namespace ft {
 			RbtNode now = root;
 			RbtNode x = NULL; // 부모 노드 저장
 			key_compare comp = key_compare();
-
 			while (now != nil)
 			{
 				x = now;
@@ -71,7 +96,7 @@ namespace ft {
 				node->color = BLACK;
 				return ;
 			}
-			if (comp(nvalue.first, now->data.first))
+			if (comp(node->data.first, nvalue.first))
 				x->left = node;
 			else
 				x->right = node;
@@ -137,6 +162,8 @@ namespace ft {
 				else
 					now = now->right;
 			}
+			std::cout << "searchNode end" << std::endl;
+			std::cout << "tree now  : " << now << std::endl;
 			return now;
 		}
 
@@ -165,8 +192,11 @@ namespace ft {
 		}
 		RbtNode minimum(RbtNode node)
 		{
-			while (node->left != nil)
-				node = node->left;
+			if (node != nil)
+			{
+				while (node->left != nil)
+					node = node->left;
+			}
 			return node;
 		}
 		RbtNode maximum(RbtNode node)
@@ -373,11 +403,21 @@ namespace ft {
 		}
 		void clear()
 		{
-			while (root)
+			// std::cout << "clear start" << std::endl;
+			// std::cout << "nil: " << nil << std::endl;
+			// std::cout << "root: " << root << std::endl;
+			std::cout <<"1 ::" <<std::endl;
+			std::cout <<  root<< std::endl;
+			while (root != NULL)
 			{
-				_alloc.destroy(minimum(root));
-				_alloc.deallocate(minimum(root), 1);
+				RbtNode del = minimum(root);
+				if (del == nil)
+					break;
+				_alloc.destroy(del);
+				_alloc.deallocate(del, 1);
 			}
+			nil = makeNilNode();
+			root = nil;
 		}
 		void printHelper(RbtNode root, std::string indent, bool last)
 		{

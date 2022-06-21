@@ -31,7 +31,10 @@ namespace ft
 	public:
 
 		mapIter(): _tree(NULL), _now(NULL) { }
-		mapIter(tree_type src, RbtNode now): _tree(src), _now(now) { }
+		mapIter(tree_type src, RbtNode now): _tree(src), _now(now)
+		{ 
+			std::cout << "mapIter with tree_type, RbtNode" << std::endl;
+		}
 		template<typename RmapIter>
 		mapIter(RmapIter &src)
 		{
@@ -46,7 +49,9 @@ namespace ft
 			}
 			return *this;
 		}
-		~mapIter() { }
+		~mapIter() {
+			std::cout << "mapIter destructor" << std::endl;
+		 }
 
 		template<typename U, typename V>
 		bool operator==(const mapIter<U, V, Compare> &rhs) const

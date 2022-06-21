@@ -8,22 +8,18 @@
 using namespace std;
 
 int main() {
-    std::cout << "map<int, int> std_int" << std::endl;
     map<int, int> std_int;
-    std::cout << "ft::map<int, int> ft_int" << std::endl;
     ft::map<int, int> ft_int;
     // vector<string> std_str;
     // ft::vector<string> ft_str;
 
     // std_int===========================
-    std::cout << "std_int" << std::endl;
     std_int.insert(make_pair(1, 1));
     std_int.insert(make_pair(2, 2));
     std_int.insert(make_pair(3, 3));
     std_int.insert(make_pair(4, 4));
 
     // ft_int============================
-    std::cout << "ft_int" << std::endl;
     ft_int.insert(ft::make_pair(1, 1));
     ft_int.insert(ft::make_pair(2, 2));
     ft_int.insert(ft::make_pair(3, 3));
