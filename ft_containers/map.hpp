@@ -176,8 +176,10 @@ namespace ft
 		ft::pair<iterator, bool> insert(const value_type &val)
 		{
 			std::cout << "map insert with value" << std::endl;
+			std::cout << "💀" << std::endl;
 			ft::pair<iterator, bool> ret;
-
+			std::cout << "💀" << std::endl;
+			// iterator it = retit;
 			ret.second = true;
 			if (_tree->searchNode(val.first) != _tree->nil)
 				ret.second = false;
@@ -190,7 +192,6 @@ namespace ft
 			std::cout << "2" << std::endl;
 			//std::cout<< "type : " <<typeof(ret) << std::endl;
 			ret.first = this->find(val.first);		// 여기가 문제 ret.first 타입이 rbtree 인것 같음 
-
 			std::cout << "3" << std::endl;
 			return ret;
 		}

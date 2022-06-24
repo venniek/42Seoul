@@ -1,7 +1,7 @@
 SRCS = test_map.cpp
 
 CPP = c++
-FLAG = -Werror -Wall -Wextra -std=c++98
+FLAG = -Werror -Wall -Wextra -g -std=c++98
 
 NAME = FT_containers
 

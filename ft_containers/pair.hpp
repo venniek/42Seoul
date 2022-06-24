@@ -1,5 +1,6 @@
 #ifndef __PAIR_HPP__
 #define __PAIR_HPP__
+#include <iostream>
 
 namespace ft {
     template<typename T1, typename T2>
@@ -10,7 +11,7 @@ namespace ft {
         second_type second;
 
         // ----- constructor
-        pair(): first(first_type()), second(second_type()) { }
+        pair(): first(first_type()), second(second_type()) { std::cout << "pair constructor called" << std::endl; }
         pair(const first_type &a, const second_type &b): first(a), second(b) { }
         template<typename U, typename V> 
         pair(const pair<U, V>& pr): first(pr.first), second(pr.second) { }

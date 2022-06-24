@@ -7,33 +7,40 @@
 
 namespace ft
 {
-	class OutOfRangeException: public std::exception
-	{
-	public:
-		const char* what(void) const throw()
-		{
-			return "Iterator is out of range";
-		}
-	};
 
 	template<typename Key, typename T, typename Compare = ft::less<Key> >
 	class mapIter
 	{
 	private:
 		typedef ft::pair<Key, T> pair_t;
-		typedef Rbtree<Key, T, Compare> *tree_type;
+		typedef Rbtree<Key, T, Compare> tree_type;
+				std::allocator<tree_type> _allocTree;
+
+		typedef tree_type *tree_ptr;
 		typedef Node<pair_t> *RbtNode;
 		typedef ptrdiff_t difference_type;
 
-		tree_type _tree;
+		tree_ptr _tree;
 		RbtNode _now;
 
 	public:
+		class OutOfRangeException: public std::exception
+		{
+		public:
+			const char* what(void) const throw()
+			{
+				return "Iterator is out of range";
+			}
+		};
 
-		mapIter(): _tree(NULL), _now(NULL) { }
-		mapIter(tree_type src, RbtNode now): _tree(src), _now(now)
+		mapIter(): _now(NULL) { 
+			tree_type tmp;
+			_tree = _allocTree.allocate(1);
+			*_tree = tmp;
+		}
+		mapIter(tree_ptr src, RbtNode now): _tree(src), _now(now)
 		{ 
-			std::cout << "mapIter with tree_type, RbtNode" << std::endl;
+			std::cout << "mapIter with tree_ptr, RbtNode" << std::endl;
 		}
 		template<typename RmapIter>
 		mapIter(RmapIter &src)
@@ -51,7 +58,7 @@ namespace ft
 		}
 		~mapIter() {
 			std::cout << "mapIter destructor" << std::endl;
-		 }
+		}
 
 		template<typename U, typename V>
 		bool operator==(const mapIter<U, V, Compare> &rhs) const
@@ -108,19 +115,20 @@ namespace ft
 	{
 	private:
 		typedef ft::pair<Key, T> pair_t;
-		typedef Rbtree<Key, T, Compare> *tree_type;
+		typedef Rbtree<Key, T, Compare> tree_type;
+		typedef tree_type *tree_ptr;
 		typedef Node<pair_t> *RbtNode;
 		typedef ptrdiff_t difference_type;
 		typedef pair_t &reference;
 		typedef pair_t *pointer;
 
-		tree_type _tree;
+		tree_ptr _tree;
 		RbtNode _now;
 
 	public:
 
-		mapConstIter(): _tree(NULL), _now(NULL) { }
-		mapConstIter(tree_type *src, RbtNode now): _tree(src), _now(now) { }
+		mapConstIter(): _tree(&tree_type()), _now(NULL) { }
+		mapConstIter(tree_ptr src, RbtNode now): _tree(src), _now(now) { }
 		template<typename RmapConstIter>
 		mapConstIter(RmapConstIter &src)
 		{

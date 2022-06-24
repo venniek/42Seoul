@@ -31,10 +31,10 @@ namespace ft {
 
 		std::allocator<Node<pair_t> > _alloc;
 		RbtNode root;
-		RbtNode nil;
+		static RbtNode nil;
 		
 		// -----constructor, destructor
-		Rbtree(): nil(makeNilNode()) 
+		Rbtree()
 		{
 			root = nil;
 		}
@@ -179,17 +179,8 @@ namespace ft {
 			res->right = nil;
 			return res;
 		}
-		RbtNode makeNilNode()
-		{
-			RbtNode nil = _alloc.allocate(1);
+		static RbtNode makeNilNode();
 
-			nil->data = pair_t();
-			nil->color = BLACK;
-			nil->parent = NULL;
-			nil->left = NULL;
-			nil->right = NULL;
-			return nil;
-		}
 		RbtNode minimum(RbtNode node)
 		{
 			if (node != nil)
@@ -407,7 +398,7 @@ namespace ft {
 			// std::cout << "nil: " << nil << std::endl;
 			// std::cout << "root: " << root << std::endl;
 			std::cout <<"1 ::" <<std::endl;
-			std::cout <<  root<< std::endl;
+			// std::cout <<  root<< std::endl;
 			while (root != NULL)
 			{
 				RbtNode del = minimum(root);
@@ -447,6 +438,21 @@ namespace ft {
 				printHelper(root, "", true);
 		}
 	};
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	Rbtree<Key, T, Compare, Alloc>::RbtNode Rbtree<Key, T, Compare, Alloc>::makeNilNode()
+	{
+		RbtNode nil = (std::allocator<Node<ft::pair<Key, T> > >).allocate(1);
+
+		nil->data = pair_t();
+		nil->color = BLACK;
+		nil->parent = NULL;
+		nil->left = NULL;
+		nil->right = NULL;
+		return nil;
+	}
+
+	template<typename Key, typename T, typename Compare, typename Alloc>
+	Rbtree<Key, T, Compare, Alloc>::RbtNode Rbtree<Key, T, Compare, Alloc>::nil = Rbtree<Key, T, Compare, Alloc>::makeNilNode();
 }
 
 
