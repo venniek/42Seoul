@@ -31,16 +31,15 @@ namespace ft {
 
 		std::allocator<Node<pair_t> > _alloc;
 		RbtNode root;
-		static RbtNode nil;
+		RbtNode nil;
 		
 		// -----constructor, destructor
-		Rbtree()
+		Rbtree() : nil(makeNilNode())
 		{
 			root = nil;
 		}
 		~Rbtree()
 		{
-			std::cout << "Rbtree destructor" << std::endl;
 			this->clear();
 			if (nil)
 			{
@@ -56,16 +55,13 @@ namespace ft {
 		{
 			if (this != &origin)
 			{
-				std::cout << "operator = " <<std::endl;
-				
-				std::cout <<"what root = " << origin.root <<std::endl;
 				this->clear();
 				RbtNode now;
 				if (origin.root == origin.nil)
 					now = origin.root;
 				else
 					now = this->minimum(origin.root);
-				while (now != origin.nil)
+				while (!isNil(now))
 				{
 					this->insertNode(now->data);
 					now = this->successor(now);
@@ -81,7 +77,7 @@ namespace ft {
 			RbtNode now = root;
 			RbtNode x = NULL; // 부모 노드 저장
 			key_compare comp = key_compare();
-			while (now != nil)
+			while (!isNil(now))
 			{
 				x = now;
 				if (comp(nvalue.first, now->data.first))
@@ -111,19 +107,19 @@ namespace ft {
 			int y_origin_c;
 
 			z = searchNode(dkey);
-			if (z == nil) // key not found in tree
+			if (isNil(z)) // key not found in tree
 			{
 				std::cout << dkey << " is not in the tree" << std::endl;
 				return ;
 			}
 			y = z;
 			y_origin_c = y->color; // 없어지는 색 == 지울 노드(바뀔 수 있음. 우선 대입해놓기)
-			if (z->left == nil) // 자식 없거나 하나인지 검사
+			if (isNil(z->left)) // 자식 없거나 하나인지 검사
 			{
 				x = z->right;
 				nodeReplace(z, z->right);
 			}
-			else if (z->right == nil)
+			else if (isNil(z->right)) //
 			{
 				x = z->left;
 				nodeReplace(z, z->left);
@@ -155,15 +151,13 @@ namespace ft {
 			RbtNode now = root;
 			key_compare comp = key_compare();
 
-			while (now != nil && now->data.first != skey)
+			while (!isNil(now)  && now->data.first != skey)
 			{
 				if (comp(skey, now->data.first))
 					now = now->left;
 				else
 					now = now->right;
 			}
-			std::cout << "searchNode end" << std::endl;
-			std::cout << "tree now  : " << now << std::endl;
 			return now;
 		}
 
@@ -174,34 +168,44 @@ namespace ft {
 
 			res->data = key;
 			res->color = color;
-			res->parent = NULL;
+			res->parent = nil;
 			res->left = nil;
 			res->right = nil;
 			return res;
 		}
-		static RbtNode makeNilNode();
+		RbtNode makeNilNode()
+		{
+			RbtNode nil = _alloc.allocate(1);
+
+			nil->data = pair_t();
+			nil->color = BLACK;
+			nil->parent = NULL;
+			nil->left = NULL;
+			nil->right = NULL;
+			return nil;
+		}
 
 		RbtNode minimum(RbtNode node)
 		{
-			if (node != nil)
+			if (!isNil(node))
 			{
-				while (node->left != nil)
+				while (!isNil(node->left))
 					node = node->left;
 			}
 			return node;
 		}
 		RbtNode maximum(RbtNode node)
 		{
-			while (node->right != nil)
+			while (!isNil(node->right))
 				node = node->right;
 			return node;
 		}
 		RbtNode successor(RbtNode x)
 		{
-			if (x->right != nil)
+			if (!isNil(x->right))
 				return minimum(x->right);
 			RbtNode y = x->parent;
-			while (y != nil && x == y->right)
+			while (!isNil(y) && x == y->right)
 			{
 				x = y;
 				y = y->parent;
@@ -210,10 +214,10 @@ namespace ft {
 		}
 		RbtNode predecessor(RbtNode x)
 		{
-			if (x->left != nil)
+			if (!isNil(x->right))
 				return maximum(x->left);
 			RbtNode y = x->parent;
-			while (y != nil && x == y->left)
+			while (!isNil(y) && x == y->left)
 			{
 				x = y;
 				y = y->parent;
@@ -223,15 +227,15 @@ namespace ft {
 		}
 		RbtNode getGrandNode(RbtNode curr)
 		{
-			if (curr->parent == nil)
+			if (isNil(curr->parent))
 				return NULL;
 			return curr->parent->parent;
 		}
 		RbtNode getUncleNode(RbtNode curr)
 		{
 			RbtNode grand = getGrandNode(curr);
-			if (grand == nil)
-				return nullptr;
+			if (isNil(grand))
+				return NULL;
 			if (grand->left == curr->parent)
 				return grand->right;
 			return grand->left;
@@ -241,7 +245,7 @@ namespace ft {
 			RbtNode y = x->right;
 			
 			x->right = y->left;
-			if (y->left != nil)
+			if (!isNil(y->left))
 				y->left->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -258,7 +262,7 @@ namespace ft {
 			RbtNode y = x->left;
 
 			x->left = y->right;
-			if (y->right != nil)
+			if (!isNil(y->right))
 				y->right->parent = x;
 			y->parent = x->parent;
 			if (x->parent == NULL)
@@ -394,15 +398,10 @@ namespace ft {
 		}
 		void clear()
 		{
-			// std::cout << "clear start" << std::endl;
-			// std::cout << "nil: " << nil << std::endl;
-			// std::cout << "root: " << root << std::endl;
-			std::cout <<"1 ::" <<std::endl;
-			// std::cout <<  root<< std::endl;
 			while (root != NULL)
 			{
 				RbtNode del = minimum(root);
-				if (del == nil)
+				if (isNil(del))
 					break;
 				_alloc.destroy(del);
 				_alloc.deallocate(del, 1);
@@ -410,9 +409,13 @@ namespace ft {
 			nil = makeNilNode();
 			root = nil;
 		}
+		int isNil(RbtNode node)
+		{
+			return node->right == NULL && node->left == NULL;
+		}
 		void printHelper(RbtNode root, std::string indent, bool last)
 		{
-			if (root != nil)
+			if (!isNil(root))
 			{
 				std::cout << indent;
 				if (last)
@@ -438,21 +441,7 @@ namespace ft {
 				printHelper(root, "", true);
 		}
 	};
-	template<typename Key, typename T, typename Compare, typename Alloc>
-	Rbtree<Key, T, Compare, Alloc>::RbtNode Rbtree<Key, T, Compare, Alloc>::makeNilNode()
-	{
-		RbtNode nil = (std::allocator<Node<ft::pair<Key, T> > >).allocate(1);
 
-		nil->data = pair_t();
-		nil->color = BLACK;
-		nil->parent = NULL;
-		nil->left = NULL;
-		nil->right = NULL;
-		return nil;
-	}
-
-	template<typename Key, typename T, typename Compare, typename Alloc>
-	Rbtree<Key, T, Compare, Alloc>::RbtNode Rbtree<Key, T, Compare, Alloc>::nil = Rbtree<Key, T, Compare, Alloc>::makeNilNode();
 }
 
 

@@ -38,10 +38,7 @@ namespace ft
 			_tree = _allocTree.allocate(1);
 			*_tree = tmp;
 		}
-		mapIter(tree_ptr src, RbtNode now): _tree(src), _now(now)
-		{ 
-			std::cout << "mapIter with tree_ptr, RbtNode" << std::endl;
-		}
+		mapIter(tree_ptr src, RbtNode now): _tree(src), _now(now) { }
 		template<typename RmapIter>
 		mapIter(RmapIter &src)
 		{
@@ -56,9 +53,7 @@ namespace ft
 			}
 			return *this;
 		}
-		~mapIter() {
-			std::cout << "mapIter destructor" << std::endl;
-		}
+		~mapIter() { }
 
 		template<typename U, typename V>
 		bool operator==(const mapIter<U, V, Compare> &rhs) const
