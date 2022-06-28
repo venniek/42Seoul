@@ -15,9 +15,12 @@ namespace ft
 		typedef ft::pair<Key, T> pair_t;
 		typedef Rbtree<Key, T, Compare> tree_type;
 				std::allocator<tree_type> _allocTree;
+		
+				
 
 		typedef tree_type *tree_ptr;
 		typedef Node<pair_t> *RbtNode;
+			std::allocator<Node<pair_t> > _allocNow;
 		typedef ptrdiff_t difference_type;
 
 		tree_ptr _tree;
@@ -36,6 +39,7 @@ namespace ft
 		mapIter(): _now(NULL) { 
 			tree_type tmp;
 			_tree = _allocTree.allocate(1);
+			_now = _allocNow.allocate(1);
 			*_tree = tmp;
 		}
 		mapIter(tree_ptr src, RbtNode now): _tree(src), _now(now) { }
@@ -48,8 +52,8 @@ namespace ft
 		{
 			if (this != &rhs)
 			{
-				*(this->_tree) = *rhs._tree;
-				*(this->_now) = *rhs._now;
+				*(this->_tree) = *(rhs._tree);
+				*(this->_now) = *(rhs._now);
 			}
 			return *this;
 		}

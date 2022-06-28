@@ -9,6 +9,7 @@ using namespace std;
 
 int main() {
     map<int, int> std_int;
+	std::cout << "after make map<int, int> std_int" << std::endl;
     ft::map<int, int> ft_int;
     std::cout << "after make ft::map<int, int> ft_int" << std::endl;
     // vector<string> std_str;

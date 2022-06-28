@@ -403,14 +403,15 @@ namespace ft {
 				RbtNode del = minimum(root);
 				if (isNil(del))
 					break;
-				_alloc.destroy(del);
-				_alloc.deallocate(del, 1);
+				deleteNode(del->data.first);
 			}
 			nil = makeNilNode();
 			root = nil;
 		}
 		int isNil(RbtNode node)
 		{
+			if (node == NULL)
+				return 1;
 			return node->right == NULL && node->left == NULL;
 		}
 		void printHelper(RbtNode root, std::string indent, bool last)
