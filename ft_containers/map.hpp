@@ -219,14 +219,18 @@ namespace ft
 		}
 		void swap(map &x)
 		{
+			std::cout << "swap start!" << std::endl;
 			tree_ptr tmp = x._tree;
 			size_type tmp_size = x._size;
+			std::cout << "after make tmps" << std::endl;
 
 			x._tree = this->_tree;
 			x._size = this->_size;
+			std::cout << "x_tree, size = this->tree, size" << std::endl;
 
 			this->_tree = tmp;
 			this->_size = tmp_size;
+			std::cout << "this->tree, size = tmp.tree, size" << std::endl;
 		}
 		void clear()
 		{

@@ -12,8 +12,6 @@ int main() {
 	std::cout << "after make map<int, int> std_int" << std::endl;
     ft::map<int, int> ft_int;
     std::cout << "after make ft::map<int, int> ft_int" << std::endl;
-    // vector<string> std_str;
-    // ft::vector<string> ft_str;
 
     // std_int===========================
     std_int.insert(make_pair(1, 1));
@@ -88,15 +86,16 @@ int main() {
     cout << endl;
 
     // swap
+    cout << "swap-------------" << endl;
     ft::map<int, int> ft_swap;
+    cout << "after declare ft_swap" << endl;
 
     ft_swap.insert(ft::make_pair(10, 10));
     ft_swap.insert(ft::make_pair(20, 20));
     ft_swap.insert(ft::make_pair(30, 30));
     ft_int.swap(ft_swap);
-    cout << "swap------------" << endl;
-    cout << "std::size(): " << std_int.size() << endl;
-    cout << "ft::size(): " << ft_int.size() << endl;
+    cout << "ft_int.size(): " << ft_int.size() << endl;
+    cout << "ft_swap.size(): " << ft_swap.size() << endl;
     cout << endl;
 
     // clear
