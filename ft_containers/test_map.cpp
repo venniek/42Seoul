@@ -9,9 +9,7 @@ using namespace std;
 
 int main() {
     map<int, int> std_int;
-	std::cout << "after make map<int, int> std_int" << std::endl;
     ft::map<int, int> ft_int;
-    std::cout << "after make ft::map<int, int> ft_int" << std::endl;
 
     // std_int===========================
     std_int.insert(make_pair(1, 1));
@@ -21,13 +19,9 @@ int main() {
 
     // ft_int============================
     ft_int.insert(ft::make_pair(1, 1));
-    std::cout << "after insert (1, 1)" << std::endl;
     ft_int.insert(ft::make_pair(2, 2));
-    std::cout << "after insert (2, 2)" << std::endl;
     ft_int.insert(ft::make_pair(3, 3));
-    std::cout << "after insert (3, 3)" << std::endl;
     ft_int.insert(ft::make_pair(4, 4));
-    std::cout << "after insert (4, 4)" << std::endl;
 
     // begin
     cout << "begin------------" << endl;
