@@ -1,5 +1,6 @@
 #ifndef __PAIR_HPP__
 #define __PAIR_HPP__
+
 #include <iostream>
 
 namespace ft {
@@ -53,7 +54,5 @@ namespace ft {
 		return pair<first_type, second_type>(x, y);
 	}
 }
-
-
 
 #endif

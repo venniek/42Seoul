@@ -8,7 +8,7 @@
 namespace ft
 {
 	template <typename T, typename Iter>
-	class mapIter
+	class treeIter
 	{
 	public:
 		typedef T value_type;
@@ -25,12 +25,12 @@ namespace ft
 		node_pointer _nil;
 
 	public:
-		mapIter(): _now(ft::nil), _nil(ft::nil) { }
-		mapIter(node_pointer now, node_pointer nil): _now(now), _nil(nil) { }
-		mapIter(const mapIter& copy): _now(copy._now), _nil(copy._nil) { }
-		~mapIter() { }
+		treeIter(): _now(ft::nil), _nil(ft::nil) { }
+		treeIter(node_pointer now, node_pointer nil): _now(now), _nil(nil) { }
+		treeIter(const treeIter& copy): _now(copy._now), _nil(copy._nil) { }
+		~treeIter() { }
 
-		mapIter& operator=(const mapIter& origin)
+		treeIter& operator=(const treeIter& origin)
 		{
 			if (this != &origin)
 			{
@@ -53,42 +53,42 @@ namespace ft
 			return _now->data;
 		}
 		// increment & decrement
-		mapIter& operator++()
+		treeIter& operator++()
 		{
 			_now = successor(_now, _nil);
 			return *this;
 		}
-		mapIter& operator--()
+		treeIter& operator--()
 		{
 			_now = predecessor(_now, _nil);
 			return *this;
 		}
-		mapIter& operator++(int)
+		treeIter& operator++(int)
 		{
-			mapIter tmp(*this);
+			treeIter tmp(*this);
 			++(*this);
 			return tmp;
 		}
-		mapIter& operator--(int)
+		treeIter& operator--(int)
 		{
-			mapIter tmp(*this);
+			treeIter tmp(*this);
 			--(*this);
 			return tmp;
 		}
 
 		// relational operators
 		template<typename T>
-		bool operator==(const mapIter& rhs) const
+		bool operator==(const treeIter& rhs) const
 		{
 			return _now == rhs.base();
 		}
 		template<typename T>
-		bool operator!=(const mapIter& rhs) const
+		bool operator!=(const treeIter& rhs) const
 		{
 			return !(*this == rhs);
 		}
 		template<typename T>
-		bool operator==(const mapIter& rhs) const
+		bool operator==(const treeIter& rhs) const
 		{
 			return _now == rhs.base();
 		}
@@ -96,18 +96,16 @@ namespace ft
 
 	// non member function
 	template<typename T, typename Iter>
-	bool operator==(const mapIter<T, Iter>& x, const mapIter<T, Iter>& y)
+	bool operator==(const treeIter<T, Iter>& x, const treeIter<T, Iter>& y)
 	{
 		return x.base() == y.base();
 	}
 	template<typename T, typename Iter>
-	bool operator!=(const mapIter<T, Iter>& x, const mapIter<T, Iter>& y)
+	bool operator!=(const treeIter<T, Iter>& x, const treeIter<T, Iter>& y)
 	{
 		return !(x == y);
 	}
 	
 }
-
-
 
 #endif

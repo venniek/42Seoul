@@ -5,6 +5,7 @@
 # include <iostream>
 # include "pair.hpp"
 # include "map_iter.hpp"
+# include "iterator_traits.hpp"
 
 namespace ft {
 	// color enum: BLACK = 0, RED = 1
@@ -36,7 +37,7 @@ namespace ft {
 			return *this;
 		}
 	};
-	// non-member function
+	// non-member function for Node
 	template<typename node_ptr>
 	bool isRightChild(const node_ptr &ptr)
 	{
@@ -182,7 +183,123 @@ namespace ft {
 			return _size == 0;
 		}
 		// modifier
+		ft::pair<iterator, bool> insert(const pair_t& value)
+		{
+			node_pointer ptr = searchNode(value);
+			if (ptr != _end && isEqual(ptr->data, value, _comp))
+				return ft::make_pair(iterator(ptr, _nil), false);
+			return ft::make_pair(iterator(insertNode(value, ptr), _nil), true);
+		}
+		iterator insert(iterator position, const pair_t& value)
+		{
+			node_pointer ptr = searchNode(value, position.base());
+			if (ptr != _end && isEqual(ptr->data, value, _comp))
+				return iterator(ptr, _nil);
+			return iterator(insertNode(value, ptr), _nil);
+		}
+		template<typename InputIterator>
+		void insert(InputIterator first, InputIterator last)
+		{
+			for (; first != last; first++)
+				insert(*first);
+		}
+		iterator erase(iterator position)
+		{
+			if (_size == 0)
+				return iterator(_nil, _nil);
+			iterator tmp(position);
+			++tmp;
+			if (position == begin())
+				_begin = tmp.base();
+			--_size;
+			removeNode(position.base());
+			destructNode(position.base());
+			return tmp;
+		}
+		template<typename U>
+		size_type erase(const U& value)
+		{
+			iterator it(findNode(value), _nil);
+			if (it == end())
+				return 0;
+			if (it == begin())
+			{
+				iterator tmp(it);
+				++tmp;
+				_begin = tmp.base();
+			}
+			--_size;
+			removeNode(it.base());
+			destructNode(it.base());
+			return 1;
+		}
+		void erase(iterator first, iterator last)
+		{
+			for (; first != last; )
+				first = erase(first);
+		}
+		void swap(Rbtree& x)
+		{
+
+		}
+		void clear()
+		{
+			Rbtree tmp(_comp, _alloc);
+			swap(tmp);
+		}
+
+		// lookup operation
+		iterator find(const key_type& key)
+		{
+			return iterator(findNode(key), _nil);
+		}
+		const_iterator find(const key_type& key) const
+		{
+			return const_iterator(findNode(key), _nil);
+		}
+		iterator lower_bound(const key_type &key)
+		{
+			return iterator(lowerboundNode(key), _nil);
+		}
+		const_iterator lower_bound(const key_type &key) const
+		{
+			return const_iterator(lowerboundNode(key), _nil);
+		}
+		iterator upper_bound(const key_type &key)
+		{
+			return iterator(upperboundNode(key), _nil);
+		}
+		const_iterator upper_bound(const key_type &key) const
+		{
+			return const_iterator(upperboundNode(key), _nil);
+		}
+		ft::pair<iterator, iterator> equal_range(const key_type &key)
+		{
+			return equalRange(key);
+		}
+		ft::pair<const_iterator, const_iterator> equal_range(const key_type &key) const
+		{
+			return equalRange(key);
+		}
+		allocator_type get_allocator() const
+		{
+			return _alloc;
+		}
+
+		// node functions
+		node_pointer getRoot
+
+
+
+
+
+
+
 		
+
+
+
+
 
 
 
@@ -300,46 +417,6 @@ namespace ft {
 			return nil;
 		}
 
-		node_ptr minimum(node_ptr node)
-		{
-			if (!isNil(node))
-			{
-				while (!isNil(node->left))
-					node = node->left;
-			}
-			return node;
-		}
-		node_ptr maximum(node_ptr node)
-		{
-			while (!isNil(node->right))
-				node = node->right;
-			return node;
-		}
-		node_ptr successor(node_ptr x)
-		{
-			if (!isNil(x->right))
-				return minimum(x->right);
-			node_ptr y = x->parent;
-			while (!isNil(y) && x == y->right)
-			{
-				x = y;
-				y = y->parent;
-			}
-			return y;
-		}
-		node_ptr predecessor(node_ptr x)
-		{
-			if (!isNil(x->left))
-				return maximum(x->left);
-			node_ptr y = x->parent;
-			while (!isNil(y) && x == y->left)
-			{
-				x = y;
-				y = y->parent;
-			}
-
-			return y;
-		}
 		node_ptr getGrandNode(node_ptr curr)
 		{
 			if (isNil(curr->parent))

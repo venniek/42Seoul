@@ -18,28 +18,7 @@ namespace ft {
         typedef Reference reference;
     };
 
-    // iterator_traits ====================================
-    template<typename iterator>
-    struct iterator_traits {
-        typedef typename iterator::value_type value_type;
-        typedef typename iterator::difference_type difference_type;
-        typedef typename iterator::pointer pointer;
-        typedef typename iterator::reference reference;
-    };
-    template<typename T>
-    struct iterator_traits<T*> {
-        typedef T value_type;
-        typedef T* pointer;
-        typedef T& reference;
-        typedef ptrdiff_t difference_type;
-    };
-    template<typename T>
-    struct iterator_traits<T* const> {
-        typedef T value_type;
-        typedef T* pointer;
-        typedef T& reference;
-        typedef ptrdiff_t difference_type;
-    };
+
 
     template<typename T, typename InputIterator>
     typename iterator_traits<T *>::difference_type distance2(InputIterator first, InputIterator last) {
