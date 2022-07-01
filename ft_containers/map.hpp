@@ -1,5 +1,5 @@
-#ifndef __MAP_H__
-# define __MAP_H__
+#ifndef __MAP_HPP__
+# define __MAP_HPP__
 
 # include <iostream>
 # include "pair.hpp"

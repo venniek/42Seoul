@@ -1,5 +1,5 @@
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef __UTILS_HPP__
+#define __UTILS_HPP__
 
 namespace ft {
     // enable_if =====================================================
@@ -87,6 +87,12 @@ namespace ft {
 	{
 		bool operator()(const Key &x, const Key &y) const { return x < y; }
 	};
+
+	const class t_nullptr
+	{
+		private:
+			void
+	}
 }
 
 

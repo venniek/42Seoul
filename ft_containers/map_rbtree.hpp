@@ -6,6 +6,7 @@
 # include "pair.hpp"
 # include "map_iter.hpp"
 # include "iterator_traits.hpp"
+# include "reverse_iterator.hpp"
 
 namespace ft {
 	// color enum: BLACK = 0, RED = 1
@@ -90,8 +91,8 @@ namespace ft {
 		typedef ft::pair<key_type, value_type> pair_t;
 		typedef Node<pair_t> node_type;
 		typedef Node<pair_t> *node_ptr;
-		typedef mapIter<pair_t, node_type> iterator;
-		typedef mapIter<const pair_t, node_type> const_iterator;
+		typedef treeIter<pair_t, node_type> iterator;
+		typedef treeIter<const pair_t, node_type> const_iterator;
 
 		typedef Compare key_compare;
 		typedef Alloc allocator_type;
@@ -151,8 +152,7 @@ namespace ft {
 			return *this;
 		}
 
-
-		// iterator
+		// iterator for map
 		iterator begin()
 		{
 			return iterator(_begin, _nil);
@@ -169,7 +169,7 @@ namespace ft {
 		{
 			return const_tierator(_end, _nil);
 		}
-		// capacity
+		// capacity for map
 		size_type size() const
 		{
 			return _size;
@@ -182,17 +182,17 @@ namespace ft {
 		{
 			return _size == 0;
 		}
-		// modifier
+		// modifier for map
 		ft::pair<iterator, bool> insert(const pair_t& value)
 		{
-			node_pointer ptr = searchNode(value);
+			node_ptr ptr = searchNode(value);
 			if (ptr != _end && isEqual(ptr->data, value, _comp))
 				return ft::make_pair(iterator(ptr, _nil), false);
 			return ft::make_pair(iterator(insertNode(value, ptr), _nil), true);
 		}
 		iterator insert(iterator position, const pair_t& value)
 		{
-			node_pointer ptr = searchNode(value, position.base());
+			node_ptr ptr = searchNode(value, position.base());
 			if (ptr != _end && isEqual(ptr->data, value, _comp))
 				return iterator(ptr, _nil);
 			return iterator(insertNode(value, ptr), _nil);
@@ -238,17 +238,29 @@ namespace ft {
 			for (; first != last; )
 				first = erase(first);
 		}
+		template<typename Tmp>
+		void swap_tree(Tmp &a, Tmp &b)
+		{
+			Tmp tmp = a;
+
+			a = b;
+			b = tmp;
+		}
 		void swap(Rbtree& x)
 		{
-
+			swap_tree(_begin, x._begin);
+			swap_tree(_end, x._end);
+			swap_tree(_nil, x._nil);
+			swap_tree(_alloc, x._alloc);
+			swap_tree(_comp, x._comp);
+			swap_tree(_size, x._size);
 		}
 		void clear()
 		{
 			Rbtree tmp(_comp, _alloc);
 			swap(tmp);
 		}
-
-		// lookup operation
+		// operation for map
 		iterator find(const key_type& key)
 		{
 			return iterator(findNode(key), _nil);
@@ -286,364 +298,392 @@ namespace ft {
 			return _alloc;
 		}
 
-		// node functions
-		node_pointer getRoot
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-		// -----operation insert, delete, search
-		void insertNode(pair_t nvalue)
+		// tree functions
+		node_ptr getRoot() const
 		{
-			node_ptr node = makeNode(nvalue, RED);
-			node_ptr now = root;
-			node_ptr x = NULL; // 부모 노드 저장
-			key_compare comp = key_compare();
-			while (!isNil(now))
-			{
-				x = now;
-				if (comp(nvalue.first, now->data.first))
-					now = now->left;
-				else
-					now = now->right;
-			}
-			node->parent = x;
-			if (x == NULL)
-			{ // tmp가 루트가 된다
-				root = node;
-				node->color = BLACK;
-				return ;
-			}
-			if (comp(node->data.first, nvalue.first))
-				x->left = node;
-			else
-				x->right = node;
-			if (node->parent->parent == NULL) // tmp가 루트의 자식. 바꿔줄 필요 없다.
-				return ;
-			insertFix(node);
+			return _end->left;
 		}
-		void deleteNode(key_type dkey)
+		void setRoot(const node_ptr ptr)
 		{
-			node_ptr x, y;  // y: 대체할 노드
-			node_ptr z; // z: 지울 노드
-			int y_origin_c;
+			ptr->parent = _end;
+			_end->left = ptr;
+		}
+		node_ptr makeNode(const pair_t &value)
+		{
+			node_ptr ret = _alloc.allocate(1);
 
-			z = searchNode(dkey);
-			if (isNil(z)) // key not found in tree
+			_alloc.construct(ret, value);
+			ret->color = RED;
+			ret->parent = _nil;
+			ret->left = _nil;
+			ret->right = _nil;
+			return ret;
+		}
+		void destructNode(node_ptr ptr)
+		{
+			_alloc.destory(ptr);
+			_alloc.deallocate(ptr, 1);
+		}
+		void destructAllNode(node_ptr ptr)
+		{
+			if (ptr == _nil)
+				return;
+			destructAllNode(ptr->left);
+			destructAllNode(ptr->right);
+			destructNode(ptr);
+		}
+		node_ptr findNode(const key_type &key) const
+		{
+			node_ptr ptr = getRoot();
+			while (ptr != _nil)
 			{
-				return ;
+				if (_comp(key, ptr->data.first))
+					ptr = ptr->left;
+				else if (_comp(ptr->data.first, key))
+					ptr = ptr->right;
+				else
+					return ptr;
 			}
-			y = z;
-			y_origin_c = y->color; // 없어지는 색 == 지울 노드(바뀔 수 있음. 우선 대입해놓기)
-			if (isNil(z->left)) // 자식 없거나 하나인지 검사
+			return _end;
+		}
+		node_ptr lowerboundNode(const key_type &key)
+		{
+			node_ptr ptr = getRoot();
+			node_ptr tmp = _end;
+
+			while (ptr != _nil)
 			{
-				x = z->right;
-				nodeReplace(z, z->right);
+				if (!_comp(ptr->data.first, key))
+				{
+					tmp = ptr;
+					ptr = ptr->left;
+				}
+				else
+					ptr = ptr->right;
 			}
-			else if (isNil(z->right)) //
+			return tmp;
+		}
+		node_ptr upperboundNode(const key_type &key) const
+		{
+			node_ptr ptr = getRoot();
+			node_ptr tmp = _end;
+
+			while (ptr != _nil)
 			{
-				x = z->left;
-				nodeReplace(z, z->left);
+				if (_comp(key, ptr->data.first))
+				{
+					tmp = ptr;
+					ptr = ptr->left;
+				}
+				else
+					ptr = ptr->right;
 			}
-			else // 자식 둘 다 있으면 successor의 색을 지우게 된다.
+			return tmp;
+		}
+		template<typename U>
+		ft::pair<iterator, iterator> equalRange(const U& value)
+		{
+			node_ptr ptr = getRoot();
+			node_ptr tmp = _end;
+
+			while (ptr != _nil)
 			{
-				y = minimum(z->right); // y는 z의 successor
-				y_origin_c = y->color;
-				x = y->right;
-				if (y->parent == z)
-					x->parent = y;
+				if (_comp(value, ptr->data.first))
+				{
+					tmp = ptr;
+					ptr = ptr->left;
+				}
+				else if (_comp(ptr->data.first, value))
+					ptr = ptr->right;
 				else
 				{
-					nodeReplace(y, y->right);
-					y->right = z->right;
-					y->right->parent = y;
+					if (ptr->right != _nil)
+						tmp = minNode(ptr->right, _nil);
+					return ft::make_pair(iterator(ptr, _nil), iterator(tmp, _nil));
 				}
-				nodeReplace(z, y);
-				y->left = z->left;
-				y->left->parent = y;
-				y->color = z->color;
 			}
-			_alloc.deallocate(z, 1);
-			if (y_origin_c == BLACK)
-				deleteFix(x);
+			return ft::make_pair(iterator(tmp, _nil), iterator(tmp, _nil));
 		}
-		node_ptr searchNode(key_type skey)
+		template<typename U>
+		ft::pair<const_iterator, const_iterator> equalRange(const U& value)
 		{
-			node_ptr now = root;
-			key_compare comp = key_compare();
+			node_ptr ptr = getRoot();
+			node_ptr tmp = _end;
 
-			while (!isNil(now)  && now->data.first != skey)
+			while (ptr != _nil)
 			{
-				if (comp(skey, now->data.first))
-					now = now->left;
-				else
-					now = now->right;
-			}
-			return now;
-		}
-
-		// -----utils_tree
-		node_ptr makeNode(pair_t key, int color)
-		{
-			node_ptr res = _alloc.allocate(1);
-
-			res->data = key;
-			res->color = color;
-			res->parent = nil;
-			res->left = nil;
-			res->right = nil;
-			return res;
-		}
-		node_ptr makeNilNode()
-		{
-			node_ptr nil = _alloc.allocate(1);
-
-			nil->data = pair_t();
-			nil->color = BLACK;
-			nil->parent = nil;
-			nil->left = nil;
-			nil->right = nil;
-			return nil;
-		}
-
-		node_ptr getGrandNode(node_ptr curr)
-		{
-			if (isNil(curr->parent))
-				return NULL;
-			return curr->parent->parent;
-		}
-		node_ptr getUncleNode(node_ptr curr)
-		{
-			node_ptr grand = getGrandNode(curr);
-			if (isNil(grand))
-				return NULL;
-			if (grand->left == curr->parent)
-				return grand->right;
-			return grand->left;
-		}
-		void leftRotate(node_ptr x)
-		{
-			node_ptr y = x->right;
-			
-			x->right = y->left;
-			if (!isNil(y->left))
-				y->left->parent = x;
-			y->parent = x->parent;
-			if (x->parent == NULL)
-				root = y;
-			else if (x->parent->left == x)
-				x->parent->left = y;
-			else
-				x->parent->right = y;
-			y->left = x;
-			x->parent = y;
-		}
-		void rightRotate(node_ptr x)
-		{
-			node_ptr y = x->left;
-
-			x->left = y->right;
-			if (!isNil(y->right))
-				y->right->parent = x;
-			y->parent = x->parent;
-			if (x->parent == NULL)
-				root = y;
-			else if (x->parent->right == x)
-				x->parent->right = y;
-			else
-				x->parent->left = y;
-			y->right = x;
-			x->parent = y;
-		}
-		void insertFix(node_ptr node)
-		{
-			node_ptr tmp = getUncleNode(node);
-
-			while (node->parent->color == ft::RED)
-			{ // 나도 red, 부모도 red
-				if (tmp->color == ft::RED)
-				{ // case 2. z.uncle = red
-					tmp->color = ft::BLACK;
-					node->parent->color = ft::BLACK;
-					node->parent->parent->color = ft::RED;
-					node = node->parent->parent;
-				}
-				else {
-					if (tmp == node->parent->parent->left)
-					{
-						if (node == node->parent->left)
-						{ // case 3. triangle(right)
-							node = node->parent;
-							rightRotate(node);
-						}
-						node->parent->color = ft::BLACK; // case 4. line(right)
-						node->parent->parent->color = ft::RED;
-						leftRotate(node->parent->parent);
-					}
-					else {
-						if (node == node->parent->right)
-						{ // case 3. triangle(left)
-							node = node->parent;
-							leftRotate(node);
-						}
-						node->parent->color = ft::BLACK; // case 4. line(left)
-						node->parent->parent->color = ft::RED;
-						rightRotate(node->parent->parent);
-					}
-				}
-				if (node == root)
-					break;
-			}
-			root->color = ft::BLACK;
-		}
-		void deleteFix(node_ptr x)
-		{
-			node_ptr s; // x's sibling
-			while (x != root && x->color == BLACK)
-			{
-				if (x == x->parent->left)
+				if (_comp(value, ptr->data.first))
 				{
-					s = x->parent->right;
-					if (s->color == RED)
+					tmp = ptr;
+					ptr = ptr->left;
+				}
+				else if (_comp(ptr->data.first, value))
+					ptr = ptr->right;
+				else
+				{
+					if (ptr->right != _nil)
+						tmp = minNode(ptr->right, _nil);
+					return ft::make_pair(const_iterator(ptr, _nil), const_iterator(tmp, _nil));
+				}
+			}
+			return ft::make_pair(const_iterator(tmp, _nil), const_iterator(tmp, _nil));
+		}
+		void leftRotate(node_ptr ptr)
+		{
+			node_ptr child = ptr->right;
+			node_ptr parent;
+
+			ptr->right = child->left;
+			if (ptr->right != _nil)
+				ptr->right->parent = ptr;
+			parent = ptr->parent;
+			child->parent = parent;
+			if (parent == _end)
+				setRoot(child);
+			else if (isLeftChild(ptr))
+				parent->left = child;
+			else
+				parent->right = child;
+			child->left = ptr;
+			ptr->parent = child;
+		}
+		void rightRotate(node_ptr ptr)
+		{
+			node_ptr child = ptr->left;
+			node_ptr parent;
+
+			ptr->left = child->right;
+			if (ptr->left != _nil)
+				ptr->left->parent = ptr;
+			parent = ptr->parent;
+			child->parent = parent;
+			if (parent == _end)
+				setRoot(child);
+			else if (isLeftChild(ptr))
+				parent->left = child;
+			else
+				parent->right = child;
+			child->right = ptr;
+			ptr->parent = child;
+		}
+		void nodeReplace(node_ptr from, node_ptr to)
+		{
+			if (from->parent == _end) // from == root
+				setRoot(to);
+			else if (isLeftChild(from)) // from == left child
+				from->parent->left = to;
+			else // from == right child
+				from->parent->right = to;
+			to->parent = from->parent;
+		}
+		// insert, delete
+		void insertNode(const pair_t &nvalue, node_ptr parent)
+		{
+			node_ptr ptr = makeNode(nvalue);
+			if (parent == _end)
+				setRoot(ptr);
+			else if (_comp(nvalue, parent->data))
+				parent->left = ptr;
+			else
+				parent->right = ptr;
+			ptr->parent = parent;
+			insertFix(ptr);
+			if (_begin == _end || _comp(ptr->data, _begin->data))
+				_begin = ptr;
+			_size++;
+			return ptr;
+		}
+		void insertFix(node_ptr ptr)
+		{
+			node_ptr uncle;
+
+			while (ptr->parent.color == RED))
+			{
+				if (isLeftChild(ptr->parent))
+				{
+					uncle = ptr->parent->parent->right;
+					if (uncle->color == RED)
 					{
-						s->color = BLACK;
-						x->parent->color = RED;
-						leftRotate(x->parent);
-						s = x->parent->right;
-					}
-					if (s->left->color + s->right->color == 0)
-					{
-						s->color = 1;
-						x = x->parent;
+						ptr->parent->color = BLACK;
+						uncle->color = BLACK;
+						uncle->parent->color = RED;
+						ptr = uncle->parent;
 					}
 					else
 					{
-						if (s->right->color == BLACK)
+						if (isRightChild(ptr))
 						{
-							s->left->color = BLACK;
-							s->color = RED;
-							rightRotate(s);
-							s = x->parent->right;
+							ptr = ptr->parent;
+							leftRotate(ptr);
 						}
-						s->color = x->parent->color;
-						x->parent->color = BLACK;
-						s->right->color = BLACK;
-						leftRotate(x->parent);
-						x = root;
+						ptr->parent->color = BLACK;
+						ptr->parent->parent->color = RED;
+						rightRotate(ptr->parent->parent);
 					}
 				}
 				else
 				{
-					s = x->parent->left;
-					if (s->color == RED)
+					uncle = ptr->parent->parent->left;
+					if (uncle->color == RED)
 					{
-
-						s->color = BLACK;
-						x->parent->color = RED;
-						rightRotate(x->parent);
-						s = x->parent->left;
-					}
-					if (s->right->color + s->right->color == 0)
-					{
-						s->color = RED;
-						x = x->parent;
+						ptr->parent->color = BLACK;
+						uncle->color = BLACK;
+						uncle->parent->color = RED;
+						ptr = uncle->parent;
 					}
 					else
 					{
-						if (s->left->color == BLACK)
+						if (isLeftChild(ptr))
 						{
-							s->right->color = BLACK;
-							s->color = RED;
-							leftRotate(s);
-							s = x->parent->left;
+							ptr = ptr->parent;
+							rightRotate(ptr);
 						}
-						s->color = x->parent->color;
-						x->parent->color = BLACK;
-						s->left->color = BLACK;
-						rightRotate(x->parent);
-						x = root;
+						ptr->parent->color = BLACK;
+						ptr->parent->parent->color = RED;
+						leftRotate(ptr->parent->parent);
 					}
 				}
 			}
-			x->color = BLACK;
+			getRoot()->color = BLACK;
 		}
-		void nodeReplace(node_ptr u, node_ptr v)
+		void deleteNode(node_ptr ptr)
 		{
-			if (u->parent == NULL) // u == root
-				root = v;
-			else if (u == u->parent->left) // u == left child
-				u->parent->left = v;
-			else // u == right child
-				u->parent->right = v;
-			v->parent = u->parent;
-		}
-		void clear()
-		{
-			std::cout << "clr_1" << std::endl;
-			while (root != NULL)
-			{
-				std::cout << "clr_iter" << std::endl;
-				node_ptr del = minimum(root);
-				std::cout << "clr_after iter" << std::endl;
-				if (isNil(del)) 
-				{
+			node_ptr recolor_node;
+			node_ptr fix_node = ptr;
+			int origin_color = ptr->color;
 
-					std::cout << "clr_branch" << std::endl;
-					break;
-				}
-					std::cout << "clr_2" << std::endl;
-				deleteNode(del->data.first);
-					std::cout << "clr_3" << std::endl;
-			}
-					std::cout << "clr_4" << std::endl;
-			nil = makeNilNode();
-					std::cout << "clr_5" << std::endl;
-			root = nil;
-		}
-		int isNil(node_ptr node)
-		{
-			if (node == NULL)
-				return 1;
-			return node->right == NULL && node->left == NULL;
-		}
-		void printHelper(node_ptr root, std::string indent, bool last)
-		{
-			if (!isNil(root))
+			if (ptr->left == _nil)
 			{
-				std::cout << indent;
-				if (last)
-				{
-					std::cout << "R----";
-					indent += "	 ";
-				}
+				recolor_node = ptr->right;
+				nodeReplace(ptr, ptr->right);
+			}
+			else if (ptr->right == _nil)
+			{
+				recolor_node = ptr->left;
+				nodeReplace(ptr, ptr->left);
+			}
+			else
+			{
+				fix_node = minNode(ptr->right, _nil);
+				origin_color = fix_node->color;
+				recolor_node = fix_node->right;
+				if (fix_node->parent == ptr)
+					recolor_node->parent = fix_node;
 				else
 				{
-					std::cout << "L----";
-					indent += "|	";
+					nodeReplace(fix_node, fix_node->right);
+					fix_node->right = ptr->right;
+					fix_node->right->parent = fix_node;
 				}
-
-				std::string sColor = root->color ? "RED" : "BLACK";
-				std::cout << root->data.first << "(" << sColor << ")" << std::endl;
-				printHelper(root->left, indent, false);
-				printHelper(root->right, indent, true);
+				nodeReplace(ptr, fix_node);
+				fix_node->left = ptr->left;
+				fix_node->left->parent = fix_node;
+				fix_node->color = ptr->color;
+			}
+			if (!origin_color)
+				deleteFix(recolor_node);
+		}
+		void deleteFix(node_ptr ptr)
+		{
+			while (ptr != getRoot() && ptr->color == BLACK)
+			{
+				if (isLeftChild(ptr))
+					deleteFix_left(ptr);
+				else
+					deleteFix_right(ptr);
+			}
+			ptr->color = BLACK;
+		}
+		void deleteFix_left(node_ptr ptr)
+		{
+			node_ptr sibling = ptr->parent->right;
+			if (sibling->color == RED)
+			{
+				sibling->color = BLACK;
+				ptr->parent->color = RED;
+				leftRotate(ptr->parent);
+				sibling = ptr->parent->right;
+			}
+			if (sibling->left->color == BLACK && sibling->right->color == BLACK)
+			{
+				sibling->color = RED;
+				ptr = ptr->parent;
+			}
+			else if (sibling->right->color == BLACK)
+			{
+				sibling->left->color = BLACK;
+				sibling->color = RED;
+				rightRotate(sibling);
+				sibling = ptr->parent->right;
+			}
+			if (sibling->right == RED)
+			{
+				sibling->color = ptr->parent->color;
+				ptr->parent->color = BLACK;
+				sibling->right->color = BLACK;
+				leftRotate(ptr->parent);
+				ptr = getRoot();
 			}
 		}
-		void printTree()
+		void deleteFix_right(node_ptr ptr)
 		{
-			if (root)
-				printHelper(root, "", true);
+			node_ptr sibling = ptr->parent->left;
+			if (sibling->color == RED)
+			{
+				sibling->color = BLACK;
+				ptr->parent->color = RED;
+				rightRotate(ptr->parent);
+				sibling = ptr->parent->left;
+			}
+			if (sibling->right->color == BLACK && sibling->left->color == BLACK)
+			{
+				sibling->color = RED;
+				ptr = ptr->parent;
+			}
+			else if (sibling->left->color == BLACK)
+			{
+				sibling->right->color = BLACK;
+				sibling->color = RED;
+				leftRotate(sibling);
+				sibling = ptr->parent->left;
+			}
+			if (sibling->left == RED)
+			{
+				sibling->color = ptr->parent->color;
+				ptr->parent->color = BLACK;
+				sibling->left->color = BLACK;
+				rightRotate(ptr->parent);
+				ptr = getRoot();
+			}
 		}
+
+		// void printHelper(node_ptr root, std::string indent, bool last)
+		// {
+		// 	if (!isNil(root))
+		// 	{
+		// 		std::cout << indent;
+		// 		if (last)
+		// 		{
+		// 			std::cout << "R----";
+		// 			indent += "	 ";
+		// 		}
+		// 		else
+		// 		{
+		// 			std::cout << "L----";
+		// 			indent += "|	";
+		// 		}
+
+		// 		std::string sColor = root->color ? "RED" : "BLACK";
+		// 		std::cout << root->data.first << "(" << sColor << ")" << std::endl;
+		// 		printHelper(root->left, indent, false);
+		// 		printHelper(root->right, indent, true);
+		// 	}
+		// }
+		// void printTree()
+		// {
+		// 	if (root)
+		// 		printHelper(root, "", true);
+		// }
 	};
 
 }

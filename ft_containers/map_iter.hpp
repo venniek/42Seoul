@@ -2,6 +2,8 @@
 # define __MAP_ITER_HPP__
 
 # include "map_rbtree.hpp"
+# include "iterator_traits.hpp"
+# include "reverse_iterator.hpp"
 # include "pair.hpp"
 # include "utils.hpp"
 
@@ -77,20 +79,19 @@ namespace ft
 		}
 
 		// relational operators
-		template<typename T>
-		bool operator==(const treeIter& rhs) const
+		template<typename U>
+		bool operator==(const treeIter<U, node_type>& rhs) const
 		{
 			return _now == rhs.base();
 		}
-		template<typename T>
-		bool operator!=(const treeIter& rhs) const
+		template<typename U>
+		bool operator!=(const treeIter<U, node_type>& rhs) const
 		{
 			return !(*this == rhs);
 		}
-		template<typename T>
-		bool operator==(const treeIter& rhs) const
+		operator treeIter<const value_type, node_type>() const
 		{
-			return _now == rhs.base();
+			return treeIter<const value_type, node_type>(_now, _nil);
 		}
 	};
 

@@ -10,11 +10,11 @@ namespace ft
     {
     public:
         typedef Iterator iterator_type;
-        typedef iterator_traits<Iterator>::iterator_category iterator_category;
-        typedef iterator_traits<Iterator>::value_type value_type;
-        typedef iterator_traits<Iterator>::difference_type difference_type;
-        typedef iterator_traits<Iterator>::pointer pointer;
-        typedef iterator_traits<Iterator>::reference reference;
+        typedef typename iterator_traits<Iterator>::iterator_category iterator_category;
+        typedef typename iterator_traits<Iterator>::value_type value_type;
+        typedef typename iterator_traits<Iterator>::difference_type difference_type;
+        typedef typename iterator_traits<Iterator>::pointer pointer;
+        typedef typename iterator_traits<Iterator>::reference reference;
     private:
         iterator_type iterator;
     public:
@@ -65,7 +65,7 @@ namespace ft
             --iterator;
             return tmp;
         }
-        reverse_iterator& operator++()
+        reverse_iterator& operator--(int)
         {
             reverse_iterator tmp(*this);
             ++iterator;
@@ -73,20 +73,20 @@ namespace ft
         }
 
         // arithmetic operator
-        reverse_iteratror operator+(difference_type n) const
+        reverse_iterator operator+(difference_type n) const
         {
             return reverse_iterator(iterator - n);
         }
-        reverse_iteratror operator-(difference_type n) const
+        reverse_iterator operator-(difference_type n) const
         {
             return reverse_iterator(iterator + n);
         }
-        reverse_iteratror operator+=(difference_type n) const
+        reverse_iterator operator+=(difference_type n) const
         {
             iterator -= n;
             return *this;
         }
-        reverse_iteratror operator-(difference_type n) const
+        reverse_iterator operator-=(difference_type n) const
         {
             iterator += n;
             return *this;
