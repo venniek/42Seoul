@@ -1,7 +1,7 @@
-SRCS = test_map.cpp
+SRCS = test_vector.cpp
 
 CPP = c++
-FLAG = -Werror -Wall -Wextra -g -std=c++98  # for debug. erase -g
+FLAG = -Werror -Wall -Wextra -std=c++98  # for debug. erase -g
 
 NAME = FT_containers
 
