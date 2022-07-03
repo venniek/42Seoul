@@ -91,8 +91,19 @@ namespace ft {
 	const class t_nullptr
 	{
 		private:
-			void
-	}
+			void operator&() const;
+		public:
+			template<typename T>
+			operator T*() const
+			{
+				return 0;
+			}
+			template<typename T, typename U>
+			operator T U::*() const
+			{
+				return 0;
+			}
+	} nil = {};
 }
 
 

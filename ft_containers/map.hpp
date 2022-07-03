@@ -46,8 +46,8 @@ namespace ft
         };
 		
 		typedef ft::Rbtree<key_type, mapped_type, key_compare, allocator_type> tree_type;
-		typedef tree_type::iterator iterator;
-		typedef tree_type::const_iterator const_iterator;
+		typedef typename tree_type::iterator iterator;
+		typedef typename tree_type::const_iterator const_iterator;
 		typedef ft::reverse_iterator<iterator> reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -64,11 +64,11 @@ namespace ft
 		// ----- constructor, destructor, operator=
 		// empty constructor
 		explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
-			: _alloc(alloc), k_comp(comp), v_comp(comp), _tree(v_comp, _alloc) { }
-		// range constructor 
+			: _alloc(alloc), k_comp(comp), v_comp(comp), _tree(k_comp, _alloc) { }
+		// range constructor
 		template <typename InputIterator>
 		map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
-					: _alloc(alloc), k_comp(comp), v_comp(comp), _tree(v_comp, _alloc)
+					: _alloc(alloc), k_comp(comp), v_comp(comp), _tree(k_comp, _alloc)
 		{
 			insert(first, last);
 		}
@@ -137,7 +137,7 @@ namespace ft
 		}
 		
 		// ----- element access
-		mapped_type &operator[](const key_type *key)
+		mapped_type &operator[](const key_type &key)
 		{
 			ft::pair<iterator, bool> ret = insert(ft::make_pair(key, mapped_type()));
 			return ret.first->second;

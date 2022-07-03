@@ -111,7 +111,7 @@ namespace ft {
 		// begin, end, nil node 세개 변수로 갖고 nil의 left, right, parent 전부 자기자신 nil. end의 left가 root, right랑 parent는 nil, 비교는 다 nil로 하고 비교할 때 인자로 nil 넘기기.
 	public:
 		// -----constructor, destructor, operator=
-		Rbtree(const key_compare &comp, const allocator_type &alloc): _comp(comp), _alloc(alloc), _size(size_type())
+		Rbtree(const key_compare &comp, const allocator_type &alloc): _alloc(alloc), _comp(comp), _size(size_type())
 		{
 			_nil = _alloc.allocate(1);
 			_alloc.construct(_nil, pair_t());
@@ -123,7 +123,7 @@ namespace ft {
 			_end->color = BLACK;
 			_begin = _end;
 		}
-		Rbtree(const Rbtree& copy): _comp(comp), _alloc(alloc), _size(size_type())
+		Rbtree(const Rbtree& copy): _comp(copy._comp), _alloc(copy._alloc), _size(size_type())
 		{
 			_nil = _alloc.allocate(1);
 			_alloc.construct(_nil, pair_t());
@@ -139,7 +139,7 @@ namespace ft {
 		~Rbtree()
 		{
 			while (_end->right)
-				deleteNode(_end->left->data.first);
+				deleteNode(_end->left);
 			deleteNode(_nil);
 		}
 		Rbtree& operator=(const Rbtree& origin)
@@ -163,7 +163,7 @@ namespace ft {
 		}
 		iterator end()
 		{
-			return iterator(_end, _nil_);
+			return iterator(_end, _nil);
 		}
 		const_iterator end() const
 		{
@@ -185,7 +185,7 @@ namespace ft {
 		// modifier for map
 		ft::pair<iterator, bool> insert(const pair_t& value)
 		{
-			node_ptr ptr = searchNode(value);
+			node_ptr ptr = findNode(value.first);
 			if (ptr != _end && isEqual(ptr->data, value, _comp))
 				return ft::make_pair(iterator(ptr, _nil), false);
 			return ft::make_pair(iterator(insertNode(value, ptr), _nil), true);
@@ -212,7 +212,7 @@ namespace ft {
 			if (position == begin())
 				_begin = tmp.base();
 			--_size;
-			removeNode(position.base());
+			deleteNode(position.base());
 			destructNode(position.base());
 			return tmp;
 		}
@@ -321,7 +321,7 @@ namespace ft {
 		}
 		void destructNode(node_ptr ptr)
 		{
-			_alloc.destory(ptr);
+			_alloc.destroy(ptr);
 			_alloc.deallocate(ptr, 1);
 		}
 		void destructAllNode(node_ptr ptr)
@@ -477,18 +477,18 @@ namespace ft {
 			to->parent = from->parent;
 		}
 		// insert, delete
-		void insertNode(const pair_t &nvalue, node_ptr parent)
+		node_ptr insertNode(const pair_t &nvalue, node_ptr parent)
 		{
 			node_ptr ptr = makeNode(nvalue);
 			if (parent == _end)
 				setRoot(ptr);
-			else if (_comp(nvalue, parent->data))
+			else if (_comp(nvalue->first, parent->data.first))
 				parent->left = ptr;
 			else
 				parent->right = ptr;
 			ptr->parent = parent;
 			insertFix(ptr);
-			if (_begin == _end || _comp(ptr->data, _begin->data))
+			if (_begin == _end || _comp(ptr->data.first, _begin->data.first))
 				_begin = ptr;
 			_size++;
 			return ptr;
@@ -497,7 +497,7 @@ namespace ft {
 		{
 			node_ptr uncle;
 
-			while (ptr->parent.color == RED))
+			while (ptr->parent->color == RED)
 			{
 				if (isLeftChild(ptr->parent))
 				{
@@ -616,7 +616,7 @@ namespace ft {
 				rightRotate(sibling);
 				sibling = ptr->parent->right;
 			}
-			if (sibling->right == RED)
+			if (sibling->right->color == RED)
 			{
 				sibling->color = ptr->parent->color;
 				ptr->parent->color = BLACK;
@@ -647,7 +647,7 @@ namespace ft {
 				leftRotate(sibling);
 				sibling = ptr->parent->left;
 			}
-			if (sibling->left == RED)
+			if (sibling->left->color == RED)
 			{
 				sibling->color = ptr->parent->color;
 				ptr->parent->color = BLACK;
@@ -655,6 +655,10 @@ namespace ft {
 				rightRotate(ptr->parent);
 				ptr = getRoot();
 			}
+		}
+		template <typename U, typename V, class Comp>
+		bool isEqual(const U& u, const V& v, Comp comp) {
+			return !comp(u, v) && !comp(v, u);
 		}
 
 		// void printHelper(node_ptr root, std::string indent, bool last)
