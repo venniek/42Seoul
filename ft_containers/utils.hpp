@@ -65,6 +65,10 @@ namespace ft {
         a = b;
         b = tmp;
     }
+	template<typename T>
+	T max(T &a, T &b) {
+		return a > b ? a : b;
+	}
     size_t increase_capacity(size_t _size, size_t n, size_t _capacity) {
         if (_capacity == 0)
             _capacity = 1;
