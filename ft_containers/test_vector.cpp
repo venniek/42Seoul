@@ -6,8 +6,6 @@ using namespace std;
 int main() {
     vector<int> std_int;
     ft::vector<int> ft_int;
-    // vector<string> std_str;
-    // ft::vector<string> ft_str;
 
     // std_int===========================
     {

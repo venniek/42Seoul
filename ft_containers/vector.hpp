@@ -24,7 +24,7 @@ namespace ft {
         typedef size_t size_type;
     protected:
         allocator_type _alloc;
-        value_type _array;
+        value_type *_array;
         size_type _size;
         size_type _capacity;
     public:
@@ -50,7 +50,7 @@ namespace ft {
         vector& operator=(const vector& origin) {
             if (this != &origin) {
                 array_clear(_size, _capacity, &_array, _alloc);
-                this->_size = origin.size;
+                this->_size = origin._size;
                 this->_alloc = origin._alloc;
                 this->_capacity = origin._capacity;
                 _array = _alloc.allocate(origin._capacity);
@@ -80,10 +80,10 @@ namespace ft {
             return const_reverse_iterator(end());
         }
         reverse_iterator rend() {
-            reverse_iterator(begin());
+            return reverse_iterator(begin());
         }
         const_reverse_iterator rend() const {
-            const_reverse_iterator(begin());
+            return const_reverse_iterator(begin());
         }
 
         // capacity
@@ -151,10 +151,10 @@ namespace ft {
             return *begin();
         }
         reference back() {
-            return *rbegin();
+            return *(end() - 1);
         }
         const_reference back() const {
-            return *rbegin();
+            return *(end() - 1);
         }
 
     
@@ -189,53 +189,81 @@ namespace ft {
         void pop_back() {
             if (_size != 0)
                 _size--;
-            _alloc.destory(_array + _size);
+            _alloc.destroy(_array + _size);
         }
         iterator insert(iterator position, const value_type& val) {
-			size_type diff = position - begin();
-			if (_size + 1 > _capacity) {
-				if (_size + 1 > _capacity * 2)
-					reserve(_size + 1);
-				else
-					reserve(_capacity * 2);
-			}
-			for (size_type i = _size; i > diff; --i)
-				_array[i] = _array[i - 1];
-			_alloc.construct(_array + diff, val);
-			++_size;
-			return position;
+            size_type idx;
+            int flag = 0;
+
+            _capacity = increase_capacity(_size, 0, _capacity);
+            value_type *tmp = _alloc.allocate(_capacity);
+            size_type tmp_capacity = _capacity;
+            size_type tmp_size = _size;
+            for (size_type i = 0; i < _size + 1; i++) {
+                if (flag == 0 && _array + i == position._ptr) {
+                    _alloc.construct(tmp + i, val);
+                    flag = 1;
+                    idx = i;
+                }
+                else
+                    _alloc.construct(tmp + i, *(_array + i - flag));
+            }
+            array_clear(_size, _capacity, &_array, _alloc);
+            _array = tmp;
+            _size = tmp_size + 1;
+            _capacity = tmp_capacity;
+            return iterator(begin() + idx);
         }
         void insert(iterator position, size_type n, const value_type& val) {
-            size_type diff = position - begin();
-			if (_size + 1 > _capacity) {
-				if (_size + n > _capacity * 2)
-					reserve(_size + n);
-				else
-					reserve(_capacity * 2);
-			}
-			for (size_type i = _size + n - 1; i > diff; --i)
-				_array[i] = _array[i - n];
-			for (size_type i = 0; i < n; ++i) {
-				++_size;
-				_array[diff + i] = val;
-			}
+            if (n != 0) {
+                size_type idx = 0;
+                int flag = 0;
+
+                _capacity = increase_capacity(_size, n, _capacity);
+                value_type *tmp = _alloc.allocate(_capacity);
+                size_type tmp_capacity = _capacity;
+                size_type tmp_size = _size;
+                for (size_type i = 0; i < _size + n + 1; i++) {
+                    if (flag == 0 && _array + i == position._ptr) {
+                        for (idx = 0; idx < n; idx++)
+                            _alloc.construct(tmp + i + idx, val);
+                        flag = 1;
+                        i += idx;
+                    }
+                    else
+                        _alloc.construct(tmp + i - flag, *(_array + (i - idx) - flag));
+                }
+                array_clear(_size, _capacity, &_array, _alloc);
+                _array = tmp;
+                _capacity = tmp_capacity;
+                _size = tmp_size + n;
+            }
         }
         template<typename InputIterator>
         void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) {
-            size_type n = last - first;
-			size_type diff = position - begin();
-			if (_size + n > _capacity) {
-				if (_size + n > _capacity * 2)
-					reserve(_size + n);
-				else
-					reserve(_capacity * 2);
-			}
-			for (size_type i = _size + n - 1; i > diff; --i)
-				_array[i] = _array[i - n];
-			for (size_type i = 0; i < n; ++i) {
-				++_size;
-				_array[diff + i] = *(first + i);
-			}
+            size_type idx = 0;
+            int flag = 0;
+            difference_type cnt = new_distance<value_type, InputIterator>(first, last);
+            size_type tmp_size = cnt + _size;
+            size_type tmp_capacity = increase_capacity(_size, cnt, _capacity);
+            value_type *tmp = _alloc.allocate(tmp_capacity);
+            
+            for (size_type i = 0; i < _size + cnt + 1; i++) {
+                if (flag != 1 && _array + i == position._ptr) {
+                    for (idx = 0; first != last; first++) {
+                        _alloc.construct(tmp + i + idx, (*first));
+                        idx++;
+                    }
+                    flag = 1;
+                    i += idx;
+                }
+                else
+                    _alloc.construct(tmp + i - flag, *(_array + i - idx - flag));
+            }
+            array_clear(_size, _capacity, &_array, _alloc);
+            _array = tmp;
+            _capacity = tmp_capacity;
+            _size = tmp_size;
         }
         iterator erase(iterator position) {
             for (iterator i = position; i < end() - 1; ++i)
@@ -269,7 +297,7 @@ namespace ft {
         }
         void clear() {
             for (size_type i = 0; i < _size; i++)
-                _alloc.destory(_array + i);
+                _alloc.destroy(_array + i);
             _size = 0;
         }
 
