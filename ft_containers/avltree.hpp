@@ -240,7 +240,7 @@ namespace ft {
             }
             return node;
         }
-        node_pointer insertNode(node_pointer node, value_type data) {
+        node_pointer insertNode(node_pointer node, value_type &data) {
             if (node == NULL) {
                 node = makeNode();
                 return node;
@@ -257,7 +257,7 @@ namespace ft {
             }
             return node;
         }
-        
+
 
     };
 }
