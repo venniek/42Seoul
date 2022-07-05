@@ -15,8 +15,10 @@ namespace ft {
         template<typename U, typename V>
         pair(const pair<U, V> &pr): first(pr.first), second(pr.second) { }
         pair& operator=(const pair &pr) {
-            first = pr.first;
-            second = pr.second;
+            if (this != &pr) {
+                first = pr.first;
+                second = pr.second;
+            }
             return *this;
         }
     };

@@ -461,7 +461,6 @@ namespace ft {
 				return getMinNode(node->left, parent);
 		}
 		node_pointer deleteNode(node_pointer node) {
-			printTree();
 			if (node == NULL) 
 				return NULL;
 			if (node->left == NULL && node->right == NULL) {
