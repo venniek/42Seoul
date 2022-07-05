@@ -17,9 +17,13 @@
 
 //     // ft_int============================
 //     ft_int.insert(ft::make_pair(1, 1));
+// 	std::cout << ft_int.size() << std::endl;
 //     ft_int.insert(ft::make_pair(2, 1));
+// 	std::cout << ft_int.size() << std::endl;
 //     ft_int.insert(ft::make_pair(3, 1));
+// 	std::cout << ft_int.size() << std::endl;
 //     ft_int.insert(ft::make_pair(4, 1));
+// 	std::cout << ft_int.size() << std::endl;
 
 //     // begin, end
 //     cout << "begin, end------------" << endl;
@@ -111,50 +115,55 @@
 #include <list>
 
 #define T1 int
-#define T2 int
+#define T2 std::string
 typedef _pair<const T1, T2> T3;
+
+static int iter = 0;
+
+template <typename MAP, typename U>
+void	ft_erase(MAP &mp, U param)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	mp.erase(param);
+	printSize(mp);
+}
+
+template <typename MAP, typename U, typename V>
+void	ft_erase(MAP &mp, U param, V param2)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	mp.erase(param, param2);
+	printSize(mp);
+}
 
 int		main(void)
 {
 	std::list<T3> lst;
-	std::cout << "1" << std::endl;
-	unsigned int lst_size = 7;
-	std::cout << "2" << std::endl;
+	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(lst_size - i, i));
-	std::cout << "3" << std::endl;
-
+		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	std::cout << "4" << std::endl;
-	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
-	std::cout << "5" << std::endl;
-
-	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
-	std::cout << "6" << std::endl;
-	for (int i = 0; it != ite; ++it)
-		it->second = ++i * 5;
-	std::cout << "7" << std::endl;
-
-	it = mp.begin(); ite = --(--mp.end());
-	std::cout << "8" << std::endl;
-	TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
-	std::cout << "9" << std::endl;
-	for (int i = 0; it != ite; ++it)
-		it->second = ++i * 7;
-
-	std::cout << "10" << std::endl;
-	std::cout << "\t-- PART ONE --" << std::endl;
 	printSize(mp);
-	printSize(mp_range);
-	printSize(mp_copy);
 
-	mp = mp_copy;
-	mp_copy = mp_range;
-	mp_range.clear();
+	ft_erase(mp, ++mp.begin());
 
-	std::cout << "\t-- PART TWO --" << std::endl;
+	ft_erase(mp, mp.begin());
+	ft_erase(mp, --mp.end());
+
+	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
+	ft_erase(mp, --(--(--mp.end())), --mp.end());
+
+	mp[10] = "Hello";
+	mp[11] = "Hi there";
 	printSize(mp);
-	printSize(mp_range);
-	printSize(mp_copy);
+	ft_erase(mp, --(--(--mp.end())), mp.end());
+
+	mp[12] = "ONE";
+	mp[13] = "TWO";
+	mp[14] = "THREE";
+	mp[15] = "FOUR";
+	printSize(mp);
+	ft_erase(mp, mp.begin(), mp.end());
+
 	return (0);
 }

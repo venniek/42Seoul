@@ -3,7 +3,6 @@
 
 # include "pair.hpp"
 # include "iterator_traits.hpp"
-// #include "map_iterator.hpp"
 
 namespace ft {
 	template<typename T>
@@ -62,7 +61,7 @@ namespace ft {
 	node_ptr getNextNode(node_ptr node) {
 		if (node->right != NULL)
 			return minNode(node->right);
-		while (!isLeftChild(node))
+		while (isRightChild(node))
 			node = node->parent;
 		return node->parent;
 	}
@@ -70,7 +69,7 @@ namespace ft {
 	node_ptr getPrevNode(node_ptr node) {
 		if (node->left != NULL)
 			return maxNode(node->left);
-		while (!isRightChild(node))
+		while (isLeftChild(node))
 			node = node->parent;
 		return node->parent;
 	}
@@ -226,7 +225,7 @@ namespace ft {
 			node_pointer tmp = searchNode(_end->left, value.first);
 			if (tmp != _end)
 				return ft::make_pair(iterator(tmp), false);
-			return ft::make_pair(insertNode(_end->left, value), true);
+			return ft::make_pair(insertNode(_end, value), true);
 		}
 		iterator insert(iterator position, const value_type &value) {
 			(void)position;
@@ -245,7 +244,11 @@ namespace ft {
 			if (position == begin())
 				_begin = tmp.base();
 			--_size;
-			deleteNode(position.base(), position.base()->data.first);
+			node_pointer node = deleteNode(position.base());
+			while (node != NULL && node->parent != _end) {
+				balanceFix(node);
+				node = node->parent;
+			}
 			destructNode(position.base());
 			return tmp;
 		}
@@ -260,8 +263,7 @@ namespace ft {
 				_begin = tmp.base();
 			}
 			--_size;
-			deleteNode(it.base(), value);
-			destructNode(it.base());
+			erase(it);
 			return 1;
 		}
 		void erase(iterator first, iterator last) {
@@ -286,12 +288,6 @@ namespace ft {
 		const_iterator find(const key_type &key) const {
 			return const_iterator(searchNode(_end->left, key));
 		}
-		// size_type count(const key_type &key) const {
-		// 	iterator tmp = find(key);
-		// 	if (tmp == end())
-		// 		return 0;
-		// 	return 1;
-		// }
 		iterator lower_bound(const key_type &key) {
 			return iterator(lowerboundNode(key));
 		}
@@ -406,17 +402,19 @@ namespace ft {
 			return RR(node);
 		}
 		node_pointer balanceFix(node_pointer node) {
+			if (node == NULL)
+				return NULL;
 			int factor = calculateBF(node);
 			if (factor > 1) {
 				factor = calculateBF(node->left);
-				if (factor > 1)
+				if (factor > 0)
 					node = LL(node);
 				else
 					node = LR(node);
 			}
 			else if (factor < -1) {
 				factor = calculateBF(node->right);
-				if (factor < -1)
+				if (factor < 0)
 					node = RR(node);
 				else
 					node = RL(node);
@@ -426,12 +424,14 @@ namespace ft {
 		node_pointer insertNode(node_pointer node, const value_type &data) {
 			if (node == NULL) {
 				node = makeNode(data);
+				insertNodeUpdate(node);
 				return node;
 			}
-			else if (_comp(data, node->data)) {
+			if (node == _end || _comp(data, node->data)) {
 				node->left = insertNode(node->left, data);
 				node->left->parent = node;
-				node = balanceFix(node);
+				if (node != _end)
+					node = balanceFix(node);
 			}
 			else if (_comp(node->data, data)) {
 				node->right = insertNode(node->right, data);
@@ -439,6 +439,11 @@ namespace ft {
 				node = balanceFix(node);
 			}
 			return node;
+		}
+		void insertNodeUpdate(const node_pointer node) {
+			if (_begin == _end || _comp(node->data, _begin->data))
+				_begin = node;
+			++_size;
 		}
 		node_pointer getMinNode(node_pointer node, node_pointer parent) {
 			if (node->left == NULL) {
@@ -455,42 +460,48 @@ namespace ft {
 			else
 				return getMinNode(node->left, parent);
 		}
-		node_pointer deleteNode(node_pointer node, const key_type &key) {
-			if (node == NULL)
+		node_pointer deleteNode(node_pointer node) {
+			printTree();
+			if (node == NULL) 
 				return NULL;
-			if (_comp(key, node->data)) {
-				node->left = deleteNode(node->left, key);
-				node = balanceFix(node);
+			if (node->left == NULL && node->right == NULL) {
+				if (isLeftChild(node))
+					node->parent->left = NULL;
+				else
+					node->parent->right = NULL;
+				node = NULL;
 			}
-			else if (_comp(node->data, key)) {
-				node->right = deleteNode(node->right, key);
-				node = balanceFix(node);
+			else if (node->left != NULL && node->right == NULL) {
+				node->left->parent = node->parent;
+				if (isLeftChild(node))
+					node->parent->left = node->left;
+				else
+					node->parent->right = node->left;
+				node = node->left;
+			}
+			else if (node->left == NULL && node->right != NULL) {
+				node->right->parent = node->parent;
+				if (isLeftChild(node))
+					node->parent->left = node->right;
+				else
+					node->parent->right = node->right;
+				node = node->right;
 			}
 			else {
-				if (node->left == NULL && node->right == NULL)
-					node = NULL;
-				else if (node->left != NULL && node->right == NULL) {
-					node->left->parent = node->parent;
-					node = node->left;
-				}
-				else if (node->left == NULL && node->right != NULL) {
-					node->right->parent = node->parent;
-					node = node->right;
-				}
-				else {
-					node_pointer deleteN = node;
-					node_pointer minN = getMinNode(node->right, deleteN);
-
-					minN->parent = node->parent;
-					minN->left = deleteN->left;
-					if (deleteN->left != NULL)
-						deleteN->left->parent = minN;
-					minN->right = deleteN->right;
-					if (deleteN->right != NULL)
-						deleteN->right->parent = minN;
-					node = minN;
-					destructNode(deleteN);
-				}
+				node_pointer deleteN = node;
+				node_pointer minN = getMinNode(node->right, deleteN);
+				minN->parent = node->parent;
+				if (isLeftChild(node))
+					node->parent->left = minN;
+				else
+					node->parent->right = minN;
+				minN->left = deleteN->left;
+				if (deleteN->left != NULL)
+					deleteN->left->parent = minN;
+				minN->right = deleteN->right;
+				if (deleteN->right != NULL)
+					deleteN->right->parent = minN;
+				node = minN;
 			}
 			return node;
 		}
@@ -534,6 +545,33 @@ namespace ft {
 			return tmp;
 		}
 
+
+
+		void printHelper(node_pointer root, std::string indent, bool last)
+		{
+			if (root != NULL)
+			{
+				std::cout << indent;
+				if (last)
+				{
+					std::cout << "R----";
+					indent += "	 ";
+				}
+				else
+				{
+					std::cout << "L----";
+					indent += "|	";
+				}
+				std::cout << "(" << root->data.first << ", " << root->data.second << ")" << std::endl;
+				printHelper(root->left, indent, false);
+				printHelper(root->right, indent, true);
+			}
+		}
+		void printTree()
+		{
+			if (_end->left)
+				printHelper(_end->left, "", true);
+		}
 	
 	
 	};
