@@ -3,7 +3,7 @@
 
 # include "pair.hpp"
 # include "iterator_traits.hpp"
-#include <unistd.h>
+
 namespace ft {
 	template<typename T>
 	struct Node {
@@ -227,7 +227,7 @@ namespace ft {
 		// modifier
 		ft::pair<iterator, bool> insert(const value_type &value) {
 			node_pointer tmp = searchNode(_end->left, value.first);
-			if (tmp != _end)
+			if (tmp != end())
 				return ft::make_pair(iterator(tmp), false);
 			return ft::make_pair(iterator(insertNode(_end->left, _end, value)), true);
 		}
@@ -238,7 +238,6 @@ namespace ft {
 		template<typename InputIterator>
 		void insert(InputIterator first, InputIterator last) {
 			for (; first != last; ++first) {
-				usleep(10000);
 				insert(*first);
 			}
 		}
@@ -439,7 +438,7 @@ namespace ft {
 				parent = node;
 				if (_comp(data, node->data))
 					node = node->left;
-				else
+				else if (_comp(node->data, data))
 					node = node->right;
 			}
 			node = makeNode(data);
@@ -450,12 +449,17 @@ namespace ft {
 			else
 				parent->right = node;
 			node->parent = parent;
+			node_pointer tmp = node;
+
 			while (node != NULL && node->parent != _end) {
+				node_pointer tmp = node->parent;
 				node = node->parent;
-				balanceFix(node);
+				node = balanceFix(node);
+				if (node != tmp)
+					break;
 			}
-			insertNodeUpdate(node);
-			return node;
+			insertNodeUpdate(tmp);
+			return tmp;
 		}
 		void insertNodeUpdate(const node_pointer &node) {
 			if (_begin == _end || _comp(node->data, _begin->data))
@@ -463,19 +467,17 @@ namespace ft {
 			++_size;
 		}
 		node_pointer getMinNode(node_pointer node, node_pointer parent) {
-			if (node->left == NULL) {
-				if (node->parent != NULL) {
-					if (parent != node->parent)
-						node->parent->left = node->right;
-					else
-						node->parent->right = node->right;
-					if (node->right != NULL)
-						node->right->parent = node->parent;
-				}
-				return node;
+			while (node->left != NULL)
+				node = node->left;
+			if (node->parent != NULL) {
+				if (parent != node->parent)
+					node->parent->left = node->right;
+				else
+					node->parent->right = node->right;
+				if (node->right != NULL)
+					node->right->parent = node->parent;
 			}
-			else
-				return getMinNode(node->left, parent);
+			return node;
 		}
 		node_pointer deleteNode(node_pointer node) {
 			if (node == NULL) 
@@ -522,14 +524,13 @@ namespace ft {
 			return node;
 		}
 		node_pointer searchNode(node_pointer node, const key_type &key) const {
-			if (node == NULL)
-				return _end;
-			if (key == node->data.first)
-				return node;
-			else if (_comp(key, node->data))
-				return searchNode(node->left, key);
-			else
-				return searchNode(node->right, key);
+			while (node != NULL && key != node->data.first) {
+				if (_comp(key, node->data))
+					node = node->left;
+				else
+					node = node->right;
+			}
+			return node == NULL ? _end : node;
 		}
 		// for tree function
 		node_pointer lowerboundNode(const key_type& key) const {
@@ -560,9 +561,6 @@ namespace ft {
 			}
 			return tmp;
 		}
-
-
-
 		void printHelper(node_pointer root, std::string indent, bool last)
 		{
 			if (root != NULL)

@@ -69,13 +69,13 @@ namespace ft {
 	T max(T &a, T &b) {
 		return a > b ? a : b;
 	}
-    size_t increase_capacity(size_t _size, size_t n, size_t _capacity) {
-        if (_capacity == 0)
-            _capacity = 1;
-        while (_size + n >= _capacity)
-            _capacity *= 2;
-        return _capacity;
-    }
+    // static size_t increase_capacity(size_t _size, size_t n, size_t _capacity) {
+    //     if (_capacity == 0)
+    //         _capacity = 1;
+    //     while (_size + n >= _capacity)
+    //         _capacity *= 2;
+    //     return _capacity;
+    // }
 
     template<typename size_type, typename value_type, typename Alloc>
     void array_clear(size_type &_size, size_type &_capacity, value_type **_array, Alloc _alloc) {

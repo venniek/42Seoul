@@ -13,34 +13,34 @@ namespace ft {
         typedef Container container_type;
         typedef size_t size_type;
     protected:
-        container_type C_data;
+        container_type c;
     public:
-        explicit stack(const container_type &cntr = container_type()): C_data(cntr) { }
+        explicit stack(const container_type &cntr = container_type()): c(cntr) { }
         virtual ~stack() { }
 
         bool empty() const {
-            return C_data.empty();
+            return c.empty();
         }
         size_type size() const {
-            return C_data.size();
+            return c.size();
         }
         value_type& top() {
-            return C_data.back();
+            return c.back();
         }
         const value_type& top() const {
-            return C_data.back();
+            return c.back();
         }
         void push(const value_type &val) {
-            C_data.push_back(val);
+            c.push_back(val);
         }
         void pop() {
-            C_data.pop_back();
+            c.pop_back();
         }
 
         // non-member functions
         template <typename nT, typename nContainer>
         friend bool operator==(const ft::stack<nT, nContainer>& lhs, const ft::stack<nT, nContainer>& rhs) {
-            return lhs.C_data == rhs.C_data;
+            return lhs.c == rhs.c;
         }
         template <typename nT, typename nContainer>
         friend bool operator!=(const ft::stack<nT, nContainer>& lhs, const ft::stack<nT, nContainer>& rhs) {
@@ -48,7 +48,7 @@ namespace ft {
         }
         template <typename nT, typename nContainer>
         friend bool operator<(const ft::stack<nT, nContainer>& lhs, const ft::stack<nT, nContainer>& rhs) {
-            return lhs.C_data < rhs.C_data;
+            return lhs.c < rhs.c;
         }
         template <typename nT, typename nContainer>
         friend bool operator<=(const ft::stack<nT, nContainer>& lhs, const ft::stack<nT, nContainer>& rhs) {

@@ -4,7 +4,6 @@
 # include <iostream>
 # include <memory>
 # include "vector_iterator.hpp"
-# include "utils.hpp"
 
 namespace ft {
     template<typename T, typename Alloc = std::allocator<T> >
@@ -132,7 +131,7 @@ namespace ft {
             return (this->_array)[n];
         }
         const_reference operator[](size_type n) const {
-            return (this->array)[n];
+            return (this->_array)[n];
         }
         reference at(size_type n) {
             if (n >= size())
@@ -181,8 +180,14 @@ namespace ft {
                 _alloc.construct(_array + i, val);
         }
         void push_back(const value_type& val) {
-            if (_size + 1 > _capacity)
-                reserve(increase_capacity(_size, 1, _capacity));
+            if (_size + 1 > _capacity) {
+                size_t tmp = _capacity;
+                if (tmp == 0)
+                    tmp = 1;
+                while (_size + 1 >= tmp)
+                    tmp *= 2;
+                reserve(tmp);
+            }
             _alloc.construct(_array + _size, val);
             _size++;
         }
@@ -195,7 +200,10 @@ namespace ft {
             size_type idx;
             int flag = 0;
 
-            _capacity = increase_capacity(_size, 0, _capacity);
+            if (_capacity == 0)
+                _capacity = 1;
+            while (_size >= _capacity)
+                _capacity *= 2;
             value_type *tmp = _alloc.allocate(_capacity);
             size_type tmp_capacity = _capacity;
             size_type tmp_size = _size;
@@ -218,8 +226,10 @@ namespace ft {
             if (n != 0) {
                 size_type idx = 0;
                 int flag = 0;
-
-                _capacity = increase_capacity(_size, n, _capacity);
+                if (_capacity == 0)
+                    _capacity = 1;
+                while (_size + n >= _capacity)
+                    _capacity *= 2;
                 value_type *tmp = _alloc.allocate(_capacity);
                 size_type tmp_capacity = _capacity;
                 size_type tmp_size = _size;
@@ -245,7 +255,11 @@ namespace ft {
             int flag = 0;
             difference_type cnt = new_distance<value_type, InputIterator>(first, last);
             size_type tmp_size = cnt + _size;
-            size_type tmp_capacity = increase_capacity(_size, cnt, _capacity);
+            size_type tmp_capacity = _capacity;
+            if (tmp_capacity == 0)
+                tmp_capacity = 1;
+            while (_size + cnt >= tmp_capacity)
+                tmp_capacity *= 2;
             value_type *tmp = _alloc.allocate(tmp_capacity);
             
             for (size_type i = 0; i < _size + cnt + 1; i++) {

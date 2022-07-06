@@ -5,11 +5,10 @@
 # include <memory>
 # include <map>
 # include "./utils.hpp"
-// # include "./map_iterator.hpp"
 # include "./reverse_iterator.hpp"
+# include "./iterator_traits.hpp"
 # include "./avltree.hpp"
 # include "./pair.hpp"
-# include <string>
 
 namespace ft {
 	template<typename Key, typename Mapped, typename Compare = ft::less<Key>, typename Alloc = std::allocator<ft::pair<const Key, Mapped> > >
@@ -113,7 +112,7 @@ namespace ft {
 
 		// element access
 		mapped_type &operator[](const key_type& key) {
-			if (count(key) == 0)
+			if (find(key) == _tree.end())
 				insert(ft::make_pair(key, mapped_type()));
 			return find(key)->second;
 		}
