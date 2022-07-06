@@ -113,8 +113,6 @@ namespace ft {
 
 		// element access
 		mapped_type &operator[](const key_type& key) {
-			// pair<iterator, bool> tmp = insert(ft::make_pair(key, mapped_type()));
-
 			if (count(key) == 0)
 				insert(ft::make_pair(key, mapped_type()));
 			return find(key)->second;

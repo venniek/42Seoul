@@ -3,7 +3,7 @@
 
 # include "pair.hpp"
 # include "iterator_traits.hpp"
-
+#include <unistd.h>
 namespace ft {
 	template<typename T>
 	struct Node {
@@ -35,12 +35,16 @@ namespace ft {
 	}
 	template<typename node_ptr>
 	node_ptr minNode(node_ptr node) {
+		if (node == NULL)
+			return NULL;
 		while (node->left != NULL)
 			node = node->left;
 		return node;
 	}
 	template<typename node_ptr>
 	node_ptr maxNode(node_ptr node) {
+		if (node == NULL)
+			return NULL;
 		while (node->right != NULL)
 			node = node->right;
 		return node;
@@ -61,7 +65,7 @@ namespace ft {
 	node_ptr getNextNode(node_ptr node) {
 		if (node->right != NULL)
 			return minNode(node->right);
-		while (isRightChild(node))
+		while (node->parent != NULL && !isLeftChild(node))
 			node = node->parent;
 		return node->parent;
 	}
@@ -69,7 +73,7 @@ namespace ft {
 	node_ptr getPrevNode(node_ptr node) {
 		if (node->left != NULL)
 			return maxNode(node->left);
-		while (isLeftChild(node))
+		while (node->parent != NULL && !isRightChild(node))
 			node = node->parent;
 		return node->parent;
 	}
@@ -225,7 +229,7 @@ namespace ft {
 			node_pointer tmp = searchNode(_end->left, value.first);
 			if (tmp != _end)
 				return ft::make_pair(iterator(tmp), false);
-			return ft::make_pair(insertNode(_end, value), true);
+			return ft::make_pair(iterator(insertNode(_end->left, _end, value)), true);
 		}
 		iterator insert(iterator position, const value_type &value) {
 			(void)position;
@@ -233,8 +237,10 @@ namespace ft {
 		}
 		template<typename InputIterator>
 		void insert(InputIterator first, InputIterator last) {
-			for (; first != last; ++first)
+			for (; first != last; ++first) {
+				usleep(10000);
 				insert(*first);
+			}
 		}
 		iterator erase(iterator position) {
 			if (_size == 0)
@@ -246,8 +252,8 @@ namespace ft {
 			--_size;
 			node_pointer node = deleteNode(position.base());
 			while (node != NULL && node->parent != _end) {
-				balanceFix(node);
 				node = node->parent;
+				node = balanceFix(node);
 			}
 			destructNode(position.base());
 			return tmp;
@@ -262,7 +268,6 @@ namespace ft {
 				++tmp;
 				_begin = tmp.base();
 			}
-			--_size;
 			erase(it);
 			return 1;
 		}
@@ -377,6 +382,10 @@ namespace ft {
 				child->right->parent = node;
 			child->right = node;
 			child->parent = node->parent;
+			if (isLeftChild(node))
+				node->parent->left = child;
+			else
+				node->parent->right = child;
 			node->parent = child;
 			
 			return child;
@@ -389,6 +398,10 @@ namespace ft {
 				child->left->parent = node;
 			child->left = node;
 			child->parent = node->parent;
+			if (isLeftChild(node))
+				node->parent->left = child;
+			else
+				node->parent->right = child;
 			node->parent = child;
 
 			return child;
@@ -421,26 +434,30 @@ namespace ft {
 			}
 			return node;
 		}
-		node_pointer insertNode(node_pointer node, const value_type &data) {
-			if (node == NULL) {
-				node = makeNode(data);
-				insertNodeUpdate(node);
-				return node;
+		node_pointer insertNode(node_pointer node, node_pointer parent, const value_type &data) {
+			while (node != NULL) {
+				parent = node;
+				if (_comp(data, node->data))
+					node = node->left;
+				else
+					node = node->right;
 			}
-			if (node == _end || _comp(data, node->data)) {
-				node->left = insertNode(node->left, data);
-				node->left->parent = node;
-				if (node != _end)
-					node = balanceFix(node);
+			node = makeNode(data);
+			if (parent == _end)
+				setRoot(node);
+			else if (_comp(data, parent->data))
+				parent->left = node;
+			else
+				parent->right = node;
+			node->parent = parent;
+			while (node != NULL && node->parent != _end) {
+				node = node->parent;
+				balanceFix(node);
 			}
-			else if (_comp(node->data, data)) {
-				node->right = insertNode(node->right, data);
-				node->right->parent = node;
-				node = balanceFix(node);
-			}
+			insertNodeUpdate(node);
 			return node;
 		}
-		void insertNodeUpdate(const node_pointer node) {
+		void insertNodeUpdate(const node_pointer &node) {
 			if (_begin == _end || _comp(node->data, _begin->data))
 				_begin = node;
 			++_size;
