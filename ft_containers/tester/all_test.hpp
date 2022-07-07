@@ -19,7 +19,6 @@
 #  define TEST_NAMESPACE ft
 # endif /* !defined(STD) */
 
-
 void test_vector() {
 
     std::cout << CYN "=============vector==============" << std::endl;

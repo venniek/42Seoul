@@ -1,8 +1,9 @@
 #ifndef __AVLTREE_HPP__
 #define __AVLTREE_HPP__
 
-# include "pair.hpp"
-# include "iterator_traits.hpp"
+# include <iostream>
+# include "./pair.hpp"
+# include "./iterator_traits.hpp"
 
 namespace ft {
 	template<typename T>
@@ -357,7 +358,6 @@ namespace ft {
 		node_pointer makeNode(const value_type &value) {
 			node_pointer node = _alloc.allocate(1);
 			_alloc.construct(node, value);
-			// 따로 설정 안 해줘도 생성자 불러오는 건가?
 			return node;
 		}
 		void destructNode(node_pointer node) {
@@ -561,18 +561,14 @@ namespace ft {
 			}
 			return tmp;
 		}
-		void printHelper(node_pointer root, std::string indent, bool last)
-		{
-			if (root != NULL)
-			{
+		void printHelper(node_pointer root, std::string indent, bool last) {
+			if (root != NULL) {
 				std::cout << indent;
-				if (last)
-				{
+				if (last) {
 					std::cout << "R----";
 					indent += "	 ";
 				}
-				else
-				{
+				else {
 					std::cout << "L----";
 					indent += "|	";
 				}
@@ -581,13 +577,10 @@ namespace ft {
 				printHelper(root->right, indent, true);
 			}
 		}
-		void printTree()
-		{
+		void printTree() {
 			if (_end->left)
 				printHelper(_end->left, "", true);
 		}
-	
-	
 	};
 }
 

@@ -89,6 +89,16 @@ namespace ft {
         }
         return true;
     }
+    template <class It1, class It2, class BinaryPredicate>
+    bool equal(It1 first1, It1 last1, It2 first2, BinaryPredicate pred) {
+        while (first1 != last1) {
+            if (!pred(*first1, *first2))
+                return false;
+            ++first1;
+            ++first2;
+        }
+        return true;
+    }
     template <typename It1, typename It2>
     bool lexicographical_compare (It1 first1, It1 last1, It2 first2, It2 last2) {
         while (first1 != last1) {

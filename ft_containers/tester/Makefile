@@ -12,8 +12,8 @@ $(NAME_STD): $(SRCS)
 	$(CPP) $(FLAG) -o $(NAME_STD) $(SRCS)
 
 all: $(NAME_FT) $(NAME_STD)
-	@./$(NAME_FT) > ft.txt
-	@./$(NAME_STD) > std.txt
+	./$(NAME_FT) > ft.txt
+	./$(NAME_STD) > std.txt
 	@-diff ft.txt std.txt > diff.txt
 
 clean:

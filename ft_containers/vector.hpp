@@ -4,6 +4,7 @@
 # include <iostream>
 # include <memory>
 # include "vector_iterator.hpp"
+# include "reverse_iterator.hpp"
 
 namespace ft {
     template<typename T, typename Alloc = std::allocator<T> >
@@ -15,10 +16,11 @@ namespace ft {
         typedef typename allocator_type::const_reference const_reference;
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
+
         typedef vector_iterator<value_type> iterator;
         typedef vector_iterator<const value_type> const_iterator;
-        typedef reverse_iterator_tag<iterator> reverse_iterator;
-        typedef reverse_iterator_tag<const_iterator> const_reverse_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
     protected:
@@ -34,9 +36,9 @@ namespace ft {
                 _alloc.construct(_array + i, val);
         }
         template<typename InputIterator>
-        vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = nullptr): _alloc(alloc), _array(0), _size(0), _capacity(0) {
+        vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = NULL): _alloc(alloc), _array(0), _size(0), _capacity(0) {
             this->assign(first, last);
-        } // !!! nullptr?
+        }
         vector(const vector& copy): _array(0), _size(0), _capacity(0) {
             *this = copy;
         }
@@ -61,16 +63,16 @@ namespace ft {
 
         // iterator
         iterator begin() {
-            return _array;
+            return iterator(_array);
         }
         const_iterator begin() const {
-            return _array;
+            return const_iterator(_array);
         }
         iterator end() {
-            return _array + _size;
+            return iterator(_array + _size);
         }
         const_iterator end() const {
-            return _array + _size;
+            return const_iterator(_array + _size);
         }
         reverse_iterator rbegin()  {
             return reverse_iterator(end());
@@ -95,9 +97,8 @@ namespace ft {
         void resize(size_type n, value_type val = value_type()) {
 			while (_size > n)
 				pop_back();
-			if (n > _capacity) {
+			if (n > _capacity)
 				reserve(n);
-			}
 			while (_size < n)
 				_array[_size++] = val;
         }
@@ -153,7 +154,7 @@ namespace ft {
     
         // modifier
         template<typename InputIterator>
-        void assign(InputIterator first, InputIterator last, typename enable_if<!is_integral<InputIterator>::value>::type* = 0) {
+        void assign(InputIterator first, InputIterator last,  typename enable_if<!is_integral<InputIterator>::value, InputIterator>::type* = NULL) {
             difference_type distance_value = new_distance<InputIterator>(first, last);
             pointer tmp_array = _alloc.allocate(distance_value);
             for (size_type i = 0; first != last; i++) {
@@ -186,9 +187,10 @@ namespace ft {
             _size++;
         }
         void pop_back() {
-            if (_size != 0)
+            if (_size != 0) {
+                _alloc.destroy(_array + _size);
                 _size--;
-            _alloc.destroy(_array + _size);
+            }
         }
         iterator insert(iterator position, const value_type& val) {
             size_type idx;
@@ -288,20 +290,10 @@ namespace ft {
 			return first;
         }
         void swap(vector& x) {
-			allocator_type tmp_alloc = x._alloc;
-			value_type* tmp_array = x._array;
-			size_type tmp_size = x._size;
-			size_type tmp_capacity = x._capacity;
- 
-			x._alloc = this->_alloc;
-			x._array = this->_array;
-			x._size = this->_size;
-			x._capacity = this->_capacity;
-
-			this->_alloc = tmp_alloc;
-			this->_array = tmp_array;
-			this->_size = tmp_size;
-			this->_capacity = tmp_capacity;
+            ft::swap(this->_alloc, x._alloc);
+            ft::swap(this->_array, x._array);
+            ft::swap(this->_size, x._size);
+            ft::swap(this->_capacity, x._capacity);
         }
         void clear() {
             for (size_type i = 0; i < _size; i++)

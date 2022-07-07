@@ -1,9 +1,7 @@
 #ifndef __MAP_HPP__
 #define __MAP_HPP__
 
-# include <iostream>
 # include <memory>
-# include <map>
 # include "./utils.hpp"
 # include "./reverse_iterator.hpp"
 # include "./iterator_traits.hpp"
@@ -52,22 +50,20 @@ namespace ft {
 		
 	private:
 		key_compare _k_comp;
-		value_compare _v_comp;
 		tree_type _tree;
 
 	public:
 		// constructor, destructor, operator=
-		explicit map(const key_compare &comp = key_compare(), const allocator_type& alloc = allocator_type()): _k_comp(comp), _v_comp(comp), _tree(_v_comp, alloc) { }
+		explicit map(const key_compare &comp = key_compare(), const allocator_type& alloc = allocator_type()): _k_comp(comp), _tree(_k_comp, alloc) { }
 		template<typename InputIterator>
-		map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type &alloc = allocator_type()): _k_comp(comp), _v_comp(comp), _tree(_v_comp, alloc) {
+		map(InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type &alloc = allocator_type()): _k_comp(comp), _tree(_k_comp, alloc) {
 			insert(first, last);
 		}
-		map(const map& copy): _k_comp(copy._k_comp), _v_comp(copy._v_comp), _tree(copy._tree) { }
+		map(const map& copy): _k_comp(copy._k_comp), _tree(copy._tree) { }
 		~map() { }
 		map& operator=(const map& origin) {
 			if (this != &origin) {
 				_k_comp = origin._k_comp;
-				_v_comp = origin._v_comp;
 				_tree = origin._tree;
 			}
 			return *this;
