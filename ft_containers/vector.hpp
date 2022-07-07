@@ -93,19 +93,13 @@ namespace ft {
             return _alloc.max_size();
         }
         void resize(size_type n, value_type val = value_type()) {
-            if (n < _size)
-                _size = n;
-            else if (n > _size) {
-                if (n > _capacity) {
-                    for (; _size < n; )
-                        push_back(val);
-                }
-                else if (n <= _capacity) {
-                    for (; _size < n; _size++)
-                        _array[_size] = val;
-                }
-                _size = n;
-            }
+			while (_size > n)
+				pop_back();
+			if (n > _capacity) {
+				reserve(n);
+			}
+			while (_size < n)
+				_array[_size++] = val;
         }
         size_type capacity() const {
             return _capacity;

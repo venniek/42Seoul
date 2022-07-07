@@ -55,7 +55,7 @@ namespace ft {
 			return 0;
 		int left_height = getHeight(node->left);
 		int right_height = getHeight(node->right);
-		return max(left_height, right_height) + 1;
+		return std::max(left_height, right_height) + 1;
 	}
 	template<typename node_ptr>
 	int calculateBF(node_ptr node) {

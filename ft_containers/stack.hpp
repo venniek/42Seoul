@@ -2,7 +2,6 @@
 #define __STACK_HPP__
 
 # include <iostream>
-# include <string>
 # include "vector.hpp"
 
 namespace ft {
