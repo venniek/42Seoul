@@ -1,27 +1,25 @@
-version: "3.5"
+version: "3"
 
 networks:
-  my-network:
-    name: my-network
+  naykim-network:
+    # name: naykim-network
     driver: bridge
 
 volumes:
   wp:
     driver: local
-    name: wp
+    # name: wp
     driver_opts:
       type: none
       o: bind
-      # device: /home/naykim/data/wordpress
-      device: /Users/nayeon/Desktop/naykim/data/wordpress
+      device: /home/naykim/data/wordpress
   db:
     driver: local
-    name: db
+    # name: db
     driver_opts:
       type: none
       o: bind
-      # device: /home/naykim/data/mariadb
-      device: /Users/nayeon/Desktop/naykim/data/mariadb
+      device: /home/naykim/data/mariadb
 
 services:
   mariadb:
@@ -32,7 +30,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     networks:
-      - my-network
+      - naykim-network
     restart: unless-stopped
 
   wordpress:
@@ -45,7 +43,7 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      - my-network
+      - naykim-network
     restart: unless-stopped
 
   nginx:
@@ -58,5 +56,5 @@ services:
     volumes:
       - wp:/var/www/html
     networks:
-      - my-network
+      - naykim-network
     restart: unless-stopped

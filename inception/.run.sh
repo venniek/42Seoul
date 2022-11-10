@@ -18,7 +18,7 @@ echo "127.0.0.1 $naykim.42.fr" >> /etc/hosts
 
 ## docker 설치
 sudo apt update
-sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg2
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg2
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 sudo apt update

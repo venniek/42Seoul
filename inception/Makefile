@@ -1,8 +1,8 @@
 all:
-	docker-compose -f ./srcs/docker-compose.yml up
+	docker-compose -f srcs/docker-compose.yml up
 
 down:
-	docker-compose -f ./srcs/docker-compose.yml down
+	docker-compose -f srcs/docker-compose.yml down
 
 re: clean all
 
