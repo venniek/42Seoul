@@ -13,7 +13,7 @@ sudo passwd
 
 su root
 0000
-/
+
 echo "127.0.0.1 $naykim.42.fr" >> /etc/hosts
 
 ## docker 설치
